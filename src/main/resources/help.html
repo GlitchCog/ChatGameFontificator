@@ -1,0 +1,348 @@
+<html>
+
+<style>
+td {
+	vertical-align: top;
+}
+
+table {
+	width: 100%;
+	border-spacing: 5px;
+	border-collapse: separate;
+	font-family: Arial, Helvetica;
+	font-size: 12pt;
+}
+</style>
+
+<table>
+  <tr>
+    <td>The Chat Game Fontificator (CGF) is an Internet Relay Chat (IRC) display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.</td>
+  </tr>
+  <tr>
+    <td>The File menu contains options for Opening and Saving custom configurations. These files contain all the options you can specify on each of the tabs. The last file successfully loaded or saved will be automatically opened the next time the
+      program runs. The files are plain text Java properties files with a .cgf extension, but the OAuth Token is encrypted before it is stored, so it cannot be read.</td>
+  </tr>
+  <tr>
+    <td>The Presets menu contains all the built-in configurations for various games. Care was taken to approximate the appearance of the text from the respective games. These presets are configuration files, just like the custom ones that can be saved
+      and opened using the options in the File menu, but they do not contain any Connection information.</td>
+  </tr>
+  <tr>
+    <td>The View menu contains options for making this program Always on Top, and for hiding the Configuration window so only the Chat window is displayed. Closing the Configuration window has the same effect. The Configuration window can be brought
+      back by single clicking anywhere inside the Chat window on the chat display.</td>
+  </tr>
+  <tr>
+    <td>The Message menu contains an option to display a pop-up dialog for manually posting a message. The message is only for the chat display; it is not sent to the IRC server for posting in the actual IRC chat. Both the Username and Message are
+      required fields. Checking the 'Retain message input after post' option will preserve the Username and Message input for reposting. The Post button posts the message to the chat display, and the clear button clears out any input in the Username and
+      Message input fields.</td>
+  </tr>
+  <tr>
+    <td>The Help menu contains this information and an About pop-up option.</td>
+  </tr>
+  <tr>
+    <td>Any time a configuration is about to be loaded, if any unsaved changes exist, a pop-up dialog will prompt you to save the changes.</td>
+  </tr>
+  <tr>
+    <td>The Chat window can be dragged around the screen by clicking anywhere inside it and dragging the mouse.</td>
+  </tr>
+</table>
+<hr>
+<table>
+  <tr>
+    <td>CGF is highly configurable and customizable. The configuration is broken down into 5 sections, each on its own tab:</td>
+  </tr>
+  <tr>
+    <td><b>Connection</b>: Specify all the settings required to connect to an IRC server. Also has a button for clearing the chat</td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>Username</td>
+          <td>The username with which to log onto the IRC server. This will be the same as your Twitch username if you are trying to connect to a Twitch IRC server. It is case-insensitive.</td>
+        </tr>
+        <tr>
+          <td>Channel</td>
+          <td>The channel on the IRC server to connect to. The hashtag prefix is optional for this input field.</td>
+        </tr>
+        <tr>
+          <td>OAuth Token</td>
+          <td>The authentication token for the username used to log onto the IRC server. The token text should include both the 'oauth:' protocol text and all the letters and numbers that follow.</td>
+        </tr>
+        <tr>
+          <td>Get OAuth Token</td>
+          <td>This button links to the website where you can get an OAuth Token for a Twitch username when you click it. The URL it links to is: <b>www.twitchapps.com/tmi</b>.
+          </td>
+        </tr>
+        <tr>
+          <td>Host</td>
+          <td>The IRC server to log onto. For Twitch servers, the host is <b>irc.twitch.tv</b>.
+          </td>
+        </tr>
+        <tr>
+          <td>Port</td>
+          <td>The port on which to log onto the IRC server. This is just another configurable part of the server, and its default value is typically <b>6667</b>.
+          </td>
+        </tr>
+        <tr>
+          <td>Connect / Disconnect</td>
+          <td>Button to connect or disconnect to the specified IRC server using the specified credentials</td>
+        </tr>
+        <tr>
+          <td>Clear Chat</td>
+          <td>Clear the contents of the chat display. This doesn't affect the actual IRC chat; it only clears out the messages that are currently being displayed in this program.</td>
+        </tr>
+        <tr>
+          <td>Connection Log Area</td>
+          <td>Below all the connection options is the logging area which keeps track of all the posts and IRC connection information.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Chat Window</b>: Modify the chat window and optional chroma border</td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>Chat Window Size</td>
+          <td>This allows you to manually specify a width and height for the chat window size. It is the size of the whole window including the top menu bar, not just the chat inside the window. The Update Chat Size button will become enabled whenever
+            the width and height values that are typed are both valid and different than the current size of the chat window.</td>
+        </tr>
+        <tr>
+          <td>Resize Chat by Dragging</td>
+          <td>If this option is checked, the chat window will be resizable by the traditional means of clicking and dragging the mouse on the window border. The intent of this option is to allow resizing, but then prevent accidental changes to the
+            window size after a size that looks right is chosen.</td>
+        </tr>
+        <tr>
+          <td>Scrollable Chat</td>
+          <td>If this option is checked, the mouse wheel button will scroll through the chat message when the mouse pointer is located over the chat window. If this option is unchecked, the chat display will scroll back so the most recent message is
+            displayed. There is no visual indication that the chat has been scrolled through, so if the newest messages in the chat aren't being displayed, it could be that this option is checked and the messages have been scrolled up through.</td>
+        </tr>
+        <tr>
+          <td>Enable Chroma Key Border</td>
+          <td>Check this option to enable displaying the chroma key border. The chroma key border is intended to be a solid block of color that can be selected by streaming software to become transparent. The chroma key border sizes must be non-zero
+            for the chroma key border to be seen in the chat display.</td>
+        </tr>
+        <tr>
+          <td>Chroma Key Border Size</td>
+          <td>The left, top, right, and bottom widths of the border are configurable here. The input fields for the border size are disabled while the Enable Chroma Key Border option is unchecked. The Update Chroma Border button becomes enabled
+            whenever the values are both valid and different than the current size of the border.</td>
+        </tr>
+        <tr>
+          <td>Invert Chroma Key Border</td>
+          <td>This option inverts the region covered by the solid block of chroma color. All regions previously covered by the chroma color border will become the background color, and the region that was previously the background color will become
+            the chroma color. If the border sizes are zero for the left, top, right, and bottom edges, selecting to invert the chroma key border will fill the entire window with the chroma color block, enabling the entire background to become transparent
+            in a chroma keyed window capture.</td>
+        </tr>
+        <tr>
+          <td>Corner Radius</td>
+          <td>The chroma key border corner radius permits rounding the edges of the chroma border up to a radius of 128 pixels. This is useful if the border you're attempting to run the chroma key border up to has rounded edges. A chroma key border
+            corner radius of zero means the corners of the chroma key border will be square angles.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Font / Border</b>: Specify the font, border, and all the associated customizations</td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>Font Selection</td>
+          <td>The font selection is which font you wish to use in the chat display. Preset fonts exist for several games, but a custom font can be defined as well. A preset font will have a default associated font type (fixed width or variable width)
+            which will automatically fill when that font is selected, but this can be overridden by selecting the font type manually. A custom font should be in a PNG image containing a grid of 8 by 12 uniform-sized cells each containing a single
+            character. The characters should be ASCII characters 32 (space) through 127 (delete), for a total of 96 characters, in order from left to right, top to bottom. Pixels in the image with any level of transparency will be drawn to that level of
+            transparency onto the underlying color (typically the background or chroma key color, depending on configuration). If the font color tint option is desired to customize the color of the font via this program, the degree to which a pixel is
+            white will be tinted to the specified tint color on the Color tab.</td>
+        </tr>
+        <tr>
+          <td>Font Scale</td>
+          <td>This is the magnification of the font, from 1 to 8 times the original size. Selecting 1 will draw the border at its original size and selecting any other number will magnify it by that amount. There is no anti-aliasing done with this
+            magnification, so highly magnified fonts may appear jaggy or rounded edges may appear more like stair steps. This was done intentionally to match the art style of retro games.</td>
+        </tr>
+        <tr>
+          <td>Font Type Selection (Fixed or Variable Width)</td>
+          <td>The type of font is either fixed or variable width. Fixed width (or mono-spaced) fonts use a set character width to display each letter in series, so even traditionally slimmer characters, like 'i' will be spaced to take up the same
+            space as traditionally wider characters like 'W'. For this program, the width of a fixed width font is determined by the size of the grid of the font image, and is typically the widest character, although if the widest character still has extra
+            space on its left or right side, the width of each character will include that space as well. Typically older games employ these types of fonts because they are easier to lay out, but the result is sometimes awkwardly blocky when periods or
+            commas are buffered with much more space than they would normally take up. Variable width fonts can have different widths per letter. This program calculates the width of all non-transparent pixels per character and makes that value the width
+            of that character. Each font has an associated font type: fixed or variable width. When a font is selected, this associated type will be selected automatically to match. However, this can be overridden if you would like a normally fixed width
+            font to be variable width, or a variable width font to be fixed width.</td>
+        </tr>
+        <tr>
+          <td>Line Spacing</td>
+          <td>This is the distance between each row of messages in pixels, from -16 to 32 pixels. This value is magnified by the font scale, so for example a value of 2 pixels with a font magnification of 3 would space lines 6 pixels apart on the
+            screen. The negative values can be used to bring lines closer together if you desire some characters to overlap, like the bottom of a 'y' hitting the top of a '^'.</td>
+        </tr>
+        <tr>
+          <td>Char Spacing</td>
+          <td>This is the distance added between characters for both fixed width and variable width fonts, from -16 to 32 pixels. This value is magnified by the font scale, so for example a value of 2 pixels with a font magnification of 3 would space
+            characters 6 pixels apart on the screen. For a fixed with font, this would be in addition to whatever white space existed around the character already as it is sized by its grid, but for a variable width font, it would be the distance from the
+            non-transparent pixel edge of one character to the next.</td>
+        </tr>
+        <tr>
+          <td>Variable Width Space</td>
+          <td>For variable width fonts, there is no defined width for a space character which has no non-transparent pixels, so this width is set by this value as a percentage of the maximum possible width of that font. The maximum possible width of
+            that font is determined as it would be for a fixed width font, based on the font image grid size.</td>
+        </tr>
+        <tr>
+          <td>Border Selection</td>
+          <td>The border selection is which border you wish to use in the chat display. Preset borders exist for several games, but a custom border can be defined as well. A custom border should be in a PNG image containing a grid of 3 by 3
+            uniform-sized cells, each containing its part of the border. Each corner has its respective corner, and each edge piece contains its respective edge piece, which will be displayed in series as a tile along that edge to extend to the width of
+            the chat display. Pixels in the image with any level of transparency will be drawn to that level of transparency onto the underlying color (typically the background or chroma key color, depending on configuration). If the border color tint
+            option is desired to customize the color of the border via this program, the degree to which a pixel is white will be tinted to the specified tint color on the Color tab.</td>
+        </tr>
+        <tr>
+          <td>Border Scale</td>
+          <td>This is the magnification of the border, from 0 to 8 times the original size. Selecting 0 will prevent any border from being drawn, selecting 1 will draw the border at its original size, and selecting any other number will magnify it by
+            that amount. There is no anti-aliasing done with this magnification, so highly magnified borders may appear jaggy or rounded edges may appear more like stair steps. This was done intentionally to match the art style of retro games.</td>
+        </tr>
+        <tr>
+          <td>Font Insets Off Border X/Y</td>
+          <td>This is the distance in pixels that the messages are displayed from the borders in the horizontal (x) and vertical (y) directions, which run from -256 to 256 pixels in both directions. These distances are not affected by any scale
+            settings, so even if a border or a font is scaled up, this distance will remain the same. These values can be negative, which will set the distance between the font and the border to one that overlaps. This is typically desirable when the
+            border has extra blank space on the inside on which the messages can be displayed without actually overlapping any non-transparent part of the border.</td>
+        </tr>
+        <tr>
+          <td>Missing Character Substitute</td>
+          <td>The substitute missing character is used whenever a character is typed that does not have an ASCII value in the font. All the preset fonts have characters for ASCII values 32 to 127 inclusively. This covers pretty much anything you can
+            type on a standard US keyboard without pressing special key combinations. Things like foreign characters with accents or characters from non-English alphabets do not have a character and will use this selected character as a replacement for
+            them. By default it is the ASCII character for Delete (#127), because that character isn't typically typable, but it has some symbol character assigned to it for all the presets, but in place of that symbol, you might wish to select a blank
+            space, a dash, or a question mark, which are other traditional substitutions when a character is unknown.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Message</b>: Change which components of the messages (posts to the channel) are displayed and how.</td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>Show Usernames</td>
+          <td>Whether to display the usersname on the messages.</td>
+        </tr>
+        <tr>
+          <td>Show Joins</td>
+          <td>Whether to display messages that show users joining the channel. You may want to turn this type of message off if there are lots of users in your channel, because it will flood the display and the message queue with nothing but
+            notifications. When this is turned off, join messages aren't stored in the message queue, so the information is not maintained at all, meaning if it is turned off and back on again, only new joins will show up, rather than back fill the joins
+            that happened while this option was unchecked.</td>
+        </tr>
+        <tr>
+          <td>Show Timestamps</td>
+          <td>Whether to display a timestamp with the messages. This timestamp will be local to your time zone, and it will be formatted using the specified time format pattern. The time data are always stored with each message regardless of whether
+            this option is selected, so checking it will display the time information for any message already in the queue as well as new messages being posted.</td>
+        </tr>
+        <tr>
+          <td>Time Format</td>
+          <td>This is the pattern used to format the timestamps, should the show timestamps option be selected. The Update Time Format button will become enabled whenever the show timestamps option is selected and the time format pattern value is
+            valid and different than the currently specified pattern.</td>
+        </tr>
+        <tr>
+          <td>Message Speed</td>
+          <td>This is the speed with which the messages are added to the display, character by character. It is intended to mimic the way a message is displayed in a game text box, where characters are printed out in order one at a time. The value can
+            be specified from 1 character per second up to 120 characters per second, with an additional option to display the messages as fast as possible, which is denoted MAX. It is possible for the message speed to be set too slow for a channel. If the
+            rate of new messages in a channel is faster than the message speed allows those messages to be fully displayed, the message queue will get backed up. In the event that this happens, this backing up effect can be avoided by selecting the MAX
+            characters per second by taking the slider all the way to the right.</td>
+        </tr>
+        <tr>
+          <td>Message Queue Size</td>
+          <td>This is the number of messages that are stored in the queue. It should be higher than the number of rows you can see on the screen to avoid any wasted empty space in the chat display, but smaller message queue sizes will use less space.
+            The queue size is changed when the mouse button on the slider is released, so if you drag it all the way down to 1, but take it back up to a more reasonable size before letting go, the messages in the queue will not be removed should another
+            message be added, causing the culling process to run. If the enable scrolling option is selected on the chat window tab, this message queue size will represent the farthest back you can scroll.</td>
+        </tr>
+        <tr>
+          <td>Default Method for Handling Username Casing</td>
+          <td><p>Much to the consternation of many users, Twitch only capitalizes the first letter of a username in its chats. These are descriptions of the options for dealing with casing usernames:</p>
+            <table style="width: 100% !important">
+              <tr>
+                <td>Do not modify the capitalization of usernames></td>
+                <td>This just leaves the username casing as whatever the IRC server dictates it to be. This should probably be the default selection for any non-Twitch IRC server.</td>
+              </tr>
+              <tr>
+                <td>Only the first username letter is capitalized</td>
+                <td>This is the way Twitch handles usernames by default, where only the first letter is capitalized, and all the remaining letters are lowercase.</td>
+              </tr>
+              <tr>
+                <td>All username letters are lowercase</td>
+                <td>This selection makes all the letters in the username lowercase.</td>
+              </tr>
+              <tr>
+                <td>All username letters are capitalized</td>
+                <td>This selection makes all the letters in the username uppercase.</td>
+              </tr>
+              <tr>
+                <td>Look up capitalization with call to Twitch API</td>
+                <td>This option is only available for Twitch IRC servers. Attempting to look up usernames on the Twitch API that don't exist on Twitch will obviously not work.</td>
+              </tr>
+              </td>
+              </tr>
+            </table>
+            <p>This casing only works in the chat display for this program. It has no effect on the username casing in the actual IRC chat or Twitch.</p>
+            <p>Some font presets only have uppercase letters because they game it represents only had uppercase letters. This is done by simply duplicating the uppercase characters into the lowercase character grid spaces, which will of course
+              overrides any username case selection made here in the display, even though the actual characters underlying the display font will still be modified.</p>
+            <p>Whenever a change is made to this list, the cache of username casing is cleared out, including any specified by the user via a post.</p></td>
+        </tr>
+        <tr>
+          <td>Permit users to specify their own username case in posts</td>
+          <td>When this is checked, users can override the default method for handling username casing whenever she posts a message containing her own username. Whatever casing a poster uses for her username in that message will be how her username is
+            cased in the display. Subsequent posts containing the user's username will continue to update the casing. Whenever a change is made to this option, the cache of username casing is cleared out.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Color</b>: Specify all the colors used in the chat display</td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>Background</td>
+          <td>This is the color to make the background of the chat display.</td>
+        </tr>
+        <tr>
+          <td>Chroma Key</td>
+          <td>This is the color to make the chroma key border. The chroma key border must be enabled and the border size must be set to non-zero values to see this color in the chat display.</td>
+        </tr>
+        <tr>
+          <td>Text Tint</td>
+          <td>This is the color to tint the text of messages. Select pure white if no tint is desired.</td>
+        </tr>
+        <tr>
+          <td>Highlight Tint</td>
+          <td>This is the default highlight tint color. It is used for join messages if the color join messages option is selected, and for usernames if the color usernames option is selected and the no palette colors are specified.</td>
+        </tr>
+        <tr>
+          <td>Border Tint</td>
+          <td>This is the color to tint the border. Select pure white if no tint is desired.</td>
+        </tr>
+        <tr>
+          <td>Palette of Colors drawn from, per Username</td>
+          <td>This is the collection of colors with which to tint usernames, timestamps, and messages, if the option to color these message components is selected. Each username is hashed in a case-insensitive manner to select a color from this
+            palette, so any change to the palette can possibly alter any previously determined username color assignment.</td>
+        </tr>
+        <tr>
+          <td>Color Join Messages</td>
+          <td>This option colors join messages with the highlight tint color.</td>
+        </tr>
+        <tr>
+          <td>Color Usernames</td>
+          <td>This option colors usernames with the palette colors, or with the highlight tint color should no palette colors be specified.</td>
+        </tr>
+        <tr>
+          <td>Color Timestamps</td>
+          <td>This option colors timestamp of the messages with the palette colors, or with the highlight tint color should no palette colors be specified.</td>
+        </tr>
+        <tr>
+          <td>Color Messages</td>
+          <td>This option colors the text of the messages with the palette colors, or with the highlight tint color should no palette colors be specified.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</html>
