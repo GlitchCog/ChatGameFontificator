@@ -384,7 +384,6 @@ public class ControlWindow extends JDialog
         final String[] strMario3letter = new String[] { "Super Mario Bros. 3 Letter", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb3_letter.cgf" };
         /* Presets Metroid */
         final String[] strMetroid = new String[] { "Metroid", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid.cgf" };
-        final String[] strMetroidPipe = new String[] { "Metroid Pipes", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroidpipes.cgf" };
         final String[] strMetroidBoss = new String[] { "Metroid Mother Brain", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroidboss.cgf" };
         /* Presets Pokemon */
         final String[] strPkmnRb = new String[] { "Pokemon Red/Blue", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrb.cgf" };
@@ -393,7 +392,6 @@ public class ControlWindow extends JDialog
         final String[] strLozBush = new String[] { "The Legend of Zelda Bushes", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_bush.cgf" };
         final String[] strLozRock = new String[] { "The Legend of Zelda Moutains", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_rock.cgf" };
         final String[] strLozDungeon = new String[] { "The Legend of Zelda Dungeon", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_dungeon.cgf" };
-        final String[] strLozStory = new String[] { "The Legend of Zelda Story", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_story.cgf" };
         final String[] strZelda2 = new String[] { "Zelda II: The Adventures of Link", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda2.cgf" };
         final String[] strZelda3 = new String[] { "The Legend of Zelda: A Link to the Past", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda3.cgf" };
         /* Ungrouped Presets */
@@ -408,9 +406,9 @@ public class ControlWindow extends JDialog
             strDw1, strDw2, strDw3, strDw3Gbc, strDw4, 
             strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, 
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, 
-            strMetroid, strMetroidPipe, strMetroidBoss, 
+            strMetroid, strMetroidBoss, 
             strPkmnRb, strPkmnFrlg, 
-            strLozBush, strLozRock, strLozDungeon, strLozStory, strZelda2, strZelda3, 
+            strLozBush, strLozRock, strLozDungeon, strZelda2, strZelda3, 
             strCrystalis, strFinalFantasy, strRiverCityRansom
         };
         // @formatter:on
@@ -438,9 +436,9 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDw3[0], strDw3Gbc[0], strDw4[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0] });
-        presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidPipe[0], strMetroidBoss[0] });
+        presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
-        presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strLozStory[0], strZelda2[0], strZelda3[0] });
+        presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strZelda3[0] });
         presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFinalFantasy[0], strRiverCityRansom[0] });
 
         for (String submenuKey : presetMapSubmenuToItem.keySet())

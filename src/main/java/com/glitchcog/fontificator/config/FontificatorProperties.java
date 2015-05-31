@@ -80,7 +80,7 @@ public class FontificatorProperties extends Properties
 
     public static final String[] FONT_KEYS = new String[] { KEY_FONT_FILE_BORDER, KEY_FONT_FILE_FONT, KEY_FONT_TYPE, KEY_FONT_GRID_WIDTH, KEY_FONT_GRID_HEIGHT, KEY_FONT_SCALE, KEY_FONT_BORDER_SCALE, KEY_FONT_BORDER_INSET_X, KEY_FONT_BORDER_INSET_Y, KEY_FONT_SPACE_WIDTH, KEY_FONT_UNKNOWN_CHAR, KEY_FONT_CHARACTERS, KEY_FONT_SPACING_LINE, KEY_FONT_SPACING_CHAR };
 
-    public static final String KEY_CHAT_SCROLL = "charScrollEnabled";
+    public static final String KEY_CHAT_SCROLL = "chatScrollEnabled";
     public static final String KEY_CHAT_RESIZABLE = "chatResizable";
     public static final String KEY_CHAT_WIDTH = "chatWidth";
     public static final String KEY_CHAT_HEIGHT = "chatHeight";
@@ -226,7 +226,7 @@ public class FontificatorProperties extends Properties
             }
 
             InputStream is = getClass().getClassLoader().getResourceAsStream(plainFilename);
-            boolean success = loadFile(is, filename);
+            boolean success = loadFile(is, filename, true);
             is.close();
             return success;
         }
@@ -247,7 +247,7 @@ public class FontificatorProperties extends Properties
     {
         logger.trace("Loading file " + file.getAbsolutePath());
         InputStream is = new FileInputStream(file);
-        boolean success = loadFile(is, file.getAbsolutePath());
+        boolean success = loadFile(is, file.getAbsolutePath(), false);
         is.close();
         return success;
     }
@@ -261,7 +261,7 @@ public class FontificatorProperties extends Properties
      * @return
      * @throws Exception
      */
-    private boolean loadFile(InputStream is, String filename) throws Exception
+    private boolean loadFile(InputStream is, String filename, boolean isPreset) throws Exception
     {
         final String prevAuth = getProperty(KEY_IRC_AUTH);
         super.load(is);
@@ -278,7 +278,7 @@ public class FontificatorProperties extends Properties
 
         boolean success = loadConfigs();
 
-        if (success)
+        if (success && !isPreset)
         {
             rememberLastConfigFile(filename);
         }
