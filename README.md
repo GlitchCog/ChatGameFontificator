@@ -4,7 +4,7 @@ The Chat Game Fontificator (CGF) is an Internet Relay Chat (IRC) display that ma
 
 It's a Java application archive, so you'll need the JRE to run it, but it's likely you already have that. If you don't, you can get it [here](https://java.com/en/download/). Install the JRE, and then you can run this program.
 
-Here are some example screenshots of some of the preset game styles:
+Here are some screenshots of some of just a few of the preset game styles:
 
 <img src="http://www.glitchcog.com/cgf/cgf_ct.png" width="120" alt="Chrono Trigger">
 <img src="http://www.glitchcog.com/cgf/cgf_cc.png" width="120" alt="Chrono Cross">
@@ -18,7 +18,5 @@ Here are some example screenshots of some of the preset game styles:
 <img src="http://www.glitchcog.com/cgf/cgf_zelda3.png" width="120" alt="Zelda: LttP">
 <img src="http://www.glitchcog.com/cgf/cgf_metroid.png" width="120" alt="Metroid">
 <img src="http://www.glitchcog.com/cgf/cgf_metroid_mb.png" width="120" alt="Metroid (Mother Brain)">
-
-And many more...
 
 Enjoy!
