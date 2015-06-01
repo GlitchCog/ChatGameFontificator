@@ -1,6 +1,4 @@
-Chat Game Fontificator
-
-[Download Chat Game Fontificator](../../raw/master/jar/ChatGameFontificator.jar)
+Chat Game Fontificator [Download](../../raw/master/jar/ChatGameFontificator.jar)
 
 The Chat Game Fontificator (CGF) is an Internet Relay Chat (IRC) display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
