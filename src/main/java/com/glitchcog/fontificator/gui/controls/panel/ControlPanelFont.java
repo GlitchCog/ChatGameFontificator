@@ -73,6 +73,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Earthbound", "Earthbound Zero Bold"), new DropdownFont("eb0_bold_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Earthbound", "Earthbound"), new DropdownFont("eb_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Earthbound", "Earthbound Mr. Saturn"), new DropdownFont("eb_saturn_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Earthbound", "Mother 3"), new DropdownFont("m3_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownFont("ff1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ghosts and Goblins", "Ghosts n Goblins"), new DropdownFont("gng_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownFont("metroid_font.png", FontType.FIXED_WIDTH));
@@ -111,6 +112,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Earthbound", "Earthbound Strawberry"), new DropdownBorder("eb_strawberry.png"));
             put(new DropdownLabel("Earthbound", "Earthbound Banana"), new DropdownBorder("eb_banana.png"));
             put(new DropdownLabel("Earthbound", "Earthbound Peanut"), new DropdownBorder("eb_peanut.png"));
+            put(new DropdownLabel("Earthbound", "Mother 3"), new DropdownBorder("m3_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_border.png"));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownBorder("metroid_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Pipes"), new DropdownBorder("metroid_pipe_border.png"));

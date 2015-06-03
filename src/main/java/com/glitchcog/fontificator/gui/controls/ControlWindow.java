@@ -376,6 +376,7 @@ public class ControlWindow extends JDialog
         final String[] strEbBanana = new String[] { "Earthbound Banana", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_banana.cgf" };
         final String[] strEbPeanut = new String[] { "Earthbound Peanut", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_peanut.cgf" };
         final String[] strEbSaturn = new String[] { "Earthbound Mr. Saturn", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_saturn.cgf" };
+        final String[] strM3 = new String[] { "Mother 3", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "m3.cgf" };
         /* Presets Mario */
         final String[] strMario1 = new String[] { "Super Mario Bros.", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1.cgf" };
         final String[] strMario1Underworld = new String[] { "Super Mario Bros. Underworld", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1_underworld.cgf" };
@@ -404,7 +405,7 @@ public class ControlWindow extends JDialog
         {
             strChrono, strChronoCross, 
             strDw1, strDw2, strDw3, strDw3Gbc, strDw4, 
-            strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, 
+            strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3, 
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, 
             strMetroid, strMetroidBoss, 
             strPkmnRb, strPkmnFrlg, 
@@ -434,7 +435,7 @@ public class ControlWindow extends JDialog
         final Map<String, String[]> presetMapSubmenuToItem = new LinkedHashMap<String, String[]>();
         presetMapSubmenuToItem.put("Chrono", new String[] { strChrono[0], strChronoCross[0] });
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDw3[0], strDw3Gbc[0], strDw4[0] });
-        presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0] });
+        presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
