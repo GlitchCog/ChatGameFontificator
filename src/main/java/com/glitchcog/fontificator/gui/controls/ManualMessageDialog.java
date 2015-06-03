@@ -6,8 +6,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,53 +30,6 @@ import com.glitchcog.fontificator.gui.component.LabeledInput;
  */
 public class ManualMessageDialog extends JDialog
 {
-    public static void main(String[] args)
-    {
-        ManualMessageDialog mmd = new ManualMessageDialog(null);
-        mmd.addWindowListener(new WindowListener()
-        {
-
-            @Override
-            public void windowOpened(WindowEvent e)
-            {
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                System.exit(0);
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e)
-            {
-                System.exit(0);
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e)
-            {
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e)
-            {
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e)
-            {
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e)
-            {
-                System.exit(0);
-            }
-        });
-        mmd.setVisible(true);
-    }
-
     private static final long serialVersionUID = 1L;
 
     private ControlWindow ctrlWindow;
