@@ -6,6 +6,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,53 @@ import com.glitchcog.fontificator.gui.component.LabeledInput;
  */
 public class ManualMessageDialog extends JDialog
 {
+    public static void main(String[] args)
+    {
+        ManualMessageDialog mmd = new ManualMessageDialog(null);
+        mmd.addWindowListener(new WindowListener()
+        {
+
+            @Override
+            public void windowOpened(WindowEvent e)
+            {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                System.exit(0);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e)
+            {
+                System.exit(0);
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e)
+            {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e)
+            {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e)
+            {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e)
+            {
+                System.exit(0);
+            }
+        });
+        mmd.setVisible(true);
+    }
+
     private static final long serialVersionUID = 1L;
 
     private ControlWindow ctrlWindow;
@@ -103,7 +152,7 @@ public class ManualMessageDialog extends JDialog
         setTitle("Manually Post Message to Chat");
 
         setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0);
+        GridBagConstraints gbc = new GridBagConstraints(0, 0, 2, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0);
 
         manualInfo = new JLabel("This message will be posted to the visualization only; it will not be sent to the IRC channel.");
 
@@ -138,6 +187,8 @@ public class ManualMessageDialog extends JDialog
         add(manualInfo, gbc);
         gbc.gridy++;
 
+        gbc.gridwidth = 1;
+
         add(usernameInput, gbc);
         gbc.gridx++;
         add(textInput, gbc);
@@ -145,14 +196,16 @@ public class ManualMessageDialog extends JDialog
         gbc.gridx = 0;
         gbc.gridwidth = 2;
 
-        add(retainMessageBox, gbc);
-        gbc.gridy++;
-
         JPanel buttonPanel = new JPanel();
         add(buttonPanel, gbc);
 
+        gbc.fill = GridBagConstraints.NONE;
         gbc.gridy = 0;
         gbc.gridwidth = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        buttonPanel.add(retainMessageBox, gbc);
+        gbc.gridx++;
+        gbc.anchor = GridBagConstraints.EAST;
         buttonPanel.add(submitButton, gbc);
         gbc.gridx++;
         buttonPanel.add(clearButton, gbc);
