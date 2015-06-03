@@ -276,7 +276,7 @@ public class FontificatorProperties extends Properties
             decryptProperty(KEY_IRC_AUTH);
         }
 
-        boolean success = loadConfigs();
+        boolean success = loadConfigs(!isPreset);
 
         if (success && !isPreset)
         {
@@ -511,7 +511,7 @@ public class FontificatorProperties extends Properties
         setProperty(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.LOOKUP.name());
         setProperty(KEY_MESSAGE_CASE_SPECIFY, Boolean.toString(true));
 
-        loadConfigs();
+        loadConfigs(true);
     }
 
     private FontificatorProperties getCopy()
@@ -529,14 +529,17 @@ public class FontificatorProperties extends Properties
      * 
      * @return success
      */
-    private boolean loadConfigs()
+    private boolean loadConfigs(boolean loadNonFontConfig)
     {
         List<String> errors = new ArrayList<String>();
-        ircConfig.load(this, errors);
+        if (loadNonFontConfig)
+        {
+            ircConfig.load(this, errors);
+            chatConfig.load(this, errors);
+            messageConfig.load(this, errors);
+        }
         fontConfig.load(this, errors);
-        chatConfig.load(this, errors);
         colorConfig.load(this, errors);
-        messageConfig.load(this, errors);
 
         if (!errors.isEmpty())
         {

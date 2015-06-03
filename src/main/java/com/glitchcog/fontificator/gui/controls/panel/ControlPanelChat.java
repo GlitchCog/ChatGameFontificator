@@ -78,8 +78,13 @@ public class ControlPanelChat extends ControlPanelBase
             public void componentResized(ComponentEvent e)
             {
                 Component c = (Component) e.getSource();
-                widthInput.setText(Integer.toString(c.getWidth()));
-                heightInput.setText(Integer.toString(c.getHeight()));
+                final int w = c.getWidth();
+                final int h = c.getHeight();
+                widthInput.setText(Integer.toString(w));
+                heightInput.setText(Integer.toString(h));
+                config.setWidth(w);
+                config.setHeight(h);
+                updateSizeButton.setEnabled(false);
             }
 
             @Override
