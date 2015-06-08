@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.gui.controls;
 
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Event;
 import java.awt.GridBagConstraints;
@@ -477,7 +478,7 @@ public class ControlWindow extends JDialog
 
     private void restoreDefaults()
     {
-        boolean okayToProceed = fProps.checkForUnsavedProps(this);
+        boolean okayToProceed = fProps.checkForUnsavedProps(this, this);
 
         if (okayToProceed)
         {
@@ -493,7 +494,7 @@ public class ControlWindow extends JDialog
 
     private void open()
     {
-        boolean okayToProceed = fProps.checkForUnsavedProps(this);
+        boolean okayToProceed = fProps.checkForUnsavedProps(this, this);
 
         if (okayToProceed)
         {
@@ -520,7 +521,7 @@ public class ControlWindow extends JDialog
 
     private void loadPreset(String presetName, String presetFilename)
     {
-        boolean okayToProceed = fProps.checkForUnsavedProps(this);
+        boolean okayToProceed = fProps.checkForUnsavedProps(this, this);
         if (okayToProceed)
         {
             try
@@ -621,12 +622,17 @@ public class ControlWindow extends JDialog
         bot.disconnect();
     }
 
+    public void attemptToExit()
+    {
+        attemptToExit(this);
+    }
+
     /**
      * Any program exit should call this method to do so
      */
-    public void attemptToExit()
+    public void attemptToExit(Component parent)
     {
-        boolean okayToProceed = fProps.checkForUnsavedProps(this);
+        boolean okayToProceed = fProps.checkForUnsavedProps(this, parent);
         if (okayToProceed)
         {
             disconnect();

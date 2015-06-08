@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.gui.chat;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -70,7 +71,7 @@ public class ChatWindow extends JFrame
             @Override
             public void windowClosing(WindowEvent e)
             {
-                callExit();
+                callExit(e.getComponent());
             }
 
             @Override
@@ -101,9 +102,9 @@ public class ChatWindow extends JFrame
             /**
              * Calls exit from the control window
              */
-            private void callExit()
+            private void callExit(Component caller)
             {
-                ctrlWindow.attemptToExit();
+                ctrlWindow.attemptToExit(caller);
             }
         });
 

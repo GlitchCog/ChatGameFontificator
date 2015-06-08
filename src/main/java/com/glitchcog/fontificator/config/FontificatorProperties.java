@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.config;
 
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -177,13 +178,11 @@ public class FontificatorProperties extends Properties
      * @param ctrlWindow
      * @return okayToContinue
      */
-    public boolean checkForUnsavedProps(ControlWindow ctrlWindow)
+    public boolean checkForUnsavedProps(ControlWindow ctrlWindow, Component parent)
     {
         if (hasUnsavedChanges())
         {
-            final boolean wasCtrlVisible = ctrlWindow.isVisible();
-            ctrlWindow.setVisible(true);
-            int response = JOptionPane.showConfirmDialog(ControlWindow.me, "Save configuration changes?", "Unsaved Changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(parent, "Save configuration changes?", "Unsaved Changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION)
             {
                 if (ctrlWindow.save())
@@ -195,7 +194,6 @@ public class FontificatorProperties extends Properties
             {
                 return true;
             }
-            ctrlWindow.setVisible(wasCtrlVisible);
 
             return false;
         }
