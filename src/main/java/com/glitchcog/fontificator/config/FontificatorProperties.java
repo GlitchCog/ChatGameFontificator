@@ -507,7 +507,7 @@ public class FontificatorProperties extends Properties
         setProperty(KEY_MESSAGE_TIMESTAMP, Boolean.toString(false));
         setProperty(KEY_MESSAGE_TIMEFORMAT, "[HH:mm:ss]");
         setProperty(KEY_MESSAGE_QUEUE_SIZE, Integer.toString(64));
-        setProperty(KEY_MESSAGE_SPEED, Integer.toString(ConfigMessage.MAX_MESSAGE_SPEED));
+        setProperty(KEY_MESSAGE_SPEED, Integer.toString((int)(ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)));
         setProperty(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.LOOKUP.name());
         setProperty(KEY_MESSAGE_CASE_SPECIFY, Boolean.toString(true));
 
