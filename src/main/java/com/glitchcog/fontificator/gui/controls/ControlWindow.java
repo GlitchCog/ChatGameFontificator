@@ -378,6 +378,9 @@ public class ControlWindow extends JDialog
         final String[] strEbPeanut = new String[] { "Earthbound Peanut", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_peanut.cgf" };
         final String[] strEbSaturn = new String[] { "Earthbound Mr. Saturn", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_saturn.cgf" };
         final String[] strM3 = new String[] { "Mother 3", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "m3.cgf" };
+        /* Presets Final Fantasy */
+        final String[] strFinalFantasy1 = new String[] { "Final Fantasy", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff1.cgf" };
+        final String[] strFinalFantasy6 = new String[] { "Final Fantasy VI", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff6.cgf" };
         /* Presets Mario */
         final String[] strMario1 = new String[] { "Super Mario Bros.", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1.cgf" };
         final String[] strMario1Underworld = new String[] { "Super Mario Bros. Underworld", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1_underworld.cgf" };
@@ -398,7 +401,6 @@ public class ControlWindow extends JDialog
         final String[] strZelda3 = new String[] { "The Legend of Zelda: A Link to the Past", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda3.cgf" };
         /* Ungrouped Presets */
         final String[] strCrystalis = new String[] { "Crystalis", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "crystalis.cgf" };
-        final String[] strFinalFantasy = new String[] { "Final Fantasy", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff1.cgf" };
         final String[] strRiverCityRansom = new String[] { "River City Ransom", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "rcr.cgf" };
 
         // @formatter:off
@@ -406,12 +408,13 @@ public class ControlWindow extends JDialog
         {
             strChrono, strChronoCross, 
             strDw1, strDw2, strDw3, strDw3Gbc, strDw4, 
-            strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3, 
+            strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
+            strFinalFantasy1, strFinalFantasy6,  
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, 
             strMetroid, strMetroidBoss, 
             strPkmnRb, strPkmnFrlg, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strZelda3, 
-            strCrystalis, strFinalFantasy, strRiverCityRansom
+            strCrystalis, strRiverCityRansom
         };
         // @formatter:on
 
@@ -437,11 +440,12 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Chrono", new String[] { strChrono[0], strChronoCross[0] });
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDw3[0], strDw3Gbc[0], strDw4[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
+        presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy6[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strZelda3[0] });
-        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFinalFantasy[0], strRiverCityRansom[0] });
+        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strRiverCityRansom[0] });
 
         for (String submenuKey : presetMapSubmenuToItem.keySet())
         {
