@@ -71,7 +71,11 @@ Sometimes not much. Dragon Warrior, for example, just changed a couple letters s
 
 I don't own the copyright to the fonts or border art contained in this program, nor do I have permission to use them from the copyright holder. I ripped some out of ROM images of the games, took screenshots of name-entry screens, searched all over the Internet for elusive screenshots that happened to display dialog containing some rare character I was still missing, and found some others searching through sprite rip websites.
 
-* I can't post to the chat? What's wrong?
+* I can't connect. What's wrong?
+
+Maybe your connection to the Internet is down? Check all your connection properties for typos. If everything looks okay, check the output logs on the bottom of the Connection tab. Google something that looks like it might be your error for advice. If there's something wrong with your OAuth Token, you'll get a message that says, ":tmi.twitch.tv NOTICE * :Login unsuccessful".
+
+* I can't post to the chat. What's wrong?
 
 Nothing is wrong; the Chat Game Fontificator is purely for displaying the chat. Because it has such extensive visual configuration options, I didn't want to include even more features beyond this core purpose. You can simultaneously log into the Twitch chat via the stream page, or with a third program like [Chatty](http://getchatty.sourceforge.net/), which is a fully featured IRC client.
 
