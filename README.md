@@ -35,7 +35,7 @@ Enjoy!
 2. Run ChatGameFontificator.jar, probably by double clicking it, or possibly by right-clicking it and selecting to run it. It should look something like the picture below, with the two windows, one for the chat display, one for configuration. If it doesn't run, you may need to download and install the [JRE](https://java.com/en/download/).
 <img src="http://www.glitchcog.com/cgf/cgf.png" alt="Chat Game Fontificator">
 3. Enter your credentials: the Twitch user name you want to join the chat with, and your [OAuth token](http://www.twitchapps.com/tmi/). ([What is an OAuth token?](http://oauth.net/about/))
-4. Enter the channel you want to join (the # is optional, but Twitch channels must be in all lowercase)
+4. Enter the channel you want to join (the # is optional, but Twitch channels should be in all lowercase, but that is done invisibly and automatically if you're connecting to the Twitch IRC server).
 5. Make the chat look how you want it to look. Either select something from the Presets menu, or use the Fontificator Configuration window tabs to configure to your heart's content.
 6. Click connect and enjoy.
 
