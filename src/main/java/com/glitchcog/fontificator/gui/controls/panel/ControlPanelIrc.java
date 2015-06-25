@@ -88,7 +88,15 @@ public class ControlPanelIrc extends ControlPanelBase
             bot.setUsername(user);
             logger.trace("Attempting to connect " + user + " to " + host + ":" + port);
             bot.connect(host, port, auth);
-            bot.joinChannel(config.getChannel());
+
+            // Force lowercase channel names for twitch.tv
+            String connectChannel = config.getChannel();
+            if ("irc.twitch.tv".equals(host))
+            {
+                connectChannel = connectChannel.toLowerCase();
+            }
+
+            bot.joinChannel(connectChannel);
         }
         else
         {
