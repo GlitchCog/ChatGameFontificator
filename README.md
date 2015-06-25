@@ -89,7 +89,7 @@ First, make sure messages are actually being posted to the chat. Only messages p
 
   -The font is too large or too spaced out, or the border is too big, given the chat window size, to have room for even a single character. Try reducing the sizes, or making the border offset negative.
 
-  -There is only a few messages, and the border offsets are negative numbers. The messages may be out of bounds of the window. Try reducing the border offset values.
+  -There are only a few messages, and the border offsets are negative numbers. The messages may be out of bounds of the window. Try reducing the border offset values.
 
   -The message speed is too slow for the number of messages flooding into the channel, which in turn empties out the full message queue faster than any messages can be displayed. Increase the message speed and the queue size. Also consider opting to forgo including join messages.
 
