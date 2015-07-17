@@ -87,6 +87,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 3"), new DropdownFont("smb3_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD"), new DropdownFont("smb3_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Lowercase)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda"), new DropdownFont("loz_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda (Lowercase)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
@@ -132,6 +133,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 2 Pause"), new DropdownBorder("smb2_pause_border.png"));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD"), new DropdownBorder("smb3_hud_border.png"));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 Letter"), new DropdownBorder("smb3_letter_border.png"));
+            put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png"));
+            put(new DropdownLabel("Tales", "Tales of Symphonia C"), new DropdownBorder("tos_c_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Bush"), new DropdownBorder("loz_bush_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Rock"), new DropdownBorder("loz_rock_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Dungeon"), new DropdownBorder("loz_dungeon_border.png"));
@@ -187,6 +190,12 @@ public class ControlPanelFont extends ControlPanelBase
 
     private ActionListener dropdownListener;
 
+    /**
+     * Construct a font control panel
+     * 
+     * @param fProps
+     * @param chatWindow
+     */
     public ControlPanelFont(FontificatorProperties fProps, ChatWindow chatWindow)
     {
         super("Font/Border", fProps, chatWindow);

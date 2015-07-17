@@ -48,6 +48,9 @@ public class ControlPanelChat extends ControlPanelBase
 
     private LabeledInput heightInput;
 
+    /**
+     * The chat config object that bridges the UI to the properties file
+     */
     private ConfigChat config;
 
     private ComponentListener resizeListener;
@@ -66,6 +69,13 @@ public class ControlPanelChat extends ControlPanelBase
 
     private ControlWindow ctrlWindow;
 
+    /**
+     * Construct a chat control panel
+     * 
+     * @param fProps
+     * @param chatWindow
+     * @param ctrlWindow
+     */
     public ControlPanelChat(FontificatorProperties fProps, ChatWindow chatWindow, ControlWindow ctrlWindow)
     {
         super("Chat Window", fProps, chatWindow);
@@ -358,7 +368,7 @@ public class ControlPanelChat extends ControlPanelBase
         chromaDimPanel.add(chromaCornerSlider, chromaGbc);
 
         JPanel everything = new JPanel(new GridBagLayout());
-        GridBagConstraints eGbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0);
+        GridBagConstraints eGbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, NO_INSETS, 0, 0);
 
         eGbc.weighty = 0.5;
         eGbc.weightx = 0.5;

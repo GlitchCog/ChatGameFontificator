@@ -402,6 +402,7 @@ public class ControlWindow extends JDialog
         /* Ungrouped Presets */
         final String[] strCrystalis = new String[] { "Crystalis", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "crystalis.cgf" };
         final String[] strRiverCityRansom = new String[] { "River City Ransom", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "rcr.cgf" };
+        final String[] strTalesOfSymphonia = new String[] { "Tales of Symphonia", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tos.cgf" };
 
         // @formatter:off
         final String[][] allPresets = new String[][]
@@ -414,7 +415,7 @@ public class ControlWindow extends JDialog
             strMetroid, strMetroidBoss, 
             strPkmnRb, strPkmnFrlg, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strZelda3, 
-            strCrystalis, strRiverCityRansom
+            strCrystalis, strRiverCityRansom, strTalesOfSymphonia
         };
         // @formatter:on
 
@@ -445,7 +446,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strZelda3[0] });
-        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strRiverCityRansom[0] });
+        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strRiverCityRansom[0], strTalesOfSymphonia[0] });
 
         for (String submenuKey : presetMapSubmenuToItem.keySet())
         {

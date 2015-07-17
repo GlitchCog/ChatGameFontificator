@@ -1,0 +1,23 @@
+fontCharSpacing=1
+fontType=VARIABLE_WIDTH
+fontGridWidth=8
+fontBorderInsetY=0
+fontBorderInsetX=0
+fontUnknownChar=\u007F
+fontGridHeight=12
+fontBorderFile=preset\://borders/tos_b_border.png
+fontFile=preset\://fonts/tos_font.png
+fontLineSpacing=2
+fontScale=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontBorderScale=1
+fontSpaceWidth=25
+colorForeground=D6D6D6
+colorBackground=052341
+colorTimestamp=false
+colorPalette=F7977A,FDC68A,FFF79A,A2D39C,6ECFF6,A187BE,F6989D
+colorBorder=FFFFFF
+colorUsername=true
+colorJoin=true
+colorMessage=false
+colorHighlight=6699FF

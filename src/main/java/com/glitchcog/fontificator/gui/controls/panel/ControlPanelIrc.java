@@ -66,6 +66,13 @@ public class ControlPanelIrc extends ControlPanelBase
 
     private ConfigIrc config;
 
+    /**
+     * Construct an IRC (Connection) control panel
+     * 
+     * @param fProps
+     * @param chatWindow
+     * @param bot
+     */
     public ControlPanelIrc(FontificatorProperties fProps, ChatWindow chatWindow, ChatViewerBot bot)
     {
         super("Connection", fProps, chatWindow);

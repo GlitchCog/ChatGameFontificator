@@ -28,16 +28,36 @@ public class ChatWindow extends JFrame
 {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * A stored reference to the chat panel, used whenever some part of the system has a reference to this ChatWindow,
+     * but needs to modify something on the panel. This is in lieu of putting a bunch of accessor methods here to do
+     * pass through the function to the panel in an encapsulated way.
+     */
     private ChatPanel chatPanel;
 
+    /**
+     * A static copy of this ChatWindow for accessing it globally
+     */
     public static ChatWindow me;
 
+    /**
+     * The popup for submitting errors that the user needs to see
+     */
     public static FontificatorError popup;
 
+    /**
+     * Mouse listeners for dragging the Chat Window around when dragging the mouse inside the chat
+     */
     private ChatMouseListeners mouseListeners;
 
+    /**
+     * Escape stroke to close popups
+     */
     private static final KeyStroke escapeStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
 
+    /**
+     * Construct the Chat Window
+     */
     public ChatWindow()
     {
         me = this;
@@ -45,6 +65,15 @@ public class ChatWindow extends JFrame
         popup = new FontificatorError(null);
     }
 
+    /**
+     * Sets the properties to get hooks into the properties' configuration models; Sets the ControlWindow to get hooks
+     * back into the controls; Sets the loaded member Boolean to indicate it has everything it needs to begin rendering
+     * the visualization
+     * 
+     * @param fProps
+     * @param ctrlWindow
+     * @throws IOException
+     */
     public void initChat(final FontificatorProperties fProps, final ControlWindow ctrlWindow) throws IOException
     {
         chatPanel = new ChatPanel();
@@ -132,16 +161,23 @@ public class ChatWindow extends JFrame
         root.getActionMap().put(mapKey, aa);
     }
 
+    /**
+     * Access to the chat panel through this window, for any places there is a reference to just the ChatWindow, but
+     * that needs to affect the ChatPanel, which has all the actual chat options
+     * 
+     * @return chatPanel
+     */
     public ChatPanel getChatPanel()
     {
         return chatPanel;
     }
 
+    /**
+     * This is a small hack to expose the ctrl window to the message control panel so its username case map can be
+     * cleared out if the user changes the type of username case resolution
+     */
     public void clearUsernameCases()
     {
-        // This is a small hack to expose the ctrl window to the message control
-        // panel so its username case map can be cleared out if the user changes
-        // the type of username case resolution
         mouseListeners.clearUsernameCases();
     }
 

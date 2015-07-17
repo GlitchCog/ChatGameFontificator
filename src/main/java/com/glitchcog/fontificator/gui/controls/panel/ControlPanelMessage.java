@@ -41,28 +41,72 @@ public class ControlPanelMessage extends ControlPanelBase
 {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Checkbox to indicate whether to display the username with the message
+     */
     private JCheckBox usernamesBox;
 
+    /**
+     * Checkbox to indicate whether to display the timestamp with the message
+     */
     private JCheckBox timestampsBox;
 
+    /**
+     * Input for specifying the format pattern of the timestamp
+     */
     private LabeledInput timeFormatInput;
 
+    /**
+     * Button to apply any changes to the time format pattern
+     */
     private JButton timeFormatUpdateButton;
 
+    /**
+     * Checkbox to indicate whether join messages should be both collected and displayed. If this is unchecked, join
+     * messages will not be stored in the message cache, so only join messages that are received while this is checked
+     * will be toggled. Join messages that come in while this is unchecked can never be displayed.
+     */
     private JCheckBox joinMessagesBox;
 
+    /**
+     * Slider to indicate how fast the messages should be rolled out onto the chat display
+     */
     private LabeledSlider messageSpeedSlider;
 
+    /**
+     * Slider to specify the size of the message queue
+     */
     private LabeledSlider queueSizeSlider;
 
+    /**
+     * The message config object that bridges the UI to the properties file
+     */
     private ConfigMessage config;
 
+    /**
+     * Button to clear the chat from the display. It does not affect the IRC channel in any way, only the chat display
+     * of this program.
+     */
     private JButton clearChatButton;
 
+    /**
+     * Dropdown menu to specify the choices for username capitalization
+     */
     private JComboBox<UsernameCaseResolutionType> caseTypeDropdown;
 
+    /**
+     * Checkbox to indicate whether users will be able to specify their own username casing if they type their own
+     * username into the chat
+     */
     private JCheckBox specifyCaseBox;
 
+    /**
+     * Construct a message control panel
+     * 
+     * @param fProps
+     * @param chatWindow
+     * @param bot
+     */
     public ControlPanelMessage(FontificatorProperties fProps, ChatWindow chatWindow, ChatViewerBot bot)
     {
         super("Message", fProps, chatWindow);
@@ -287,6 +331,9 @@ public class ControlPanelMessage extends ControlPanelBase
         gbc.gridy++;
     }
 
+    /**
+     * Toggle UI enabled states based on user input
+     */
     private void toggleEnableds()
     {
         timeFormatInput.setEnabled(config.showTimestamps());

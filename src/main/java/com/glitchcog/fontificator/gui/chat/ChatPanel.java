@@ -265,8 +265,6 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         int lineHeight = font.getLineHeight();
         lineCount = lineHeight == 0 ? 0 : totalHeight / lineHeight;
 
-        // The +1 on the end of the borderEdgeThickness is so the text is not
-        // adjacent to the border
         final int borderEdgeThickness = offset.y + (border == null || fontConfig.getBorderScale() < 1 ? 0 : border.getSpriteDrawHeight(fontConfig.getBorderScale())) + fontConfig.getBorderInsetY();
 
         // This y initially represents the coordinate to start drawing the messages from the top down such that the last
@@ -485,6 +483,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         return messageConfig;
     }
 
+    /**
+     * Get the message progressor
+     * 
+     * @return messageProgressor
+     */
     public MessageProgressor getMessageProgressor()
     {
         return messageProgressor;

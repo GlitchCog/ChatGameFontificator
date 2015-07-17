@@ -29,30 +29,67 @@ public class ControlPanelColor extends ControlPanelBase
     private static final long serialVersionUID = 1L;
 
     /**
-     * The buttons to set colors of known entities
+     * Background color button
      */
     private ColorButton bgColorButton;
 
+    /**
+     * Foreground color tint button
+     */
     private ColorButton fgColorButton;
 
+    /**
+     * Border color tint button
+     */
     private ColorButton borderColorButton;
 
+    /**
+     * Highlight color tint button
+     */
     private ColorButton highlightButton;
 
+    /**
+     * Chroma border color button
+     */
     private ColorButton chromaColorButton;
 
+    /**
+     * The palette UI object that lets you specify a collection of colors that are used for distinctly coloring
+     * usernames and messages, depending on the chat's configuration
+     */
     private Palette palette;
 
+    /**
+     * Checkbox to indicate whether to color join messages
+     */
     private JCheckBox joinBox;
 
+    /**
+     * Checkbox to indicate whether to color usernames
+     */
     private JCheckBox usernameBox;
 
+    /**
+     * Checkbox to indicate whether to color timestamps
+     */
     private JCheckBox timestampBox;
 
+    /**
+     * Checkbox to indicate whether to color the message text
+     */
     private JCheckBox messageBox;
 
+    /**
+     * The color config object that bridges the UI to the properties file
+     */
     private ConfigColor config;
 
+    /**
+     * Construct a color control panel
+     * 
+     * @param fProps
+     * @param chatWindow
+     */
     public ControlPanelColor(FontificatorProperties fProps, ChatWindow chatWindow)
     {
         super("Color", fProps, chatWindow);
