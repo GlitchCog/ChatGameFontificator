@@ -194,8 +194,7 @@ public class ControlPanelChat extends ControlPanelBase
         chromaInvertBox = new JCheckBox("Invert Chroma Key Border");
         chromaCornerSlider = new LabeledSlider("Corner Radius", "pixels", ConfigChat.MIN_CHROMA_CORNER_RADIUS, ConfigChat.MAX_CHROMA_CORNER_RADIUS);
 
-        final String[] chromaLabels = new String[]
-        { "Left", "Top", "Right", "Bottom" };
+        final String[] chromaLabels = new String[] { "Left", "Top", "Right", "Bottom" };
         chromaBorderInput = new LabeledInput[chromaLabels.length];
         for (int i = 0; i < chromaBorderInput.length; i++)
         {
@@ -282,12 +281,7 @@ public class ControlPanelChat extends ControlPanelBase
                     config.validateChromaDimStrings(errors, chromaBorderInput[0].getText(), chromaBorderInput[1].getText(), chromaBorderInput[2].getText(), chromaBorderInput[3].getText());
                     if (errors.isEmpty())
                     {
-                        int[] values = new int[chromaBorderInput.length];
-                        for (int i = 0; i < chromaBorderInput.length; i++)
-                        {
-                            values[i] = Integer.parseInt(chromaBorderInput[i].getText());
-                        }
-                        config.setChromaBorder(values[0], values[1], values[2], values[3]);
+                        inputToConfigChromaBorders();
                         chat.repaint();
                     }
                     else
@@ -395,6 +389,19 @@ public class ControlPanelChat extends ControlPanelBase
         add(everything, gbc);
     }
 
+    /**
+     * Set the chroma borders from the input fields. Input fields must be validated first.
+     */
+    private void inputToConfigChromaBorders()
+    {
+        int[] values = new int[chromaBorderInput.length];
+        for (int i = 0; i < chromaBorderInput.length; i++)
+        {
+            values[i] = Integer.parseInt(chromaBorderInput[i].getText());
+        }
+        config.setChromaBorder(values[0], values[1], values[2], values[3]);
+    }
+
     private void toggleChromaInputFields()
     {
         final boolean enabled = config.isChromaEnabled();
@@ -489,7 +496,7 @@ public class ControlPanelChat extends ControlPanelBase
         config.setHeight(height);
 
         config.setChromaEnabled(chromaEnabledBox.isSelected());
-        config.setChromaBorder(new Rectangle());
+        inputToConfigChromaBorders();
         config.setChromaCornerRadius(chromaCornerSlider.getValue());
         config.setChromaInvert(chromaInvertBox.isSelected());
     }
