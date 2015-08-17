@@ -256,7 +256,7 @@ public class ControlPanelChat extends ControlPanelBase
                         final int height = Integer.parseInt(heightInput.getText());
                         config.setWidth(width);
                         config.setHeight(height);
-                        chatWindow.setSize(new Dimension(config.getWidth(), config.getHeight()));
+                        chatWindow.setSize(config.getWidth(), config.getHeight());
                     }
                     else
                     {
