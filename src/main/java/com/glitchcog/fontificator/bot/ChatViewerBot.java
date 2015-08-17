@@ -100,7 +100,7 @@ public class ChatViewerBot extends PircBot
     }
 
     /**
-     * This method is called once the PircBot has success   to the IRC server.
+     * This method is called once the PircBot has success to the IRC server.
      * <p>
      * The implementation of this method in the PircBot abstract class performs no actions and may be overridden as
      * required.
@@ -297,6 +297,18 @@ public class ChatViewerBot extends PircBot
     protected void onPrivateMessage(String sender, String login, String hostname, String message)
     {
         logger.info("Private message from " + sender + "(" + login + "@" + hostname + "): " + message);
+    }
+
+    @Override
+    protected void onSetChannelBan(String channel, String sourceNick, String sourceLogin, String sourceHostname, String hostmask)
+    {
+        chat.banUser(hostmask);
+    }
+
+    @Override
+    protected void onRemoveChannelBan(String channel, String sourceNick, String sourceLogin, String sourceHostname, String hostmask)
+    {
+        chat.unbanUser(hostmask);
     }
 
     /**

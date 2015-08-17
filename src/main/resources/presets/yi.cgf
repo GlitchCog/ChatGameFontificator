@@ -1,0 +1,23 @@
+fontCharSpacing=0
+colorBorder=FFFFFF
+colorUsername=true
+fontType=FIXED_WIDTH
+fontGridWidth=8
+fontBorderInsetY=-8
+fontBorderInsetX=0
+colorPalette=00F800,C8FCE8,F8E8C8,E87048,6888A8,80B888,F8E0D0,F8F800
+fontUnknownChar=\u007F
+colorJoin=true
+fontGridHeight=12
+fontBorderFile=preset\://borders/yi_border.png
+fontFile=preset\://fonts/yi_font.png
+colorMessage=false
+colorHighlight=F8F8F8
+fontLineSpacing=0
+fontScale=2
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontBorderScale=2
+fontSpaceWidth=25
+colorForeground=FFFFFF
+colorBackground=000000
+colorTimestamp=false

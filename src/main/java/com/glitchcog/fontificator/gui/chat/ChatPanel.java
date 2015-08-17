@@ -10,9 +10,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
@@ -43,6 +45,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * The cache of messages to be displayed
      */
     private LinkedList<Message> messages;
+
+    private Set<String> bannedUsers;
 
     /**
      * Contains the timed task and a reference to this chat to be used to progress rolling out new messages at the
@@ -105,6 +109,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         loaded = false;
         lineCount = Integer.MAX_VALUE;
         messages = new LinkedList<Message>();
+        bannedUsers = new HashSet<String>();
 
         messageProgressor = new MessageProgressor(this);
     }
@@ -275,6 +280,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         // Draw each message in the drawMessages copy of the cache
         for (Message msg : drawMessages)
         {
+            if (bannedUsers.contains(msg.getUsername()))
+            {
+                continue;
+            }
+
             Color col;
             if (msg.isJoinType())
             {
@@ -491,6 +501,18 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     public MessageProgressor getMessageProgressor()
     {
         return messageProgressor;
+    }
+
+    public void banUser(String bannedUser)
+    {
+        bannedUsers.add(bannedUser);
+        repaint();
+    }
+
+    public void unbanUser(String bannedUser)
+    {
+        bannedUsers.remove(bannedUser);
+        repaint();
     }
 
 }
