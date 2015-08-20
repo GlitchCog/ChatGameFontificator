@@ -1,0 +1,23 @@
+fontCharSpacing=0
+colorBorder=FFFFFF
+colorUsername=true
+fontType=FIXED_WIDTH
+fontGridWidth=8
+fontBorderInsetY=-24
+fontBorderInsetX=0
+colorPalette=FF99CC,99FF99,FFFF99,9999FF,99FFFF,FF3366,00CCCC
+fontUnknownChar=\u007F
+colorJoin=true
+fontGridHeight=12
+fontBorderFile=preset\://borders/freep_border.png
+fontFile=preset\://fonts/freep_font.png
+colorMessage=false
+colorHighlight=FFCCFF
+fontLineSpacing=4
+fontScale=2
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontBorderScale=2
+fontSpaceWidth=25
+colorForeground=FFFFFF
+colorBackground=000000
+colorTimestamp=false

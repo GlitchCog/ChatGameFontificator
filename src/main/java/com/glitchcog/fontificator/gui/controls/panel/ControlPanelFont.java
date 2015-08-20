@@ -77,6 +77,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownFont("ff1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownFont("ff6_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI (Battle)"), new DropdownFont("ff6_battle_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownFont("freep_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ghosts and Goblins", "Ghosts n Goblins"), new DropdownFont("gng_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownFont("gsun_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Golden Sun", "Golden Sun (Battle)"), new DropdownFont("gsun_battle_font.png", FontType.VARIABLE_WIDTH));
@@ -124,6 +125,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Earthbound", "Mother 3"), new DropdownBorder("m3_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantas VI"), new DropdownBorder("ff6_border.png"));
+            put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownBorder("freep_border.png"));
             put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownBorder("gsun_border.png"));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownBorder("metroid_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Pipes"), new DropdownBorder("metroid_pipe_border.png"));
