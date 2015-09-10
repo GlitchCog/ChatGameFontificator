@@ -507,7 +507,7 @@ public class FontificatorProperties extends Properties
         setProperty(KEY_MESSAGE_QUEUE_SIZE, Integer.toString(64));
         setProperty(KEY_MESSAGE_SPEED, Integer.toString((int)(ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)));
         setProperty(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.LOOKUP.name());
-        setProperty(KEY_MESSAGE_CASE_SPECIFY, Boolean.toString(true));
+        setProperty(KEY_MESSAGE_CASE_SPECIFY, Boolean.toString(false));
 
         loadConfigs(true);
     }
