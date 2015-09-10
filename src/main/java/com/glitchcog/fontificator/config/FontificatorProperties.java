@@ -498,7 +498,7 @@ public class FontificatorProperties extends Properties
         setProperty(KEY_COLOR_USERNAME, Boolean.toString(true));
         setProperty(KEY_COLOR_TIMESTAMP, Boolean.toString(false));
         setProperty(KEY_COLOR_MESSAGE, Boolean.toString(false));
-        setProperty(KEY_COLOR_JOIN, Boolean.toString(true));
+        setProperty(KEY_COLOR_JOIN, Boolean.toString(false));
 
         setProperty(KEY_MESSAGE_JOIN, Boolean.toString(true));
         setProperty(KEY_MESSAGE_USERNAME, Boolean.toString(true));
