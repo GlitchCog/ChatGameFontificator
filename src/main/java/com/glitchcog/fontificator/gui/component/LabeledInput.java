@@ -62,6 +62,7 @@ public class LabeledInput extends JPanel
     public void setEnabled(boolean enabled)
     {
         input.setEnabled(enabled);
+        label.setEnabled(enabled);
     }
 
     public String getLabel()

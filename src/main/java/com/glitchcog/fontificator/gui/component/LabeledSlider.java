@@ -88,6 +88,8 @@ public class LabeledSlider extends JPanel
     public void setEnabled(boolean enabled)
     {
         slider.setEnabled(enabled);
+        label.setEnabled(enabled);
+        unitLabel.setEnabled(enabled);
     }
 
     public int getValue()
