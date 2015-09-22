@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.swing.JPanel;
 
@@ -23,9 +23,11 @@ import org.apache.log4j.Logger;
 import com.glitchcog.fontificator.bot.Message;
 import com.glitchcog.fontificator.config.ConfigChat;
 import com.glitchcog.fontificator.config.ConfigColor;
+import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.sprite.Sprite;
 import com.glitchcog.fontificator.sprite.SpriteFont;
 
@@ -44,7 +46,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     /**
      * The cache of messages to be displayed
      */
-    private LinkedList<Message> messages;
+    private ConcurrentLinkedQueue<Message> messages;
 
     private Set<String> bannedUsers;
 
@@ -88,6 +90,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private ConfigMessage messageConfig;
 
     /**
+     * Configuration for whether to include emoji in the messages
+     */
+    private ConfigEmoji emojiConfig;
+
+    /**
      * The font used to draw the chat messages
      */
     private SpriteFont font;
@@ -100,6 +107,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private boolean loaded;
 
     /**
+     * Manages emoji loading, caching, and access
+     */
+    private EmojiManager emojiManager;
+
+    /**
      * Construct the ChatPanel, which contains the entire visualization of the chat
      * 
      * @throws IOException
@@ -108,9 +120,10 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     {
         loaded = false;
         lineCount = Integer.MAX_VALUE;
-        messages = new LinkedList<Message>();
+        messages = new ConcurrentLinkedQueue<Message>();
         bannedUsers = new HashSet<String>();
 
+        emojiManager = new EmojiManager();
         messageProgressor = new MessageProgressor(this);
     }
 
@@ -142,6 +155,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         this.chatConfig = fProps.getChatConfig();
         this.colorConfig = fProps.getColorConfig();
         this.messageConfig = fProps.getMessageConfig();
+        this.emojiConfig = fProps.getEmojiConfig();
 
         font = new SpriteFont(fontConfig);
         reloadFontFromConfig();
@@ -241,7 +255,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * @param messages
      * @param offset
      */
-    private void drawChat(Graphics2D g2d, List<Message> messages, Point offset)
+    private void drawChat(Graphics2D g2d, ConcurrentLinkedQueue<Message> messages, Point offset)
     {
         List<Message> drawMessages = new ArrayList<Message>();
 
@@ -262,12 +276,12 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         int totalHeight = 0;
         for (Message msg : drawMessages)
         {
-            Dimension dim = font.getMessageDimensions(msg, messageConfig, lineWrapLength);
+            Dimension dim = font.getMessageDimensions(msg, messageConfig, emojiConfig, emojiManager, lineWrapLength);
             totalHeight += dim.getHeight();
         }
 
         // Used to make sure scrolling is good
-        int lineHeight = font.getLineHeight();
+        int lineHeight = font.getLineHeightScaled();
         lineCount = lineHeight == 0 ? 0 : totalHeight / lineHeight;
 
         final int borderEdgeThickness = offset.y + (border == null || fontConfig.getBorderScale() < 1 ? 0 : border.getSpriteDrawHeight(fontConfig.getBorderScale())) + fontConfig.getBorderInsetY();
@@ -295,7 +309,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
                 col = colorConfig.getPalette().isEmpty() ? colorConfig.getHighlight() : colorConfig.getPalette().get(Math.abs(msg.getUsername().toLowerCase().hashCode()) % colorConfig.getPalette().size());
             }
 
-            Dimension dim = font.drawMessage(g2d, msg, col, colorConfig, messageConfig, leftEdge, y, borderEdgeThickness, getHeight() - borderEdgeThickness, lineWrapLength);
+            Dimension dim = font.drawMessage(g2d, msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, getHeight() - borderEdgeThickness, lineWrapLength);
             y += dim.getHeight();
         }
     }
@@ -484,13 +498,23 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Used for getting the message configuration for timing the message progression
+     * Used for getting the message configuration for formatting the message and timing the message progression
      * 
      * @return message config
      */
     public ConfigMessage getMessageConfig()
     {
         return messageConfig;
+    }
+
+    /**
+     * Used for getting the emoji configuration for formatting the message
+     * 
+     * @return emoji config
+     */
+    public ConfigEmoji getEmojiConfig()
+    {
+        return emojiConfig;
     }
 
     /**
@@ -515,4 +539,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         repaint();
     }
 
+    public EmojiManager getEmojiManager()
+    {
+        return emojiManager;
+    }
 }

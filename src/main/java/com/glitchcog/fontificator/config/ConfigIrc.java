@@ -1,7 +1,8 @@
 package com.glitchcog.fontificator.config;
 
-import java.util.List;
 import java.util.Properties;
+
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 
 /**
  * The configuration for the IRC Connection
@@ -31,7 +32,7 @@ public class ConfigIrc extends Config
     }
 
     @Override
-    public List<String> load(Properties props, List<String> errors)
+    public LoadConfigReport load(Properties props, LoadConfigReport report)
     {
         this.props = props;
 
@@ -70,7 +71,7 @@ public class ConfigIrc extends Config
             this.port = propPort;
         }
 
-        return errors;
+        return report;
     }
 
     public String getUsername()
@@ -128,6 +129,11 @@ public class ConfigIrc extends Config
         {
             return channel;
         }
+    }
+
+    public String getChannelNoHash()
+    {
+        return getChannel() == null ? null : getChannel().length() < 1 ? "" : getChannel().substring(1);
     }
 
     public void setChannel(String channel)

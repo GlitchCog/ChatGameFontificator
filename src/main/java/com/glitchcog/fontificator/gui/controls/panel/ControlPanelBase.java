@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatPanel;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 
@@ -59,20 +59,61 @@ public abstract class ControlPanelBase extends JPanel
      */
     protected FontificatorProperties fProps;
 
+    /**
+     * The member baseBorder to be used on the control panels
+     */
     protected Border baseBorder;
 
     /**
-     * Sets the grid bag constraints layout, calls build(), and calls fill()
+     * The box displayed on the IRC connection tab that displays the log of the program and the chat. This reference is
+     * stored here so any of the control panels can append logs to it.
      */
-    public ControlPanelBase(String label, FontificatorProperties fProps, ChatWindow chatWindow)
+    protected LogBox logBox;
+
+    /**
+     * A single source for a newly instantiated base border to be used in the control panels
+     * 
+     * @return baseBorder
+     */
+    public static Border getBaseBorder()
+    {
+        return BorderFactory.createLineBorder(Color.GRAY);
+    }
+
+    /**
+     * A newly instantiated grid bag constraints model, anchored in the the northwest corner with fill set to none,
+     * xweight set to 0 and yweight set to 1
+     * 
+     * @return gbc
+     */
+    public static GridBagConstraints getGbc()
+    {
+        return new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
+    }
+
+    /**
+     * Sets the grid bag constraints layout, calls build(), and calls fill()
+     * 
+     * @param label
+     *            The label that will display on the tab for this control panel
+     * @param fProps
+     *            The reference to the properties that define the all the configurable parts of the viewer via the
+     *            control panels
+     * @param chatWindow
+     *            The window that contains the chat view
+     * @param logBox
+     *            The box displayed on the IRC connection tab that displays the log of the program and the chat
+     */
+    public ControlPanelBase(String label, FontificatorProperties fProps, ChatWindow chatWindow, LogBox logBox)
     {
         this.fProps = fProps;
+        this.logBox = logBox;
         this.label = label;
         this.chatWindow = chatWindow;
         this.chat = chatWindow.getChatPanel();
         setLayout(new GridBagLayout());
-        this.gbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
-        this.baseBorder = BorderFactory.createLineBorder(Color.GRAY);
+        this.gbc = getGbc();
+        this.baseBorder = getBaseBorder();
         build();
         fillInputFromProperties(fProps);
     }
@@ -108,8 +149,8 @@ public abstract class ControlPanelBase extends JPanel
      */
     public void update()
     {
-        List<String> errors = validateInput();
-        if (errors.isEmpty())
+        LoadConfigReport report = validateInput();
+        if (report.isErrorFree())
         {
             try
             {
@@ -123,21 +164,21 @@ public abstract class ControlPanelBase extends JPanel
         }
         else
         {
-            ChatWindow.popup.handleProblem(errors);
+            ChatWindow.popup.handleProblem(report);
         }
     }
 
     /**
-     * Must return an error if any input field value is invalid for storing on the config object or in the final
+     * Must return an error report if any input field value is invalid for storing on the config object or in the final
      * properties destination should it be saved
      * 
-     * @return errors
+     * @return report
      */
-    protected abstract List<String> validateInput();
+    protected abstract LoadConfigReport validateInput();
 
     /**
-     * Takes user data and parses it into config file objects. Because no errors were returned by validateInput when
-     * this is run, it should be safe from Exceptions
+     * Takes user data and parses it into config file objects. Because a successful report was returned by validateInput
+     * when this is run, it should be safe from Exceptions
      */
     protected abstract void fillConfigFromInput() throws Exception;
 

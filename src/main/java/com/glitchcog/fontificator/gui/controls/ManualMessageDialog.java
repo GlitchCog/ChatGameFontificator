@@ -83,8 +83,8 @@ public class ManualMessageDialog extends JDialog
 
     private void submit()
     {
-        List<String> errors = validateInput();
-        if (errors.isEmpty())
+        List<String> report = validateInput();
+        if (report.isEmpty())
         {
             ctrlWindow.addManualMessage(usernameInput.getText(), textInput.getText());
             if (!retainMessageBox.isSelected())
@@ -94,7 +94,7 @@ public class ManualMessageDialog extends JDialog
         }
         else
         {
-            ChatWindow.popup.handleProblem(errors);
+            ChatWindow.popup.handleProblem(report);
         }
     }
 
@@ -181,6 +181,12 @@ public class ManualMessageDialog extends JDialog
         }
 
         return errors;
+    }
+
+    public void showDialog()
+    {
+        setLocation(getParent().getLocation().x + (getParent().getWidth() - getWidth()) / 2, getParent().getLocation().y + (getParent().getHeight() - getHeight()) / 2);
+        setVisible(true);
     }
 
 }

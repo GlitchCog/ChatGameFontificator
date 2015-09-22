@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.FontType;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.CharacterPicker;
 import com.glitchcog.fontificator.gui.component.LabeledInput;
@@ -81,6 +82,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Ghosts and Goblins", "Ghosts n Goblins"), new DropdownFont("gng_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownFont("gsun_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Golden Sun", "Golden Sun (Battle)"), new DropdownFont("gsun_battle_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownFont("hm_fmt_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Inverted"), new DropdownFont("hm_fmt_i_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownFont("metroid_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
@@ -100,6 +103,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "Zelda II"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II (Lowercase)"), new DropdownFont("zelda2_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownFont("lttp_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownFont("loz_ww_font.png", FontType.VARIABLE_WIDTH));
         }
     };
 
@@ -127,6 +131,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Final Fantasy", "Final Fantas VI"), new DropdownBorder("ff6_border.png"));
             put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownBorder("freep_border.png"));
             put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownBorder("gsun_border.png"));
+            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownBorder("hm_fmt_border.png"));
+            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Transparent"), new DropdownBorder("hm_fmt_t_border.png"));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownBorder("metroid_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Pipes"), new DropdownBorder("metroid_pipe_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Mother Brain Glass"), new DropdownBorder("metroid_glass_border.png"));
@@ -206,10 +212,11 @@ public class ControlPanelFont extends ControlPanelBase
      * 
      * @param fProps
      * @param chatWindow
+     * @param logBox
      */
-    public ControlPanelFont(FontificatorProperties fProps, ChatWindow chatWindow)
+    public ControlPanelFont(FontificatorProperties fProps, ChatWindow chatWindow, LogBox logBox)
     {
-        super("Font/Border", fProps, chatWindow);
+        super("Font/Border", fProps, chatWindow, logBox);
 
         fontTypeDropdown.addActionListener(dropdownListener);
 
@@ -488,18 +495,18 @@ public class ControlPanelFont extends ControlPanelBase
 
     private boolean updateFontOrBorder(boolean isFont)
     {
-        List<String> errors = new ArrayList<String>();
+        LoadConfigReport report = new LoadConfigReport();
         if (isFont)
         {
-            config.validateFontFile(errors, fontFilenameInput.getText());
-            config.validateStrings(errors, gridWidthInput.getText(), gridHeightInput.getText(), characterKeyInput.getText(), Character.toString(charPicker.getSelectedChar()));
+            config.validateFontFile(report, fontFilenameInput.getText());
+            config.validateStrings(report, gridWidthInput.getText(), gridHeightInput.getText(), characterKeyInput.getText(), Character.toString(charPicker.getSelectedChar()));
         }
         else
         {
-            config.validateBorderFile(errors, borderFilenameInput.getText());
+            config.validateBorderFile(report, borderFilenameInput.getText());
         }
 
-        if (errors.isEmpty())
+        if (report.isErrorFree())
         {
             try
             {
@@ -523,7 +530,7 @@ public class ControlPanelFont extends ControlPanelBase
         }
         else
         {
-            ChatWindow.popup.handleProblem(errors);
+            ChatWindow.popup.handleProblem(report);
         }
         return false;
     }
@@ -589,7 +596,7 @@ public class ControlPanelFont extends ControlPanelBase
 
         // Although the font was already updated from the listener attached the the fontTypeDropdown, it should be done
         // here to make it official. If the font and border aren't updated, they could be out of sync with the input
-        // filled from config on preset loads, and it shouldn't be the resposibility of actionlisteners attached to UI
+        // filled from config on preset loads, and it shouldn't be the responsibility of actionlisteners attached to UI
         // components to update the display
         updateFontOrBorder(true);
 
@@ -598,21 +605,21 @@ public class ControlPanelFont extends ControlPanelBase
     }
 
     @Override
-    protected List<String> validateInput()
+    protected LoadConfigReport validateInput()
     {
-        List<String> errors = new ArrayList<String>();
+        LoadConfigReport report = new LoadConfigReport();
 
-        config.validateFontFile(errors, fontFilenameInput.getText());
-        config.validateBorderFile(errors, borderFilenameInput.getText());
+        config.validateFontFile(report, fontFilenameInput.getText());
+        config.validateBorderFile(report, borderFilenameInput.getText());
 
         final String widthStr = gridWidthInput.getText();
         final String heightStr = gridHeightInput.getText();
         final String charKey = characterKeyInput.getText();
         final String unknownStr = Character.toString(charPicker.getSelectedChar());
 
-        config.validateStrings(errors, widthStr, heightStr, charKey, unknownStr);
+        config.validateStrings(report, widthStr, heightStr, charKey, unknownStr);
 
-        return errors;
+        return report;
     }
 
     @Override

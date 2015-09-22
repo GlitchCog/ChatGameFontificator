@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -24,6 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.config.ConfigChat;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.LabeledInput;
 import com.glitchcog.fontificator.gui.component.LabeledSlider;
@@ -73,10 +72,11 @@ public class ControlPanelChat extends ControlPanelBase
      * @param fProps
      * @param chatWindow
      * @param ctrlWindow
+     * @param logBox
      */
-    public ControlPanelChat(FontificatorProperties fProps, ChatWindow chatWindow, ControlWindow ctrlWindow)
+    public ControlPanelChat(FontificatorProperties fProps, ChatWindow chatWindow, ControlWindow ctrlWindow, LogBox logBox)
     {
-        super("Chat Window", fProps, chatWindow);
+        super("Chat Window", fProps, chatWindow, logBox);
 
         this.ctrlWindow = ctrlWindow;
 
@@ -245,9 +245,9 @@ public class ControlPanelChat extends ControlPanelBase
             {
                 try
                 {
-                    List<String> errors = new ArrayList<String>();
-                    config.validateDimStrings(errors, widthInput.getText(), heightInput.getText());
-                    if (errors.isEmpty())
+                    LoadConfigReport report = new LoadConfigReport();
+                    config.validateDimStrings(report, widthInput.getText(), heightInput.getText());
+                    if (report.isErrorFree())
                     {
                         final int width = Integer.parseInt(widthInput.getText());
                         final int height = Integer.parseInt(heightInput.getText());
@@ -257,7 +257,7 @@ public class ControlPanelChat extends ControlPanelBase
                     }
                     else
                     {
-                        ChatWindow.popup.handleProblem(errors);
+                        ChatWindow.popup.handleProblem(report);
                     }
                 }
                 catch (Exception ex)
@@ -275,16 +275,16 @@ public class ControlPanelChat extends ControlPanelBase
             {
                 try
                 {
-                    List<String> errors = new ArrayList<String>();
-                    config.validateChromaDimStrings(errors, chromaBorderInput[0].getText(), chromaBorderInput[1].getText(), chromaBorderInput[2].getText(), chromaBorderInput[3].getText());
-                    if (errors.isEmpty())
+                    LoadConfigReport report = new LoadConfigReport();
+                    config.validateChromaDimStrings(report, chromaBorderInput[0].getText(), chromaBorderInput[1].getText(), chromaBorderInput[2].getText(), chromaBorderInput[3].getText());
+                    if (report.isErrorFree())
                     {
                         inputToConfigChromaBorders();
                         chat.repaint();
                     }
                     else
                     {
-                        ChatWindow.popup.handleProblem(errors);
+                        ChatWindow.popup.handleProblem(report);
                     }
                 }
                 catch (Exception ex)
@@ -474,12 +474,12 @@ public class ControlPanelChat extends ControlPanelBase
     }
 
     @Override
-    protected List<String> validateInput()
+    protected LoadConfigReport validateInput()
     {
-        List<String> errors = new ArrayList<String>();
-        config.validateDimStrings(errors, widthInput.getText(), heightInput.getText());
-        config.validateChromaDimStrings(errors, chromaBorderInput[0].getText(), chromaBorderInput[1].getText(), chromaBorderInput[2].getText(), chromaBorderInput[3].getText());
-        return errors;
+        LoadConfigReport report = new LoadConfigReport();
+        config.validateDimStrings(report, widthInput.getText(), heightInput.getText());
+        config.validateChromaDimStrings(report, chromaBorderInput[0].getText(), chromaBorderInput[1].getText(), chromaBorderInput[2].getText(), chromaBorderInput[3].getText());
+        return report;
     }
 
     @Override

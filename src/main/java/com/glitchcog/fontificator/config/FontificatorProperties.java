@@ -10,8 +10,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
@@ -19,6 +17,8 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.jasypt.util.text.BasicTextEncryptor;
 
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.controls.ControlWindow;
 import com.glitchcog.fontificator.sprite.SpriteFont;
@@ -120,7 +120,21 @@ public class FontificatorProperties extends Properties
 
     public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY };
 
-    public static final String[][] ALL_KEY = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS, COLOR_KEYS, MESSAGE_KEYS };
+    public static final String KEY_EMOJI_ENABLED = "emojiEnabled";
+    public static final String KEY_EMOJI_SCALE_TO_LINE = "emojiScaleToLine";
+    public static final String KEY_EMOJI_SCALE = "emojiScale";
+    public static final String KEY_EMOJI_CHANNEL = "emojiChannel";
+    public static final String KEY_EMOJI_CONNECT_CHANNEL = "emojiConnectChannel";
+    public static final String KEY_EMOJI_DISPLAY_STRAT = "emojiDisplayStrat";
+    public static final String KEY_EMOJI_TWITCH_ENABLE = "emojiTwitchEnabled";
+    public static final String KEY_EMOJI_TWITCH_SUBSCRIBER = "emojiTwitchSubsDisabled";
+    public static final String KEY_EMOJI_FFZ_ENABLE = "emojiFfzEnabled";
+
+    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_CHANNEL, KEY_EMOJI_CONNECT_CHANNEL, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_SUBSCRIBER, KEY_EMOJI_FFZ_ENABLE };
+
+    public static final String[] EMOJI_KEYS_WITHOUT_CHANNEL = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_CONNECT_CHANNEL, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_SUBSCRIBER, KEY_EMOJI_FFZ_ENABLE };
+
+    public static final String[][] ALL_KEY = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS, COLOR_KEYS, MESSAGE_KEYS, EMOJI_KEYS };
 
     private ConfigIrc ircConfig = new ConfigIrc();
 
@@ -131,6 +145,8 @@ public class FontificatorProperties extends Properties
     private ConfigColor colorConfig = new ConfigColor();
 
     private ConfigMessage messageConfig = new ConfigMessage();
+
+    private ConfigEmoji emojiConfig = new ConfigEmoji();
 
     public FontificatorProperties()
     {
@@ -144,6 +160,7 @@ public class FontificatorProperties extends Properties
         chatConfig.reset();
         colorConfig.reset();
         messageConfig.reset();
+        emojiConfig.reset();
         super.clear();
     }
 
@@ -170,6 +187,11 @@ public class FontificatorProperties extends Properties
     public ConfigMessage getMessageConfig()
     {
         return messageConfig;
+    }
+
+    public ConfigEmoji getEmojiConfig()
+    {
+        return emojiConfig;
     }
 
     /**
@@ -208,10 +230,10 @@ public class FontificatorProperties extends Properties
      * resource directory
      * 
      * @param filename
-     * @return success
+     * @return report
      * @throws Exception
      */
-    public boolean loadFile(String filename) throws Exception
+    public LoadConfigReport loadFile(String filename) throws Exception
     {
         if (filename.startsWith(ConfigFont.INTERNAL_FILE_PREFIX))
         {
@@ -219,14 +241,17 @@ public class FontificatorProperties extends Properties
 
             if (getClass().getClassLoader().getResource(plainFilename) == null)
             {
-                ChatWindow.popup.handleProblem("Preset font " + plainFilename + " not found");
-                return false;
+                LoadConfigReport report = new LoadConfigReport();
+                final String errorMsg = "Preset font " + plainFilename + " not found";
+                ChatWindow.popup.handleProblem(errorMsg);
+                report.addError(errorMsg, LoadConfigErrorType.FILE_NOT_FOUND);
+                return report;
             }
 
             InputStream is = getClass().getClassLoader().getResourceAsStream(plainFilename);
-            boolean success = loadFile(is, filename, true);
+            LoadConfigReport report = loadFile(is, filename, true);
             is.close();
-            return success;
+            return report;
         }
         else
         {
@@ -238,16 +263,16 @@ public class FontificatorProperties extends Properties
      * Load configuration from the specified file
      * 
      * @param file
-     * @return success
+     * @return report
      * @throws Exception
      */
-    public boolean loadFile(File file) throws Exception
+    public LoadConfigReport loadFile(File file) throws Exception
     {
         logger.trace("Loading file " + file.getAbsolutePath());
         InputStream is = new FileInputStream(file);
-        boolean success = loadFile(is, file.getAbsolutePath(), false);
+        LoadConfigReport report = loadFile(is, file.getAbsolutePath(), false);
         is.close();
-        return success;
+        return report;
     }
 
     /**
@@ -256,10 +281,10 @@ public class FontificatorProperties extends Properties
      * @param is
      * @param filename
      * @param isPreset
-     * @return
+     * @return report
      * @throws Exception
      */
-    private boolean loadFile(InputStream is, String filename, boolean isPreset) throws Exception
+    private LoadConfigReport loadFile(InputStream is, String filename, boolean isPreset) throws Exception
     {
         final String prevAuth = getProperty(KEY_IRC_AUTH);
         super.load(is);
@@ -274,14 +299,14 @@ public class FontificatorProperties extends Properties
             decryptProperty(KEY_IRC_AUTH);
         }
 
-        boolean success = loadConfigs(!isPreset);
+        LoadConfigReport report = loadConfigs(!isPreset);
 
-        if (success && !isPreset)
+        if (report.isErrorFree() && !isPreset)
         {
             rememberLastConfigFile(filename);
         }
 
-        return success;
+        return report;
     }
 
     /**
@@ -400,14 +425,16 @@ public class FontificatorProperties extends Properties
      * Try to load the configuration file stored i the last config file location conf file. This method reports its own
      * errors.
      * 
-     * @return success
+     * @return report
      */
-    public boolean loadLast()
+    public LoadConfigReport loadLast()
     {
         logger.trace("Load last");
 
-        final String previousConfigNotFound = "Previous configuration not found. Loading default values.";
-        final String previousConfigError = "Error loading previous configuration. Loading default values.";
+        final String previousConfigNotFound = "Previous configuration not found.";
+        final String previousConfigError = "Error loading previous configuration.";
+
+        LoadConfigReport errorReport = new LoadConfigReport();
 
         BufferedReader reader = null;
         try
@@ -416,22 +443,24 @@ public class FontificatorProperties extends Properties
             if (!lastFile.exists())
             {
                 ChatWindow.popup.handleProblem(previousConfigNotFound);
-                return false;
+                errorReport.addError(previousConfigNotFound, LoadConfigErrorType.FILE_NOT_FOUND);
+                return errorReport;
             }
             reader = new BufferedReader(new FileReader(lastFile));
             final String lastConfigFilename = reader.readLine();
             reader.close();
-            boolean success = loadFile(lastConfigFilename);
-            if (!success)
+            LoadConfigReport report = loadFile(lastConfigFilename);
+            if (report.isProblem())
             {
                 ChatWindow.popup.handleProblem(previousConfigError);
             }
-            return success;
+            return report;
         }
         catch (Exception e)
         {
             ChatWindow.popup.handleProblem(previousConfigError);
-            return false;
+            errorReport.addError(previousConfigError, LoadConfigErrorType.UNKNOWN_ERROR);
+            return errorReport;
         }
         finally
         {
@@ -450,64 +479,93 @@ public class FontificatorProperties extends Properties
     }
 
     /**
-     * Load a default configuration, for if something goes wrong, or if no previously used configuration file is stored
+     * Set a value only if it isn't already set, optionally overriding if specified
+     * 
+     * @param key
+     * @param value
+     * @param override
      */
-    public void loadDefaultValues()
+    private void setPropertyOverride(final String key, final String value, final boolean override)
+    {
+        final boolean valueExists = getProperty(key) != null && !getProperty(key).isEmpty();
+        if (override || !valueExists)
+        {
+            setProperty(key, value);
+        }
+    }
+
+    /**
+     * Load a default configuration, for if something goes wrong, or if no previously used configuration file is stored
+     * 
+     * @param override
+     *            Whether to override values should they already exist
+     */
+    public void loadDefaultValues(boolean override)
     {
         logger.trace("Loading default values");
 
-        clear();
+        final String trueString = Boolean.toString(true);
+        final String falseString = Boolean.toString(false);
 
-        setProperty(KEY_IRC_HOST, "irc.twitch.tv");
-        setProperty(KEY_IRC_PORT, Integer.toString(6667));
+        setPropertyOverride(KEY_IRC_HOST, "irc.twitch.tv", override);
+        setPropertyOverride(KEY_IRC_PORT, Integer.toString(6667), override);
 
-        setProperty(KEY_FONT_FILE_BORDER, ConfigFont.INTERNAL_FILE_PREFIX + "borders/dw3_border.png");
-        setProperty(KEY_FONT_FILE_FONT, ConfigFont.INTERNAL_FILE_PREFIX + "fonts/dw3_font.png");
-        setProperty(KEY_FONT_TYPE, FontType.FIXED_WIDTH.name());
-        setProperty(KEY_FONT_GRID_WIDTH, Integer.toString(8));
-        setProperty(KEY_FONT_GRID_HEIGHT, Integer.toString(12));
-        setProperty(KEY_FONT_SCALE, Integer.toString(2));
-        setProperty(KEY_FONT_BORDER_SCALE, Integer.toString(3));
-        setProperty(KEY_FONT_BORDER_INSET_X, Integer.toString(1));
-        setProperty(KEY_FONT_BORDER_INSET_Y, Integer.toString(1));
-        setProperty(KEY_FONT_SPACE_WIDTH, Integer.toString(25));
-        setProperty(KEY_FONT_CHARACTERS, SpriteFont.NORMAL_ASCII_KEY);
-        setProperty(KEY_FONT_UNKNOWN_CHAR, Character.toString((char) 127));
-        setProperty(KEY_FONT_SPACING_LINE, Integer.toString(2));
-        setProperty(KEY_FONT_SPACING_CHAR, Integer.toString(0));
+        setPropertyOverride(KEY_FONT_FILE_BORDER, ConfigFont.INTERNAL_FILE_PREFIX + "borders/dw3_border.png", override);
+        setPropertyOverride(KEY_FONT_FILE_FONT, ConfigFont.INTERNAL_FILE_PREFIX + "fonts/dw3_font.png", override);
+        setPropertyOverride(KEY_FONT_TYPE, FontType.FIXED_WIDTH.name(), override);
+        setPropertyOverride(KEY_FONT_GRID_WIDTH, Integer.toString(8), override);
+        setPropertyOverride(KEY_FONT_GRID_HEIGHT, Integer.toString(12), override);
+        setPropertyOverride(KEY_FONT_SCALE, Integer.toString(2), override);
+        setPropertyOverride(KEY_FONT_BORDER_SCALE, Integer.toString(3), override);
+        setPropertyOverride(KEY_FONT_BORDER_INSET_X, Integer.toString(1), override);
+        setPropertyOverride(KEY_FONT_BORDER_INSET_Y, Integer.toString(1), override);
+        setPropertyOverride(KEY_FONT_SPACE_WIDTH, Integer.toString(25), override);
+        setPropertyOverride(KEY_FONT_CHARACTERS, SpriteFont.NORMAL_ASCII_KEY, override);
+        setPropertyOverride(KEY_FONT_UNKNOWN_CHAR, Character.toString((char) 127), override);
+        setPropertyOverride(KEY_FONT_SPACING_LINE, Integer.toString(2), override);
+        setPropertyOverride(KEY_FONT_SPACING_CHAR, Integer.toString(0), override);
 
-        setProperty(KEY_CHAT_SCROLL, Boolean.toString(false));
-        setProperty(KEY_CHAT_RESIZABLE, Boolean.toString(true));
-        setProperty(KEY_CHAT_WIDTH, Integer.toString(550));
-        setProperty(KEY_CHAT_HEIGHT, Integer.toString(450));
-        setProperty(KEY_CHAT_CHROMA_ENABLED, Boolean.toString(false));
-        setProperty(KEY_CHAT_INVERT_CHROMA, Boolean.toString(false));
-        setProperty(KEY_CHAT_CHROMA_LEFT, Integer.toString(10));
-        setProperty(KEY_CHAT_CHROMA_TOP, Integer.toString(10));
-        setProperty(KEY_CHAT_CHROMA_RIGHT, Integer.toString(10));
-        setProperty(KEY_CHAT_CHROMA_BOTTOM, Integer.toString(10));
-        setProperty(KEY_CHAT_CHROMA_CORNER, Integer.toString(10));
-        setProperty(KEY_CHAT_ALWAYS_ON_TOP, Boolean.toString(false));
+        setPropertyOverride(KEY_CHAT_SCROLL, falseString, override);
+        setPropertyOverride(KEY_CHAT_RESIZABLE, trueString, override);
+        setPropertyOverride(KEY_CHAT_WIDTH, Integer.toString(550), override);
+        setPropertyOverride(KEY_CHAT_HEIGHT, Integer.toString(450), override);
+        setPropertyOverride(KEY_CHAT_CHROMA_ENABLED, falseString, override);
+        setPropertyOverride(KEY_CHAT_INVERT_CHROMA, falseString, override);
+        setPropertyOverride(KEY_CHAT_CHROMA_LEFT, Integer.toString(10), override);
+        setPropertyOverride(KEY_CHAT_CHROMA_TOP, Integer.toString(10), override);
+        setPropertyOverride(KEY_CHAT_CHROMA_RIGHT, Integer.toString(10), override);
+        setPropertyOverride(KEY_CHAT_CHROMA_BOTTOM, Integer.toString(10), override);
+        setPropertyOverride(KEY_CHAT_CHROMA_CORNER, Integer.toString(10), override);
+        setPropertyOverride(KEY_CHAT_ALWAYS_ON_TOP, falseString, override);
 
-        setProperty(KEY_COLOR_BG, "000000");
-        setProperty(KEY_COLOR_FG, "FFFFFF");
-        setProperty(KEY_COLOR_BORDER, "FFFFFF");
-        setProperty(KEY_COLOR_HIGHLIGHT, "6699FF");
-        setProperty(KEY_COLOR_PALETTE, "F7977A,FDC68A,FFF79A,A2D39C,6ECFF6,A187BE,F6989D");
-        setProperty(KEY_COLOR_CHROMA_KEY, "00FF00");
-        setProperty(KEY_COLOR_USERNAME, Boolean.toString(true));
-        setProperty(KEY_COLOR_TIMESTAMP, Boolean.toString(false));
-        setProperty(KEY_COLOR_MESSAGE, Boolean.toString(false));
-        setProperty(KEY_COLOR_JOIN, Boolean.toString(false));
+        setPropertyOverride(KEY_COLOR_BG, "000000", override);
+        setPropertyOverride(KEY_COLOR_FG, "FFFFFF", override);
+        setPropertyOverride(KEY_COLOR_BORDER, "FFFFFF", override);
+        setPropertyOverride(KEY_COLOR_HIGHLIGHT, "6699FF", override);
+        setPropertyOverride(KEY_COLOR_PALETTE, "F7977A,FDC68A,FFF79A,A2D39C,6ECFF6,A187BE,F6989D", override);
+        setPropertyOverride(KEY_COLOR_CHROMA_KEY, "00FF00", override);
+        setPropertyOverride(KEY_COLOR_USERNAME, trueString, override);
+        setPropertyOverride(KEY_COLOR_TIMESTAMP, falseString, override);
+        setPropertyOverride(KEY_COLOR_MESSAGE, falseString, override);
+        setPropertyOverride(KEY_COLOR_JOIN, falseString, override);
 
-        setProperty(KEY_MESSAGE_JOIN, Boolean.toString(true));
-        setProperty(KEY_MESSAGE_USERNAME, Boolean.toString(true));
-        setProperty(KEY_MESSAGE_TIMESTAMP, Boolean.toString(false));
-        setProperty(KEY_MESSAGE_TIMEFORMAT, "[HH:mm:ss]");
-        setProperty(KEY_MESSAGE_QUEUE_SIZE, Integer.toString(64));
-        setProperty(KEY_MESSAGE_SPEED, Integer.toString((int)(ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)));
-        setProperty(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.LOOKUP.name());
-        setProperty(KEY_MESSAGE_CASE_SPECIFY, Boolean.toString(false));
+        setPropertyOverride(KEY_MESSAGE_JOIN, trueString, override);
+        setPropertyOverride(KEY_MESSAGE_USERNAME, trueString, override);
+        setPropertyOverride(KEY_MESSAGE_TIMESTAMP, falseString, override);
+        setPropertyOverride(KEY_MESSAGE_TIMEFORMAT, "[HH:mm:ss]", override);
+        setPropertyOverride(KEY_MESSAGE_QUEUE_SIZE, Integer.toString(64), override);
+        setPropertyOverride(KEY_MESSAGE_SPEED, Integer.toString((int) (ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)), override);
+        setPropertyOverride(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.LOOKUP.name(), override);
+        setPropertyOverride(KEY_MESSAGE_CASE_SPECIFY, falseString, override);
+
+        setPropertyOverride(KEY_EMOJI_ENABLED, falseString, override);
+        setPropertyOverride(KEY_EMOJI_SCALE_TO_LINE, trueString, override);
+        setPropertyOverride(KEY_EMOJI_SCALE, Integer.toString(100), override);
+        setPropertyOverride(KEY_EMOJI_CONNECT_CHANNEL, trueString, override);
+        setPropertyOverride(KEY_EMOJI_DISPLAY_STRAT, EmojiLoadingDisplayStragegy.SPACE.name(), override);
+        setPropertyOverride(KEY_EMOJI_TWITCH_ENABLE, trueString, override);
+        setPropertyOverride(KEY_EMOJI_TWITCH_SUBSCRIBER, trueString, override);
+        setPropertyOverride(KEY_EMOJI_FFZ_ENABLE, falseString, override);
 
         loadConfigs(true);
     }
@@ -523,33 +581,29 @@ public class FontificatorProperties extends Properties
     }
 
     /**
-     * Load properties into specialized config objects. This method reports its own errors.
+     * Load properties into specialized config objects. This method returns its own report.
      * 
      * @return success
      */
-    private boolean loadConfigs(boolean loadNonFontConfig)
+    private LoadConfigReport loadConfigs(boolean loadNonFontConfig)
     {
-        List<String> errors = new ArrayList<String>();
+        LoadConfigReport report = new LoadConfigReport();
         if (loadNonFontConfig)
         {
-            ircConfig.load(this, errors);
-            chatConfig.load(this, errors);
-            messageConfig.load(this, errors);
+            ircConfig.load(this, report);
+            chatConfig.load(this, report);
+            messageConfig.load(this, report);
+            emojiConfig.load(this, report);
         }
-        fontConfig.load(this, errors);
-        colorConfig.load(this, errors);
+        fontConfig.load(this, report);
+        colorConfig.load(this, report);
 
-        if (!errors.isEmpty())
+        if (!report.isErrorFree())
         {
-            String allErrors = "";
-            for (String er : errors)
-            {
-                allErrors += er + "\n";
-            }
-            ChatWindow.popup.handleProblem(allErrors);
+            ChatWindow.popup.handleProblem(report);
         }
 
-        return errors.isEmpty();
+        return report;
     }
 
     private boolean hasUnsavedChanges()

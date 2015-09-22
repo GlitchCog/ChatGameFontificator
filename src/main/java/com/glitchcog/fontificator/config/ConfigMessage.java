@@ -3,9 +3,10 @@ package com.glitchcog.fontificator.config;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
+import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.MessageProgressor;
 
 /**
@@ -64,8 +65,15 @@ public class ConfigMessage extends Config
      */
     private Integer messageSpeed;
 
+    /**
+     * The method for resolving the capitalization of usernames
+     */
     private UsernameCaseResolutionType caseResolutionType;
 
+    /**
+     * Whether the users are permitted to specify their own name casing by typing their own username anywhere in a
+     * message
+     */
     private Boolean specifyCaseAllowed;
 
     @Override
@@ -81,7 +89,7 @@ public class ConfigMessage extends Config
         this.specifyCaseAllowed = null;
     }
 
-    public List<String> validateTimeFormat(List<String> errors, String timeFormatStr)
+    public LoadConfigReport validateTimeFormat(LoadConfigReport report, String timeFormatStr)
     {
         try
         {
@@ -90,46 +98,46 @@ public class ConfigMessage extends Config
         }
         catch (Exception e)
         {
-            errors.add("The value \"" + timeFormatStr + "\" of key " + FontificatorProperties.KEY_MESSAGE_TIMEFORMAT + " could not be used to parse a date");
+            report.addError("The value \"" + timeFormatStr + "\" of key " + FontificatorProperties.KEY_MESSAGE_TIMEFORMAT + " could not be used to parse a date", LoadConfigErrorType.PARSE_ERROR_STRING);
         }
-        return errors;
+        return report;
     }
 
-    public List<String> validateStrings(List<String> errors, String timeFormatStr, String queueSizeStr, String messageSpeedStr)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr)
     {
-        validateTimeFormat(errors, timeFormatStr);
+        validateTimeFormat(report, timeFormatStr);
 
-        validateIntegerWithLimitString(FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE, queueSizeStr, MIN_QUEUE_SIZE, MAX_QUEUE_SIZE, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_MESSAGE_SPEED, messageSpeedStr, MIN_MESSAGE_SPEED, MAX_MESSAGE_SPEED, errors);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE, queueSizeStr, MIN_QUEUE_SIZE, MAX_QUEUE_SIZE, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_MESSAGE_SPEED, messageSpeedStr, MIN_MESSAGE_SPEED, MAX_MESSAGE_SPEED, report);
 
-        return errors;
+        return report;
     }
 
-    public List<String> validateStrings(List<String> errors, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool)
+    public LoadConfigReport validateStrings(LoadConfigReport reoprt, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool)
     {
-        validateStrings(errors, timeFormatStr, queueSizeStr, messageSpeedStr);
+        validateStrings(reoprt, timeFormatStr, queueSizeStr, messageSpeedStr);
 
-        validateBooleanStrings(errors, joinBool, userBool, timestampBool, specifyCaseBool);
+        validateBooleanStrings(reoprt, joinBool, userBool, timestampBool, specifyCaseBool);
 
         if (!UsernameCaseResolutionType.contains(caseTypeStr))
         {
-            errors.add("Value of key \"" + FontificatorProperties.KEY_MESSAGE_CASE_TYPE + "\" is invalid.");
+            reoprt.addError("Value of key \"" + FontificatorProperties.KEY_MESSAGE_CASE_TYPE + "\" is invalid.", LoadConfigErrorType.PARSE_ERROR_ENUM);
         }
 
-        return errors;
+        return reoprt;
     }
 
     @Override
-    public List<String> load(Properties props, List<String> errors)
+    public LoadConfigReport load(Properties props, LoadConfigReport report)
     {
         this.props = props;
 
         reset();
 
         // Check that the values exist
-        baseValidation(props, FontificatorProperties.MESSAGE_KEYS, errors);
+        baseValidation(props, FontificatorProperties.MESSAGE_KEYS, report);
 
-        if (errors.isEmpty())
+        if (report.isErrorFree())
         {
             // Check that the values are valid
             final String tfString = props.getProperty(FontificatorProperties.KEY_MESSAGE_TIMEFORMAT);
@@ -140,23 +148,23 @@ public class ConfigMessage extends Config
             final String userBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_USERNAME);
             final String timestampBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_TIMESTAMP);
             final String specifyCaseBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY);
-            validateStrings(errors, tfString, quSizeStr, msgSpeedStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool);
+            validateStrings(report, tfString, quSizeStr, msgSpeedStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool);
 
             // Fill the values
-            if (errors.isEmpty())
+            if (report.isErrorFree())
             {
-                this.joinMessages = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_JOIN, errors);
-                this.usernames = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_USERNAME, errors);
-                this.timestamps = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_TIMESTAMP, errors);
-                this.timeFormat = props.getProperty(FontificatorProperties.KEY_MESSAGE_TIMEFORMAT);
-                this.queueSize = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE, errors);
-                this.messageSpeed = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_SPEED, errors);
-                this.caseResolutionType = UsernameCaseResolutionType.valueOf(props.getProperty(FontificatorProperties.KEY_MESSAGE_CASE_TYPE));
-                this.specifyCaseAllowed = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY, errors);
+                this.joinMessages = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_JOIN, report);
+                this.usernames = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_USERNAME, report);
+                this.timestamps = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_TIMESTAMP, report);
+                this.timeFormat = tfString;
+                this.queueSize = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE, report);
+                this.messageSpeed = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_SPEED, report);
+                this.caseResolutionType = UsernameCaseResolutionType.valueOf(caseTpStr);
+                this.specifyCaseAllowed = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY, report);
             }
         }
 
-        return errors;
+        return report;
     }
 
     /**
@@ -286,6 +294,73 @@ public class ConfigMessage extends Config
     {
         this.specifyCaseAllowed = specifyCaseAllowed;
         props.setProperty(FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY, Boolean.toString(specifyCaseAllowed));
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((joinMessages == null) ? 0 : joinMessages.hashCode());
+        result = prime * result + ((timeFormat == null) ? 0 : timeFormat.hashCode());
+        result = prime * result + ((timestamps == null) ? 0 : timestamps.hashCode());
+        result = prime * result + ((usernames == null) ? 0 : usernames.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ConfigMessage other = (ConfigMessage) obj;
+        if (joinMessages == null)
+        {
+            if (other.joinMessages != null)
+                return false;
+        }
+        else if (!joinMessages.equals(other.joinMessages))
+            return false;
+        if (timeFormat == null)
+        {
+            if (other.timeFormat != null)
+                return false;
+        }
+        else if (!timeFormat.equals(other.timeFormat))
+            return false;
+        if (timestamps == null)
+        {
+            if (other.timestamps != null)
+                return false;
+        }
+        else if (!timestamps.equals(other.timestamps))
+            return false;
+        if (usernames == null)
+        {
+            if (other.usernames != null)
+                return false;
+        }
+        else if (!usernames.equals(other.usernames))
+            return false;
+        return true;
+    }
+
+    /**
+     * Perform a deep copy of the message config, used to compare against the previous one used to generated the string
+     * of characters and emojis that are stored in a Message object
+     * 
+     * @param copy
+     */
+    public void deepCopy(ConfigMessage copy)
+    {
+        this.joinMessages = copy.joinMessages;
+        this.timeFormat = copy.timeFormat;
+        this.timestamps = copy.timestamps;
+        this.usernames = copy.usernames;
     }
 
 }

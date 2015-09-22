@@ -7,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,6 +25,7 @@ import com.glitchcog.fontificator.bot.ChatViewerBot;
 import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.config.UsernameCaseResolutionType;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.LabeledInput;
 import com.glitchcog.fontificator.gui.component.LabeledSlider;
@@ -106,10 +105,11 @@ public class ControlPanelMessage extends ControlPanelBase
      * @param fProps
      * @param chatWindow
      * @param bot
+     * @param logBox
      */
-    public ControlPanelMessage(FontificatorProperties fProps, ChatWindow chatWindow, ChatViewerBot bot)
+    public ControlPanelMessage(FontificatorProperties fProps, ChatWindow chatWindow, ChatViewerBot bot, LogBox logBox)
     {
-        super("Message", fProps, chatWindow);
+        super("Message", fProps, chatWindow, logBox);
         bot.setMessageConfig(config);
     }
 
@@ -220,9 +220,9 @@ public class ControlPanelMessage extends ControlPanelBase
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                List<String> errors = new ArrayList<String>();
-                config.validateTimeFormat(errors, timeFormatInput.getText());
-                if (errors.isEmpty())
+                LoadConfigReport report = new LoadConfigReport();
+                config.validateTimeFormat(report, timeFormatInput.getText());
+                if (report.isErrorFree())
                 {
                     config.setTimeFormat(timeFormatInput.getText());
                     toggleEnableds();
@@ -230,7 +230,7 @@ public class ControlPanelMessage extends ControlPanelBase
                 }
                 else
                 {
-                    ChatWindow.popup.handleProblem(errors);
+                    ChatWindow.popup.handleProblem(report);
                 }
             }
         });
@@ -313,14 +313,15 @@ public class ControlPanelMessage extends ControlPanelBase
         add(topOptions, gbc);
         gbc.gridy++;
 
-        JPanel botOptions = new JPanel(new GridLayout(3, 1));
-        botOptions.setBorder(new TitledBorder(baseBorder, "Username Options", TitledBorder.CENTER, TitledBorder.TOP));
+        JPanel usernameOptions = new JPanel(new GridLayout(3, 1));
+        usernameOptions.setBorder(new TitledBorder(baseBorder, "Username Options", TitledBorder.CENTER, TitledBorder.TOP));
 
-        botOptions.add(new JLabel("Default Method for Handling Username Casing"));
-        botOptions.add(caseTypeDropdown);
-        botOptions.add(specifyCaseBox);
+        usernameOptions.add(new JLabel("Default Method for Handling Username Casing"));
+        usernameOptions.add(caseTypeDropdown);
+        usernameOptions.add(specifyCaseBox);
 
-        add(botOptions, gbc);
+        add(usernameOptions, gbc);
+        gbc.gridy++;
 
         // Filler panel
         gbc.gridy++;
@@ -375,11 +376,11 @@ public class ControlPanelMessage extends ControlPanelBase
     }
 
     @Override
-    protected List<String> validateInput()
+    protected LoadConfigReport validateInput()
     {
-        List<String> errors = new ArrayList<String>();
-        config.validateStrings(errors, timeFormatInput.getText(), Integer.toString(queueSizeSlider.getValue()), Integer.toString(messageSpeedSlider.getValue()));
-        return errors;
+        LoadConfigReport report = new LoadConfigReport();
+        config.validateStrings(report, timeFormatInput.getText(), Integer.toString(queueSizeSlider.getValue()), Integer.toString(messageSpeedSlider.getValue()));
+        return report;
     }
 
     @Override

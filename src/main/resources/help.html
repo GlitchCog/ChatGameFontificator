@@ -48,7 +48,7 @@ table {
 <hr>
 <table>
   <tr>
-    <td>CGF is highly configurable and customizable. The configuration is broken down into 5 sections, each on its own tab:</td>
+    <td>CGF is highly configurable and customizable. The configuration is broken down into 6 sections, each on its own tab:</td>
   </tr>
   <tr>
     <td><b>Connection</b>: Specify all the settings required to connect to an IRC server. Also has a button for clearing the chat</td>
@@ -344,5 +344,72 @@ table {
       </table>
     </td>
   </tr>
+
+  <tr>
+    <td><b>Emoji</b>: Specify all the configuration for emoji</td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>Enable Emoji</td>
+          <td>This option acts as a master switch to toggle the use of emoji from any source</td>
+        </tr>
+        <tr>
+          <td>Scale</td>
+          <td>This slider value is the percent of the to scale the emoji images by. The scale value is multiplied by the actual size of the emoji image, unless the Scale to Line Height option is checked, in which case the emoji will be scaled to the
+            line height multiplied by whatever percent the scale slider is at.</td>
+        </tr>
+        <tr>
+          <td>Scale to Line Height</td>
+          <td>Checking this option will cause emoji to be scaled relative to the height of a line, rather than the height of the actual emoji. The scaling will maintain the width to height aspect ratio of the image, so no stretch distortion will
+            occur.</td>
+        </tr>
+        <tr>
+          <td>Channel</td>
+          <td>This is the channel for which to load emoji.</td>
+        </tr>
+        <tr>
+          <td>Use Connection Channel for Emoji Loading</td>
+          <td>When this option is checked, the channel for which to load emoji is linked to the channel being connected to on the Connection tab.</td>
+        </tr>
+        <tr>
+          <td>Emoji Loading Display Strategy</td>
+          <td>This identifies the method for displaying emoji that haven't yet been or are unable to be loaded from the specified emoji URL.</td>
+        </tr>
+        <tr>
+          <td>Enable Twitch Emotes</td>
+          <td>This option acts to toggle the use of Twitch emotes.</td>
+        </tr>
+        <tr>
+          <td>Load Twitch Emotes</td>
+          <td>Clicking this button will load the Twitch emotes information from the Twitch Emotes API for the specified channel. The actual images are not yet loaded, but the information about the words that trigger the emote images and the URLs for
+            the images to be displayed are loaded.</td>
+        </tr>
+        <tr>
+          <td>Cache Global Twitch Emotes</td>
+          <td>Clicking this button will cache the global Twitch emotes. This caching downloads the actual emote images into memory so there is no delay in displaying them in the chat.</td>
+        </tr>
+        <tr>
+          <td>Disable Subscriber Emotes</td>
+          <td>This option disables the use of any Twitch emotes marked as subscriber emotes.</td>
+        </tr>
+        <tr>
+          <td>Enable FrankerFaceZ Emotes</td>
+          <td>This option acts to toggle the use of FrankerFaceZ emotes.</td>
+        </tr>
+        <tr>
+          <td>Load FrankerFaceZ Emotes</td>
+          <td>Clicking this button will load the FrankerFaceZ emotes information from the Twitch Emotes API for the specified channel. The actual images are not yet loaded, but the information about the words that trigger the emote images and the URLs
+            for the images to be displayed are loaded.</td>
+        </tr>
+        <tr>
+          <td>Cache FrankerFaceZ Emotes</td>
+          <td>Clicking this button will cache all global and channel-based FrankerFaceZ emotes. This caching downloads the actual emote images into memory so there is no delay in displaying them in the chat.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
 </table>
 </html>

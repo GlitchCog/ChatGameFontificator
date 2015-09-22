@@ -44,9 +44,11 @@ import com.glitchcog.fontificator.bot.ChatViewerBot;
 import com.glitchcog.fontificator.bot.MessageType;
 import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.MenuComponent;
 import com.glitchcog.fontificator.gui.controls.panel.ControlTabs;
+import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 
 /**
  * This is the window for containing all the options of the chat display window
@@ -161,22 +163,27 @@ public class ControlWindow extends JDialog
         ChatWindow.setupHideOnEscape(this);
 
         fProps.clear();
-        boolean success = fProps.loadLast();
+        LoadConfigReport report = fProps.loadLast();
 
-        if (!success)
+        if (!report.isErrorFree())
         {
             fProps.forgetLastConfigFile();
-            fProps.loadDefaultValues();
+            final boolean overwriteExistingValues = report.isProblem();
+            ChatWindow.popup.handleProblem((overwriteExistingValues ? "All" : "Some") + " default values will be loaded");
+            fProps.loadDefaultValues(overwriteExistingValues);
         }
 
         this.bot.setUsername(fProps.getIrcConfig().getUsername());
     }
 
-    public void build()
+    /**
+     * @param logBox
+     */
+    public void build(LogBox logBox)
     {
         constructAboutPopup();
 
-        this.controlTabs = new ControlTabs(fProps, bot);
+        this.controlTabs = new ControlTabs(fProps, bot, logBox);
         this.controlTabs.build(chatWindow, this);
 
         this.bot.setChatPanel(chatWindow.getChatPanel());
@@ -227,7 +234,7 @@ public class ControlWindow extends JDialog
         gbc.weighty = 0.0;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.NORTH;
-        help.add(new JLabel(helpTitle), gbc);
+        help.add(new JLabel("The function of each option available in the Control Window tabs is explained below"), gbc);
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -303,7 +310,8 @@ public class ControlWindow extends JDialog
                 }
                 else if (strFileRestore.equals(mi.getText()))
                 {
-                    restoreDefaults();
+                    restoreDefaults(true);
+                    controlTabs.refreshUiFromConfig(fProps);
                 }
                 else if (strFileExit.equals(mi.getText()))
                 {
@@ -321,7 +329,7 @@ public class ControlWindow extends JDialog
                 }
                 else if (strMsgMsg.equals(mi.getText()))
                 {
-                    manualMessageDialog.setVisible(true);
+                    manualMessageDialog.showDialog();
                 }
                 else if (strHelpHelp.equals(mi.getText()))
                 {
@@ -400,10 +408,12 @@ public class ControlWindow extends JDialog
         final String[] strLozDungeon = new String[] { "The Legend of Zelda Dungeon", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_dungeon.cgf" };
         final String[] strZelda2 = new String[] { "Zelda II: The Adventures of Link", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda2.cgf" };
         final String[] strZelda3 = new String[] { "The Legend of Zelda: A Link to the Past", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda3.cgf" };
+        final String[] strZeldaWw = new String[] { "The Legend of Zelda: The Wind Waker", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda_ww.cgf" };
         /* Ungrouped Presets */
         final String[] strCrystalis = new String[] { "Crystalis", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "crystalis.cgf" };
         final String[] strFreedomPlanet = new String[] { "Freedom Planet", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "freep.cgf" };
         final String[] strGoldenSun = new String[] { "Golden Sun", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "gsun.cgf" };
+        final String[] strHarvestMoonFmt = new String[] { "Harvest Moon: Friends of Mineral Town", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "hm_fmt.cgf" };
         final String[] strRiverCityRansom = new String[] { "River City Ransom", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "rcr.cgf" };
         final String[] strSecretOfEvermore = new String[] { "Secret of Evermore", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "soe.cgf" };
         final String[] strTalesOfSymphonia = new String[] { "Tales of Symphonia", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tos.cgf" };
@@ -418,8 +428,8 @@ public class ControlWindow extends JDialog
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strYoshisIsland, 
             strMetroid, strMetroidBoss, 
             strPkmnRb, strPkmnFrlg, 
-            strLozBush, strLozRock, strLozDungeon, strZelda2, strZelda3, 
-            strCrystalis, strFreedomPlanet, strGoldenSun, strRiverCityRansom, strSecretOfEvermore, strTalesOfSymphonia
+            strLozBush, strLozRock, strLozDungeon, strZelda2, strZelda3, strZeldaWw,  
+            strCrystalis, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strRiverCityRansom, strSecretOfEvermore, strTalesOfSymphonia
         };
         // @formatter:on
 
@@ -449,8 +459,8 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0], strYoshisIsland[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
-        presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strZelda3[0] });
-        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strRiverCityRansom[0], strSecretOfEvermore[0], strTalesOfSymphonia[0] });
+        presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strZelda3[0], strZeldaWw[0] });
+        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strRiverCityRansom[0], strSecretOfEvermore[0], strTalesOfSymphonia[0] });
 
         for (String submenuKey : presetMapSubmenuToItem.keySet())
         {
@@ -485,7 +495,12 @@ public class ControlWindow extends JDialog
         setJMenuBar(menuBar); // add the whole menu bar
     }
 
-    private void restoreDefaults()
+    /**
+     * Restore default values to the configuration
+     * 
+     * @param overrideExistingValues
+     */
+    private void restoreDefaults(boolean overrideExistingValues)
     {
         boolean okayToProceed = fProps.checkForUnsavedProps(this, this);
 
@@ -494,7 +509,7 @@ public class ControlWindow extends JDialog
             int result = JOptionPane.showConfirmDialog(this, "Reset to default configuration?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION)
             {
-                fProps.loadDefaultValues();
+                fProps.loadDefaultValues(overrideExistingValues);
                 controlTabs.refreshUiFromConfig(fProps);
                 chatWindow.getChatPanel().repaint();
             }
@@ -512,8 +527,8 @@ public class ControlWindow extends JDialog
             {
                 try
                 {
-                    boolean success = fProps.loadFile(opener.getSelectedFile());
-                    if (!success)
+                    LoadConfigReport report = fProps.loadFile(opener.getSelectedFile());
+                    if (report.isProblem())
                     {
                         throw new Exception("Configuration file open error");
                     }
@@ -522,7 +537,9 @@ public class ControlWindow extends JDialog
                 }
                 catch (Exception ex)
                 {
-                    logger.error("Configuration file open error", ex);
+                    final String errorMsg = "Unable to open file " + (opener.getSelectedFile() == null ? "null" : opener.getSelectedFile().getName());
+                    logger.error(errorMsg, ex);
+                    ChatWindow.popup.handleProblem(errorMsg);
                 }
             }
         }
@@ -535,8 +552,8 @@ public class ControlWindow extends JDialog
         {
             try
             {
-                boolean success = fProps.loadFile(presetFilename);
-                if (!success)
+                LoadConfigReport report = fProps.loadFile(presetFilename);
+                if (report.isProblem())
                 {
                     logger.error("Unsuccessful call to FontificatorProperties.loadFile(String)");
                     throw new Exception();

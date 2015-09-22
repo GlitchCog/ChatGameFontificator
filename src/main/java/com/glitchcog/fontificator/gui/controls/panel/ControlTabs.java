@@ -1,14 +1,13 @@
 package com.glitchcog.fontificator.gui.controls.panel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JTabbedPane;
 
 import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.bot.ChatViewerBot;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.controls.ControlWindow;
 
@@ -23,46 +22,89 @@ public class ControlTabs extends JTabbedPane
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The bot that reads from the IRC channel and relays the messages to the chat view
+     */
     private ChatViewerBot bot;
 
+    /**
+     * The reference to the properties to be passed into each control panel
+     */
     private FontificatorProperties fProps;
 
+    /**
+     * An array containing each of the control panels
+     */
     private ControlPanelBase[] subpanels;
 
+    /**
+     * A reference to the connection control panel, containing the specifications for connecting to the channel
+     */
     private ControlPanelIrc ircPanel;
 
+    /**
+     * A reference to the chat control panel, containing all the chat window options
+     */
     private ControlPanelChat chatPanel;
 
+    /**
+     * A reference to the font/border control panel, containing all the options for specifying the font and border
+     */
     private ControlPanelFont fontPanel;
 
+    /**
+     * A reference to the color control panel, containing all the options for specifying the colors used in the chat
+     * view
+     */
     private ControlPanelColor colorPanel;
 
+    /**
+     * A reference to the message control panel, containing all the options for formatting the chat messages
+     */
     private ControlPanelMessage messagePanel;
 
-    public ControlTabs(FontificatorProperties fProps, ChatViewerBot bot)
+    /**
+     * A reference to the emoji control panel, containing all the options for whether to and how to display emoji in the
+     * chat messages
+     */
+    private ControlPanelEmoji emojiPanel;
+
+    private LogBox logBox;
+
+    /**
+     * Construct a ControlTabs object to create all the control panel tabs
+     * 
+     * @param fProps
+     * @param bot
+     */
+    public ControlTabs(FontificatorProperties fProps, ChatViewerBot bot, LogBox logBox)
     {
         super(TOP, SCROLL_TAB_LAYOUT);
         this.fProps = fProps;
         this.bot = bot;
+        this.logBox = logBox;
     }
 
     public void build(ChatWindow chatWindow, ControlWindow ctrlWindow)
     {
         logger.trace("Building ControlMainPanel");
 
-        ircPanel = new ControlPanelIrc(fProps, chatWindow, bot);
-        chatPanel = new ControlPanelChat(fProps, chatWindow, ctrlWindow);
-        fontPanel = new ControlPanelFont(fProps, chatWindow);
-        messagePanel = new ControlPanelMessage(fProps, chatWindow, bot);
-        colorPanel = new ControlPanelColor(fProps, chatWindow);
+        emojiPanel = new ControlPanelEmoji(fProps, chatWindow, logBox);
+        ircPanel = new ControlPanelIrc(fProps, chatWindow, emojiPanel, bot, logBox);
+        logBox.setAuthCode(fProps.getIrcConfig().getAuthorization());
+        chatPanel = new ControlPanelChat(fProps, chatWindow, ctrlWindow, logBox);
+        fontPanel = new ControlPanelFont(fProps, chatWindow, logBox);
+        messagePanel = new ControlPanelMessage(fProps, chatWindow, bot, logBox);
+        colorPanel = new ControlPanelColor(fProps, chatWindow, logBox);
 
-        subpanels = new ControlPanelBase[5];
+        subpanels = new ControlPanelBase[6];
 
         subpanels[0] = ircPanel;
         subpanels[1] = chatPanel;
         subpanels[2] = fontPanel;
         subpanels[3] = messagePanel;
         subpanels[4] = colorPanel;
+        subpanels[5] = emojiPanel;
 
         for (int i = 0; i < subpanels.length; i++)
         {
@@ -80,13 +122,13 @@ public class ControlTabs extends JTabbedPane
 
     public boolean refreshConfigFromUi()
     {
-        List<String> errors = new ArrayList<String>();
+        LoadConfigReport report = new LoadConfigReport();
         for (int i = 0; i < subpanels.length; i++)
         {
-            errors.addAll(subpanels[i].validateInput());
+            report.addFromReport(subpanels[i].validateInput());
         }
 
-        if (errors.isEmpty())
+        if (report.isErrorFree())
         {
             for (int i = 0; i < subpanels.length; i++)
             {
@@ -96,17 +138,17 @@ public class ControlTabs extends JTabbedPane
                 }
                 catch (Exception e)
                 {
-                    errors.add("Excepton thrown trying to interpret input on the " + subpanels[i].getLabel() + " tab");
+                    report.addError("Excepton thrown trying to interpret input on the " + subpanels[i].getLabel() + " tab", LoadConfigErrorType.UNKNOWN_ERROR);
                 }
             }
         }
 
-        if (!errors.isEmpty())
+        if (!report.isErrorFree())
         {
-            ChatWindow.popup.handleProblem(errors);
+            ChatWindow.popup.handleProblem(report);
         }
 
-        return errors.isEmpty();
+        return report.isErrorFree();
     }
 
     public void setAlwaysOnTopConfig(boolean alwaysOnTop)

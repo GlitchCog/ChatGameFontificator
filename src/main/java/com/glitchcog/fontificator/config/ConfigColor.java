@@ -7,6 +7,8 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
+
 /**
  * The configuration for the Colors
  * 
@@ -51,15 +53,15 @@ public class ConfigColor extends Config
         this.colorJoin = null;
     }
 
-    private void validateStrings(List<String> errors, String palStr, String userBool, String timeBool, String msgBool, String joinBool)
+    private void validateStrings(LoadConfigReport report, String palStr, String userBool, String timeBool, String msgBool, String joinBool)
     {
-        evaluateColorString(props, FontificatorProperties.KEY_COLOR_BG, errors);
-        evaluateColorString(props, FontificatorProperties.KEY_COLOR_FG, errors);
-        evaluateColorString(props, FontificatorProperties.KEY_COLOR_BORDER, errors);
-        evaluateColorString(props, FontificatorProperties.KEY_COLOR_HIGHLIGHT, errors);
-        evaluateColorString(props, FontificatorProperties.KEY_COLOR_CHROMA_KEY, errors);
+        evaluateColorString(props, FontificatorProperties.KEY_COLOR_BG, report);
+        evaluateColorString(props, FontificatorProperties.KEY_COLOR_FG, report);
+        evaluateColorString(props, FontificatorProperties.KEY_COLOR_BORDER, report);
+        evaluateColorString(props, FontificatorProperties.KEY_COLOR_HIGHLIGHT, report);
+        evaluateColorString(props, FontificatorProperties.KEY_COLOR_CHROMA_KEY, report);
 
-        validateBooleanStrings(errors, userBool, timeBool, msgBool, joinBool);
+        validateBooleanStrings(report, userBool, timeBool, msgBool, joinBool);
 
         // An empty palette is allowed
         if (!palStr.trim().isEmpty())
@@ -67,13 +69,13 @@ public class ConfigColor extends Config
             String[] palColStrs = palStr.split(",");
             for (int i = 0; i < palColStrs.length; i++)
             {
-                evaluateColorString(palColStrs[i], errors);
+                evaluateColorString(palColStrs[i], report);
             }
         }
     }
 
     @Override
-    public List<String> load(Properties props, List<String> errors)
+    public LoadConfigReport load(Properties props, LoadConfigReport report)
     {
         logger.trace("Loading config color via raw properties object");
 
@@ -82,9 +84,9 @@ public class ConfigColor extends Config
         reset();
 
         // Check that the values exist
-        baseValidation(props, FontificatorProperties.COLOR_KEYS, errors);
+        baseValidation(props, FontificatorProperties.COLOR_KEYS, report);
 
-        if (errors.isEmpty())
+        if (report.isErrorFree())
         {
             final String paletteStr = props.getProperty(FontificatorProperties.KEY_COLOR_PALETTE);
 
@@ -94,36 +96,36 @@ public class ConfigColor extends Config
             final String joinBool = props.getProperty(FontificatorProperties.KEY_COLOR_JOIN);
 
             // Check that the values are valid
-            validateStrings(errors, paletteStr, userBool, timeBool, msgBool, joinBool);
+            validateStrings(report, paletteStr, userBool, timeBool, msgBool, joinBool);
 
             // Fill the values
-            if (errors.isEmpty())
+            if (report.isErrorFree())
             {
-                bgColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_BG, errors);
-                fgColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_FG, errors);
-                borderColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_BORDER, errors);
-                highlight = evaluateColorString(props, FontificatorProperties.KEY_COLOR_HIGHLIGHT, errors);
-                chromaColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_CHROMA_KEY, errors);
+                bgColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_BG, report);
+                fgColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_FG, report);
+                borderColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_BORDER, report);
+                highlight = evaluateColorString(props, FontificatorProperties.KEY_COLOR_HIGHLIGHT, report);
+                chromaColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_CHROMA_KEY, report);
 
                 palette = new ArrayList<Color>();
                 String[] palColStrs = paletteStr.split(",");
                 for (int i = 0; i < palColStrs.length; i++)
                 {
-                    Color palAddition = evaluateColorString(palColStrs[i], errors);
+                    Color palAddition = evaluateColorString(palColStrs[i], report);
                     if (palAddition != null)
                     {
                         palette.add(palAddition);
                     }
                 }
 
-                colorUsername = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_USERNAME, errors);
-                colorTimestamp = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_TIMESTAMP, errors);
-                colorMessage = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_MESSAGE, errors);
-                colorJoin = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_JOIN, errors);
+                colorUsername = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_USERNAME, report);
+                colorTimestamp = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_TIMESTAMP, report);
+                colorMessage = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_MESSAGE, report);
+                colorJoin = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_JOIN, report);
             }
         }
 
-        return errors;
+        return report;
     }
 
     public Color getBgColor()

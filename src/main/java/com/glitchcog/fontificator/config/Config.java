@@ -1,8 +1,10 @@
 package com.glitchcog.fontificator.config;
 
 import java.awt.Color;
-import java.util.List;
 import java.util.Properties;
+
+import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 
 /**
  * Config objects bridge the gap between the raw, unvalidated properties object and the processed values the
@@ -21,9 +23,9 @@ public abstract class Config
      * Loads all fields from a Properties object
      * 
      * @param props
-     * @return errors
+     * @return report
      */
-    public abstract List<String> load(Properties props, List<String> errors);
+    public abstract LoadConfigReport load(Properties props, LoadConfigReport report);
 
     /**
      * Clear out existing config data
@@ -33,57 +35,57 @@ public abstract class Config
     protected static final String[] TRUES = new String[] { Boolean.toString(true), "yes", "+", "t", "1" };
     protected static final String[] FALSES = new String[] { Boolean.toString(false), "no", "-", "f", "0" };
 
-    protected List<String> baseValidation(Properties props, String[] keys, List<String> errors)
+    protected LoadConfigReport baseValidation(Properties props, String[] keys, LoadConfigReport report)
     {
         for (int i = 0; i < keys.length; i++)
         {
             if (!props.containsKey(keys[i]))
             {
-                errors.add("Key " + keys[i] + " missing in the configuration");
+                report.addError("Key " + keys[i] + " missing in the configuration", LoadConfigErrorType.MISSING_KEY);
             }
             else if (props.getProperty(keys[i]) == null || props.getProperty(keys[i]).trim().isEmpty())
             {
-                errors.add("Value for key " + keys[i] + " missing in the configuration");
+                report.addError("Value for key " + keys[i] + " missing in the configuration", LoadConfigErrorType.MISSING_VALUE);
             }
         }
 
-        return errors;
+        return report;
     }
 
     /**
      * Check that the string values of a collection of booleans are all valid booleans
      * 
-     * @param errors
+     * @param report
      * @param booleans
-     * @return errors
+     * @return report
      */
-    protected List<String> validateBooleanStrings(List<String> errors, String... booleans)
+    protected LoadConfigReport validateBooleanStrings(LoadConfigReport report, String... booleans)
     {
         for (int i = 0; i < booleans.length; i++)
         {
-            evaluateBooleanString(booleans[i], errors);
+            evaluateBooleanString(booleans[i], report);
         }
-        return errors;
+        return report;
     }
 
     /**
-     * Collect and return errors for the specified String representation value of an integer with the specified minimum.
-     * The key is just used to report the error.
+     * Collect and return report errors for the specified String representation value of an integer with the specified
+     * minimum. The key is just used to report the error.
      * 
      * @param key
      * @param value
      * @param minimum
-     * @param errors
-     * @return errors
+     * @param report
+     * @return report
      */
-    protected List<String> validateIntegerWithLimitString(String key, String value, int minimum, List<String> errors)
+    protected LoadConfigReport validateIntegerWithLimitString(String key, String value, int minimum, LoadConfigReport report)
     {
-        return validateIntegerWithLimitString(key, value, minimum, Integer.MAX_VALUE, errors);
+        return validateIntegerWithLimitString(key, value, minimum, Integer.MAX_VALUE, report);
     }
 
     /**
-     * Collect and return errors for the specified String representation value of an integer with the specified minimum
-     * and maximum. The key is just used to report the error.
+     * Collect and return load report for the specified String representation value of an integer with the specified
+     * minimum and maximum. The key is just used to report the error.
      * 
      * @param key
      *            the key for the value to check
@@ -93,26 +95,26 @@ public abstract class Config
      *            exclusive minimum
      * @param maximum
      *            exclusive maximum
-     * @param errors
-     * @return errors
+     * @param report
+     * @return report
      */
-    protected List<String> validateIntegerWithLimitString(String key, String value, int minimum, int maximum, List<String> errors)
+    protected LoadConfigReport validateIntegerWithLimitString(String key, String value, int minimum, int maximum, LoadConfigReport report)
     {
-        validateIntegerString(key, value, errors);
-        if (errors.isEmpty())
+        validateIntegerString(key, value, report);
+        if (report.isErrorFree())
         {
             final int test = Integer.parseInt(value);
             if (test < minimum)
             {
-                errors.add("Value \"" + value + "\" for key \"" + key + "\" must be at least " + minimum);
+                report.addError("Value \"" + value + "\" for key \"" + key + "\" must be at least " + minimum, LoadConfigErrorType.VALUE_OUT_OF_RANGE);
             }
             else if (test > maximum)
             {
-                errors.add("Value \"" + value + "\" for key \"" + key + "\" must be at most " + maximum);
+                report.addError("Value \"" + value + "\" for key \"" + key + "\" must be at most " + maximum, LoadConfigErrorType.VALUE_OUT_OF_RANGE);
             }
         }
 
-        return errors;
+        return report;
     }
 
     /**
@@ -121,14 +123,14 @@ public abstract class Config
      * 
      * @param key
      * @param value
-     * @param errors
-     * @return errors
+     * @param report
+     * @return report
      */
-    protected List<String> validateIntegerString(String key, String value, List<String> errors)
+    protected LoadConfigReport validateIntegerString(String key, String value, LoadConfigReport report)
     {
         if (value == null)
         {
-            errors.add("Value missing for key \"" + key + "\"");
+            report.addError("Value missing for key \"" + key + "\"", LoadConfigErrorType.MISSING_VALUE);
         }
         else
         {
@@ -138,21 +140,21 @@ public abstract class Config
             }
             catch (Exception e)
             {
-                errors.add("Unable to parse the value \"" + value + "\" for key \"" + key + "\"");
+                report.addError("Unable to parse the value \"" + value + "\" for key \"" + key + "\"", LoadConfigErrorType.PARSE_ERROR_INT);
             }
         }
 
-        return errors;
+        return report;
     }
 
     /**
      * Get the Boolean value of the String, filling the specified error array with any problems encountered
      * 
      * @param value
-     * @param errors
+     * @param report
      * @return Boolean value
      */
-    protected Boolean evaluateBooleanString(String value, List<String> errors)
+    protected Boolean evaluateBooleanString(String value, LoadConfigReport report)
     {
         Boolean result = null;
 
@@ -172,21 +174,21 @@ public abstract class Config
         }
 
         // If we reach this point, the value exists, but doesn't match
-        errors.add("Value \"" + value + "\" must be a boolean (true or false)");
+        report.addError("Value \"" + value + "\" must be a boolean (true or false)", LoadConfigErrorType.PARSE_ERROR_BOOL);
 
         return result;
     }
 
     /**
      * Get a Boolean value from a string in a Properties object. There is no default value. A missing value will be
-     * returned as null, not false. Any errors beyond a missing value will be added to the specified errors list.
+     * returned as null, not false. Any errors beyond a missing value will be added to the specified report errors list.
      * 
      * @param props
      * @param key
-     * @param errors
+     * @param report
      * @return boolean value
      */
-    protected Boolean evaluateBooleanString(Properties props, String key, List<String> errors)
+    protected Boolean evaluateBooleanString(Properties props, String key, LoadConfigReport report)
     {
         Boolean result = null;
 
@@ -209,11 +211,11 @@ public abstract class Config
             }
 
             // If we reach this point, the value exists, but doesn't match
-            errors.add("Value \"" + value + "\" for key \"" + key + "\" must be a boolean (true or false)");
+            report.addError("Value \"" + value + "\" for key \"" + key + "\" must be a boolean (true or false)", LoadConfigErrorType.PARSE_ERROR_BOOL);
         }
         else
         {
-            errors.add("key \"" + key + "\" missing in the configuration");
+            report.addError("key \"" + key + "\" missing in the configuration", LoadConfigErrorType.MISSING_KEY);
         }
 
         return result;
@@ -221,14 +223,14 @@ public abstract class Config
 
     /**
      * Get an Integer value from a string in a Properties object. There is no default value. A missing value will be
-     * returned as null, not zero. Any errors beyond a missing value will be added to the specified errors list.
+     * returned as null, not zero. Any errors beyond a missing value will be added to the specified report error list.
      * 
      * @param props
      * @param key
-     * @param errors
+     * @param report
      * @return integer value
      */
-    protected Integer evaluateIntegerString(Properties props, String key, List<String> errors)
+    protected Integer evaluateIntegerString(Properties props, String key, LoadConfigReport report)
     {
         Integer result = null;
 
@@ -241,7 +243,7 @@ public abstract class Config
             }
             catch (Exception e)
             {
-                errors.add("Value \"" + value + "\" for key \"" + key + "\" must be an integer");
+                report.addError("Value \"" + value + "\" for key \"" + key + "\" must be an integer", LoadConfigErrorType.PARSE_ERROR_INT);
             }
         }
 
@@ -250,29 +252,29 @@ public abstract class Config
 
     /**
      * Get a Color value from a string in a Properties object. There is no default value. A missing value will be
-     * returned as null, not zero. Any errors beyond a missing value will be added to the specified errors list.
+     * returned as null, not zero. Any errors beyond a missing value will be added to the specified report errors list.
      * 
      * @param props
      * @param key
-     * @param errors
+     * @param report
      * @return color value
      */
-    protected Color evaluateColorString(Properties props, String key, List<String> errors)
+    protected Color evaluateColorString(Properties props, String key, LoadConfigReport report)
     {
         final String hexString = props.getProperty(key);
-        Color result = evaluateColorString(hexString, errors);
+        Color result = evaluateColorString(hexString, report);
         return result;
     }
 
     /**
      * Get a color by parsing the specified String containing the hexadecimal numeric representation of the color,
-     * adding to the specified error list if any problems are encountered during the translation
+     * adding to the specified report error list if any problems are encountered during the translation
      * 
      * @param hexString
-     * @param errors
+     * @param report
      * @return color
      */
-    protected Color evaluateColorString(String hexString, List<String> errors)
+    protected Color evaluateColorString(String hexString, LoadConfigReport report)
     {
         try
         {
@@ -280,7 +282,7 @@ public abstract class Config
         }
         catch (Exception e)
         {
-            errors.add("Color value \"" + hexString + "\" is invalid");
+            report.addError("Color value \"" + hexString + "\" is invalid", LoadConfigErrorType.PARSE_ERROR_COLOR);
         }
         return null;
     }

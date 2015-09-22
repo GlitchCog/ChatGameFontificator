@@ -6,8 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -15,6 +13,7 @@ import javax.swing.border.TitledBorder;
 
 import com.glitchcog.fontificator.config.ConfigColor;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.ColorButton;
 import com.glitchcog.fontificator.gui.component.palette.Palette;
@@ -89,10 +88,11 @@ public class ControlPanelColor extends ControlPanelBase
      * 
      * @param fProps
      * @param chatWindow
+     * @param logBox
      */
-    public ControlPanelColor(FontificatorProperties fProps, ChatWindow chatWindow)
+    public ControlPanelColor(FontificatorProperties fProps, ChatWindow chatWindow, LogBox logBox)
     {
-        super("Color", fProps, chatWindow);
+        super("Color", fProps, chatWindow, logBox);
     }
 
     @Override
@@ -225,10 +225,10 @@ public class ControlPanelColor extends ControlPanelBase
     }
 
     @Override
-    protected List<String> validateInput()
+    protected LoadConfigReport validateInput()
     {
         // Nothing to check because there are no string input fields
-        return new ArrayList<String>();
+        return new LoadConfigReport();
     }
 
     @Override

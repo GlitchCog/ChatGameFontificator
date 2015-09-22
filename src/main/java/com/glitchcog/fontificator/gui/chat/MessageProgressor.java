@@ -83,7 +83,7 @@ public class MessageProgressor
                     }
                     else
                     {
-                        messageArray[i].incrementDrawCursor(chat.getMessageConfig());
+                        messageArray[i].incrementDrawCursor(chat.getEmojiManager(), chat.getMessageConfig(), chat.getEmojiConfig());
                         somethingBeingDrawn = true;
                         chat.repaint();
                         break;

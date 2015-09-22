@@ -1,20 +1,15 @@
 package com.glitchcog.fontificator.gui.controls.panel;
 
 import java.awt.Desktop;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
@@ -22,8 +17,13 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 
 import com.glitchcog.fontificator.bot.ChatViewerBot;
+import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.ConfigIrc;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
+import com.glitchcog.fontificator.emoji.EmojiOperation;
+import com.glitchcog.fontificator.emoji.EmojiType;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.LabeledInput;
 
@@ -60,11 +60,12 @@ public class ControlPanelIrc extends ControlPanelBase
 
     private JButton clearChatButton;
 
-    private JTextArea output;
-
-    private JScrollPane outputScroll;
-
     private ConfigIrc config;
+
+    /**
+     * Reference to Emoji Control Panel to load emotes on connection
+     */
+    private ControlPanelEmoji emojiControl;
 
     /**
      * Construct an IRC (Connection) control panel
@@ -72,73 +73,75 @@ public class ControlPanelIrc extends ControlPanelBase
      * @param fProps
      * @param chatWindow
      * @param bot
+     * @param logBox
      */
-    public ControlPanelIrc(FontificatorProperties fProps, ChatWindow chatWindow, ChatViewerBot bot)
+    public ControlPanelIrc(FontificatorProperties fProps, ChatWindow chatWindow, ControlPanelEmoji emojiControl, ChatViewerBot bot, LogBox logBox)
     {
-        super("Connection", fProps, chatWindow);
+        super("Connection", fProps, chatWindow, logBox);
+        this.emojiControl = emojiControl;
         this.bot = bot;
         this.bot.setControlPanel(this);
     }
 
+    /**
+     * No validation is done internally by this function when run, so ensure all input is safe before calling
+     * 
+     * @throws NumberFormatException
+     * @throws NickAlreadyInUseException
+     * @throws IOException
+     * @throws IrcException
+     * @throws Exception
+     */
     private void connect() throws NumberFormatException, NickAlreadyInUseException, IOException, IrcException, Exception
     {
-        List<String> errors = validateInputForConnect();
+        fillConfigFromInput();
+        logBox.setAuthCode(config.getAuthorization());
+        String user = config.getUsername();
+        String host = config.getHost();
+        int port = Integer.parseInt(config.getPort());
+        String auth = config.getAuthorization();
+        bot.setUsername(user);
+        logger.trace("Attempting to connect " + user + " to " + host + ":" + port);
+        bot.connect(host, port, auth);
 
-        if (errors.isEmpty())
+        // Force lowercase channel names for twitch.tv
+        String connectChannel = config.getChannel();
+        if ("irc.twitch.tv".equals(host))
         {
-            fillConfigFromInput();
-            output.setText("");
-            String user = config.getUsername();
-            String host = config.getHost();
-            int port = Integer.parseInt(config.getPort());
-            String auth = config.getAuthorization();
-            bot.setUsername(user);
-            logger.trace("Attempting to connect " + user + " to " + host + ":" + port);
-            bot.connect(host, port, auth);
-
-            // Force lowercase channel names for twitch.tv
-            String connectChannel = config.getChannel();
-            if ("irc.twitch.tv".equals(host))
-            {
-                connectChannel = connectChannel.toLowerCase();
-            }
-
-            bot.joinChannel(connectChannel);
+            connectChannel = connectChannel.toLowerCase();
         }
-        else
-        {
-            ChatWindow.popup.handleProblem(errors);
-        }
+
+        bot.joinChannel(connectChannel);
     }
 
-    private List<String> validateInputForConnect()
+    private LoadConfigReport validateInputForConnect()
     {
         // This call does nothing
-        List<String> errors = validateInput();
+        LoadConfigReport report = validateInput();
 
         if (userInput.getText().isEmpty())
         {
-            errors.add("An input value for Username is required");
+            report.addError("An input value for Username is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
         if (authInput.getText().trim().isEmpty())
         {
-            errors.add("An input value for the OAuth Token is required");
+            report.addError("An input value for the OAuth Token is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
         if (chanInput.getText().isEmpty())
         {
-            errors.add("An input value for the channel is required");
+            report.addError("An input value for the channel is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
         if (hostInput.getText().trim().isEmpty())
         {
-            errors.add("An input value for Host is required");
+            report.addError("An input value for Host is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
         if (portInput.getText().isEmpty())
         {
-            errors.add("An input value for the port is required");
+            report.addError("An input value for the port is required", LoadConfigErrorType.MISSING_VALUE);
         }
         else
         {
@@ -147,16 +150,16 @@ public class ControlPanelIrc extends ControlPanelBase
                 int port = Integer.parseInt(portInput.getText());
                 if (port < 0 || port > 65535)
                 {
-                    errors.add("Port value is out of range");
+                    report.addError("Port value is out of range", LoadConfigErrorType.VALUE_OUT_OF_RANGE);
                 }
             }
             catch (Exception e)
             {
-                errors.add("Port value must be a valid integer");
+                report.addError("Port value must be a valid integer", LoadConfigErrorType.PARSE_ERROR_INT);
             }
         }
 
-        return errors;
+        return report;
     }
 
     @Override
@@ -205,9 +208,48 @@ public class ControlPanelIrc extends ControlPanelBase
                 }
                 else
                 {
+
                     try
                     {
-                        connect();
+                        LoadConfigReport report = validateInputForConnect();
+
+                        if (report.isErrorFree())
+                        {
+                            // Load emotes before connecting
+                            ConfigEmoji ce = fProps.getEmojiConfig();
+                            if (ce.isEmojiEnabled())
+                            {
+                                // Double check that the correct channel is set, if the emoji channel is linked to the
+                                // connect channel
+                                boolean channelChanged = false;
+                                if (ce.isConnectChannel())
+                                {
+                                    if (!ce.getChannel().equalsIgnoreCase(config.getChannelNoHash()))
+                                    {
+                                        channelChanged = true;
+                                    }
+                                    ce.setChannel(config.getChannel());
+                                }
+
+                                if (channelChanged || (!ce.isTwitchLoaded() && ce.isTwitchEnabled()))
+                                {
+                                    logBox.log("Attempting to load Twitch emotes on connect.");
+                                    emojiControl.workEmotes(ControlPanelEmoji.TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, true);
+                                }
+                                if (channelChanged || (!ce.isFfzLoaded() && ce.isFfzEnabled()))
+                                {
+                                    logBox.log("Attempting to load FrankerFaceZ emotes on connect.");
+                                    emojiControl.workEmotes(EmojiType.FRANKERFACEZ, EmojiOperation.LOAD, true);
+                                }
+                            }
+
+                            // Connect to the IRC channel
+                            connect();
+                        }
+                        else
+                        {
+                            ChatWindow.popup.handleProblem(report);
+                        }
                     }
                     catch (NumberFormatException ex)
                     {
@@ -301,21 +343,12 @@ public class ControlPanelIrc extends ControlPanelBase
         gbc.anchor = GridBagConstraints.NORTH;
         add(everything, gbc);
 
-        output = new JTextArea();
-        output.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        output.setWrapStyleWord(true);
-        output.setLineWrap(true);
-        output.setEditable(false);
-        output.setBackground(getBackground());
-
-        outputScroll = new JScrollPane(output, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
         gbc.gridy++;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.fill = GridBagConstraints.BOTH;
-        add(outputScroll, gbc);
+        add(logBox, gbc);
     }
 
     public void toggleConnect(boolean connected)
@@ -343,15 +376,17 @@ public class ControlPanelIrc extends ControlPanelBase
         chanInput.setText(config.getChannel());
         authInput.setText(config.getAuthorization());
 
+        logBox.setAuthCode(config.getAuthorization());
+
         hostInput.setText(config.getHost());
         portInput.setText(config.getPort());
     }
 
     @Override
-    protected List<String> validateInput()
+    protected LoadConfigReport validateInput()
     {
-        List<String> errors = new ArrayList<String>();
-        return errors;
+        // Nothing to check because all IRC connection fields are optional
+        return new LoadConfigReport();
     }
 
     @Override
@@ -367,16 +402,6 @@ public class ControlPanelIrc extends ControlPanelBase
 
     public void log(String line)
     {
-        if (line.contains(config.getAuthorization()))
-        {
-            String blocks = "";
-            for (int i = 0; i < config.getAuthorization().length(); i++)
-            {
-                blocks += "*";
-            }
-            line = line.replaceAll(config.getAuthorization(), blocks);
-        }
-        output.append((output.getText().isEmpty() ? "" : "\n") + line);
-        output.setCaretPosition(output.getDocument().getLength());
+        logBox.log(line);
     }
 }

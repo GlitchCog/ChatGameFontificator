@@ -11,6 +11,7 @@ import org.apache.log4j.PatternLayout;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.controls.ControlWindow;
+import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 
 /**
  * Houses the main method for the program
@@ -56,6 +57,8 @@ public class FontificatorMain
         // errors loading
         controlWindow.loadLastData(chatWindow);
 
+        LogBox logBox = new LogBox();
+
         try
         {
             // Feed the properties into the chat to give it hooks into the properties' configuration models; Feed the
@@ -71,7 +74,7 @@ public class FontificatorMain
         }
 
         // Build the GUI of the control window
-        controlWindow.build();
+        controlWindow.build(logBox);
 
         // Finally, display the chat and control windows now that everything has been constructed and connected
         chatWindow.setVisible(true);

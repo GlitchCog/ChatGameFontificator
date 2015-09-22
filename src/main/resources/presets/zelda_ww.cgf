@@ -1,0 +1,19 @@
+fontCharSpacing=2
+colorBorder=FFFFFF
+fontType=VARIABLE_WIDTH
+fontGridWidth=8
+fontBorderInsetY=-24
+fontBorderInsetX=-24
+colorPalette=C81100,0C8A0B,8927CB,0066CC,990099,006666,660066,996600
+fontUnknownChar=\u007F
+fontGridHeight=12
+fontBorderFile=/home/glitchcog/workspace_server/ChatGameFontificator/src/main/resources/borders/loz_ww_border.png
+fontFile=preset\://fonts/loz_ww_font.png
+colorHighlight=FFFFFF
+fontLineSpacing=2
+fontScale=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontBorderScale=1
+fontSpaceWidth=25
+colorForeground=000000
+colorBackground=0071BB

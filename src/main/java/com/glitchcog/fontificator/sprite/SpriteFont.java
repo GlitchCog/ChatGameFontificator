@@ -3,6 +3,7 @@ package com.glitchcog.fontificator.sprite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +13,12 @@ import org.apache.log4j.Logger;
 import com.glitchcog.fontificator.bot.Message;
 import com.glitchcog.fontificator.bot.MessageType;
 import com.glitchcog.fontificator.config.ConfigColor;
+import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.FontType;
+import com.glitchcog.fontificator.emoji.EmojiManager;
+import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 
 /**
  * A font that is drawn with a sprite
@@ -57,19 +61,90 @@ public class SpriteFont
     }
 
     /**
-     * Return how wide a character is- must take scale into consideration
+     * Get the dimensions of an emoji image
+     * 
+     * @param img
+     * @param emojiConfig
+     * @return
+     */
+    private int[] getEmojiDimensions(LazyLoadEmoji emoji, ConfigEmoji emojiConfig)
+    {
+        Image img = emoji.getImage();
+
+        int iw;
+        int ih;
+
+        if (img == null)
+        {
+            switch (emojiConfig.getDisplayStrategy())
+            {
+            case SPACE:
+            case BOX_FILL:
+            case BOX_FRAME:
+                iw = emoji.getWidth();
+                ih = emoji.getHeight();
+                break;
+            case UNKNOWN:
+                // Do not use the emoji scaling below because it's a character, not an emoji
+                return new int[] {getCharacterWidth(new SpriteCharacterKey(config.getUnknownChar()), emojiConfig), 1};
+            case NOTHING:
+            default:
+                iw = 0;
+                ih = 1;
+                break;
+            }
+        }
+        else
+        {
+            iw = img.getWidth(null);
+            ih = img.getHeight(null);
+        }
+
+        float h;
+        float w;
+
+        float eScale = (emojiConfig.getScale() / 100.0f);
+        if (emojiConfig.isScaleToLine())
+        {
+            final float emojiScaleRatio = eScale * getLineHeightScaled() / (float) ih;
+            h = ih * emojiScaleRatio;
+            w = iw * h / ih;
+        }
+        else
+        {
+            w = eScale * iw;
+            h = eScale * ih;
+        }
+
+        return new int[] { (int) w, (int) h };
+    }
+
+    /**
+     * Return how wide a character is in pixels- must take scale into consideration scale
      * 
      * @param c
      * @return character width
      */
-    public int getCharacterWidth(char c)
+    public int getCharacterWidth(SpriteCharacterKey c, ConfigEmoji emojiConfig)
     {
-        return (getCharacterBounds(c).width + config.getCharSpacing()) * config.getFontScale();
+        if (c.isChar())
+        {
+            // Character
+            int baseWidth = getCharacterBounds(c.getChar()).width;
+            return (baseWidth + config.getCharSpacing()) * config.getFontScale();
+        }
+        else
+        {
+            // Emoji
+            int[] eDim = getEmojiDimensions(c.getEmoji(), emojiConfig);
+            return eDim[0] + (config.getCharSpacing() * config.getFontScale());
+        }
+
     }
 
     public void calculateCharacterDimensions()
     {
-        // Start from stratch
+        // Start from scratch
         characterBounds.clear();
 
         // For fixed width, just put the same sized box for all characters. The
@@ -228,11 +303,23 @@ public class SpriteFont
     }
 
     /**
-     * Get the distance in pixels from the top of one line of text to the top of the next line of text
+     * Get the distance in pixels from the top of one line of text to the top of the next line of text, scaled
+     * 
+     * @return lineHeightScaled
+     */
+    public int getLineHeightScaled()
+    {
+        return (int) (getLineHeight() * config.getFontScale());
+    }
+
+    /**
+     * Get the distance in pixels from the top of one line of text to the top of the next line of text, unscaled
+     * 
+     * @return lineHeight
      */
     public int getLineHeight()
     {
-        return (int) ((sprites.getSprite(config).pixelHeight + config.getLineSpacing()) * config.getFontScale());
+        return sprites.getSprite(config).pixelHeight + config.getLineSpacing();
     }
 
     public int getLineScrollOffset()
@@ -271,12 +358,14 @@ public class SpriteFont
      * 
      * @param message
      * @param messageConfig
+     * @param emojiConfig
+     * @param emojiManager
      * @param lineWrapLength
-     * @return
+     * @return The size of the bounding box of the drawn message
      */
-    public Dimension getMessageDimensions(Message message, ConfigMessage messageConfig, int lineWrapLength)
+    public Dimension getMessageDimensions(Message message, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int lineWrapLength)
     {
-        return drawMessage(null, message, null, null, messageConfig, 0, 0, 0, 0, lineWrapLength);
+        return drawMessage(null, message, null, null, messageConfig, emojiConfig, emojiManager, 0, 0, 0, 0, lineWrapLength);
     }
 
     /**
@@ -290,6 +379,10 @@ public class SpriteFont
      *            The configuration for how to color messages
      * @param messageConfig
      *            The configuration for how to draw messages
+     * @param emojiConfig
+     *            The configuration for how to handle emoji
+     * @param emojiManager
+     *            The manager for accessing emoji images
      * @param x_init
      *            The left edge x coordinate to start drawing from
      * @param y_init
@@ -303,19 +396,19 @@ public class SpriteFont
      *            How long to let the text go to the right before going to a new line
      * @return The size of the bounding box of the drawn message
      */
-    public Dimension drawMessage(Graphics2D g2d, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, int x_init, int y_init, int edgeThickness, int bottomEdgeY, int lineWrapLength)
+    public Dimension drawMessage(Graphics2D g2d, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int edgeThickness, int bottomEdgeY, int lineWrapLength)
     {
         if (msg.isJoinType() && !messageConfig.showJoinMessages())
         {
             return new Dimension();
         }
 
-        String text = msg.getText(messageConfig);
+        SpriteCharacterKey[] text = msg.getText(emojiManager, messageConfig, emojiConfig);
 
         int maxCharWidth = 0;
-        for (int c = 0; c < text.length(); c++)
+        for (int c = 0; c < text.length; c++)
         {
-            maxCharWidth = Math.max(maxCharWidth, getCharacterWidth(text.charAt(c)));
+            maxCharWidth = Math.max(maxCharWidth, getCharacterWidth(text[c], emojiConfig));
         }
         if (maxCharWidth > lineWrapLength)
         {
@@ -329,64 +422,62 @@ public class SpriteFont
         int x = x_init;
         int y = y_init;
 
-        y += lineScrollOffset * getLineHeight();
+        y += lineScrollOffset * getLineHeightScaled();
 
         int maxWidth = 0;
         int width = 0;
-        int height = getLineHeight();
+        int height = getLineHeightScaled();
 
         boolean forcedBreak = false;
 
         Color color = Color.WHITE;
 
         // Go through each character in the text
-        for (int c = 0; c < text.length(); c++)
+        for (int ci = 0; ci < text.length; ci++)
         {
             if (colorConfig != null)
             {
-                color = getFontColor(msg, c, messageConfig, colorConfig, userColor);
+                color = getFontColor(msg, ci, messageConfig, colorConfig, userColor);
             }
 
             // If the character is a line return, go to the next line
-            if (LINE_BREAKS.contains(String.valueOf(text.charAt(c))))
+            if (LINE_BREAKS.contains(String.valueOf(text[ci].getChar())))
             {
                 x = x_init;
                 maxWidth = Math.max(maxWidth, width);
                 width = 0;
-                y += getLineHeight();
-                if (c < msg.getDrawCursor())
+                y += getLineHeightScaled();
+                if (ci < msg.getDrawCursor())
                 {
-                    height += getLineHeight();
+                    height += getLineHeightScaled();
                 }
             }
             // If it's not a line return, look forward into the text to find if
             // the next word fits
-            else if (WORD_BREAKS.contains(String.valueOf(text.charAt(c))))
+            else if (WORD_BREAKS.contains(String.valueOf(text[ci].getChar())))
             {
-                int charWidth = getCharacterWidth(text.charAt(c));
+                int charWidth = getCharacterWidth(text[ci], emojiConfig);
                 x += charWidth;
                 width += charWidth;
                 forcedBreak = false;
             }
             else
             {
-                final String currentWord = text.substring(c);
                 int currentWordPixelWidth = 0;
-                for (int nwc = 0; nwc < currentWord.length() && !WORD_BREAKS.contains(String.valueOf(currentWord.charAt(nwc))); nwc++)
+                for (int nwc = 0; nwc < text.length - ci && !WORD_BREAKS.contains(String.valueOf(text[ci + nwc].getChar())); nwc++)
                 {
-                    currentWordPixelWidth += getCharacterWidth(text.charAt(c + nwc));
+                    currentWordPixelWidth += getCharacterWidth(text[ci + nwc], emojiConfig);
                 }
-
                 int distanceAlreadyFilled = x - x_init;
 
                 // The next word fits
                 if (distanceAlreadyFilled + currentWordPixelWidth < lineWrapLength)
                 {
-                    if (g2d != null && y >= edgeThickness && y < bottomEdgeY && c < msg.getDrawCursor())
+                    if (g2d != null && y >= edgeThickness && y < bottomEdgeY && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, text.charAt(c), x, y, color);
+                        drawCharacter(g2d, text[ci], x, y, emojiConfig, color);
                     }
-                    int charWidth = getCharacterWidth(text.charAt(c));
+                    int charWidth = getCharacterWidth(text[ci], emojiConfig);
                     x += charWidth;
                     width += charWidth;
                 }
@@ -397,16 +488,16 @@ public class SpriteFont
                     x = x_init;
                     maxWidth = Math.max(maxWidth, width);
                     width = 0;
-                    y += getLineHeight();
-                    if (c < msg.getDrawCursor())
+                    y += getLineHeightScaled();
+                    if (ci < msg.getDrawCursor())
                     {
-                        height += getLineHeight();
+                        height += getLineHeightScaled();
                     }
-                    if (g2d != null && y >= edgeThickness && y < bottomEdgeY && c < msg.getDrawCursor())
+                    if (g2d != null && y >= edgeThickness && y < bottomEdgeY && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, text.charAt(c), x, y, color);
+                        drawCharacter(g2d, text[ci], x, y, emojiConfig, color);
                     }
-                    int charWidth = getCharacterWidth(text.charAt(c));
+                    int charWidth = getCharacterWidth(text[ci], emojiConfig);
                     x += charWidth;
                     width += charWidth;
                 }
@@ -417,22 +508,22 @@ public class SpriteFont
                     forcedBreak = true;
                     distanceAlreadyFilled = x - x_init;
                     final int remainderOfTheLine = lineWrapLength - distanceAlreadyFilled;
-                    int charWidth = getCharacterWidth(text.charAt(c));
+                    int charWidth = getCharacterWidth(text[ci], emojiConfig);
                     if (charWidth > remainderOfTheLine)
                     {
                         x = x_init;
                         maxWidth = Math.max(maxWidth, width);
                         width = 0;
-                        y += getLineHeight();
-                        if (c < msg.getDrawCursor())
+                        y += getLineHeightScaled();
+                        if (ci < msg.getDrawCursor())
                         {
-                            height += getLineHeight();
+                            height += getLineHeightScaled();
                         }
                     }
 
-                    if (g2d != null && y >= edgeThickness && y < bottomEdgeY && c < msg.getDrawCursor())
+                    if (g2d != null && y >= edgeThickness && y < bottomEdgeY && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, text.charAt(c), x, y, color);
+                        drawCharacter(g2d, text[ci], x, y, emojiConfig, color);
                     }
                     x += charWidth;
                     width += charWidth;
@@ -443,14 +534,53 @@ public class SpriteFont
         return new Dimension(maxWidth, height);
     }
 
-    private void drawCharacter(Graphics2D g2d, char c, int x, int y, Color color)
+    private void drawCharacter(Graphics2D g2d, SpriteCharacterKey sck, int x, int y, ConfigEmoji emojiConfig, Color color)
     {
-        if (!characterBounds.containsKey(c))
+        final int drawX = x + config.getCharSpacing() / 2;
+        int drawY = y;
+
+        if (sck.isChar())
         {
-            c = config.getUnknownChar();
+            if (!characterBounds.containsKey(sck.getChar()))
+            {
+                sck = new SpriteCharacterKey(config.getUnknownChar());
+            }
+            Rectangle bounds = characterBounds.get(sck.getChar());
+            sprites.getSprite(config).draw(g2d, drawX, drawY, bounds.width, bounds.height, bounds, config.getFontScale(), color);
         }
-        Rectangle bounds = characterBounds.get(c);
-        sprites.getSprite(config).draw(g2d, x + config.getCharSpacing() / 2, y, bounds.width, bounds.height, bounds, config.getFontScale(), color);
+        else
+        {
+            int[] eDim = getEmojiDimensions(sck.getEmoji(), emojiConfig);
+            // yOffset is to center the emoji on the line
+            int yOffset = sprites.getSprite(config).getSpriteDrawHeight(config.getFontScale()) / 2;
+            drawY += yOffset - eDim[1] / 2;
+            Image eImage = sck.getEmoji().getImage();
+            if (eImage == null)
+            {
+                // If the image is null, then it's not loaded, so do the backup display strategy
+                g2d.setColor(color);
+                switch (emojiConfig.getDisplayStrategy())
+                {
+                case BOX_FILL:
+                    g2d.fillRect(drawX, drawY, eDim[0] + 1, eDim[1] + 1);
+                    break;
+                case BOX_FRAME:
+                    g2d.drawRect(drawX, drawY, eDim[0], eDim[1]);
+                    break;
+                case UNKNOWN:
+                    drawCharacter(g2d, new SpriteCharacterKey(config.getUnknownChar()), x, y, emojiConfig, color);
+                    break;
+                case SPACE:
+                case NOTHING:
+                default:
+                    break;
+                }
+            }
+            else
+            {
+                g2d.drawImage(eImage, drawX, drawY, eDim[0], eDim[1], null);
+            }
+        }
     }
 
     /**

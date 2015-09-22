@@ -1,8 +1,10 @@
 package com.glitchcog.fontificator.config;
 
 import java.io.File;
-import java.util.List;
 import java.util.Properties;
+
+import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 
 /**
  * The configuration for the Font and Border
@@ -87,50 +89,50 @@ public class ConfigFont extends Config
         charSpacing = 0;
     }
 
-    public void validateFontFile(List<String> errors, String fontFilename)
+    public void validateFontFile(LoadConfigReport report, String fontFilename)
     {
         if (fontFilename.startsWith(INTERNAL_FILE_PREFIX))
         {
             final String plainFilename = fontFilename.substring(INTERNAL_FILE_PREFIX.length());
             if (getClass().getClassLoader().getResource(plainFilename) == null)
             {
-                errors.add("Preset font " + plainFilename + " not found");
+                report.addError("Preset font " + plainFilename + " not found", LoadConfigErrorType.FILE_NOT_FOUND);
             }
         }
         else if (!new File(fontFilename).exists())
         {
-            errors.add("Unable to find font PNG file \"" + fontFilename + "\"");
+            report.addError("Unable to find font PNG file \"" + fontFilename + "\"", LoadConfigErrorType.FILE_NOT_FOUND);
         }
     }
 
-    public void validateBorderFile(List<String> errors, String borderFilename)
+    public void validateBorderFile(LoadConfigReport report, String borderFilename)
     {
         if (borderFilename.startsWith(INTERNAL_FILE_PREFIX))
         {
             final String plainFilename = borderFilename.substring(INTERNAL_FILE_PREFIX.length());
             if (getClass().getClassLoader().getResource(plainFilename) == null)
             {
-                errors.add("Preset border " + plainFilename + " not found");
+                report.addError("Preset border " + plainFilename + " not found", LoadConfigErrorType.FILE_NOT_FOUND);
             }
         }
         else if (!new File(borderFilename).exists())
         {
-            errors.add("Unable to find border PNG file \"" + borderFilename + "\"");
+            report.addError("Unable to find border PNG file \"" + borderFilename + "\"", LoadConfigErrorType.FILE_NOT_FOUND);
         }
     }
 
 
-    public void validateStrings(List<String> errors, String widthStr, String heightStr, String charKey, String unknownCharStr)
+    public void validateStrings(LoadConfigReport report, String widthStr, String heightStr, String charKey, String unknownCharStr)
     {
         if (unknownCharStr.length() != 1)
         {
-            errors.add("Unknown character value must be a single character");
+            report.addError("Unknown character value must be a single character", LoadConfigErrorType.PARSE_ERROR_CHAR);
         }
 
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_GRID_WIDTH, widthStr, 1, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_GRID_HEIGHT, heightStr, 1, errors);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_GRID_WIDTH, widthStr, 1, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_GRID_HEIGHT, heightStr, 1, report);
 
-        if (errors.isEmpty())
+        if (report.isErrorFree())
         {
             int w = Integer.parseInt(widthStr);
             int h = Integer.parseInt(heightStr);
@@ -138,18 +140,18 @@ public class ConfigFont extends Config
             {
                 if (w * h != charKey.length())
                 {
-                    errors.add("Character key length (" + characterKey.length() + ") must match the number of characters in the font image (" + w + " x " + h + " = " + (w * h) + ")");
+                    report.addError("Character key length (" + characterKey.length() + ") must match the number of characters in the font image (" + w + " x " + h + " = " + (w * h) + ")", LoadConfigErrorType.VALUE_OUT_OF_RANGE);
                 }
             }
 
             if (!charKey.contains(unknownCharStr))
             {
-                errors.add("The value for " + FontificatorProperties.KEY_FONT_UNKNOWN_CHAR + " (" + unknownCharStr + ") must also be in the value for " + FontificatorProperties.KEY_FONT_CHARACTERS);
+                report.addError("The value for " + FontificatorProperties.KEY_FONT_UNKNOWN_CHAR + " (" + unknownCharStr + ") must also be in the value for " + FontificatorProperties.KEY_FONT_CHARACTERS, LoadConfigErrorType.VALUE_OUT_OF_RANGE);
             }
         }
     }
 
-    public void validateStrings(List<String> errors, 
+    public void validateStrings(LoadConfigReport report, 
                                 String fontFilenameStr, 
                                 String borderFilenameStr, 
                                 String widthStr, 
@@ -165,43 +167,43 @@ public class ConfigFont extends Config
                                 String charStr, 
                                 String fontTypeStr)
     {
-        validateStrings(errors, widthStr, heightStr, charKey, unknownCharStr);
+        validateStrings(report, widthStr, heightStr, charKey, unknownCharStr);
 
         if (fontFilenameStr.isEmpty())
         {
-            errors.add("A font filename is required");
+            report.addError("A font filename is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
         if (borderFilenameStr.isEmpty())
         {
-            errors.add("A border filename is required");
+            report.addError("A border filename is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SCALE, scaleStr, MIN_FONT_SCALE, MAX_FONT_SCALE, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_SCALE, borderScaleStr, MIN_BORDER_SCALE, MAX_BORDER_SCALE, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_INSET_X, borderInsetXStr, MIN_BORDER_INSET, MAX_BORDER_INSET, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_INSET_Y, borderInsetYStr, MIN_BORDER_INSET, MAX_BORDER_INSET, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACE_WIDTH, spaceWidthStr, MIN_SPACE_WIDTH, MAX_SPACE_WIDTH, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_LINE, lineStr, MIN_LINE_SPACING, MAX_LINE_SPACING, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_CHAR, charStr, MIN_CHAR_SPACING, MAX_CHAR_SPACING, errors);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SCALE, scaleStr, MIN_FONT_SCALE, MAX_FONT_SCALE, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_SCALE, borderScaleStr, MIN_BORDER_SCALE, MAX_BORDER_SCALE, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_INSET_X, borderInsetXStr, MIN_BORDER_INSET, MAX_BORDER_INSET, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_INSET_Y, borderInsetYStr, MIN_BORDER_INSET, MAX_BORDER_INSET, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACE_WIDTH, spaceWidthStr, MIN_SPACE_WIDTH, MAX_SPACE_WIDTH, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_LINE, lineStr, MIN_LINE_SPACING, MAX_LINE_SPACING, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_CHAR, charStr, MIN_CHAR_SPACING, MAX_CHAR_SPACING, report);
 
         if (!FontType.contains(fontTypeStr))
         {
-            errors.add("Value of key \"" + FontificatorProperties.KEY_FONT_TYPE + "\" is invalid.");
+            report.addError("Value of key \"" + FontificatorProperties.KEY_FONT_TYPE + "\" is invalid.", LoadConfigErrorType.PARSE_ERROR_ENUM);
         }
     }
 
     @Override
-    public List<String> load(Properties props, List<String> errors)
+    public LoadConfigReport load(Properties props, LoadConfigReport report)
     {
         this.props = props;
 
         reset();
 
         // Check that the values exist
-        baseValidation(props, FontificatorProperties.FONT_KEYS, errors);
+        baseValidation(props, FontificatorProperties.FONT_KEYS, report);
 
-        if (errors.isEmpty())
+        if (report.isErrorFree())
         {
             final String gridWidthStr = props.getProperty(FontificatorProperties.KEY_FONT_GRID_WIDTH);
             final String gridHeightStr = props.getProperty(FontificatorProperties.KEY_FONT_GRID_HEIGHT);
@@ -220,10 +222,10 @@ public class ConfigFont extends Config
             final String fontFilenameStr = props.getProperty(FontificatorProperties.KEY_FONT_FILE_FONT);
 
             // Check that the values are valid
-            validateStrings(errors,  fontFilenameStr, borderFilenameStr, gridWidthStr, gridHeightStr, charKeyStr, unknownCharStr, scaleStr, borderScaleStr, borderInsetXStr, borderInsetYStr, spaceWidthStr, lineSpacingStr, charSpacingStr, fontTypeStr);
+            validateStrings(report,  fontFilenameStr, borderFilenameStr, gridWidthStr, gridHeightStr, charKeyStr, unknownCharStr, scaleStr, borderScaleStr, borderInsetXStr, borderInsetYStr, spaceWidthStr, lineSpacingStr, charSpacingStr, fontTypeStr);
 
             // Fill the values
-            if (errors.isEmpty())
+            if (report.isErrorFree())
             {
                 this.borderFilename = props.getProperty(FontificatorProperties.KEY_FONT_FILE_BORDER);
                 this.fontFilename = props.getProperty(FontificatorProperties.KEY_FONT_FILE_FONT);
@@ -242,7 +244,7 @@ public class ConfigFont extends Config
             }
         }
 
-        return errors;
+        return report;
     }
 
     public String getFontFilename()

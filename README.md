@@ -59,10 +59,6 @@ Yes, I stream, although I haven't for a long time because I was spending my free
 
 The selection of games is informed by what I like and want to stream myself, what I could find images of fonts for, and the random whims of my OCD while putting the font sprite sheets together. I'll likely keep adding more in the future.
 
-* Where are all my Twitch Emotes? I find myself incapable of expression without absurd little faces!
-
-I'm considering adding them, but it's going to be a bit of work. I personally don't like emoji or even emoticons, and I don't use them myself. But I know that the average Twitch chat is approximately 50% Kappa to 50% actual content, so I understand that my perspective on the matter is firmly the minority view. I think I dislike Twitch Emotes because of how blurry and pixelated they are. I like sharp edges, like the jagged edges of old video game fonts. I don't want anti-aliased and artifacted stuff in my program. Having said that, if you can't wait, please feel free to take my code and add them in yourself. I won't mind in the slightest.
-
 * What's the difference between these two fonts?
 
 Sometimes not much. Dragon Warrior, for example, just changed a couple letters slightly throughout the series on the NES. Why did I bother with these subtle changes? I'm afraid I have no valid reason other than a sense of completeness. There are additional characters that aren't typically featured in the fonts of older games, so whenever necessary I drew my own dollar signs and tildes, trying my best to match the style of the font.
@@ -97,6 +93,10 @@ First, make sure messages are actually being posted to the chat. Only messages p
 
 Select Custom... from the font dropdown menu and select your font sheet image. This image must be a PNG containing a grid of uniformly sized rectangular cells, 8 cells wide by 12 cells tall. Each cell should contain in order all the ASCII characters from 32 (space) to 127 (delete). Click the Select Missing Character button for an example of this. The degree to which a pixel is pure white is the degree to which it is tinted by the Text Tint color, and any transparent or partially transparent pixels will show through to the border or background color the appropriate amount. [This image (the Chrono Trigger font) is an example of one that will work.](../../raw/master/src/main/resources/fonts/ct_font.png)
 
-* How do I use a custom background?
+* How do I use a custom border?
 
 Select Custom... from the border dropdown menu and select your border sheet image. This image must be a PNG containing a grid of uniformly sized rectangular cells, 3 cells wide by 3 cells tall. This image represents a small version of a border, which can be expanded by tiling the top-middle, middle-left, middle-right, and bottom-middle edge cells. The center cell is tiled on the inside of the border horizontally and vertically. The degree to which a pixel is pure white is the degree to which it is tinted by the Border Tint color, and any transparent or partially transparent pixels will show through to the background color the appropriate amount. [This image (a Metroid border) is an example of one that will work.] (../../raw/master/src/main/resources/borders/metroid_border.png)
+
+* What if I want to start with an existing font or border, rather than create a custom one from whole cloth?
+
+All the font and border images are available as part of the source code on this site. Modify them as you see fit, and then load them into the program as a custom font or border. To save them from the GitHub source code repository, you have to click on the font, then save the image from the button in the upper left that says Raw, or from the image that is displayed on that page. If you right-click the image name from the repository and select Save-As, you will be saving the HTML page that GitHub uses to represent that image, not the image itself. Here are links to the repository locations containing the existing font and border images: [Fonts] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/fonts) | [Borders] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/borders)

@@ -1,8 +1,9 @@
 package com.glitchcog.fontificator.config;
 
 import java.awt.Rectangle;
-import java.util.List;
 import java.util.Properties;
+
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 
 /**
  * The Configuration for the Chat Window
@@ -50,44 +51,44 @@ public class ConfigChat extends Config
         this.alwaysOnTop = null;
     }
 
-    public List<String> validateDimStrings(List<String> errors, String widthStr, String heightStr)
+    public LoadConfigReport validateDimStrings(LoadConfigReport report, String widthStr, String heightStr)
     {
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_WIDTH, widthStr, 1, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_HEIGHT, heightStr, 1, errors);
-        return errors;
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_WIDTH, widthStr, 1, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_HEIGHT, heightStr, 1, report);
+        return report;
     }
 
-    public List<String> validateChromaDimStrings(List<String> errors, String leftStr, String topStr, String rightStr, String botStr)
+    public LoadConfigReport validateChromaDimStrings(LoadConfigReport report, String leftStr, String topStr, String rightStr, String botStr)
     {
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_LEFT, leftStr, 0, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_TOP, topStr, 0, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_RIGHT, rightStr, 0, errors);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_BOTTOM, botStr, 0, errors);
-        return errors;
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_LEFT, leftStr, 0, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_TOP, topStr, 0, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_RIGHT, rightStr, 0, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_BOTTOM, botStr, 0, report);
+        return report;
     }
 
-    public List<String> validateStrings(List<String> errors, String widthStr, String heightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String resizeBool, String chromaBool, String invertBool, String topBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String widthStr, String heightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String resizeBool, String chromaBool, String invertBool, String topBool)
     {
-        validateBooleanStrings(errors, scrollBool, resizeBool, chromaBool, invertBool, topBool);
+        validateBooleanStrings(report, scrollBool, resizeBool, chromaBool, invertBool, topBool);
 
-        validateDimStrings(errors, widthStr, heightStr);
-        validateChromaDimStrings(errors, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_CORNER, chromaCornerStr, 0, errors);
+        validateDimStrings(report, widthStr, heightStr);
+        validateChromaDimStrings(report, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_CORNER, chromaCornerStr, 0, report);
 
-        return errors;
+        return report;
     }
 
     @Override
-    public List<String> load(Properties props, List<String> errors)
+    public LoadConfigReport load(Properties props, LoadConfigReport report)
     {
         this.props = props;
 
         reset();
 
         // Check that the values exist
-        baseValidation(props, FontificatorProperties.CHAT_KEYS, errors);
+        baseValidation(props, FontificatorProperties.CHAT_KEYS, report);
 
-        if (errors.isEmpty())
+        if (report.isErrorFree())
         {
             final String widthStr = props.getProperty(FontificatorProperties.KEY_CHAT_WIDTH);
             final String heightStr = props.getProperty(FontificatorProperties.KEY_CHAT_HEIGHT);
@@ -105,10 +106,10 @@ public class ConfigChat extends Config
             final String topBool = props.getProperty(FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP);
 
             // Check that the values are valid
-            validateStrings(errors, widthStr, heightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, resizeBool, chromaBool, invertBool, topBool);
+            validateStrings(report, widthStr, heightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, resizeBool, chromaBool, invertBool, topBool);
 
             // Fill the values
-            if (errors.isEmpty())
+            if (report.isErrorFree())
             {
                 width = Integer.parseInt(widthStr);
                 height = Integer.parseInt(heightStr);
@@ -121,15 +122,15 @@ public class ConfigChat extends Config
                 int bot = Integer.parseInt(chromaBottomStr);
                 setChromaBorder(left, top, right, bot);
 
-                scrollable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_SCROLL, errors);
-                resizable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_RESIZABLE, errors);
-                chromaEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_CHROMA_ENABLED, errors);
-                chromaInvert = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_INVERT_CHROMA, errors);
-                alwaysOnTop = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP, errors);
+                scrollable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_SCROLL, report);
+                resizable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_RESIZABLE, report);
+                chromaEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_CHROMA_ENABLED, report);
+                chromaInvert = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_INVERT_CHROMA, report);
+                alwaysOnTop = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP, report);
             }
         }
 
-        return errors;
+        return report;
     }
 
     public boolean isScrollable()
