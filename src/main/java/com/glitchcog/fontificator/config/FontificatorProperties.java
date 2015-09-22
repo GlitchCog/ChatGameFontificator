@@ -549,7 +549,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_COLOR_MESSAGE, falseString, override);
         setPropertyOverride(KEY_COLOR_JOIN, falseString, override);
 
-        setPropertyOverride(KEY_MESSAGE_JOIN, trueString, override);
+        setPropertyOverride(KEY_MESSAGE_JOIN, falseString, override);
         setPropertyOverride(KEY_MESSAGE_USERNAME, trueString, override);
         setPropertyOverride(KEY_MESSAGE_TIMESTAMP, falseString, override);
         setPropertyOverride(KEY_MESSAGE_TIMEFORMAT, "[HH:mm:ss]", override);
