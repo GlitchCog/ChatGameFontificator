@@ -1,5 +1,6 @@
 #Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)]
 ## 9/22 UPDATE: Emoji are now supported! <img src="http://static-cdn.jtvnw.net/emoticons/v1/41/1.0" alt="Kreygasm">
+*(Note: There were a great many changes to the program to support Emoji, so I'm sure there will be minor bugs to work out. In the mean time, if you encounter a problem and need to use the older version, you can [download it here] (../../raw/29dade0e07918c7ebbdd9e3428ec7f637d946914/jar/ChatGameFontificator.jar).)*
 
 The Chat Game Fontificator (CGF) is an Internet Relay Chat (IRC) display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
