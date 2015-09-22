@@ -274,7 +274,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                 if (channel == null || channel.trim().isEmpty())
                 {
-                    ChatWindow.popup.handleProblem("Channel is unspecified. Please enter " + (useConnectChannel.isSelected() ? "it on the Connection tab" : "a custom emoji channel") + ".");
+                    ChatWindow.popup.handleProblem("Channel is unspecified. Please " + (useConnectChannel.isSelected() ? "save it on the Connection tab (by connecting or saving the configuration)" : "enter a custom emoji channel") + ".");
                     return;
                 }
 
@@ -436,7 +436,7 @@ public class ControlPanelEmoji extends ControlPanelBase
      */
     public void workEmotes(EmojiType type, EmojiOperation op, boolean holdPopupOpen)
     {
-        final String channel = getConnectChannel();
+        final String channel = config.isConnectChannel() ? getConnectChannel() : config.getChannel();
 
         // A SwingWorkers can only be run once because... reasons. So each call to do work must be on a freshly
         // instantiated worker object.
@@ -493,11 +493,6 @@ public class ControlPanelEmoji extends ControlPanelBase
         if (useConnectChannel.isSelected())
         {
             channelInput.setText(getConnectChannel());
-        }
-
-        if (channelInput.getText().isEmpty())
-        {
-            report.addError("An input value for Channel is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
         return report;
