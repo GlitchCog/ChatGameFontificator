@@ -44,6 +44,8 @@ public class FontificatorMain
             logger.error(e.toString(), e);
         }
 
+        LogBox logBox = new LogBox();
+
         // These properties contain all the configuration for the program
         FontificatorProperties fProps = new FontificatorProperties();
 
@@ -51,13 +53,11 @@ public class FontificatorMain
         ChatWindow chatWindow = new ChatWindow();
 
         // The ControlWindow is the dependent window that has all the options for modifying the properties of the chat
-        ControlWindow controlWindow = new ControlWindow(chatWindow, fProps);
+        ControlWindow controlWindow = new ControlWindow(chatWindow, fProps, logBox);
 
         // Attempt to load the last opened data, or fall back to defaults if nothing has been loaded or if there are any
         // errors loading
         controlWindow.loadLastData(chatWindow);
-
-        LogBox logBox = new LogBox();
 
         try
         {

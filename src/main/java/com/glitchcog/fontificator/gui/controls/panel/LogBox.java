@@ -5,6 +5,8 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
+
 public class LogBox extends JScrollPane
 {
     private static final long serialVersionUID = 1L;
@@ -34,6 +36,14 @@ public class LogBox extends JScrollPane
         this.authCode = authCode;
     }
 
+    public void log(LoadConfigReport report)
+    {
+        for (String msg : report.getMessages())
+        {
+            log(msg);
+        }
+    }
+
     public void log(String line)
     {
         if (authCode != null && line.contains(authCode))
@@ -54,4 +64,5 @@ public class LogBox extends JScrollPane
     {
         output.setText("");
     }
+
 }

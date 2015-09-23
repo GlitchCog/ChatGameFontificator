@@ -89,9 +89,6 @@ public class ConfigEmoji extends Config
         twitchEnabled = null;
         twitchDisableSubscriber = null;
         ffzEnabled = null;
-
-        twitchLoaded = false;
-        ffzLoaded = false;
     }
 
     public Boolean isEmojiEnabled()
@@ -134,6 +131,10 @@ public class ConfigEmoji extends Config
 
     public void setChannel(String channel)
     {
+        if (channel != null && channel.startsWith("#"))
+        {
+            channel = channel.substring(1);
+        }
         this.channel = channel;
         props.setProperty(FontificatorProperties.KEY_EMOJI_CHANNEL, channel == null ? "" : channel);
     }

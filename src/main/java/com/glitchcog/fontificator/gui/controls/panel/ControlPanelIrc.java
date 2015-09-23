@@ -216,27 +216,27 @@ public class ControlPanelIrc extends ControlPanelBase
                         if (report.isErrorFree())
                         {
                             // Load emotes before connecting
-                            ConfigEmoji ce = fProps.getEmojiConfig();
-                            if (ce.isEmojiEnabled())
+                            ConfigEmoji emojiConfig = fProps.getEmojiConfig();
+                            if (emojiConfig.isEmojiEnabled())
                             {
                                 // Double check that the correct channel is set, if the emoji channel is linked to the
                                 // connect channel
                                 boolean channelChanged = false;
-                                if (ce.isConnectChannel())
+                                if (emojiConfig.isConnectChannel())
                                 {
-                                    if (!ce.getChannel().equalsIgnoreCase(config.getChannelNoHash()))
+                                    if (!emojiConfig.getChannel().equalsIgnoreCase(config.getChannelNoHash()))
                                     {
                                         channelChanged = true;
                                     }
-                                    ce.setChannel(config.getChannel());
+                                    emojiConfig.setChannel(config.getChannel());
                                 }
 
-                                if (channelChanged || (!ce.isTwitchLoaded() && ce.isTwitchEnabled()))
+                                if (channelChanged || (!emojiConfig.isTwitchLoaded() && emojiConfig.isTwitchEnabled()))
                                 {
                                     logBox.log("Attempting to load Twitch emotes on connect.");
-                                    emojiControl.workEmotes(ControlPanelEmoji.TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, true);
+                                    emojiControl.workEmotes(ControlPanelEmoji.TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, false);
                                 }
-                                if (channelChanged || (!ce.isFfzLoaded() && ce.isFfzEnabled()))
+                                if (channelChanged || (!emojiConfig.isFfzLoaded() && emojiConfig.isFfzEnabled()))
                                 {
                                     logBox.log("Attempting to load FrankerFaceZ emotes on connect.");
                                     emojiControl.workEmotes(EmojiType.FRANKERFACEZ, EmojiOperation.LOAD, true);

@@ -14,10 +14,12 @@ public class LoadConfigReport
 {
     private static final int MAX_NUMBER_OF_NON_PROBLEMS = 15;
 
+    private String mainMessage;
+
     /**
      * A set of types of errors that have been collected in this report
      */
-    private Set<LoadConfigErrorType> types;;
+    private Set<LoadConfigErrorType> types;
 
     /**
      * Human-readable messages describing the errors collected so far
@@ -133,5 +135,15 @@ public class LoadConfigReport
         {
             types.add(rslt);
         }
+    }
+
+    public String getMainMessage()
+    {
+        return mainMessage;
+    }
+
+    public void setMainMessage(String mainMessage)
+    {
+        this.mainMessage = mainMessage;
     }
 }

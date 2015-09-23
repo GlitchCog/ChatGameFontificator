@@ -25,17 +25,29 @@ public class FontificatorError
 
     public void handleProblem(String description)
     {
-        handleProblem(description, null);
+        handleProblem(description, (Throwable)null);
     }
 
     public void handleProblem(LoadConfigReport report)
     {
-        handleProblem(report.getMessages());
+        if (report.getMainMessage() == null)
+        {
+            handleProblem("", report.getMessages());
+        }
+        else
+        {
+            handleProblem(report.getMainMessage(), report.getMessages());
+        }
     }
 
     public void handleProblem(List<String> errors)
     {
-        String allErrors = "<html>Error" + (errors.size() == 1 ? "" : "s") + ":<br />";
+        handleProblem("Error" + (errors.size() == 1 ? "" : "s") + ":<br />", errors);
+    }
+
+    public void handleProblem(String summary, List<String> errors)
+    {
+        String allErrors = "<html>" + summary;
         int eCount = 0;
         for (String er : errors)
         {

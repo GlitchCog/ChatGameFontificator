@@ -1,6 +1,5 @@
 package com.glitchcog.fontificator.gui.controls.panel;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -22,7 +21,6 @@ import org.apache.log4j.Logger;
 import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.EmojiLoadingDisplayStragegy;
 import com.glitchcog.fontificator.config.FontificatorProperties;
-import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.emoji.EmojiOperation;
 import com.glitchcog.fontificator.emoji.EmojiType;

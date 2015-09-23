@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.jasypt.util.text.BasicTextEncryptor;
 
-import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.controls.ControlWindow;
 import com.glitchcog.fontificator.sprite.SpriteFont;
@@ -422,19 +422,17 @@ public class FontificatorProperties extends Properties
     }
 
     /**
-     * Try to load the configuration file stored i the last config file location conf file. This method reports its own
-     * errors.
+     * Try to load the configuration file stored i the last config file location conf file.
      * 
      * @return report
+     * @throws Exception
      */
-    public LoadConfigReport loadLast()
+    public LoadConfigReport loadLast() throws Exception
     {
         logger.trace("Load last");
 
         final String previousConfigNotFound = "Previous configuration not found.";
         final String previousConfigError = "Error loading previous configuration.";
-
-        LoadConfigReport errorReport = new LoadConfigReport();
 
         BufferedReader reader = null;
         try
@@ -442,7 +440,7 @@ public class FontificatorProperties extends Properties
             File lastFile = new File(CONFIG_FILE_LAST_LOCATION);
             if (!lastFile.exists())
             {
-                ChatWindow.popup.handleProblem(previousConfigNotFound);
+                LoadConfigReport errorReport = new LoadConfigReport();
                 errorReport.addError(previousConfigNotFound, LoadConfigErrorType.FILE_NOT_FOUND);
                 return errorReport;
             }
@@ -452,15 +450,9 @@ public class FontificatorProperties extends Properties
             LoadConfigReport report = loadFile(lastConfigFilename);
             if (report.isProblem())
             {
-                ChatWindow.popup.handleProblem(previousConfigError);
+                report.setMainMessage(previousConfigError);
             }
             return report;
-        }
-        catch (Exception e)
-        {
-            ChatWindow.popup.handleProblem(previousConfigError);
-            errorReport.addError(previousConfigError, LoadConfigErrorType.UNKNOWN_ERROR);
-            return errorReport;
         }
         finally
         {

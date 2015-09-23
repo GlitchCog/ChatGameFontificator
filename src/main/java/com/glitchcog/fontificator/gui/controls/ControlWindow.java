@@ -44,6 +44,7 @@ import com.glitchcog.fontificator.bot.ChatViewerBot;
 import com.glitchcog.fontificator.bot.MessageType;
 import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.MenuComponent;
@@ -97,9 +98,13 @@ public class ControlWindow extends JDialog
 
     private JFileChooser saver;
 
-    public ControlWindow(JFrame parent, FontificatorProperties fProps)
+    private LogBox logBox;
+
+    public ControlWindow(JFrame parent, FontificatorProperties fProps, LogBox logBox)
     {
         super(parent);
+
+        this.logBox = logBox;
 
         BufferedReader br = null;
         try
@@ -162,14 +167,24 @@ public class ControlWindow extends JDialog
 
         ChatWindow.setupHideOnEscape(this);
 
+        LoadConfigReport report = new LoadConfigReport();
+
         fProps.clear();
-        LoadConfigReport report = fProps.loadLast();
+        try
+        {
+            report = fProps.loadLast();
+        }
+        catch (Exception e)
+        {
+            final String errorMsg = "Unknown error loading last config file";
+            logger.error(errorMsg, e);
+            report.addError(errorMsg, LoadConfigErrorType.UNKNOWN_ERROR);
+        }
 
         if (!report.isErrorFree())
         {
             fProps.forgetLastConfigFile();
             final boolean overwriteExistingValues = report.isProblem();
-            ChatWindow.popup.handleProblem((overwriteExistingValues ? "All" : "Some") + " default values will be loaded");
             fProps.loadDefaultValues(overwriteExistingValues);
         }
 

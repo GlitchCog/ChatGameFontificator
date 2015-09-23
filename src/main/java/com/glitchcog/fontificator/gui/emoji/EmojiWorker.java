@@ -94,6 +94,8 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
     {
         this.terminateWork = false;
 
+        this.holdPopupOpen = holdPopupOpen;
+
         this.manager = manager;
         this.progressPopup = progressPopup;
         this.channel = channel;
@@ -189,8 +191,6 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 }
                 publish(new EmojiWorkerReport(emojiType.getDescription() + " caching complete", 100));
                 Thread.sleep(1L);
-
-                controlPanel.disableCache(emojiType);
             }
 
             if (!holdPopupOpen)
