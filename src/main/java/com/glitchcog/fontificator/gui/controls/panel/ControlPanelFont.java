@@ -61,6 +61,7 @@ public class ControlPanelFont extends ControlPanelBase
         private static final long serialVersionUID = 1L;
         {
             put(CUSTOM_KEY, null);
+            put(new DropdownLabel("7th Dragon", "7th Dragon Name"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownFont("ct_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Crystalis", "Crystalis"), new DropdownFont("crystalis_font.png", FontType.FIXED_WIDTH));
@@ -112,6 +113,8 @@ public class ControlPanelFont extends ControlPanelBase
         private static final long serialVersionUID = 1L;
         {
             put(CUSTOM_KEY, null);
+            put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png"));
+            put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
             put(new DropdownLabel("Cyrstalis", "Crystalis"), new DropdownBorder("crystalis_border.png"));
