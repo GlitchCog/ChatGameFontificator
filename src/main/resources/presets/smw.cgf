@@ -1,0 +1,18 @@
+fontBorderInsetY=0
+colorBackground=F8E0B0
+colorPalette=FF3939,206800,0060B7,004440,403028,484888
+fontBorderInsetX=0
+colorBorder=FFFFFF
+fontCharSpacing=0
+fontBorderScale=2
+fontLineSpacing=0
+fontGridHeight=12
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/smw_font.png
+fontSpaceWidth=25
+colorHighlight=660066
+fontGridWidth=8
+fontType=FIXED_WIDTH
+colorForeground=000000
+fontScale=2
+fontBorderFile=preset\://borders/smw_ground_border.png

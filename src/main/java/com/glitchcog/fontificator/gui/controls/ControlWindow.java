@@ -406,6 +406,7 @@ public class ControlWindow extends JDialog
         final String[] strMario2 = new String[] { "Super Mario Bros. 2", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb2.cgf" };
         final String[] strMario3hud = new String[] { "Super Mario Bros. 3 HUD", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb3_hud.cgf" };
         final String[] strMario3letter = new String[] { "Super Mario Bros. 3 Letter", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb3_letter.cgf" };
+        final String[] strMarioWorld = new String[] { "Super Mario World", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smw.cgf" };
         final String[] strYoshisIsland = new String[] { "Super Mario World 2: Yoshi's Island", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "yi.cgf" };
         /* Presets Metroid */
         final String[] strMetroid = new String[] { "Metroid", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid.cgf" };
@@ -436,7 +437,7 @@ public class ControlWindow extends JDialog
             strDw1, strDw2, strDw3, strDw3Gbc, strDw4, 
             strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
             strFinalFantasy1, strFinalFantasy6,  
-            strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strYoshisIsland, 
+            strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strMarioWorld, strYoshisIsland, 
             strMetroid, strMetroidBoss, 
             strPkmnRb, strPkmnFrlg, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strZelda3, strZeldaWw,  
@@ -467,7 +468,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDw3[0], strDw3Gbc[0], strDw4[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
         presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy6[0] });
-        presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0], strYoshisIsland[0] });
+        presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strZelda3[0], strZeldaWw[0] });
