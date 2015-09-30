@@ -98,13 +98,9 @@ public class ControlWindow extends JDialog
 
     private JFileChooser saver;
 
-    private LogBox logBox;
-
     public ControlWindow(JFrame parent, FontificatorProperties fProps, LogBox logBox)
     {
         super(parent);
-
-        this.logBox = logBox;
 
         BufferedReader br = null;
         try

@@ -96,13 +96,15 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Lowercase)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sega System"), new DropdownFont("sega_sys_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sonic Team"), new DropdownFont("sonic_team_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda"), new DropdownFont("loz_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda (Lowercase)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Zelda", "Zelda II"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II (Lowercase)"), new DropdownFont("zelda2_lowercase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownFont("lttp_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownFont("loz_ww_font.png", FontType.VARIABLE_WIDTH));
         }

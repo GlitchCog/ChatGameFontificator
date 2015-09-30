@@ -17,8 +17,6 @@ import com.glitchcog.fontificator.config.ConfigEmoji;
  */
 public class TypedEmojiMap
 {
-    private static final String REGEX_IDENTIFIER = "\\";
-
     private final EmojiType type;
 
     private Map<String, LazyLoadEmoji[]> normalMap;
@@ -45,8 +43,9 @@ public class TypedEmojiMap
 
     public LazyLoadEmoji[] put(String key, LazyLoadEmoji[] value)
     {
-        if (key.startsWith(REGEX_IDENTIFIER))
+        if (isRegularExpression(key))
         {
+            key = fixRegularExpression(key);
             return regexMap.put(key, value);
         }
         else
@@ -94,5 +93,37 @@ public class TypedEmojiMap
         keys.addAll(normalMap.keySet());
         keys.addAll(regexMap.keySet());
         return keys;
+    }
+
+    /**
+     * Determine whether the specified key is a regular expression or just a word, based on whether it is comprised
+     * entirely of alpha numeric characters indicating it's just a word
+     * 
+     * @param key
+     * @return is a regular expression
+     */
+    private static boolean isRegularExpression(String key)
+    {
+        return !key.matches("^[a-zA-Z0-9_]*$");
+    }
+
+    /**
+     * Remove extraneous escape characters and decode xml entities. This may need to be tinkered with.
+     * 
+     * @param regex
+     * @return fixed regex
+     */
+    private static String fixRegularExpression(String regex)
+    {
+        // Remove redundant slashes
+        regex = regex.replaceAll("\\\\\\\\", "\\\\");
+        // Un-escape semicolons
+        regex = regex.replaceAll("\\\\;", ";");
+        regex = regex.replaceAll("\\\\:", ":");
+        regex = regex.replaceAll("\\\\&", "&");
+        // Greater than and less than xml entities
+        regex = regex.replaceAll("&lt;", "<");
+        regex = regex.replaceAll("&gt;", ">");
+        return regex;
     }
 }

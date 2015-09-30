@@ -21,19 +21,13 @@ public class TwitchEmoteV3
 
     /**
      * Get the regular expression that when matched is to have the emote image substituted in place of the matching
-     * text. Only bother decoding greater than and less than xml entitles. Also, there is a fix for the heart <3 emote,
-     * whose regular expression is incorrect in the V3 of Twitch's emote API.
+     * text.
      * 
      * @return regex
      */
     public String getRegex()
     {
-        // <3 hack, because Twitch has it wrong in their API
-        if ("\\&lt;\\;3".equals(regex))
-        {
-            return "\\<3";
-        }
-        return regex.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+        return regex;
     }
 
     /**
