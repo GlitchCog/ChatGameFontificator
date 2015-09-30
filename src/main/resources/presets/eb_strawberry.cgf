@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=4
 fontBorderInsetX=4
 colorPalette=10FB6B,B8C070,F8D8E0,D8F8F0,C07080,C0B8F8,6A854D,E4763B
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/eb_strawberry.png
 fontFile=preset\://fonts/eb_font.png

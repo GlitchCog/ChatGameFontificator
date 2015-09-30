@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=0
 fontBorderInsetX=0
 colorPalette=D02800,F0C830,90C828,0000F8,990099
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/dw3gbc_border.png
 fontFile=preset\://fonts/dw3gbc_dialog_font.png

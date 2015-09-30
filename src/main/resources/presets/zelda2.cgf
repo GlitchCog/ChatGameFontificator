@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=8
 fontBorderInsetX=8
 colorPalette=CC3300,04EA04,183C5C,FC9838,982078
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/zelda2_border.png
 fontFile=preset\://fonts/zelda2_font.png

@@ -3,7 +3,6 @@ fontType=VARIABLE_WIDTH
 fontGridWidth=8
 fontBorderInsetY=0
 fontBorderInsetX=0
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/tos_b_border.png
 fontFile=preset\://fonts/tos_font.png

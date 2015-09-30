@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=-24
 fontBorderInsetX=0
 colorPalette=FF99CC,99FF99,FFFF99,9999FF,99FFFF,FF3366,00CCCC
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/freep_border.png
 fontFile=preset\://fonts/freep_font.png

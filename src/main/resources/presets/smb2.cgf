@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=8
 fontBorderInsetX=8
 colorPalette=E02900,4CDC48,FF9C3A,FC74B4,3CBCFC,ADADAD
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/smb2_pause_border.png
 fontFile=preset\://fonts/smb2_font.png

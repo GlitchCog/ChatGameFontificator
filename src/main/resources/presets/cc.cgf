@@ -3,7 +3,6 @@ fontType=VARIABLE_WIDTH
 fontGridWidth=8
 fontBorderInsetY=1
 fontBorderInsetX=1
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/cc_border.png
 fontFile=preset\://fonts/cc_font.png

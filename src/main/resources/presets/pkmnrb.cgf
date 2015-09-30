@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=1
 fontBorderInsetX=1
 colorPalette=B90545,5255A5,79AD37,DDB10A,009589,2E3092
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/pkmnrb_border.png
 fontFile=preset\://fonts/pkmnrb_font.png

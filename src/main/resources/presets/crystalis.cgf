@@ -3,7 +3,6 @@ fontType=FIXED_WIDTH
 fontGridWidth=8
 fontBorderInsetY=5
 fontBorderInsetX=10
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/crystalis_border.png
 fontFile=preset\://fonts/crystalis_font.png

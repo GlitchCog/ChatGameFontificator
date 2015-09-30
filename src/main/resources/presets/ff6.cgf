@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=-32
 fontBorderInsetX=-32
 colorPalette=FF3900,039BDF,FFBD00,F7D6B5,AD7B00,0D9300,48CDDE
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/ff6_border.png
 fontFile=preset\://fonts/ff6_font.png

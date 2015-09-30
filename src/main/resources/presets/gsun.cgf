@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=-8
 fontBorderInsetX=-4
 colorPalette=C8A8F8,D0F808,F8F8A0,80B070,C07070,B0F8F8
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/gsun_border.png
 fontFile=preset\://fonts/gsun_font.png

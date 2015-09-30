@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=4
 fontBorderInsetX=4
 colorPalette=F1B698,C5CC40,619F61,F10069,27A7C5,9F9879
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/eb_plain.png
 fontFile=preset\://fonts/eb_saturn_font.png

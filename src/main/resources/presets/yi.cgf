@@ -5,7 +5,6 @@ fontGridWidth=8
 fontBorderInsetY=-8
 fontBorderInsetX=0
 colorPalette=00F800,C8FCE8,F8E8C8,E87048,6888A8,80B888,F8E0D0,F8F800
-fontUnknownChar=\u007F
 fontGridHeight=12
 fontBorderFile=preset\://borders/yi_border.png
 fontFile=preset\://fonts/yi_font.png
