@@ -1,0 +1,18 @@
+fontBorderInsetY=1
+colorBackground=BFC79F
+colorPalette=990099,6600CC,009966,FF3333,660033
+fontBorderInsetX=1
+colorBorder=BFC79F
+fontCharSpacing=0
+fontBorderScale=2
+fontLineSpacing=2
+fontGridHeight=12
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/loz_la_font.png
+fontSpaceWidth=100
+colorHighlight=FFFFCC
+fontGridWidth=8
+fontType=FIXED_WIDTH
+colorForeground=171717
+fontScale=2
+fontBorderFile=preset\://borders/loz_la_room_border.png

@@ -109,6 +109,8 @@ public class FontificatorProperties extends Properties
 
     public static final String[] COLOR_KEYS = new String[] { KEY_COLOR_BG, KEY_COLOR_FG, KEY_COLOR_BORDER, KEY_COLOR_HIGHLIGHT, KEY_COLOR_CHROMA_KEY, KEY_COLOR_PALETTE, KEY_COLOR_USERNAME, KEY_COLOR_TIMESTAMP, KEY_COLOR_MESSAGE, KEY_COLOR_JOIN };
 
+    public static final String[] COLOR_KEYS_WITHOUT_PALETTE = new String[] { KEY_COLOR_BG, KEY_COLOR_FG, KEY_COLOR_BORDER, KEY_COLOR_HIGHLIGHT, KEY_COLOR_CHROMA_KEY, KEY_COLOR_USERNAME, KEY_COLOR_TIMESTAMP, KEY_COLOR_MESSAGE, KEY_COLOR_JOIN };
+
     public static final String KEY_MESSAGE_JOIN = "messageShowJoin";
     public static final String KEY_MESSAGE_USERNAME = "messageShowUsername";
     public static final String KEY_MESSAGE_TIMESTAMP = "messageShowTimestamp";

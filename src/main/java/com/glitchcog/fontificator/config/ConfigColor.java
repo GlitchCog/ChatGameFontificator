@@ -84,7 +84,7 @@ public class ConfigColor extends Config
         reset();
 
         // Check that the values exist
-        baseValidation(props, FontificatorProperties.COLOR_KEYS, report);
+        baseValidation(props, FontificatorProperties.COLOR_KEYS_WITHOUT_PALETTE, report);
 
         if (report.isErrorFree())
         {
@@ -108,7 +108,7 @@ public class ConfigColor extends Config
                 chromaColor = evaluateColorString(props, FontificatorProperties.KEY_COLOR_CHROMA_KEY, report);
 
                 palette = new ArrayList<Color>();
-                String[] palColStrs = paletteStr.split(",");
+                String[] palColStrs = paletteStr.isEmpty() ? new String[] {} : paletteStr.split(",");
                 for (int i = 0; i < palColStrs.length; i++)
                 {
                     Color palAddition = evaluateColorString(palColStrs[i], report);
@@ -185,7 +185,7 @@ public class ConfigColor extends Config
 
     public List<Color> getPalette()
     {
-        return palette;
+        return palette == null ? new ArrayList<Color>() : palette;
     }
 
     public void setPalette(List<Color> palette)

@@ -105,7 +105,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda (Lowercase)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II (Lowercase)"), new DropdownFont("zelda2_lowercase_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Zelda", "Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownFont("lttp_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownFont("loz_ww_font.png", FontType.VARIABLE_WIDTH));
         }
@@ -170,7 +170,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda Rock"), new DropdownBorder("loz_rock_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Dungeon"), new DropdownBorder("loz_dungeon_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Story"), new DropdownBorder("loz_story_border.png"));
-            put(new DropdownLabel("Zelda", "Zelda II"), new DropdownBorder("zelda2_border.png"));
+            put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownBorder("zelda2_border.png"));
+            put(new DropdownLabel("Zelda", "Link's Awakening Room"), new DropdownBorder("loz_la_room_border.png"));
+            put(new DropdownLabel("Zelda", "Link's Awakening Name"), new DropdownBorder("loz_la_name_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownBorder("lttp_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownBorder("loz_ww_border.png"));
         }
