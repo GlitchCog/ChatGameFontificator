@@ -411,6 +411,7 @@ public class ControlWindow extends JDialog
         /* Presets Metroid */
         final String[] strMetroid = new String[] { "Metroid", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid.cgf" };
         final String[] strMetroidBoss = new String[] { "Metroid Mother Brain", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroidboss.cgf" };
+        final String[] strSuperMetroid = new String[] { "Super Metroid", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smetroid.cgf" };
         /* Presets Pokemon */
         final String[] strPkmnRb = new String[] { "Pokemon Red/Blue", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrb.cgf" };
         final String[] strPkmnFrlg = new String[] { "Pokemon Fire Red/Leaf Green", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnfrlg.cgf" };
@@ -439,7 +440,7 @@ public class ControlWindow extends JDialog
             strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
             strFinalFantasy1, strFinalFantasy6,  
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strMarioWorld, strYoshisIsland, 
-            strMetroid, strMetroidBoss, 
+            strMetroid, strMetroidBoss, strSuperMetroid, 
             strPkmnRb, strPkmnFrlg, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw,  
             strCrystalis, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strRiverCityRansom, strSecretOfEvermore, strTalesOfSymphonia
@@ -470,7 +471,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
         presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy6[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0] });
-        presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0] });
+        presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strSuperMetroid[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0] });
         presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strRiverCityRansom[0], strSecretOfEvermore[0], strTalesOfSymphonia[0] });

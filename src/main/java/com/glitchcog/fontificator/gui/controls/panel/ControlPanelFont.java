@@ -86,6 +86,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownFont("hm_fmt_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Inverted"), new DropdownFont("hm_fmt_i_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownFont("metroid_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Metroid", "Super Metroid"), new DropdownFont("smetroid_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Metroid", "Super Metroid Mixed Case"), new DropdownFont("smetroid_mixedcase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownFont("rcr_font.png", FontType.FIXED_WIDTH));
@@ -142,6 +144,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownBorder("metroid_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Pipes"), new DropdownBorder("metroid_pipe_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Mother Brain Glass"), new DropdownBorder("metroid_glass_border.png"));
+            put(new DropdownLabel("Metroid", "Super Metroid Mother Inventory"), new DropdownBorder("smetroid_inventory_border.png"));
+            put(new DropdownLabel("Metroid", "Super Metroid Broken Glass"), new DropdownBorder("smetroid_glass_broke_border.png"));
+            put(new DropdownLabel("Metroid", "Super Metroid Glass"), new DropdownBorder("smetroid_glass_border.png"));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownBorder("pkmnrb_border.png"));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png"));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownBorder("rcr_border.png"));
