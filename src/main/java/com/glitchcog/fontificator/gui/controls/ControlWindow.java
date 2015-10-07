@@ -400,6 +400,7 @@ public class ControlWindow extends JDialog
         /* Presets Final Fantasy */
         final String[] strFinalFantasy1 = new String[] { "Final Fantasy", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff1.cgf" };
         final String[] strFinalFantasy6 = new String[] { "Final Fantasy VI", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff6.cgf" };
+        final String[] strFinalFantasy7 = new String[] { "Final Fantasy VII", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff7.cgf" };
         /* Presets Mario */
         final String[] strMario1 = new String[] { "Super Mario Bros.", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1.cgf" };
         final String[] strMario1Underworld = new String[] { "Super Mario Bros. Underworld", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1_underworld.cgf" };
@@ -430,6 +431,7 @@ public class ControlWindow extends JDialog
         final String[] strHarvestMoonFmt = new String[] { "Harvest Moon: Friends of Mineral Town", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "hm_fmt.cgf" };
         final String[] strRiverCityRansom = new String[] { "River City Ransom", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "rcr.cgf" };
         final String[] strSecretOfEvermore = new String[] { "Secret of Evermore", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "soe.cgf" };
+        final String[] strShantae = new String[] { "Shantae", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "shantae.cgf" };
         final String[] strTalesOfSymphonia = new String[] { "Tales of Symphonia", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tos.cgf" };
 
         // @formatter:off
@@ -438,12 +440,12 @@ public class ControlWindow extends JDialog
             strChrono, strChronoCross, 
             strDw1, strDw2, strDw3, strDw3Gbc, strDw4, 
             strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
-            strFinalFantasy1, strFinalFantasy6,  
+            strFinalFantasy1, strFinalFantasy6, strFinalFantasy7,  
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strMarioWorld, strYoshisIsland, 
             strMetroid, strMetroidBoss, strSuperMetroid, 
             strPkmnRb, strPkmnFrlg, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw,  
-            strCrystalis, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strRiverCityRansom, strSecretOfEvermore, strTalesOfSymphonia
+            strCrystalis, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strRiverCityRansom, strSecretOfEvermore, strShantae, strTalesOfSymphonia
         };
         // @formatter:on
 
@@ -469,12 +471,12 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Chrono", new String[] { strChrono[0], strChronoCross[0] });
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDw3[0], strDw3Gbc[0], strDw4[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
-        presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy6[0] });
+        presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy6[0],strFinalFantasy7[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strSuperMetroid[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0] });
-        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strRiverCityRansom[0], strSecretOfEvermore[0], strTalesOfSymphonia[0] });
+        presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strRiverCityRansom[0], strSecretOfEvermore[0], strShantae[0], strTalesOfSymphonia[0] });
 
         for (String submenuKey : presetMapSubmenuToItem.keySet())
         {
