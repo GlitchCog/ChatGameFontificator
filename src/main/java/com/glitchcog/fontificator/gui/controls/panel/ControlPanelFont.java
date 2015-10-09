@@ -99,6 +99,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Lowercase)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World"), new DropdownFont("smw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mega Man", "Mega Man 9"), new DropdownFont("mm9_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mega Man", "Mega Man X"), new DropdownFont("mmx_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
@@ -171,6 +173,10 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario (SNES)", "Super Mario World Rock"), new DropdownBorder("smw_rock_border.png"));
             put(new DropdownLabel("Mario (SNES)", "Super Mario World Yoshi's House"), new DropdownBorder("smw_yoshi_border.png"));
             put(new DropdownLabel("Mario (SNES)", "Super Mario World 2: Yoshi's Island"), new DropdownBorder("yi_border.png"));
+            put(new DropdownLabel("Mega Man", "Mega Man 9 Stage Select"), new DropdownBorder("mm9_stage_border.png"));
+            put(new DropdownLabel("Mega Man", "Mega Man 9 Menu"), new DropdownBorder("mm9_menu_border.png"));
+            put(new DropdownLabel("Mega Man", "Mega Man 9 Menu Popup"), new DropdownBorder("mm9_popup_border.png"));
+            put(new DropdownLabel("Mega Man", "Mega Man X"), new DropdownBorder("mmx_border.png"));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png"));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png"));
             put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png"));

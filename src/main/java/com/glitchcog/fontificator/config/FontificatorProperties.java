@@ -558,7 +558,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_EMOJI_CONNECT_CHANNEL, trueString, override);
         setPropertyOverride(KEY_EMOJI_DISPLAY_STRAT, EmojiLoadingDisplayStragegy.SPACE.name(), override);
         setPropertyOverride(KEY_EMOJI_TWITCH_ENABLE, trueString, override);
-        setPropertyOverride(KEY_EMOJI_TWITCH_SUBSCRIBER, trueString, override);
+        setPropertyOverride(KEY_EMOJI_TWITCH_SUBSCRIBER, falseString, override);
         setPropertyOverride(KEY_EMOJI_FFZ_ENABLE, falseString, override);
 
         loadConfigs(true);
