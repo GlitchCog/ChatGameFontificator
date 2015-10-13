@@ -2,6 +2,7 @@ package com.glitchcog.fontificator.gui.controls.panel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -201,7 +202,7 @@ public class ControlPanelFont extends ControlPanelBase
 
     private ComboMenuBar fontPresetDropdown;
 
-    private JComboBox<FontType> fontTypeDropdown;
+    private JCheckBox fontTypeCheckbox;
 
     private LabeledInput borderFilenameInput;
 
@@ -241,7 +242,7 @@ public class ControlPanelFont extends ControlPanelBase
 
     private ChangeListener sliderListener;
 
-    private ActionListener dropdownListener;
+    private ActionListener fontTypeListener;
 
     /**
      * Construct a font control panel
@@ -254,7 +255,7 @@ public class ControlPanelFont extends ControlPanelBase
     {
         super("Font/Border", fProps, chatWindow, logBox);
 
-        fontTypeDropdown.addActionListener(dropdownListener);
+        fontTypeCheckbox.addActionListener(fontTypeListener);
 
         fontPngPicker = new JFileChooser();
         borderPngPicker = new JFileChooser();
@@ -336,7 +337,8 @@ public class ControlPanelFont extends ControlPanelBase
                 else
                 {
                     fontFilenameInput.setText(PRESET_FONT_FILE_MAP.get(key).getFontFilename());
-                    fontTypeDropdown.setSelectedItem(PRESET_FONT_FILE_MAP.get(key).getDefaultType());
+                    fontTypeCheckbox.setSelected(FontType.VARIABLE_WIDTH.equals(PRESET_FONT_FILE_MAP.get(key).getDefaultType()));
+                    spaceWidthSlider.setEnabled(fontTypeCheckbox.isSelected());
                 }
                 updateFontOrBorder(true);
             }
@@ -366,13 +368,13 @@ public class ControlPanelFont extends ControlPanelBase
             }
         };
 
-        dropdownListener = new ActionListener()
+        fontTypeListener = new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                config.setFontType((FontType) fontTypeDropdown.getSelectedItem());
-                spaceWidthSlider.setEnabled(FontType.VARIABLE_WIDTH.equals(config.getFontType()));
+                config.setFontType(fontTypeCheckbox.isSelected() ? FontType.VARIABLE_WIDTH : FontType.FIXED_WIDTH);
+                spaceWidthSlider.setEnabled(fontTypeCheckbox.isSelected());
                 updateFontOrBorder(true);
             }
         };
@@ -385,7 +387,7 @@ public class ControlPanelFont extends ControlPanelBase
         Map<String, List<String>> borderMenuMap = getMenuMapFromPresets(PRESET_BORDER_FILE_MAP.keySet());
         borderMenuMap.put(CUSTOM_KEY.getLabel(), null);
 
-        fontTypeDropdown = new JComboBox<FontType>(FontType.values());
+        fontTypeCheckbox = new JCheckBox("Variable Width Characters");
         fontFilenameInput = new LabeledInput("Font Filename", 32);
         fontPresetDropdown = new ComboMenuBar(fontMenuMap, fontAl);
         borderFilenameInput = new LabeledInput("Border Filename", 32);
@@ -397,7 +399,7 @@ public class ControlPanelFont extends ControlPanelBase
         borderInsetXSlider = new LabeledSlider("X", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         borderInsetYSlider = new LabeledSlider("Y", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         characterKeyInput = new LabeledInput("Character Key", 32);
-        spaceWidthSlider = new LabeledSlider("Variable Width Space", "%", ConfigFont.MIN_SPACE_WIDTH, ConfigFont.MAX_SPACE_WIDTH);
+        spaceWidthSlider = new LabeledSlider("Space Width", "%", ConfigFont.MIN_SPACE_WIDTH, ConfigFont.MAX_SPACE_WIDTH);
         lineSpacingSlider = new LabeledSlider("Line Spacing", "pixels", ConfigFont.MIN_LINE_SPACING, ConfigFont.MAX_LINE_SPACING);
         charSpacingSlider = new LabeledSlider("Char Spacing", "pixels", ConfigFont.MIN_CHAR_SPACING, ConfigFont.MAX_LINE_SPACING);
         unknownCharPopupButton = new JButton("Select Missing Character");
@@ -451,13 +453,23 @@ public class ControlPanelFont extends ControlPanelBase
         fontGbc.gridx = 0;
         fontGbc.gridy++;
 
-        fontPanel.add(fontTypeDropdown, fontGbc);
-        fontGbc.gridy++;
         fontPanel.add(lineSpacingSlider, fontGbc);
         fontGbc.gridy++;
         fontPanel.add(charSpacingSlider, fontGbc);
         fontGbc.gridy++;
-        fontPanel.add(spaceWidthSlider, fontGbc);
+
+        JPanel variableWidthPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints vwpGbc = getGbc();
+        vwpGbc.anchor  = GridBagConstraints.EAST;
+        vwpGbc.weightx = 0.0;
+        vwpGbc.fill = GridBagConstraints.NONE;
+        variableWidthPanel.add(fontTypeCheckbox, vwpGbc);
+        vwpGbc.anchor  = GridBagConstraints.WEST;
+        vwpGbc.weightx = 1.0;
+        vwpGbc.fill = GridBagConstraints.HORIZONTAL;
+        vwpGbc.gridx++;
+        variableWidthPanel.add(spaceWidthSlider, vwpGbc);
+        fontPanel.add(variableWidthPanel, fontGbc);
         fontGbc.gridy++;
 
         borderPanel.add(borderPresetDropdown, borderGbc);
@@ -594,9 +606,8 @@ public class ControlPanelFont extends ControlPanelBase
         spaceWidthSlider.setValue(config.getSpaceWidth());
         lineSpacingSlider.setValue(config.getLineSpacing());
         charSpacingSlider.setValue(config.getCharSpacing());
-        fontTypeDropdown.setSelectedItem(config.getFontType());
-
-        spaceWidthSlider.setEnabled(FontType.VARIABLE_WIDTH.equals(config.getFontType()));
+        fontTypeCheckbox.setSelected(FontType.VARIABLE_WIDTH.equals(config.getFontType()));
+        spaceWidthSlider.setEnabled(fontTypeCheckbox.isSelected());
 
         boolean found;
 
@@ -663,7 +674,7 @@ public class ControlPanelFont extends ControlPanelBase
     {
         config.setBorderFilename(borderFilenameInput.getText());
         config.setFontFilename(fontFilenameInput.getText());
-        config.setFontType((FontType) fontTypeDropdown.getSelectedItem());
+        config.setFontType(fontTypeCheckbox.isSelected() ? FontType.VARIABLE_WIDTH : FontType.FIXED_WIDTH);
         config.setGridWidth(Integer.parseInt(gridWidthInput.getText()));
         config.setGridHeight(Integer.parseInt(gridHeightInput.getText()));
         config.setFontScale(fontScaleSlider.getValue());
