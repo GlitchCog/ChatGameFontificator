@@ -9,7 +9,6 @@ fontLineSpacing=2
 fontGridHeight=12
 fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
 fontFile=preset\://fonts/loz_la_font.png
-fontSpaceWidth=25
 colorHighlight=FFFFCC
 fontGridWidth=8
 fontType=FIXED_WIDTH

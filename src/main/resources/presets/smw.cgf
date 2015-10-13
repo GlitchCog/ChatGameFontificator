@@ -9,7 +9,6 @@ fontLineSpacing=0
 fontGridHeight=12
 fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
 fontFile=preset\://fonts/smw_font.png
-fontSpaceWidth=25
 colorHighlight=660066
 fontGridWidth=8
 fontType=FIXED_WIDTH
