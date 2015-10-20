@@ -2,7 +2,6 @@ package com.glitchcog.fontificator.gui.controls.panel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -93,6 +92,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownFont("rcr_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownFont("lostvik_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros."), new DropdownFont("smb1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 2"), new DropdownFont("smb2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3"), new DropdownFont("smb3_font.png", FontType.FIXED_WIDTH));
@@ -100,6 +100,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Lowercase)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World"), new DropdownFont("smw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mario", "Super Mario RPG: Dark"), new DropdownFont("smrpg_dark_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Mario", "Super Mario RPG: Light"), new DropdownFont("smrpg_light_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Mega Man", "Mega Man 9"), new DropdownFont("mm9_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mega Man", "Mega Man X"), new DropdownFont("mmx_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownFont("ps1_font.png", FontType.FIXED_WIDTH));
@@ -158,6 +160,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownBorder("pkmnrb_border.png"));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png"));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownBorder("rcr_border.png"));
+            put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownBorder("lostvik_border.png"));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Brick"), new DropdownBorder("smb1_brick_border.png"));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Cloud"), new DropdownBorder("smb1_cloud_border.png"));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Rock"), new DropdownBorder("smb1_rock_border.png"));
@@ -176,6 +179,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario (SNES)", "Super Mario World Rock"), new DropdownBorder("smw_rock_border.png"));
             put(new DropdownLabel("Mario (SNES)", "Super Mario World Yoshi's House"), new DropdownBorder("smw_yoshi_border.png"));
             put(new DropdownLabel("Mario (SNES)", "Super Mario World 2: Yoshi's Island"), new DropdownBorder("yi_border.png"));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario RPG"), new DropdownBorder("smrpg_border.png"));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario RPG Pipes"), new DropdownBorder("smrpg_pipe_border.png"));
             put(new DropdownLabel("Mega Man", "Mega Man 9 Stage Select"), new DropdownBorder("mm9_stage_border.png"));
             put(new DropdownLabel("Mega Man", "Mega Man 9 Menu"), new DropdownBorder("mm9_menu_border.png"));
             put(new DropdownLabel("Mega Man", "Mega Man 9 Menu Popup"), new DropdownBorder("mm9_popup_border.png"));
