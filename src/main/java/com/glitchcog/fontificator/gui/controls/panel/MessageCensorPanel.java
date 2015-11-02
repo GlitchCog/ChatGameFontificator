@@ -117,6 +117,7 @@ public class MessageCensorPanel extends ControlPanelBase
             public void actionPerformed(ActionEvent e)
             {
                 updateConfig();
+                chat.repaint();
             }
         };
 
