@@ -11,11 +11,18 @@ import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
  */
 public class ConfigCensor extends Config
 {
+    public static final int MIN_UNKNOWN_CHAR_PCT = 0;
+    public static final int MAX_UNKNOWN_CHAR_PCT = 100;
+
     private Boolean censorshipEnabled;
 
     private Boolean censorAllUrls;
 
     private Boolean censorFirstUrls;
+
+    private Boolean censorUnknownChars;
+
+    private Integer unknownCharsPercent;
 
     private String[] userWhitelist;
 
@@ -29,13 +36,16 @@ public class ConfigCensor extends Config
         censorshipEnabled = null;
         censorAllUrls = null;
         censorFirstUrls = null;
+        censorUnknownChars = null;
+        unknownCharsPercent = null;
         userWhitelist = null;
         userBlacklist = null;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledStr, String urlStr, String firstUrlStr)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledStr, String urlStr, String firstUrlStr, String unknownCharStr, String unknownCharPctStr)
     {
         validateBooleanStrings(report, enabledStr, urlStr, firstUrlStr);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS_PERCENT, unknownCharPctStr, MIN_UNKNOWN_CHAR_PCT, MAX_UNKNOWN_CHAR_PCT, report);
         return report;
     }
 
@@ -51,12 +61,14 @@ public class ConfigCensor extends Config
             final String enabledStr = props.getProperty(FontificatorProperties.KEY_CENSOR_ENABLED);
             final String urlStr = props.getProperty(FontificatorProperties.KEY_CENSOR_URL);
             final String firstUrlStr = props.getProperty(FontificatorProperties.KEY_CENSOR_FIRST_URL);
+            final String unknownCharStr = props.getProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS);
+            final String unknownCharPctStr = props.getProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS_PERCENT);
             final String whiteStr = props.containsKey(FontificatorProperties.KEY_CENSOR_WHITE) ? props.getProperty(FontificatorProperties.KEY_CENSOR_WHITE) : "";
             final String blackStr = props.containsKey(FontificatorProperties.KEY_CENSOR_BLACK) ? props.getProperty(FontificatorProperties.KEY_CENSOR_BLACK) : "";
             final String bannedStr = props.containsKey(FontificatorProperties.KEY_CENSOR_BANNED) ? props.getProperty(FontificatorProperties.KEY_CENSOR_BANNED) : "";
 
             // Check that the values are valid
-            validateStrings(report, enabledStr, urlStr, firstUrlStr);
+            validateStrings(report, enabledStr, urlStr, firstUrlStr, unknownCharStr, unknownCharPctStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -64,6 +76,9 @@ public class ConfigCensor extends Config
                 censorshipEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_ENABLED, report);
                 censorAllUrls = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_URL, report);
                 censorFirstUrls = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_FIRST_URL, report);
+
+                censorUnknownChars = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS, report);
+                unknownCharsPercent = evaluateIntegerString(props, FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS_PERCENT, report);
 
                 userWhitelist = whiteStr.split(",");
                 userBlacklist = blackStr.split(",");
@@ -102,6 +117,26 @@ public class ConfigCensor extends Config
     public void setCensorFirstUrls(Boolean censorFirstUrls)
     {
         this.censorFirstUrls = censorFirstUrls;
+    }
+
+    public boolean isCensorUnknownChars()
+    {
+        return censorUnknownChars;
+    }
+
+    public void setCensorUnknownChars(Boolean censorUnknownChars)
+    {
+        this.censorUnknownChars = censorUnknownChars;
+    }
+
+    public int getUnknownCharPercentage()
+    {
+        return unknownCharsPercent;
+    }
+
+    public void setUnknownCharPercentage(Integer unknownCharsPercent)
+    {
+        this.unknownCharsPercent = unknownCharsPercent;
     }
 
     public String[] getUserWhitelist()

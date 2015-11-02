@@ -31,9 +31,26 @@ table {
       back by single clicking anywhere inside the Chat window on the chat display.</td>
   </tr>
   <tr>
-    <td>The Message menu contains an option to display a pop-up dialog for manually posting a message. The message is only for the chat display; it is not sent to the IRC server for posting in the actual IRC chat. Both the Username and Message are
-      required fields. Checking the 'Retain message input after post' option will preserve the Username and Message input for reposting. The Post button posts the message to the chat display, and the clear button clears out any input in the Username and
-      Message input fields.</td>
+    <td>The Message menu contains an option to display a pop-up dialog for managing message, which includes the ability to post a manual message and to enable and edit message censorship rules. All effects on messages from this popup are only for the
+      chat display; they have no effect on the IRC server for either posting in the actual IRC chat or banning users or censoring messages.</td>
+  </tr>
+  <tr>
+    <td>Message censorship rules include a master option to enable or disable any message censorship, an option to censor messages that contain a specifiable percentage of unknown characters, an option for censoring any message that contains a URL,
+      and an option for censoring any message that contains a URL when that message is a user's first post of the session. The first post of the session URL censorship should censor most Twitch bot Spam that comes as a single message from a user that has
+      never posted to the chat before.</td>
+  </tr>
+  <tr>
+    <td>The option to censor messages based on the number of unknown characters will censor messages whenever the percentage of characters that fall outside the standard ASCII range exceeds the specified percentage. This should censor any ASCII art
+      style messages that will show up only as unknown characters in the chat display.</td>
+  </tr>
+  <tr>
+    <td>The user whitelist is a list of users who are exempt from any censorship. The messages of any user added to this list will not be subject to censorship from user blacklisting, the message containing banned words, or for the message containing
+      URLs. The user blacklist is a list of users whose messages will always be censored regardless of content. And the banned word list contains words that will trigger message censorship when they are included in a message. Only single words can be
+      included, not phrases, and words that may be turned into emoji are also banned word list candidates. The user whitelist, user blacklist, and banned word list are all case insensitive.</td>
+  </tr>
+  <tr>
+    <td>For the option to post manual messages, both the Username and Message fields are required. Checking the 'Retain message input after post' option will preserve the Username and Message input for reposting. The Post button posts the message to
+      the chat display, and the clear button clears out any input in the Username and Message input fields.</td>
   </tr>
   <tr>
     <td>The Help menu contains this information and an About pop-up option.</td>

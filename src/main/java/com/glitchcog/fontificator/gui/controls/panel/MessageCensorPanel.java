@@ -8,7 +8,10 @@ import java.util.regex.Pattern;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.apache.log4j.Logger;
 
@@ -17,6 +20,7 @@ import com.glitchcog.fontificator.config.ConfigCensor;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
+import com.glitchcog.fontificator.gui.component.LabeledSlider;
 import com.glitchcog.fontificator.gui.component.ListInput;
 import com.glitchcog.fontificator.gui.controls.ControlWindow;
 import com.glitchcog.fontificator.gui.controls.messages.MessageCheckList;
@@ -37,6 +41,10 @@ public class MessageCensorPanel extends ControlPanelBase
     private JCheckBox censorAllUrlsBox;
 
     private JCheckBox censorFirstPostUrlsBox;
+
+    private JCheckBox censorUnknownCharsBox;
+
+    private LabeledSlider unknownCharSlider;
 
     private ListInput userWhitelist;
 
@@ -75,6 +83,29 @@ public class MessageCensorPanel extends ControlPanelBase
         enableCensorshipBox = new JCheckBox("Enable message censoring");
         censorAllUrlsBox = new JCheckBox("Censor all messages containing URLs");
         censorFirstPostUrlsBox = new JCheckBox("Censor messages containing URLs in a user's initial post");
+        censorUnknownCharsBox = new JCheckBox("Censor messages containing a specified percentage of unknown characters:");
+
+        final String minLabel = "> 0";
+        // @formatter:off
+        unknownCharSlider = new LabeledSlider("", "%", ConfigCensor.MIN_UNKNOWN_CHAR_PCT, ConfigCensor.MAX_UNKNOWN_CHAR_PCT, 
+        Math.max(Math.max(Integer.toString(ConfigCensor.MIN_UNKNOWN_CHAR_PCT).length(), Integer.toString(ConfigCensor.MAX_UNKNOWN_CHAR_PCT).length()), minLabel.length()))
+        // @formatter:on
+        {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public String getValueString()
+            {
+                if (getValue() == slider.getMinimum())
+                {
+                    return minLabel;
+                }
+                else
+                {
+                    return super.getValueString();
+                }
+            }
+        };
 
         userWhitelist = new ListInput("User Whitelist", "Exempt from all censorship", this);
         userBlacklist = new ListInput("User Blacklist", "Every message censored", this);
@@ -92,6 +123,16 @@ public class MessageCensorPanel extends ControlPanelBase
         enableCensorshipBox.addActionListener(bl);
         censorAllUrlsBox.addActionListener(bl);
         censorFirstPostUrlsBox.addActionListener(bl);
+        censorUnknownCharsBox.addActionListener(bl);
+
+        unknownCharSlider.addChangeListener(new ChangeListener()
+        {
+            @Override
+            public void stateChanged(ChangeEvent e)
+            {
+                updateConfig();
+            }
+        });
 
         messageList = new MessageCheckList(chat, this);
 
@@ -106,6 +147,20 @@ public class MessageCensorPanel extends ControlPanelBase
         add(censorAllUrlsBox, gbc);
         gbc.gridy++;
         add(censorFirstPostUrlsBox, gbc);
+        gbc.gridy++;
+        JPanel unknownPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints uGbc = getGbc();
+        uGbc.anchor = GridBagConstraints.WEST;
+        uGbc.weightx = 1.0;
+        uGbc.fill = GridBagConstraints.NONE;
+        unknownPanel.add(censorUnknownCharsBox, uGbc);
+        uGbc.gridy++;
+        uGbc.anchor = GridBagConstraints.EAST;
+        uGbc.weightx = 1.0;
+        uGbc.weighty = 1.0;
+        uGbc.fill = GridBagConstraints.BOTH;
+        unknownPanel.add(unknownCharSlider, uGbc);
+        add(unknownPanel, gbc);
         gbc.gridy++;
 
         gbc.weightx = 0.33;
@@ -203,13 +258,23 @@ public class MessageCensorPanel extends ControlPanelBase
             {
                 msg.setCensored(true);
                 msg.setCensoredReason("Contains URL");
+                return;
             }
             // If only the first URLs are censored, then check the user post count to censor
             else if (msg.getUserPostCount() < 2 && censorFirstPostUrlsBox.isSelected())
             {
                 msg.setCensored(true);
                 msg.setCensoredReason("Contains 1st post URL");
+                return;
             }
+        }
+
+        final float percentUnknownChars = 100 * getPercentUnknownChars(msg.getContent());
+        if (percentUnknownChars > 0.0f && percentUnknownChars >= unknownCharSlider.getValue())
+        {
+            msg.setCensored(true);
+            msg.setCensoredReason("Contains " + percentUnknownChars + "% unknown characters");
+            return;
         }
     }
 
@@ -226,11 +291,31 @@ public class MessageCensorPanel extends ControlPanelBase
         return null;
     }
 
+    private float getPercentUnknownChars(String text)
+    {
+        if (text == null || text.isEmpty())
+        {
+            return 0.0f;
+        }
+
+        int count = 0;
+        for (int c = 0; c < text.length(); c++)
+        {
+            if (text.charAt(c) < 32 || text.charAt(c) > 127)
+            {
+                count++;
+            }
+        }
+        return ((float) count) / ((float) text.length());
+    }
+
     private void toggleEnableds()
     {
         final boolean all = enableCensorshipBox.isSelected();
         censorAllUrlsBox.setEnabled(all);
         censorFirstPostUrlsBox.setEnabled(all && !censorAllUrlsBox.isSelected());
+        censorUnknownCharsBox.setEnabled(all);
+        unknownCharSlider.setEnabled(all && censorUnknownCharsBox.isSelected());
         userWhitelist.setEnabled(all);
         userBlacklist.setEnabled(all);
         bannedWordList.setEnabled(all);
@@ -249,6 +334,8 @@ public class MessageCensorPanel extends ControlPanelBase
         enableCensorshipBox.setSelected(config.isCensorshipEnabled());
         censorAllUrlsBox.setSelected(config.isCensorAllUrls());
         censorFirstPostUrlsBox.setSelected(config.isCensorFirstUrls());
+        censorUnknownCharsBox.setSelected(config.isCensorUnknownChars());
+        unknownCharSlider.setValue(config.getUnknownCharPercentage());
         userWhitelist.setList(config.getUserWhitelist());
         userBlacklist.setList(config.getUserBlacklist());
         bannedWordList.setList(config.getBannedWords());
@@ -271,6 +358,8 @@ public class MessageCensorPanel extends ControlPanelBase
         config.setCensorshipEnabled(enableCensorshipBox.isSelected());
         config.setCensorAllUrls(censorAllUrlsBox.isSelected());
         config.setCensorFirstUrls(censorFirstPostUrlsBox.isSelected());
+        config.setCensorUnknownChars(censorUnknownCharsBox.isSelected());
+        config.setUnknownCharPercentage(unknownCharSlider.getValue());
         config.setUserWhitelist(userWhitelist.getList());
         config.setUserBlacklist(userBlacklist.getList());
         config.setBannedWords(bannedWordList.getList());
@@ -285,6 +374,8 @@ public class MessageCensorPanel extends ControlPanelBase
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_ENABLED, Boolean.toString(config.isCensorshipEnabled()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_URL, Boolean.toString(config.isCensorAllUrls()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_FIRST_URL, Boolean.toString(config.isCensorFirstUrls()));
+            fProps.setProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS, Boolean.toString(config.isCensorUnknownChars()));
+            fProps.setProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS_PERCENT, Integer.toString(config.getUnknownCharPercentage()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_WHITE, config.getUserWhitelistString());
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_BLACK, config.getUserBalckListString());
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_BANNED, config.getBannedWordsString());
