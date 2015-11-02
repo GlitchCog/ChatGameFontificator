@@ -69,6 +69,13 @@ public class ControlTabs extends JTabbedPane
      */
     private ControlPanelEmoji emojiPanel;
 
+    /**
+     * A reference to the message censorship control panel. This panel is not in a tab, but is accessible via the
+     * Message menu item. Nevertheless, it must be updated from the config objects in the same way as the tabbed control
+     * panels, so it is managed here in this tabs object.
+     */
+    private MessageCensorPanel censorPanel;
+
     private LogBox logBox;
 
     /**
@@ -77,11 +84,12 @@ public class ControlTabs extends JTabbedPane
      * @param fProps
      * @param bot
      */
-    public ControlTabs(FontificatorProperties fProps, ChatViewerBot bot, LogBox logBox)
+    public ControlTabs(FontificatorProperties fProps, ChatViewerBot bot, MessageCensorPanel censorPanel, LogBox logBox)
     {
         super(TOP, SCROLL_TAB_LAYOUT);
         this.fProps = fProps;
         this.bot = bot;
+        this.censorPanel = censorPanel;
         this.logBox = logBox;
     }
 
@@ -118,6 +126,7 @@ public class ControlTabs extends JTabbedPane
         {
             subpanels[i].fillInputFromConfig();
         }
+        censorPanel.fillInputFromConfig();
     }
 
     public boolean refreshConfigFromUi()

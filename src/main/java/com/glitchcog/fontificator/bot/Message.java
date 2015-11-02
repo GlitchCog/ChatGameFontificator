@@ -21,7 +21,27 @@ public class Message
      * A regex for checking for emoji keys in the text. Used in a String.split to divide the message into an array of
      * words and the spaces between them.
      */
-    private static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
+    public static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
+
+    /**
+     * Whether this message is censored, meaning not displayed at all in the chat
+     */
+    private boolean censored;
+
+    /**
+     * The reason for the censorship
+     */
+    private String censoredReason;
+
+    /**
+     * Whether this message has been manually censored or uncensored
+     */
+    private boolean manualCensorship;
+
+    /**
+     * The number of posts this user has posted so far during this session
+     */
+    private int userPostCount;
 
     /**
      * The username of the poster, or the username of the user who joined, if the message is a join message
@@ -392,6 +412,57 @@ public class Message
         }
 
         return keyList.toArray(new SpriteCharacterKey[keyList.size()]);
+    }
+
+    public String getCensoredReason()
+    {
+        return censoredReason;
+    }
+
+    public void setCensoredReason(String censoredReason)
+    {
+        this.censoredReason = censoredReason;
+    }
+
+    public boolean isCensored()
+    {
+        return censored;
+    }
+
+    public void setCensored(boolean censored)
+    {
+        this.censored = censored;
+    }
+
+    public void resetCensorship(boolean overrideManual)
+    {
+        if (!manualCensorship || overrideManual)
+        {
+            manualCensorship = false;
+            censored = false;
+            censoredReason = null;
+        }
+    }
+
+    public boolean isManualCensorship()
+    {
+        return manualCensorship;
+    }
+
+    public void setManualCensorship(boolean manualCensorship)
+    {
+        this.manualCensorship = manualCensorship;
+        this.censoredReason = "MANUAL";
+    }
+
+    public int getUserPostCount()
+    {
+        return userPostCount;
+    }
+
+    public void setUserPostCount(int userPostCount)
+    {
+        this.userPostCount = userPostCount;
     }
 
 }

@@ -48,6 +48,7 @@ import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.MenuComponent;
+import com.glitchcog.fontificator.gui.controls.messages.MessageDialog;
 import com.glitchcog.fontificator.gui.controls.panel.ControlTabs;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 
@@ -72,7 +73,7 @@ public class ControlWindow extends JDialog
 
     private ChatWindow chatWindow;
 
-    private ManualMessageDialog manualMessageDialog;
+    private MessageDialog messageDialog;
 
     private FontificatorProperties fProps;
 
@@ -139,14 +140,10 @@ public class ControlWindow extends JDialog
 
         ControlWindow.me = this;
 
-        this.manualMessageDialog = new ManualMessageDialog(this);
-
         setTitle("Fontificator Configuration");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         this.fProps = fProps;
-
-        this.bot = new ChatViewerBot();
 
         FileFilter cgfFileFilter = new FileNameExtensionFilter("Chat Game Fontificator Configuration (*." + DEFAULT_FILE_EXTENSION + ")", DEFAULT_FILE_EXTENSION.toLowerCase());
 
@@ -183,18 +180,23 @@ public class ControlWindow extends JDialog
             final boolean overwriteExistingValues = report.isProblem();
             fProps.loadDefaultValues(overwriteExistingValues);
         }
-
-        this.bot.setUsername(fProps.getIrcConfig().getUsername());
     }
 
     /**
+     * Called separately from construction.
+     * 
      * @param logBox
      */
     public void build(LogBox logBox)
     {
         constructAboutPopup();
 
-        this.controlTabs = new ControlTabs(fProps, bot, logBox);
+        this.messageDialog = new MessageDialog(fProps, chatWindow, this, logBox);
+
+        this.bot = new ChatViewerBot();
+        this.bot.setUsername(fProps.getIrcConfig().getUsername());
+
+        this.controlTabs = new ControlTabs(fProps, bot, messageDialog.getCensorPanel(), logBox);
         this.controlTabs.build(chatWindow, this);
 
         this.bot.setChatPanel(chatWindow.getChatPanel());
@@ -294,7 +296,7 @@ public class ControlWindow extends JDialog
         final MenuComponent[] viewComponents = new MenuComponent[] { new MenuComponent(strViewTop, KeyEvent.VK_A, null, true), new MenuComponent(strViewHide, KeyEvent.VK_H, KeyStroke.getKeyStroke(KeyEvent.VK_H, Event.CTRL_MASK)) };
 
         /* Message Menu Item Text */
-        final String strMsgMsg = "Post Manual Message";
+        final String strMsgMsg = "Message Management";
         final MenuComponent[] messageComponents = new MenuComponent[] { new MenuComponent(strMsgMsg, KeyEvent.VK_M, KeyStroke.getKeyStroke(KeyEvent.VK_M, Event.CTRL_MASK)) };
 
         /* Help Menu Item Text */
@@ -340,7 +342,7 @@ public class ControlWindow extends JDialog
                 }
                 else if (strMsgMsg.equals(mi.getText()))
                 {
-                    manualMessageDialog.showDialog();
+                    messageDialog.showDialog();
                 }
                 else if (strHelpHelp.equals(mi.getText()))
                 {
@@ -721,4 +723,10 @@ public class ControlWindow extends JDialog
     {
         JOptionPane.showMessageDialog(this, aboutPane, "About", JOptionPane.PLAIN_MESSAGE);
     }
+
+    public MessageDialog getMessageDialog()
+    {
+        return messageDialog;
+    }
+
 }

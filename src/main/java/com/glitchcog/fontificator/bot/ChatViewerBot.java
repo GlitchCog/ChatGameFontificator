@@ -54,11 +54,23 @@ public class ChatViewerBot extends PircBot
     private Map<String, String> usernameCases;
 
     /**
+     * The number of posts per username
+     */
+    private Map<String, Integer> usernamePostCount;
+
+    /**
      * Default constructor, just initializes the username case map
      */
     public ChatViewerBot()
     {
+        this.usernamePostCount = new HashMap<String, Integer>();
         this.usernameCases = new HashMap<String, String>();
+    }
+
+    public void reset()
+    {
+        usernamePostCount.clear();
+        usernameCases.clear();
     }
 
     @Override
@@ -275,6 +287,19 @@ public class ChatViewerBot extends PircBot
         }
 
         Message msg = new Message(type, casedUsername, message);
+
+        Integer postCount = usernamePostCount.get(msg.getUsername().toLowerCase());
+        if (postCount == null)
+        {
+            postCount = Integer.valueOf(1);
+        }
+        else
+        {
+            postCount++;
+        }
+        usernamePostCount.put(msg.getUsername().toLowerCase(), postCount);
+        msg.setUserPostCount(postCount);
+
         chat.addMessage(msg);
     }
 

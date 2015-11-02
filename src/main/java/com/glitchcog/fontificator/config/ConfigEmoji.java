@@ -91,7 +91,7 @@ public class ConfigEmoji extends Config
         ffzEnabled = null;
     }
 
-    public Boolean isEmojiEnabled()
+    public boolean isEmojiEnabled()
     {
         return emojiEnabled;
     }
@@ -102,7 +102,7 @@ public class ConfigEmoji extends Config
         props.setProperty(FontificatorProperties.KEY_EMOJI_ENABLED, Boolean.toString(emojiEnabled));
     }
 
-    public Boolean isScaleToLine()
+    public boolean isScaleToLine()
     {
         return scaleToLine;
     }
@@ -139,7 +139,7 @@ public class ConfigEmoji extends Config
         props.setProperty(FontificatorProperties.KEY_EMOJI_CHANNEL, channel == null ? "" : channel);
     }
 
-    public Boolean isConnectChannel()
+    public boolean isConnectChannel()
     {
         return connectChannel;
     }
@@ -161,7 +161,7 @@ public class ConfigEmoji extends Config
         props.setProperty(FontificatorProperties.KEY_EMOJI_DISPLAY_STRAT, displayStrategy.name());
     }
 
-    public Boolean isTwitchEnabled()
+    public boolean isTwitchEnabled()
     {
         return twitchEnabled;
     }
@@ -172,7 +172,7 @@ public class ConfigEmoji extends Config
         props.setProperty(FontificatorProperties.KEY_EMOJI_TWITCH_ENABLE, Boolean.toString(twitchEnabled));
     }
 
-    public Boolean isTwitchSubscriberDisable()
+    public boolean isTwitchSubscriberDisable()
     {
         return twitchDisableSubscriber;
     }
@@ -183,7 +183,7 @@ public class ConfigEmoji extends Config
         props.setProperty(FontificatorProperties.KEY_EMOJI_TWITCH_SUBSCRIBER, Boolean.toString(twitchDisableSubscriber));
     }
 
-    public Boolean isFfzEnabled()
+    public boolean isFfzEnabled()
     {
         return ffzEnabled;
     }

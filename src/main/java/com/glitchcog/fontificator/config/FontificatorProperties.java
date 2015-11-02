@@ -32,6 +32,8 @@ import com.glitchcog.fontificator.sprite.SpriteFont;
  * <li>ConfigChat</li>
  * <li>ConfigColor</li>
  * <li>ConfigMessage</li>
+ * <li>ConfigEmoji</li>
+ * <li>ConfigCensor</li>
  * <li></li>
  * </ul>
  * 
@@ -136,7 +138,16 @@ public class FontificatorProperties extends Properties
 
     public static final String[] EMOJI_KEYS_WITHOUT_CHANNEL = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_CONNECT_CHANNEL, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_SUBSCRIBER, KEY_EMOJI_FFZ_ENABLE };
 
-    public static final String[][] ALL_KEY = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS, COLOR_KEYS, MESSAGE_KEYS, EMOJI_KEYS };
+    public static final String KEY_CENSOR_ENABLED = "censorEnabled";
+    public static final String KEY_CENSOR_URL = "censorUrl";
+    public static final String KEY_CENSOR_FIRST_URL = "censorFirstUrl";
+    public static final String KEY_CENSOR_WHITE = "censorWhitelist";
+    public static final String KEY_CENSOR_BLACK = "censorBlacklist";
+    public static final String KEY_CENSOR_BANNED = "censorBannedWords";
+
+    public static final String[] CENSOR_KEYS = new String[] { KEY_CENSOR_ENABLED, KEY_CENSOR_URL, KEY_CENSOR_FIRST_URL, KEY_CENSOR_WHITE, KEY_CENSOR_BLACK, KEY_CENSOR_BANNED };
+
+    public static final String[][] ALL_KEY = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS, COLOR_KEYS, MESSAGE_KEYS, EMOJI_KEYS, CENSOR_KEYS };
 
     private ConfigIrc ircConfig = new ConfigIrc();
 
@@ -149,6 +160,8 @@ public class FontificatorProperties extends Properties
     private ConfigMessage messageConfig = new ConfigMessage();
 
     private ConfigEmoji emojiConfig = new ConfigEmoji();
+
+    private ConfigCensor censorConfig = new ConfigCensor();
 
     public FontificatorProperties()
     {
@@ -163,6 +176,7 @@ public class FontificatorProperties extends Properties
         colorConfig.reset();
         messageConfig.reset();
         emojiConfig.reset();
+        censorConfig.reset();
         super.clear();
     }
 
@@ -194,6 +208,11 @@ public class FontificatorProperties extends Properties
     public ConfigEmoji getEmojiConfig()
     {
         return emojiConfig;
+    }
+
+    public ConfigCensor getCensorConfig()
+    {
+        return censorConfig;
     }
 
     /**
@@ -561,6 +580,13 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_EMOJI_TWITCH_SUBSCRIBER, falseString, override);
         setPropertyOverride(KEY_EMOJI_FFZ_ENABLE, falseString, override);
 
+        setPropertyOverride(KEY_CENSOR_ENABLED, trueString, override);
+        setPropertyOverride(KEY_CENSOR_URL, falseString, override);
+        setPropertyOverride(KEY_CENSOR_FIRST_URL, trueString, override);
+        setPropertyOverride(KEY_CENSOR_WHITE, "", override);
+        setPropertyOverride(KEY_CENSOR_BLACK, "", override);
+        setPropertyOverride(KEY_CENSOR_BANNED, "", override);
+
         loadConfigs(true);
     }
 
@@ -588,6 +614,7 @@ public class FontificatorProperties extends Properties
             chatConfig.load(this, report);
             messageConfig.load(this, report);
             emojiConfig.load(this, report);
+            censorConfig.load(this, report);
         }
         fontConfig.load(this, report);
         colorConfig.load(this, report);

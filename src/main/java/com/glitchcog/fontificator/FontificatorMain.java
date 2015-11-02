@@ -76,6 +76,10 @@ public class FontificatorMain
         // Build the GUI of the control window
         controlWindow.build(logBox);
 
+        // Give the chat panel the message dialog so it can read censorship rules and call for the manual censorship
+        // list to be redrawn when a message is posted
+        chatWindow.getChatPanel().setMessageCensor(controlWindow.getMessageDialog().getCensorPanel());
+
         // Finally, display the chat and control windows now that everything has been constructed and connected
         chatWindow.setVisible(true);
         controlWindow.setVisible(true);

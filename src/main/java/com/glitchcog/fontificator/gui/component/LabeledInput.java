@@ -3,6 +3,7 @@ package com.glitchcog.fontificator.gui.component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 
 import javax.swing.JLabel;
@@ -85,6 +86,11 @@ public class LabeledInput extends JPanel
     public void setText(String text)
     {
         input.setText(text);
+    }
+
+    public void addActionListener(ActionListener al)
+    {
+        input.addActionListener(al);
     }
 
     public void addDocumentListener(DocumentListener dl)

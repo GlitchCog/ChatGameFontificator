@@ -10,10 +10,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.swing.JPanel;
@@ -21,6 +19,7 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.bot.Message;
+import com.glitchcog.fontificator.config.ConfigCensor;
 import com.glitchcog.fontificator.config.ConfigChat;
 import com.glitchcog.fontificator.config.ConfigColor;
 import com.glitchcog.fontificator.config.ConfigEmoji;
@@ -28,6 +27,7 @@ import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.emoji.EmojiManager;
+import com.glitchcog.fontificator.gui.controls.panel.MessageCensorPanel;
 import com.glitchcog.fontificator.sprite.Sprite;
 import com.glitchcog.fontificator.sprite.SpriteFont;
 
@@ -48,7 +48,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      */
     private ConcurrentLinkedQueue<Message> messages;
 
-    private Set<String> bannedUsers;
+    private MessageCensorPanel censor;
 
     /**
      * Contains the timed task and a reference to this chat to be used to progress rolling out new messages at the
@@ -95,6 +95,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private ConfigEmoji emojiConfig;
 
     /**
+     * Configuration for how to censor messages
+     */
+    private ConfigCensor censorConfig;
+
+    /**
      * The font used to draw the chat messages
      */
     private SpriteFont font;
@@ -114,6 +119,9 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     /**
      * Construct the ChatPanel, which contains the entire visualization of the chat
      * 
+     * @param censor
+     *            The message popup dialog from the Control Window to be updated when a message is posted so the censor
+     *            list is currenet
      * @throws IOException
      */
     public ChatPanel() throws IOException
@@ -121,22 +129,22 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         loaded = false;
         lineCount = Integer.MAX_VALUE;
         messages = new ConcurrentLinkedQueue<Message>();
-        bannedUsers = new HashSet<String>();
 
         emojiManager = new EmojiManager();
         messageProgressor = new MessageProgressor(this);
     }
 
     /**
-     * Get whether the configuration has been loaded. Before this is true, no call to any methods that draw should be
-     * called because they all rely on the configuration. Once it is set to true, it will remain true- it is only on the
-     * initial setup that configuration might be null
+     * Get whether the configuration and message dialog have been loaded. Before this is true, no call to any methods
+     * that draw should be called because they all rely on the configuration and the link to the message dialog to be
+     * updated so censorship rules can be assessed. Once it returns true, it will remain true- it is only on the initial
+     * setup that configuration and the message dialog might be null.
      * 
      * @return loaded
      */
     public boolean isLoaded()
     {
-        return loaded;
+        return loaded && censor != null;
     }
 
     /**
@@ -156,6 +164,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         this.colorConfig = fProps.getColorConfig();
         this.messageConfig = fProps.getMessageConfig();
         this.emojiConfig = fProps.getEmojiConfig();
+        this.censorConfig = fProps.getCensorConfig();
 
         font = new SpriteFont(fontConfig);
         reloadFontFromConfig();
@@ -164,6 +173,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         // This indicates that the chat panel is ready to be drawn
         loaded = true;
+    }
+
+    public void setMessageCensor(MessageCensorPanel censor)
+    {
+        this.censor = censor;
     }
 
     @Override
@@ -263,10 +277,13 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         // one message currently being drawn
         for (Message msg : messages)
         {
-            drawMessages.add(msg);
-            if (!msg.isCompletelyDrawn())
+            if (!censorConfig.isCensorshipEnabled() || !msg.isCensored())
             {
-                break;
+                drawMessages.add(msg);
+                if (!msg.isCompletelyDrawn())
+                {
+                    break;
+                }
             }
         }
 
@@ -294,11 +311,6 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         // Draw each message in the drawMessages copy of the cache
         for (Message msg : drawMessages)
         {
-            if (bannedUsers.contains(msg.getUsername()))
-            {
-                continue;
-            }
-
             Color col;
             if (msg.isJoinType())
             {
@@ -393,7 +405,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Add a message to the cache
+     * Add a message to the cache, and call method to process any censorship
      * 
      * @param addition
      */
@@ -403,6 +415,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         {
             return;
         }
+
+        censor.checkCensor(addition);
 
         // Note that for a moment here, the size of messages can exceed the specified queueSize in the message config,
         // so if another thread is accessing this, be sure to take that into consideration
@@ -418,6 +432,10 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         }
 
         messageProgressor.startMessageClock(messageConfig.getMessageDelay());
+        if (censor.isVisible())
+        {
+            censor.updateManualTable();
+        }
 
         repaint();
     }
@@ -464,6 +482,16 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     synchronized public Message[] getMessages()
     {
         return messages.toArray(new Message[messages.size()]);
+    }
+
+    /**
+     * Get the actual queue of messages
+     * 
+     * @return messages
+     */
+    public ConcurrentLinkedQueue<Message> getMessageQueue()
+    {
+        return messages;
     }
 
     /**
@@ -529,13 +557,13 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
     public void banUser(String bannedUser)
     {
-        bannedUsers.add(bannedUser);
+        censor.addBan(bannedUser);
         repaint();
     }
 
     public void unbanUser(String bannedUser)
     {
-        bannedUsers.remove(bannedUser);
+        censor.removeBan(bannedUser);
         repaint();
     }
 

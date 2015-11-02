@@ -102,6 +102,7 @@ public class ControlPanelIrc extends ControlPanelBase
         String auth = config.getAuthorization();
         bot.setUsername(user);
         logger.trace("Attempting to connect " + user + " to " + host + ":" + port);
+        bot.reset();
         bot.connect(host, port, auth);
 
         // Force lowercase channel names for twitch.tv

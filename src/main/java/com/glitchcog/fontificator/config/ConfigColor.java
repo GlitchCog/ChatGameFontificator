@@ -199,7 +199,7 @@ public class ConfigColor extends Config
         props.setProperty(FontificatorProperties.KEY_COLOR_PALETTE, paletteString);
     }
 
-    public Boolean isColorUsername()
+    public boolean isColorUsername()
     {
         return colorUsername;
     }
@@ -210,7 +210,7 @@ public class ConfigColor extends Config
         props.setProperty(FontificatorProperties.KEY_COLOR_USERNAME, Boolean.toString(colorUsername));
     }
 
-    public Boolean isColorTimestamp()
+    public boolean isColorTimestamp()
     {
         return colorTimestamp;
     }
@@ -221,7 +221,7 @@ public class ConfigColor extends Config
         props.setProperty(FontificatorProperties.KEY_COLOR_TIMESTAMP, Boolean.toString(colorTimestamp));
     }
 
-    public Boolean isColorMessage()
+    public boolean isColorMessage()
     {
         return colorMessage;
     }
@@ -232,7 +232,7 @@ public class ConfigColor extends Config
         props.setProperty(FontificatorProperties.KEY_COLOR_MESSAGE, Boolean.toString(colorMessage));
     }
 
-    public Boolean isColorJoin()
+    public boolean isColorJoin()
     {
         return colorJoin;
     }
