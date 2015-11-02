@@ -106,6 +106,6 @@ All the font and border images are available as part of the source code on this 
 
 * The program wasn't broken. Why did you "fix" it?
 
-Sorry. Here are a few versions of the program for download immediately preceding notable feature additions. These versions will be missing any fonts and borders added subsequently though:
+Sorry. Here are a few versions of the program for download immediately preceding notable feature additions. These versions will be missing any fonts and borders added subsequently though.
 Last version without emoji support: [JAR from August 20, 2015] (../../raw/29dade0e07918c7ebbdd9e3428ec7f637d946914/jar/ChatGameFontificator.jar). 
 Last version without message censorship support: [JAR from October 20, 2015] (../../raw/4c31662a29dc9ac5b7437ecbaf904069d878e676/jar/ChatGameFontificator.jar).
