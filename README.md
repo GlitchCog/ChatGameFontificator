@@ -1,6 +1,6 @@
 #Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)]
+## 11/01 UPDATE: Message censorship is now supported!
 ## 9/22 UPDATE: Emoji are now supported! <img src="http://static-cdn.jtvnw.net/emoticons/v1/41/1.0" alt="Kreygasm">
-*(Note: There were a great many changes to the program to support Emoji, so I'm sure there will be minor bugs to work out. In the meantime, if you encounter a problem and need to use the pre-emoji version, you can [download it here] (../../raw/29dade0e07918c7ebbdd9e3428ec7f637d946914/jar/ChatGameFontificator.jar).)*
 
 The Chat Game Fontificator (CGF) is an Internet Relay Chat (IRC) display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
@@ -25,7 +25,6 @@ Here are some screenshots of some of just a few of the preset game styles:
 <img src="http://www.glitchcog.com/cgf/cgf_smb3_letter.png" width="120" alt="Super Mario Bros. 3 Princess Letter">
 <img src="http://www.glitchcog.com/cgf/cgf_zelda1.png" width="120" alt="The Legend of Zelda">
 <img src="http://www.glitchcog.com/cgf/cgf_zelda3.png" width="120" alt="Zelda: LttP">
-
 
 Enjoy!
 
@@ -91,6 +90,8 @@ First, make sure messages are actually being posted to the chat. Only messages p
 
   -The message speed is too slow for the number of messages flooding into the channel, which in turn empties out the full message queue faster than any messages can be displayed. Increase the message speed and the queue size. Also consider opting to forgo including join messages.
 
+  -All the messages you're posting are in violation of your message censorship rules. The easiest way to check this is to disable all censorship in the Message menu, Message Management popup.
+
 * How do I use a custom font?
 
 Select Custom... from the font dropdown menu and select your font sheet image. This image must be a PNG containing a grid of uniformly sized rectangular cells, 8 cells wide by 12 cells tall. Each cell should contain in order all the ASCII characters from 32 (space) to 127 (delete). Click the Select Missing Character button for an example of this. The degree to which a pixel is pure white is the degree to which it is tinted by the Text Tint color, and any transparent or partially transparent pixels will show through to the border or background color the appropriate amount. [This image (the Chrono Trigger font) is an example of one that will work.](../../raw/master/src/main/resources/fonts/ct_font.png)
@@ -102,3 +103,9 @@ Select Custom... from the border dropdown menu and select your border sheet imag
 * What if I want to start with an existing font or border, rather than create a custom one from whole cloth?
 
 All the font and border images are available as part of the source code on this site. Modify them as you see fit, and then load them into the program as a custom font or border. To save them from the GitHub source code repository, you have to click on the font, then save the image from the button in the upper left that says Raw, or from the image that is displayed on that page. If you right-click the image name from the repository and select Save-As, you will be saving the HTML page that GitHub uses to represent that image, not the image itself. Here are links to the repository locations containing the existing font and border images: [Fonts] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/fonts) | [Borders] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/borders)
+
+* The program wasn't broken. Why did you "fix" it?
+
+Sorry. Here are a few versions of the program for download immediately preceding notable feature additions. These versions will be missing any fonts and borders added subsequently though:
+Last version without emoji support: [JAR from August 20, 2015] (../../raw/29dade0e07918c7ebbdd9e3428ec7f637d946914/jar/ChatGameFontificator.jar). 
+Last version without message censorship support: [JAR from October 20, 2015] (../../raw/4c31662a29dc9ac5b7437ecbaf904069d878e676/jar/ChatGameFontificator.jar).
