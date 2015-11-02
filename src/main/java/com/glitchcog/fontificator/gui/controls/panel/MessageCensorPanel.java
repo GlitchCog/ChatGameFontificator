@@ -230,13 +230,13 @@ public class MessageCensorPanel extends ControlPanelBase
         // Check for user on whitelist
         if (userWhitelist.contains(msg.getUsername()))
         {
-            msg.setCensoredReason("User \"" + msg.getUsername() + "\" whitelisted");
+            msg.setCensoredReason("USER WHITELIST");
             return;
         }
         // Check for user on blacklist
         if (userBlacklist.contains(msg.getUsername()))
         {
-            msg.setCensoredReason("User \"" + msg.getUsername() + "\"blacklisted");
+            msg.setCensoredReason("USER BLACKLIST");
             msg.setCensored(true);
             return;
         }
@@ -244,7 +244,7 @@ public class MessageCensorPanel extends ControlPanelBase
         String banned = containsBannedWord(msg.getContent());
         if (banned != null)
         {
-            msg.setCensoredReason("Banned word: \"" + banned + "\"");
+            msg.setCensoredReason("BANNED WORD: \"" + banned + "\"");
             msg.setCensored(true);
             return;
         }
@@ -257,14 +257,14 @@ public class MessageCensorPanel extends ControlPanelBase
             if (censorAllUrlsBox.isSelected())
             {
                 msg.setCensored(true);
-                msg.setCensoredReason("Contains URL");
+                msg.setCensoredReason("URL");
                 return;
             }
             // If only the first URLs are censored, then check the user post count to censor
             else if (msg.getUserPostCount() < 2 && censorFirstPostUrlsBox.isSelected())
             {
                 msg.setCensored(true);
-                msg.setCensoredReason("Contains 1st post URL");
+                msg.setCensoredReason("1ST POST URL");
                 return;
             }
         }
@@ -273,7 +273,7 @@ public class MessageCensorPanel extends ControlPanelBase
         if (percentUnknownChars > 0.0f && percentUnknownChars >= unknownCharSlider.getValue())
         {
             msg.setCensored(true);
-            msg.setCensoredReason("Contains " + percentUnknownChars + "% unknown characters");
+            msg.setCensoredReason("UNKNOWN CHARACTERS");
             return;
         }
     }
