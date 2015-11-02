@@ -27,7 +27,7 @@ public class MessageDialog extends JDialog
 
     public MessageDialog(FontificatorProperties fProps, ChatWindow chatWindow, ControlWindow ctrlWindow, LogBox logBox)
     {
-        super(ctrlWindow);
+        super(chatWindow);
         ChatWindow.setupHideOnEscape(this);
         setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         build(fProps, chatWindow, ctrlWindow, logBox);
@@ -60,7 +60,6 @@ public class MessageDialog extends JDialog
 
     public void showDialog()
     {
-        setLocation(getParent().getLocation().x + (getParent().getWidth() - getWidth()) / 2, getParent().getLocation().y + (getParent().getHeight() - getHeight()) / 2);
         setVisible(true);
     }
 
