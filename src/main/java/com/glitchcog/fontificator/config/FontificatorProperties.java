@@ -230,7 +230,7 @@ public class FontificatorProperties extends Properties
             int response = JOptionPane.showConfirmDialog(parent, "Save configuration changes?", "Unsaved Changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION)
             {
-                if (ctrlWindow.save())
+                if (ctrlWindow.saveConfig())
                 {
                     return true;
                 }

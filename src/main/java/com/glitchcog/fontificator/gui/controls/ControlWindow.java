@@ -3,12 +3,14 @@ package com.glitchcog.fontificator.gui.controls;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Event;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
@@ -46,6 +49,7 @@ import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
+import com.glitchcog.fontificator.gui.chat.ChatPanel;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.MenuComponent;
 import com.glitchcog.fontificator.gui.controls.messages.MessageDialog;
@@ -65,7 +69,9 @@ public class ControlWindow extends JDialog
 
     private final String PRESET_DIRECTORY = "presets/";
 
-    private final String DEFAULT_FILE_EXTENSION = "cgf";
+    private final String DEFAULT_CONFIG_FILE_EXTENSION = "cgf";
+
+    private final String DEFAULT_SCREENSHOT_FILE_EXTENSION = "png";
 
     private ControlTabs controlTabs;
 
@@ -97,7 +103,9 @@ public class ControlWindow extends JDialog
 
     private JFileChooser opener;
 
-    private JFileChooser saver;
+    private JFileChooser configSaver;
+
+    private JFileChooser screenshotSaver;
 
     public ControlWindow(JFrame parent, FontificatorProperties fProps, LogBox logBox)
     {
@@ -145,13 +153,17 @@ public class ControlWindow extends JDialog
 
         this.fProps = fProps;
 
-        FileFilter cgfFileFilter = new FileNameExtensionFilter("Chat Game Fontificator Configuration (*." + DEFAULT_FILE_EXTENSION + ")", DEFAULT_FILE_EXTENSION.toLowerCase());
+        FileFilter cgfFileFilter = new FileNameExtensionFilter("Chat Game Fontificator Configuration (*." + DEFAULT_CONFIG_FILE_EXTENSION + ")", DEFAULT_CONFIG_FILE_EXTENSION.toLowerCase());
+        FileFilter pngFileFilter = new FileNameExtensionFilter("PNG Image (*." + DEFAULT_SCREENSHOT_FILE_EXTENSION + ")", DEFAULT_SCREENSHOT_FILE_EXTENSION.toLowerCase());
 
         this.opener = new JFileChooser();
         this.opener.setFileFilter(cgfFileFilter);
 
-        this.saver = new JFileChooser();
-        this.saver.setFileFilter(cgfFileFilter);
+        this.configSaver = new JFileChooser();
+        this.configSaver.setFileFilter(cgfFileFilter);
+
+        this.screenshotSaver = new JFileChooser();
+        this.screenshotSaver.setFileFilter(pngFileFilter);
     }
 
     public void loadLastData(ChatWindow chatWindow)
@@ -287,8 +299,17 @@ public class ControlWindow extends JDialog
         final String strFileOpen = "Open Configuration";
         final String strFileSave = "Save Configuration";
         final String strFileRestore = "Restore Default Configuration";
+        final String strScreenshot = "Screenshot";
         final String strFileExit = "Exit";
-        final MenuComponent[] fileComponents = new MenuComponent[] { new MenuComponent(strFileOpen, KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK)), new MenuComponent(strFileSave, KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK)), new MenuComponent(strFileRestore, KeyEvent.VK_R, null), new MenuComponent(strFileExit, KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK)) };
+        // @formatter:off
+        final MenuComponent[] fileComponents = new MenuComponent[] { 
+            new MenuComponent(strFileOpen, KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK)), 
+            new MenuComponent(strFileSave, KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK)), 
+            new MenuComponent(strFileRestore, KeyEvent.VK_R, null), 
+            new MenuComponent(strScreenshot, KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0)), 
+            new MenuComponent(strFileExit, KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK)) 
+        };
+        // @formatter:on
 
         /* View Menu Item Text */
         final String strViewTop = "Always On Top";
@@ -319,12 +340,16 @@ public class ControlWindow extends JDialog
                 }
                 else if (strFileSave.equals(mi.getText()))
                 {
-                    save();
+                    saveConfig();
                 }
                 else if (strFileRestore.equals(mi.getText()))
                 {
                     restoreDefaults(true);
                     controlTabs.refreshUiFromConfig(fProps);
+                }
+                else if (strScreenshot.equals(mi.getText()))
+                {
+                    saveScreenshot();
                 }
                 else if (strFileExit.equals(mi.getText()))
                 {
@@ -478,10 +503,10 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Chrono", new String[] { strChrono[0], strChronoCross[0] });
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDw3[0], strDw3Gbc[0], strDw4[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
-        presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy6[0],strFinalFantasy7[0] });
+        presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy6[0], strFinalFantasy7[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0], strMarioRpg[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strSuperMetroid[0] });
-        presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] } );
+        presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0] });
         presetMapSubmenuToItem.put(null, new String[] { strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strRiverCityRansom[0], strSecretOfEvermore[0], strShantae[0], strTalesOfSymphonia[0] });
@@ -594,9 +619,15 @@ public class ControlWindow extends JDialog
     }
 
     /**
-     * @return saved
+     * Gets a file to save to from the given file chooser, including options to overwrite
+     * 
+     * @param chooser
+     *            the chooser to use to get the file
+     * @param extension
+     *            the extension of the type of file being saved, or null if there is no default extension
+     * @return file or null if selection is canceled
      */
-    public boolean save()
+    private File getTargetSaveFile(JFileChooser chooser, String extension)
     {
         final boolean configReadyToSave = controlTabs.refreshConfigFromUi();
         if (configReadyToSave)
@@ -606,15 +637,15 @@ public class ControlWindow extends JDialog
             // overwrite an existing file, but if they select cancel it just breaks out of the loop
             do
             {
-                int result = saver.showSaveDialog(me);
+                int result = chooser.showSaveDialog(me);
 
                 // Default to yes, so it writes even if there's no existing file
                 overwrite = JOptionPane.YES_OPTION;
 
                 if (result == JFileChooser.APPROVE_OPTION)
                 {
-                    File saveFile = saver.getSelectedFile();
-                    String[] exts = ((FileNameExtensionFilter) (saver.getFileFilter())).getExtensions();
+                    File saveFile = chooser.getSelectedFile();
+                    String[] exts = ((FileNameExtensionFilter) (chooser.getFileFilter())).getExtensions();
                     boolean endsInExt = false;
                     for (String ext : exts)
                     {
@@ -624,9 +655,9 @@ public class ControlWindow extends JDialog
                             break;
                         }
                     }
-                    if (!endsInExt)
+                    if (extension != null && !endsInExt)
                     {
-                        saveFile = new File(saveFile.getPath() + "." + DEFAULT_FILE_EXTENSION);
+                        saveFile = new File(saveFile.getPath() + "." + extension);
                     }
 
                     if (saveFile.exists())
@@ -636,18 +667,62 @@ public class ControlWindow extends JDialog
 
                     if (overwrite == JOptionPane.YES_OPTION)
                     {
-                        try
-                        {
-                            fProps.saveFile(saveFile);
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.error("Configuration file save error", ex);
-                        }
+                        return saveFile;
                     }
                 }
             } while (overwrite == JOptionPane.NO_OPTION);
+        }
+        return null;
+    }
+
+    /**
+     * Save configuration to a file
+     * 
+     * @return whether the file was saved
+     */
+    public boolean saveConfig()
+    {
+        File saveFile = getTargetSaveFile(configSaver, DEFAULT_CONFIG_FILE_EXTENSION);
+        if (saveFile != null)
+        {
+            try
+            {
+                fProps.saveFile(saveFile);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.error("Configuration file save error", ex);
+                return false;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Takes and saves a screenshot of the current chat window
+     * 
+     * @return whether the screenshot was saved
+     */
+    private boolean saveScreenshot()
+    {
+        File saveFile = getTargetSaveFile(screenshotSaver, DEFAULT_SCREENSHOT_FILE_EXTENSION);
+        if (saveFile != null)
+        {
+            ChatPanel chat = chatWindow.getChatPanel();
+            BufferedImage chatImage = new BufferedImage(chat.getWidth(), chat.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics chatGraphics = chatImage.getGraphics();
+            chat.paint(chatGraphics);
+            try
+            {
+                ImageIO.write(chatImage, "png", saveFile);
+                return true;
+            }
+            catch (Exception e)
+            {
+                logger.error("Unable to save screenshot", e);
+                return false;
+            }
         }
         return false;
     }
