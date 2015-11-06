@@ -95,11 +95,13 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Lowercase)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World"), new DropdownFont("smw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mario", "Mario is Missing"), new DropdownFont("mmiss_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario RPG: Dark"), new DropdownFont("smrpg_dark_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario RPG: Light"), new DropdownFont("smrpg_light_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Mario", "Paper Mario: The Thousand Year Door"), new DropdownFont("pmttyd_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Mega Man", "Mega Man 9"), new DropdownFont("mm9_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mega Man", "Mega Man X"), new DropdownFont("mmx_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Metal Gear", "Metal Gear"), new DropdownFont("mg_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownFont("metroid_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Super Metroid"), new DropdownFont("smetroid_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Super Metroid Mixed Case"), new DropdownFont("smetroid_mixedcase_font.png", FontType.FIXED_WIDTH));
@@ -109,6 +111,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Simpsons", "Bart vs. the Space Mutants"), new DropdownFont("bart_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sega System"), new DropdownFont("sega_sys_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sonic Team"), new DropdownFont("sonic_team_font.png", FontType.VARIABLE_WIDTH));
@@ -120,6 +123,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownFont("lttp_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownFont("loz_ww_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Zero Wing", "Zero Wing"), new DropdownFont("zw_font.png", FontType.FIXED_WIDTH));
         }
     };
 
