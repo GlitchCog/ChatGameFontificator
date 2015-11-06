@@ -573,7 +573,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.LOOKUP.name(), override);
         setPropertyOverride(KEY_MESSAGE_CASE_SPECIFY, falseString, override);
 
-        setPropertyOverride(KEY_EMOJI_ENABLED, falseString, override);
+        setPropertyOverride(KEY_EMOJI_ENABLED, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE_TO_LINE, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE, Integer.toString(100), override);
         setPropertyOverride(KEY_EMOJI_CONNECT_CHANNEL, trueString, override);
