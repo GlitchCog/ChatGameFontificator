@@ -2,6 +2,9 @@ package com.glitchcog.fontificator.emoji.loader.frankerfacez;
 
 import java.util.Map;
 
+/**
+ * FrankerFaceZ Emote object returned by the FrankerFaceZ API
+ */
 public class FfzEmote
 {
     private Object css;

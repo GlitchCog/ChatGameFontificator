@@ -131,7 +131,7 @@ public class MessageCensorPanel extends ControlPanelBase
             @Override
             public void stateChanged(ChangeEvent e)
             {
-                updateConfig();
+                config.setUnknownCharPercentage(unknownCharSlider.getValue());
             }
         });
 

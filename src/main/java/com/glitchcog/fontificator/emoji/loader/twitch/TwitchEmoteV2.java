@@ -1,5 +1,8 @@
 package com.glitchcog.fontificator.emoji.loader.twitch;
 
+/**
+ * This is the object that the Twitch emote API V2 returns a list of
+ */
 public class TwitchEmoteV2
 {
     private int width;

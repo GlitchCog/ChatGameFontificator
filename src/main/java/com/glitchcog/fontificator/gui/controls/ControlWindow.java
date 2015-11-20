@@ -45,6 +45,7 @@ import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.bot.ChatViewerBot;
 import com.glitchcog.fontificator.bot.MessageType;
+import com.glitchcog.fontificator.bot.TwitchPrivmsg;
 import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
@@ -739,7 +740,7 @@ public class ControlWindow extends JDialog
 
     public void addManualMessage(String username, String message)
     {
-        bot.sendMessageToChat(MessageType.MANUAL, username, message);
+        bot.sendMessageToChat(MessageType.MANUAL, message, new TwitchPrivmsg(username));
     }
 
     public void disconnect()

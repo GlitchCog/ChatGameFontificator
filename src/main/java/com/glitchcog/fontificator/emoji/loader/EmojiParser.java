@@ -6,12 +6,16 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzEmote;
+import com.glitchcog.fontificator.emoji.loader.twitch.TwitchBadges;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV2;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV3;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
@@ -29,6 +33,10 @@ import com.google.gson.reflect.TypeToken;
  */
 public class EmojiParser
 {
+    private static final Logger logger = Logger.getLogger(EmojiParser.class);
+
+    private static final int TWITCH_BADGE_PIXEL_SIZE = 18;
+
     /**
      * Reference to the LogBox that displays on the Connection (IRC) control panel to display the results of loading and
      * caching emotes
@@ -45,15 +53,17 @@ public class EmojiParser
         TypedEmojiMap emojiMap = manager.getEmojiByType(type);
         switch (type)
         {
-        case FRANKERFACEZ:
+        case FRANKERFACEZ_CHANNEL:
             parseFrankerFaceZEmoteJson(emojiMap, jsonData);
             break;
         case TWITCH_V2:
             parseTwitchEmoteJsonV2(emojiMap, jsonData);
             break;
         case TWITCH_V3:
-            parseTwitchEmoteJsonV3(emojiMap, jsonData);
+            parseTwitchEmoteJsonV3(emojiMap, manager, jsonData);
             break;
+        case TWITCH_BADGE:
+            parseTwitchBadges(emojiMap, jsonData);
         default:
             break;
         }
@@ -94,16 +104,16 @@ public class EmojiParser
     }
 
     /**
-     * Parses emotes loaded using Twitch's emote API version 3. This function is not exposed via the GUI, so it
-     * shouldn't be called. It is just here in case Twitch decides to go ahead with this bad design.
+     * Parses emotes loaded using Twitch's emote API version 3. It parses emotes into two different maps, one of all
+     * emoji, and one that are accessible via set ID.
      * 
+     * @param setKeyedMaps
      * @param emoji
      * @param jsonData
      * @return
      * @throws IOException
-     * @throws MalformedURLException
      */
-    private TypedEmojiMap parseTwitchEmoteJsonV3(TypedEmojiMap emoji, String jsonData) throws IOException
+    private TypedEmojiMap parseTwitchEmoteJsonV3(TypedEmojiMap emoji, EmojiManager manager, String jsonData) throws IOException
     {
         JsonElement emoteElement = new JsonParser().parse(jsonData).getAsJsonObject().get("emoticons");
 
@@ -127,12 +137,56 @@ public class EmojiParser
                 eMultiCount++;
             }
 
+            // Try to load them with their emoteId into the map in the manager
+            try
+            {
+                final String pngName = e.getImages()[0].getUrl().substring(e.getImages()[0].getUrl().lastIndexOf('/') + 1);
+                final int dashIdxBeg = pngName.indexOf('-') + 1;
+                final int dashIdxEnd = pngName.indexOf('-', dashIdxBeg);
+                final String emoteIdStr = pngName.substring(dashIdxBeg, dashIdxEnd);
+                final Integer emoteId = Integer.parseInt(emoteIdStr);
+                manager.putEmojiById(emoteId, lle);
+            }
+            // But if that fails for any reason, add it in the regular way to the TypedEmojiMap
+            catch (Exception ex)
+            {
+                logger.warn("Unable to parse set from filename for " + e.getRegex());
+            }
+
+            // Add it to the regular per word map
             emoji.put(e.getRegex(), lle);
         }
 
         logBox.log(jsonEmoteObjects.length + " Twitch emote" + (jsonEmoteObjects.length == 1 ? "" : "s") + " loaded (" + eMultiCount + " multi-image emote" + (eMultiCount == 1 ? "" : "s") + ")");
 
         return emoji;
+    }
+
+    private TypedEmojiMap parseTwitchBadges(TypedEmojiMap badgeMap, String jsonData) throws IOException
+    {
+        JsonElement jsonElement = new JsonParser().parse(jsonData);
+
+        Gson gson = new Gson();
+
+        Type emoteType = new TypeToken<Map<String, TwitchBadges>>()
+        {
+        }.getType();
+        Map<String, TwitchBadges> jsonMap = gson.fromJson(jsonElement, emoteType);
+
+        int badgeCount = 0;
+        for (Entry<String, TwitchBadges> badge : jsonMap.entrySet())
+        {
+            if (badge.getValue() != null && badge.getValue().getImage() != null)
+            {
+                badgeCount++;
+                LazyLoadEmoji[] llBadge = new LazyLoadEmoji[] { new LazyLoadEmoji(badge.getValue().getImage(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, EmojiType.TWITCH_BADGE) };
+                badgeMap.put(badge.getKey(), llBadge);
+            }
+        }
+
+        logBox.log(badgeCount + " Twitch badge" + (badgeCount == 1 ? "" : "s") + " loaded");
+
+        return badgeMap;
     }
 
     /**
@@ -188,7 +242,7 @@ public class EmojiParser
                 int i = 0;
                 for (String key : e.getUrls().keySet())
                 {
-                    lle[i++] = new LazyLoadEmoji("http:" + e.getUrls().get(key), e.getWidth(), e.getHeight(), EmojiType.FRANKERFACEZ);
+                    lle[i++] = new LazyLoadEmoji("http:" + e.getUrls().get(key), e.getWidth(), e.getHeight(), EmojiType.FRANKERFACEZ_CHANNEL);
                 }
                 if (e.getUrls().size() > 1)
                 {

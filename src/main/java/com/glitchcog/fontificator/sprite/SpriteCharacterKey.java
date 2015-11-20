@@ -3,7 +3,7 @@ package com.glitchcog.fontificator.sprite;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 
 /**
- * Replacement for char that can also represent an emoji. One or the other member variable is to be set.
+ * Replacement for char that can also represent an emoji or a badge. One or the other member variable is to be set.
  * 
  * @author Matt Yanos
  */
@@ -20,13 +20,18 @@ public class SpriteCharacterKey
     private LazyLoadEmoji[] emoji;
 
     /**
+     * Whether the emoji set is a badge image
+     */
+    private boolean badge;
+
+    /**
      * Construct as a character
      * 
      * @param character
      */
     public SpriteCharacterKey(char character)
     {
-        this(character, null);
+        this(character, null, false);
     }
 
     /**
@@ -34,9 +39,9 @@ public class SpriteCharacterKey
      * 
      * @param emoji
      */
-    public SpriteCharacterKey(LazyLoadEmoji[] emoji)
+    public SpriteCharacterKey(LazyLoadEmoji[] emoji, boolean badge)
     {
-        this((char) 127, emoji);
+        this((char) 127, emoji, badge);
     }
 
     /**
@@ -44,11 +49,13 @@ public class SpriteCharacterKey
      * 
      * @param character
      * @param emoji
+     * @param badge Only used for emoji
      */
-    private SpriteCharacterKey(char character, LazyLoadEmoji[] emoji)
+    private SpriteCharacterKey(char character, LazyLoadEmoji[] emoji, boolean badge)
     {
         this.character = character;
         this.emoji = emoji;
+        this.badge = badge;
     }
 
     /**
@@ -90,7 +97,17 @@ public class SpriteCharacterKey
      */
     public boolean isEmoji()
     {
-        return !isChar();
+        return !isChar() && !badge;
+    }
+
+    /**
+     * Whether this sprite character is a badge emoji, not a char
+     * 
+     * @return
+     */
+    public boolean isBadge()
+    {
+        return !isChar() & badge;
     }
 
     @Override

@@ -25,17 +25,22 @@ public class EmojiApiLoader
     private static final String TWITCH_URL_V2_BASE = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/emoticons";
 
     /**
-     * The URL for getting all Twitch emotes
+     * The URL for getting all Twitch emotes from V3 of the API
      */
     private static final String TWITCH_URL_V3 = "https://api.twitch.tv/kraken/chat/emoticons";
 
     /**
-     * The URL for getting the global FrankerFaceZ emotes
+     * The base URL for getting the channel specific Twitch badges from the API
+     */
+    private static final String TWITCH_URL_BADGES = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/badges";
+
+    /**
+     * The URL for getting the global FrankerFaceZ emotes from the API
      */
     private static final String FRANKER_GLOBAL_URL = "https://api.frankerfacez.com/v1/set/global";
 
     /**
-     * The base URL for getting the FrankerFaceZ emotes for whatever username is appended to the end
+     * The base URL for getting the FrankerFaceZ emotes for whatever username is appended to the end from the API
      */
     private static final String FRANKER_BASE_URL = "https://api.frankerfacez.com/v1/room/" + CHANNEL_NAME_REPLACE;
 
@@ -80,12 +85,16 @@ public class EmojiApiLoader
     {
         switch (emojiType)
         {
-        case FRANKERFACEZ:
-            return channel == null || channel.isEmpty() ? FRANKER_GLOBAL_URL : FRANKER_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
+        case FRANKERFACEZ_CHANNEL:
+            return FRANKER_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
+        case FRANKERFACEZ_GLOBAL:
+            return FRANKER_GLOBAL_URL;
         case TWITCH_V2:
             return TWITCH_URL_V2_BASE.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case TWITCH_V3:
             return TWITCH_URL_V3;
+        case TWITCH_BADGE:
+            return TWITCH_URL_BADGES.replaceAll(CHANNEL_NAME_REPLACE, channel);
         default:
             return null;
         }

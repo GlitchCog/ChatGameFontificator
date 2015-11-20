@@ -2,6 +2,7 @@ package com.glitchcog.fontificator.gui.emoji;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 import com.glitchcog.fontificator.emoji.loader.EmojiApiLoader;
 import com.glitchcog.fontificator.emoji.loader.EmojiParser;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
-import com.glitchcog.fontificator.gui.controls.panel.ControlPanelEmoji;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 
 /**
@@ -58,25 +58,17 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
 
     private EmojiParser parser;
 
-    private String channel;
+    private final String channel;
 
-    private EmojiType emojiType;
+    private final EmojiType emojiType;
 
-    private EmojiOperation opType;
+    private final EmojiOperation opType;
 
     private boolean terminateWork;
 
-    private EmojiLoadProgressDialog progressPopup;
+    private EmojiLoadProgressPanel progressPopup;
 
-    /**
-     * Whether to hold the popup open after the operation is complete
-     */
-    private boolean holdPopupOpen;
-
-    /**
-     * A reference to the control panel, to enable subsequent buttons upon loading
-     */
-    private ControlPanelEmoji controlPanel;
+    private final EmojiWorkerReport initialReport;
 
     /**
      * Construct an emoji worker
@@ -86,22 +78,19 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
      * @param channel
      * @param emojiType
      * @param opType
-     * @param controlPanel
      * @param logBox
-     * @param holdPopupOpen
+     * @param initialReport
      */
-    public EmojiWorker(EmojiManager manager, EmojiLoadProgressDialog progressPopup, String channel, EmojiType emojiType, EmojiOperation opType, ControlPanelEmoji controlPanel, LogBox logBox, boolean holdPopupOpen)
+    public EmojiWorker(EmojiManager manager, EmojiLoadProgressPanel progressPopup, String channel, EmojiType emojiType, EmojiOperation opType, LogBox logBox, EmojiWorkerReport initialReport)
     {
         this.terminateWork = false;
-
-        this.holdPopupOpen = holdPopupOpen;
 
         this.manager = manager;
         this.progressPopup = progressPopup;
         this.channel = channel;
         this.emojiType = emojiType;
         this.opType = opType;
-        this.controlPanel = controlPanel;
+        this.initialReport = initialReport;
 
         loader = new EmojiApiLoader();
         parser = new EmojiParser(logBox);
@@ -127,7 +116,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 {
                     int percentComplete = loader.loadChunk();
                     // Let the thread rest so the main thread can get the publish
-                    publish(new EmojiWorkerReport("Downloading: ", percentComplete));
+                    publish(new EmojiWorkerReport("Downloading " + emojiType.getDescription(), percentComplete));
                     if (terminateWork)
                     {
                         throw new EmojiCancelException();
@@ -140,34 +129,35 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 {
                     throw new EmojiCancelException();
                 }
-                publish(new EmojiWorkerReport("Parsing emote data...", 0));
+                publish(new EmojiWorkerReport("Parsing " + emojiType.getDescription() + " data...", 0));
                 Thread.sleep(1L);
                 parser.putJsonEmojiIntoManager(manager, emojiType, jsonData);
-                publish(new EmojiWorkerReport("Emote loading complete", 100));
+                publish(new EmojiWorkerReport(emojiType.getDescription() + " loading complete", 100));
                 Thread.sleep(1L);
-
-                controlPanel.enableCache(emojiType);
             }
             else if (EmojiOperation.CACHE == opType)
             {
                 List<String> regexes;
-                switch (emojiType)
+                if (emojiType.isTwitchEmote())
                 {
-                case FRANKERFACEZ:
-                    regexes = new ArrayList<String>(manager.getEmojiByType(emojiType).keySet());
-                    break;
-                case TWITCH_V2:
-                case TWITCH_V3:
+                    Collection<String> ffzChannelRegexes = manager.getEmojiByType(EmojiType.FRANKERFACEZ_CHANNEL).keySet();
+                    Collection<String> ffzGlobalRegexes = manager.getEmojiByType(EmojiType.FRANKERFACEZ_GLOBAL).keySet();
+                    regexes = new ArrayList<String>(ffzChannelRegexes.size() + ffzGlobalRegexes.size());
+                    regexes.addAll(ffzChannelRegexes);
+                    regexes.addAll(ffzGlobalRegexes);
+                }
+                else if (emojiType.isFrankerFaceZEmote())
+                {
                     regexes = new ArrayList<String>(TWITCH_EMOTES_BASIC.length + TWITCH_EMOTES_GLOBAL.length);
                     Collections.addAll(regexes, TWITCH_EMOTES_BASIC);
                     Collections.addAll(regexes, TWITCH_EMOTES_GLOBAL);
-                    break;
-                default:
+                }
+                else
+                {
                     regexes = new ArrayList<String>();
-                    break;
                 }
 
-                publish(new EmojiWorkerReport("Caching: ", 0));
+                publish(new EmojiWorkerReport("Caching " + emojiType.getDescription(), 0));
                 Thread.sleep(1L);
                 int count = 0;
                 for (String regex : regexes)
@@ -180,7 +170,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                     }
                     count++;
                     int percentComplete = (int) (100.0f * count / regexes.size());
-                    publish(new EmojiWorkerReport("Caching: ", percentComplete));
+                    publish(new EmojiWorkerReport("Caching " + emojiType.getDescription(), percentComplete));
 
                     if (terminateWork)
                     {
@@ -191,11 +181,6 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 }
                 publish(new EmojiWorkerReport(emojiType.getDescription() + " caching complete", 100));
                 Thread.sleep(1L);
-            }
-
-            if (!holdPopupOpen)
-            {
-                progressPopup.hideDialog();
             }
 
             return Integer.valueOf(0);
@@ -211,7 +196,6 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
             Thread.sleep(1L);
             final String errorMsg = "Unable to open URL to " + opType.getDescription() + " " + emojiType.getDescription() + " for channel " + channel;
             ChatWindow.popup.handleProblem(errorMsg, e);
-            progressPopup.hideDialog();
             return Integer.valueOf(2);
         }
         catch (Exception e)
@@ -239,15 +223,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
     @Override
     protected void done()
     {
-        reset();
-    }
-
-    public void reset()
-    {
-        this.channel = null;
-        this.emojiType = null;
-        this.opType = null;
-        this.terminateWork = false;
+        terminateWork = true;
     }
 
     public void cancel()
@@ -255,4 +231,23 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         terminateWork = true;
     }
 
+    public EmojiWorkerReport getInitialReport()
+    { 
+        return initialReport;
+    }
+
+    public EmojiType getEmojiType()
+    {
+        return emojiType;
+    }
+
+    public EmojiOperation getEmojiOp()
+    {
+        return opType;
+    }
+
+    public String getChannel()
+    {
+        return channel;
+    }
 }

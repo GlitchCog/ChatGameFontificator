@@ -18,6 +18,12 @@ public class EmojiManager
     private Map<EmojiType, TypedEmojiMap> allEmoji;
 
     /**
+     * Holds the same loaded emoji references, but accessible via emoji ID key, used for Twitch V3 emote access when the
+     * Twitch emote ID is in the information prepended to each message
+     */
+    private Map<Integer, LazyLoadEmoji[]> emojiById;
+
+    /**
      * Construct an emoji manager object, instantiates the map of maps keyed off of all the possible emoji types
      */
     public EmojiManager()
@@ -27,6 +33,7 @@ public class EmojiManager
         {
             allEmoji.put(type, new TypedEmojiMap(type));
         }
+        emojiById = new HashMap<Integer, LazyLoadEmoji[]>();
     }
 
     /**
@@ -52,28 +59,98 @@ public class EmojiManager
     }
 
     /**
-     * Get the emoji, if the configuration allows for that type of emoji
+     * Get the emoji of any loaded type, where the testKey is the typed word indicating the emoji to display, if the
+     * configuration allows for that type of emoji
      * 
      * @param testKey
+     *            The word keying the emoji
      * @param config
+     *            The emoji configuration
      * @return emoji or null if not found or if configuration prohibits this emoji
      */
     public LazyLoadEmoji[] getEmoji(String testKey, ConfigEmoji config)
     {
-        for (EmojiType type : allEmoji.keySet())
+        return getEmoji(EmojiType.values(), testKey, config);
+    }
+
+    /**
+     * Get an emoji, of the given type, where the testKey is the typed word indicating the emoji to display, if the
+     * configuration allows for that type of emoji
+     * 
+     * @param type
+     *            Type of emoji to get
+     * @param testKey
+     *            The word keying the emoji
+     * @param config
+     *            The emoji configuration
+     * @return
+     */
+    public LazyLoadEmoji[] getEmoji(EmojiType type, String testKey, ConfigEmoji config)
+    {
+        return getEmoji(new EmojiType[] { type }, testKey, config);
+    }
+
+    /**
+     * Get an emoji, of the given types, where the testKey is the typed word indicating the emoji to display, if the
+     * configuration allows for that type of emoji
+     * 
+     * @param types
+     *            Types of emoji to get
+     * @param testKey
+     *            The word keying the emoji
+     * @param config
+     *            The emoji configuration
+     * @return emoji or null if it's not found
+     */
+    public LazyLoadEmoji[] getEmoji(EmojiType[] types, String testKey, ConfigEmoji config)
+    {
+        LazyLoadEmoji[] emoji = null;
+        // If config is null, then just assume we want it. Used when caching.
+        for (EmojiType type : types)
         {
-            // If config is null, then just assume we want it. Used when caching.
             if (config == null || config.isTypeEnabledAndLoaded(type))
             {
                 TypedEmojiMap typedEmoji = allEmoji.get(type);
-                LazyLoadEmoji[] value = typedEmoji.getEmoji(testKey, config);
-                if (value != null)
+                if (typedEmoji != null)
                 {
-                    return value;
+                    emoji = typedEmoji.getEmoji(testKey, config);
+                    if (emoji != null)
+                    {
+                        return emoji;
+                    }
                 }
             }
         }
-        return null;
+        return emoji;
+    }
+
+    /**
+     * Add to the a map of all the Twitch V3 emoji keyed by emote ID, which is the number given in the prepended Twitch
+     * IRC message tags
+     * 
+     * @return emojiById
+     */
+    public LazyLoadEmoji[] putEmojiById(Integer id, LazyLoadEmoji[] emoji)
+    {
+        return emojiById.put(id, emoji);
+    }
+
+    /**
+     * Get the emoji, if the configuration allows for that type of emoji, based on the emote ID. This is the method to
+     * call if you have the prepended data from a Twitch message that includes the Twitch emote set ID and the indicies
+     * of the word indicating an emoji.
+     * 
+     * @param setId
+     *            the key (note, null is a valid key, indicating the global Twitch emotes set)
+     * @return TypedEmojiMap
+     */
+    public LazyLoadEmoji[] getEmojiById(Integer emojiId, ConfigEmoji config)
+    {
+        if (config != null && !config.isTypeEnabledAndLoaded(EmojiType.TWITCH_V3))
+        {
+            return null;
+        }
+        return emojiById.get(emojiId);
     }
 
 }

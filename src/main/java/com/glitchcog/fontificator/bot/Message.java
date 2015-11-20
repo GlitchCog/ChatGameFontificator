@@ -3,11 +3,14 @@ package com.glitchcog.fontificator.bot;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.emoji.EmojiManager;
+import com.glitchcog.fontificator.emoji.EmojiType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
+import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.sprite.SpriteCharacterKey;
 
 /**
@@ -24,6 +27,12 @@ public class Message
     public static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
 
     /**
+     * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored
+     * in the ChatViewerBot, so it is possible to update that object and see the effects on this message
+     */
+    private final TwitchPrivmsg privmsg;
+
+    /**
      * Whether this message is censored, meaning not displayed at all in the chat
      */
     private boolean censored;
@@ -37,11 +46,6 @@ public class Message
      * Whether this message has been manually censored or uncensored
      */
     private boolean manualCensorship;
-
-    /**
-     * The number of posts this user has posted so far during this session
-     */
-    private int userPostCount;
 
     /**
      * The username of the poster, or the username of the user who joined, if the message is a join message
@@ -62,6 +66,12 @@ public class Message
      * The type of the message
      */
     private final MessageType type;
+
+    /**
+     * The number of badges to draw, to keep track of the position of the username, which is used for coloring. This
+     * value is calculated when the text is parsed into SpriteCharacterKeys and will be zero if badges are switched off.
+     */
+    private int badgeCount;
 
     /**
      * Whether the message is completely drawn or not. Because the fully displayed message can change, like if the
@@ -110,9 +120,9 @@ public class Message
      * @param username
      * @param content
      */
-    public Message(MessageType type, String username, String content)
+    public Message(MessageType type, String username, String content, TwitchPrivmsg privmsg)
     {
-        this(type, username, new Date(), content);
+        this(type, username, new Date(), content, privmsg);
     }
 
     /**
@@ -123,7 +133,7 @@ public class Message
      * @param timestamp
      * @param content
      */
-    public Message(MessageType type, String username, Date timestamp, String content)
+    public Message(MessageType type, String username, Date timestamp, String content, TwitchPrivmsg privmsg)
     {
         this.type = type;
         this.username = username;
@@ -132,6 +142,7 @@ public class Message
         this.drawCursor = 0.0f;
         this.lastMessageConfig = new ConfigMessage();
         this.lastEmojiConfig = new ConfigEmoji();
+        this.privmsg = privmsg;
     }
 
     /**
@@ -287,7 +298,7 @@ public class Message
      */
     public int getIndexUsername(ConfigMessage messageConfig)
     {
-        int index = 0;
+        int index = badgeCount;
         if (messageConfig.showTimestamps())
         {
             index += getIndexTimestamp(messageConfig);
@@ -342,8 +353,8 @@ public class Message
 
     /**
      * Compile the array of SpriteCharacterKeys using the specified configuration. This can be a bit memory intensive
-     * since each character is a new albeit small object, so when this should not be done many times a second, rather
-     * only if something has changed in the configuration to warrant a re-translation.
+     * since each character is a new albeit small object, so this should not be done many times a second, rather only if
+     * something has changed in the configuration to warrant a re-translation.
      * 
      * @param emojiManager
      * @param messageConfig
@@ -352,45 +363,117 @@ public class Message
      */
     private SpriteCharacterKey[] parseIntoText(EmojiManager emojiManager, ConfigMessage messageConfig, ConfigEmoji emojiConfig)
     {
-        String rawMessageText = "";
+        List<SpriteCharacterKey> keyList = new ArrayList<SpriteCharacterKey>();
+
         if (messageConfig.showTimestamps())
         {
-            rawMessageText += messageConfig.getTimerFormatter().format(timestamp);
+            final String timeStampStr = messageConfig.getTimerFormatter().format(timestamp);
+            for (int c = 0; c < timeStampStr.length(); c++)
+            {
+                keyList.add(new SpriteCharacterKey(timeStampStr.charAt(c)));
+            }
         }
+
+        badgeCount = 0;
+        // Add badges to be placed right before the username
+        if (emojiConfig.isBadgesEnabled())
+        {
+            // Bank to pull badges from
+            TypedEmojiMap badgeBank = emojiManager.getEmojiByType(EmojiType.TWITCH_BADGE);
+
+            // Get the badge for the type of user, if the usertype has a badge
+            if (privmsg.getUserType() != null && privmsg.getUserType() != UserType.NONE)
+            {
+                LazyLoadEmoji[] testBadge = null;
+                if ((testBadge = badgeBank.getEmoji(privmsg.getUserType().getKey())) != null)
+                {
+                    keyList.add(new SpriteCharacterKey(testBadge, true));
+                    badgeCount++;
+                }
+            }
+
+            // Optional subscriber badge
+            final String subStr = "subscriber";
+            if (privmsg.isSubscriber() && badgeBank.getEmoji(subStr) != null)
+            {
+                keyList.add(new SpriteCharacterKey(badgeBank.getEmoji(subStr), true));
+                badgeCount++;
+            }
+
+            // Optional turbo badge
+            final String turboStr = "turbo";
+            if (privmsg.isTurbo() && badgeBank.getEmoji(turboStr) != null)
+            {
+                keyList.add(new SpriteCharacterKey(badgeBank.getEmoji(turboStr), true));
+                badgeCount++;
+            }
+        }
+
         if (messageConfig.showUsernames())
         {
             if (messageConfig.showTimestamps())
             {
-                rawMessageText += TIMESTAMP_USERNAME_SPACER;
+                for (int c = 0; c < TIMESTAMP_USERNAME_SPACER.length(); c++)
+                {
+                    keyList.add(new SpriteCharacterKey(TIMESTAMP_USERNAME_SPACER.charAt(c)));
+                }
             }
-            rawMessageText += username;
+            for (int c = 0; c < username.length(); c++)
+            {
+                keyList.add(new SpriteCharacterKey(username.charAt(c)));
+            }
         }
-        if (messageConfig.showUsernames() || messageConfig.showTimestamps())
+        if (messageConfig.showUsernames() || messageConfig.showTimestamps() || emojiConfig.isBadgesEnabled())
         {
-            rawMessageText += type.getContentBreaker();
+            for (int c = 0; c < type.getContentBreaker().length(); c++)
+            {
+                keyList.add(new SpriteCharacterKey(type.getContentBreaker().charAt(c)));
+            }
         }
-
-        int contentStartIndex = rawMessageText.length();
-
-        rawMessageText += content;
-
-        List<SpriteCharacterKey> keyList = new ArrayList<SpriteCharacterKey>();
 
         if (emojiConfig.isEmojiEnabled())
         {
-            // Just add characters up until the actual message content
-            for (int c = 0; c < contentStartIndex; c++)
-            {
-                keyList.add(new SpriteCharacterKey(rawMessageText.charAt(c)));
-            }
+            Map<Integer, EmoteAndIndices> emotes = privmsg.getEmotes();
 
             String[] words = content.split(SPACE_BOUNDARY_REGEX);
+
+            int charIndex = 0;
+
             LazyLoadEmoji[] emoji = null;
             for (int w = 0; w < words.length; w++)
             {
-                emoji = emojiManager.getEmoji(words[w], emojiConfig);
+                EmoteAndIndices eai = emotes.get(charIndex);
+                if (eai != null)
+                {
+                    emoji = emojiManager.getEmojiById(eai.getEmoteId(), emojiConfig);
+
+                    // There is an emoji here, but we couldn't find it in the emoteId map, so just use the map
+                    if (emoji == null)
+                    {
+                        emoji = emojiManager.getEmoji(EmojiType.TWITCH_V3, words[w], emojiConfig);
+                    }
+                }
+                // At this point, only 3rd party emoji should be a possibility for this word (with the exception of
+                // manual messages)
+                else
+                {
+                    // This is the manual message exception
+                    if (MessageType.MANUAL.equals(type))
+                    {
+                        // As a bug here, all manual messages will have access to all Twitch emotes, regardless of
+                        // subscriber status
+                        emoji = emojiManager.getEmoji(words[w], emojiConfig);
+                    }
+                    // Only check 3rd party emotes
+                    else
+                    {
+                        emoji = emojiManager.getEmoji(new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL }, words[w], emojiConfig);
+                    }
+                }
+
                 if (emoji == null)
                 {
+                    // Done checking for all sorts of emoji types, so it's just a word. Set the characters.
                     for (int c = 0; c < words[w].length(); c++)
                     {
                         keyList.add(new SpriteCharacterKey(words[w].charAt(c)));
@@ -398,16 +481,19 @@ public class Message
                 }
                 else
                 {
-                    keyList.add(new SpriteCharacterKey(emoji));
+                    keyList.add(new SpriteCharacterKey(emoji, false));
                 }
+
+                // Increment the charIndex by the current word's length
+                charIndex += words[w].length();
             }
         }
-        // No emoji, so just chars
+        // Configured for no emoji, so just chars
         else
         {
-            for (int c = 0; c < rawMessageText.length(); c++)
+            for (int c = 0; c < content.length(); c++)
             {
-                keyList.add(new SpriteCharacterKey(rawMessageText.charAt(c)));
+                keyList.add(new SpriteCharacterKey(content.charAt(c)));
             }
         }
 
@@ -457,12 +543,11 @@ public class Message
 
     public int getUserPostCount()
     {
-        return userPostCount;
+        return privmsg.getPostCount();
     }
 
-    public void setUserPostCount(int userPostCount)
+    public TwitchPrivmsg getPrivmsg()
     {
-        this.userPostCount = userPostCount;
+        return privmsg;
     }
-
 }

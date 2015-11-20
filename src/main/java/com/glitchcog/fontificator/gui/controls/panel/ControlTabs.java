@@ -97,7 +97,7 @@ public class ControlTabs extends JTabbedPane
     {
         logger.trace("Building ControlMainPanel");
 
-        emojiPanel = new ControlPanelEmoji(fProps, chatWindow, logBox);
+        emojiPanel = new ControlPanelEmoji(fProps, chatWindow, bot, logBox);
         ircPanel = new ControlPanelIrc(fProps, chatWindow, emojiPanel, bot, logBox);
         logBox.setAuthCode(fProps.getIrcConfig().getAuthorization());
         chatPanel = new ControlPanelChat(fProps, chatWindow, ctrlWindow, logBox);

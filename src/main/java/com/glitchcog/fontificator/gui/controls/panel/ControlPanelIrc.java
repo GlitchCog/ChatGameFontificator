@@ -17,13 +17,10 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 
 import com.glitchcog.fontificator.bot.ChatViewerBot;
-import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.ConfigIrc;
 import com.glitchcog.fontificator.config.FontificatorProperties;
-import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
-import com.glitchcog.fontificator.emoji.EmojiOperation;
-import com.glitchcog.fontificator.emoji.EmojiType;
+import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.LabeledInput;
 
@@ -216,36 +213,13 @@ public class ControlPanelIrc extends ControlPanelBase
 
                         if (report.isErrorFree())
                         {
-                            // Load emotes before connecting
-                            ConfigEmoji emojiConfig = fProps.getEmojiConfig();
-                            if (emojiConfig.isEmojiEnabled())
-                            {
-                                // Double check that the correct channel is set, if the emoji channel is linked to the
-                                // connect channel
-                                boolean channelChanged = false;
-                                if (emojiConfig.isConnectChannel())
-                                {
-                                    if (!emojiConfig.getChannel().equalsIgnoreCase(config.getChannelNoHash()))
-                                    {
-                                        channelChanged = true;
-                                    }
-                                    emojiConfig.setChannel(config.getChannel());
-                                }
-
-                                if (channelChanged || (!emojiConfig.isTwitchLoaded() && emojiConfig.isTwitchEnabled()))
-                                {
-                                    logBox.log("Attempting to load Twitch emotes on connect.");
-                                    emojiControl.workEmotes(ControlPanelEmoji.TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, false);
-                                }
-                                if (channelChanged || (!emojiConfig.isFfzLoaded() && emojiConfig.isFfzEnabled()))
-                                {
-                                    logBox.log("Attempting to load FrankerFaceZ emotes on connect.");
-                                    emojiControl.workEmotes(EmojiType.FRANKERFACEZ, EmojiOperation.LOAD, true);
-                                }
-                            }
-
                             // Connect to the IRC channel
                             connect();
+
+                            // Queue up all the worker threads for loading emotes based on configuration
+                            emojiControl.loadEmojiWork();
+                            // Kick off emote loading
+                            emojiControl.runEmojiWork();
                         }
                         else
                         {
@@ -262,7 +236,7 @@ public class ControlPanelIrc extends ControlPanelBase
                     }
                     catch (IOException ex)
                     {
-                        ChatWindow.popup.handleProblem("Error connecting to the IRC server. Verify the host and port values.", ex);
+                        ChatWindow.popup.handleProblem("Error connecting to the IRC server. Verify the Internet connection and then the host and port values.", ex);
                     }
                     catch (IrcException ex)
                     {

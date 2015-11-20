@@ -125,18 +125,16 @@ public class FontificatorProperties extends Properties
     public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY };
 
     public static final String KEY_EMOJI_ENABLED = "emojiEnabled";
+    public static final String KEY_EMOJI_BADGES = "badgesEnabled";
     public static final String KEY_EMOJI_SCALE_TO_LINE = "emojiScaleToLine";
     public static final String KEY_EMOJI_SCALE = "emojiScale";
-    public static final String KEY_EMOJI_CHANNEL = "emojiChannel";
-    public static final String KEY_EMOJI_CONNECT_CHANNEL = "emojiConnectChannel";
     public static final String KEY_EMOJI_DISPLAY_STRAT = "emojiDisplayStrat";
     public static final String KEY_EMOJI_TWITCH_ENABLE = "emojiTwitchEnabled";
-    public static final String KEY_EMOJI_TWITCH_SUBSCRIBER = "emojiTwitchSubsDisabled";
+    public static final String KEY_EMOJI_TWITCH_CACHE = "emojiTwitchCached";
     public static final String KEY_EMOJI_FFZ_ENABLE = "emojiFfzEnabled";
+    public static final String KEY_EMOJI_FFZ_CACHE = "emojiFfzCached";
 
-    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_CHANNEL, KEY_EMOJI_CONNECT_CHANNEL, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_SUBSCRIBER, KEY_EMOJI_FFZ_ENABLE };
-
-    public static final String[] EMOJI_KEYS_WITHOUT_CHANNEL = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_CONNECT_CHANNEL, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_SUBSCRIBER, KEY_EMOJI_FFZ_ENABLE };
+    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE };
 
     public static final String KEY_CENSOR_ENABLED = "censorEnabled";
     public static final String KEY_CENSOR_URL = "censorUrl";
@@ -265,7 +263,7 @@ public class FontificatorProperties extends Properties
             if (getClass().getClassLoader().getResource(plainFilename) == null)
             {
                 LoadConfigReport report = new LoadConfigReport();
-                final String errorMsg = "Preset font " + plainFilename + " not found";
+                final String errorMsg = "Preset theme " + plainFilename + " not found";
                 ChatWindow.popup.handleProblem(errorMsg);
                 report.addError(errorMsg, LoadConfigErrorType.FILE_NOT_FOUND);
                 return report;
@@ -273,6 +271,14 @@ public class FontificatorProperties extends Properties
 
             InputStream is = getClass().getClassLoader().getResourceAsStream(plainFilename);
             LoadConfigReport report = loadFile(is, filename, true);
+
+            if (report.isErrorFree())
+            {
+                // This is a temporary copy, not to be saved to the last saved file for loading next time, but to avoid
+                // having to not save when switching between presets
+                this.lastSavedCopy = getCopy();
+            }
+
             is.close();
             return report;
         }
@@ -570,17 +576,18 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_MESSAGE_TIMEFORMAT, "[HH:mm:ss]", override);
         setPropertyOverride(KEY_MESSAGE_QUEUE_SIZE, Integer.toString(64), override);
         setPropertyOverride(KEY_MESSAGE_SPEED, Integer.toString((int) (ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)), override);
-        setPropertyOverride(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.LOOKUP.name(), override);
+        setPropertyOverride(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.NONE.name(), override);
         setPropertyOverride(KEY_MESSAGE_CASE_SPECIFY, falseString, override);
 
         setPropertyOverride(KEY_EMOJI_ENABLED, trueString, override);
+        setPropertyOverride(KEY_EMOJI_BADGES, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE_TO_LINE, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE, Integer.toString(100), override);
-        setPropertyOverride(KEY_EMOJI_CONNECT_CHANNEL, trueString, override);
         setPropertyOverride(KEY_EMOJI_DISPLAY_STRAT, EmojiLoadingDisplayStragegy.SPACE.name(), override);
         setPropertyOverride(KEY_EMOJI_TWITCH_ENABLE, trueString, override);
-        setPropertyOverride(KEY_EMOJI_TWITCH_SUBSCRIBER, falseString, override);
+        setPropertyOverride(KEY_EMOJI_TWITCH_CACHE, falseString, override);
         setPropertyOverride(KEY_EMOJI_FFZ_ENABLE, falseString, override);
+        setPropertyOverride(KEY_EMOJI_FFZ_CACHE, falseString, override);
 
         setPropertyOverride(KEY_CENSOR_ENABLED, trueString, override);
         setPropertyOverride(KEY_CENSOR_URL, falseString, override);

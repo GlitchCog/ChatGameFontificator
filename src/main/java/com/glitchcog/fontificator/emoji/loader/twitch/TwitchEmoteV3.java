@@ -2,10 +2,7 @@ package com.glitchcog.fontificator.emoji.loader.twitch;
 
 /**
  * This is the object that the Twitch emote API V3 returns a list of when a call to
- * https://api.twitch.tv/kraken/chat/emoticons is made. This class is unused, but exists if Twitch ever decides to turn
- * off the V2 emote API, which is a much better API than V3 because it's channel specific.
- * 
- * @author Matt Yanos
+ * https://api.twitch.tv/kraken/chat/emoticons is made.
  */
 public class TwitchEmoteV3
 {

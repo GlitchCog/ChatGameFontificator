@@ -9,9 +9,14 @@ import java.util.Set;
 import com.glitchcog.fontificator.config.ConfigEmoji;
 
 /**
- * Internally contains two maps, one for storing emoji that are keyed off regular expressions, and another for storing
- * emoji that are keyed off just a word. This separation is to permit the speedier access of emoji keyed off of words
- * before checking through all the regular expression keys, which take longer
+ * Internally contains two maps for accessing Emoji based on just a word in a message:
+ * <ul>
+ * <li>one for storing emoji that are keyed off regular expressions (regexMap), and
+ * <li>another for storing emoji that are keyed off just a word (normalMap)</li>
+ * </ul>
+ * This separation is to permit the speedier access of emoji keyed off of words before checking through all the regular
+ * expression keys, which takes longer because each key must be accessed and compared as a regular expression.<br />
+ * <br />
  * 
  * @author Matt Yanos
  */
@@ -82,9 +87,7 @@ public class TypedEmojiMap
             }
         }
 
-        final boolean barredByConfigSubscriberDisabled = config != null && config.isTwitchSubscriberDisable() && (emoji != null && emoji.length > 0 && emoji[0].getType().isTwitch() && emoji[0].isSubscriber());
-
-        return barredByConfigSubscriberDisabled ? null : emoji;
+        return emoji;
     }
 
     public Collection<String> keySet()
@@ -100,7 +103,7 @@ public class TypedEmojiMap
      * entirely of alpha numeric characters indicating it's just a word
      * 
      * @param key
-     * @return is a regular expression
+     * @return is a regular expressi
      */
     private static boolean isRegularExpression(String key)
     {
@@ -125,5 +128,15 @@ public class TypedEmojiMap
         regex = regex.replaceAll("&lt;", "<");
         regex = regex.replaceAll("&gt;", ">");
         return regex;
+    }
+
+    public Map<String, LazyLoadEmoji[]> getNormalMap()
+    {
+        return normalMap;
+    }
+
+    public Map<String, LazyLoadEmoji[]> getRegexMap()
+    {
+        return regexMap;
     }
 }

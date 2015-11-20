@@ -1,8 +1,7 @@
 package com.glitchcog.fontificator.emoji.loader.twitch;
 
 /**
- * Maps to the V3 JSON data for Twitch emote images. This class is unused, but exists if Twitch ever decides to turn off
- * the V2 emote API, which is a much better API than V3 because it's channel specific.
+ * Maps to the V3 JSON data for Twitch emote images
  * 
  * @author Matt Yanos
  */
@@ -27,7 +26,7 @@ public class EmoteImageV3
      * The emoticon set the image belongs to. (This information would make more sense to store with the regex, but
      * Twitch did not do that)
      */
-    private String emoticon_set;
+    private Integer emoticon_set;
 
     /**
      * Get the pixel width of the Twitch emote image
@@ -94,7 +93,7 @@ public class EmoteImageV3
      * 
      * @return emoticon_set
      */
-    public String getEmoticon_set()
+    public Integer getEmoticon_set()
     {
         return emoticon_set;
     }
@@ -104,7 +103,7 @@ public class EmoteImageV3
      * 
      * @param emoticon_set
      */
-    public void setEmoticon_set(String emoticon_set)
+    public void setEmoticon_set(Integer emoticon_set)
     {
         this.emoticon_set = emoticon_set;
     }
