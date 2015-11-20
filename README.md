@@ -2,7 +2,7 @@
 ## 11/01 UPDATE: Message censorship is now supported!
 ## 9/22 UPDATE: Emoji are now supported! <img src="http://static-cdn.jtvnw.net/emoticons/v1/41/1.0" alt="Kreygasm">
 
-The Chat Game Fontificator (CGF) is an Internet Relay Chat (IRC) display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
+The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
 It's a Java application archive, so you'll need the JRE to run it, but it's likely you already have that. If you don't, you can get it [here](https://java.com/en/download/). Install the JRE, and then you can run this program.
 
@@ -102,7 +102,7 @@ Select Custom... from the border dropdown menu and select your border sheet imag
 
 * What if I want to start with an existing font or border, rather than create a custom one from whole cloth?
 
-All the font and border images are available as part of the source code on this site. Modify them as you see fit, and then load them into the program as a custom font or border. To save them from the GitHub source code repository, you have to click on the font, then save the image from the button in the upper left that says Raw, or from the image that is displayed on that page. If you right-click the image name from the repository and select Save-As, you will be saving the HTML page that GitHub uses to represent that image, not the image itself. Here are links to the repository locations containing the existing font and border images: [Fonts] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/fonts) | [Borders] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/borders)
+All the font and border images are available as part of the source code on this site. Modify them as you see fit, and then load them into the program as a custom font or border. To save them from the GitHub source code repository, you have to click on the font, then save the image from the button in the upper left that says Raw, or from the image that is displayed on that page. If you right-click the image name from the repository and select Save-As, you will be saving the HTML page that GitHub uses to represent that image, not the image itself. Another consideration is that the characters of many of the existing fonts are colored white against a transparent background, so some image viewing or editing programs will display these images as just a blank white picture. If this happens to you, you may need a more sophisticated program to work on them. Here are links to the repository locations containing the existing font and border images: [Fonts] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/fonts) | [Borders] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/borders)
 
 * The program wasn't broken. Why did you "fix" it?
 
