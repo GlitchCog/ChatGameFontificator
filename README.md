@@ -114,9 +114,11 @@ Last version before subscriber emotes and badges: [JAR from November 06, 2015]
 (../../raw/38257dc575fef2cc66f8dea6bfd134632889bb51/jar/ChatGameFontificator.jar).
 
 * Why didn't you tell me there were more game fonts available than just those in the Preset menu?
+
 I'm sorry, I should have mentioned that you can use the Font/Border tab to select fonts from some games that aren't even represented with a preset option.
 
 * Could I please see an exhaustive list of the fonts represented in this program?
+
   - 7th Dragon Name
   - Chrono Cross
   - Chrono Trigger
