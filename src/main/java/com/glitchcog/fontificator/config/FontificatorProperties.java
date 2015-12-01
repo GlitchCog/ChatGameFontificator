@@ -127,14 +127,16 @@ public class FontificatorProperties extends Properties
     public static final String KEY_EMOJI_ENABLED = "emojiEnabled";
     public static final String KEY_EMOJI_BADGES = "badgesEnabled";
     public static final String KEY_EMOJI_SCALE_TO_LINE = "emojiScaleToLine";
+    public static final String KEY_EMOJI_BADGE_SCALE_TO_LINE = "badgeScaleToLine";
     public static final String KEY_EMOJI_SCALE = "emojiScale";
+    public static final String KEY_EMOJI_BADGE_SCALE = "badgeScale";
     public static final String KEY_EMOJI_DISPLAY_STRAT = "emojiDisplayStrat";
     public static final String KEY_EMOJI_TWITCH_ENABLE = "emojiTwitchEnabled";
     public static final String KEY_EMOJI_TWITCH_CACHE = "emojiTwitchCached";
     public static final String KEY_EMOJI_FFZ_ENABLE = "emojiFfzEnabled";
     public static final String KEY_EMOJI_FFZ_CACHE = "emojiFfzCached";
 
-    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE };
+    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE };
 
     public static final String KEY_CENSOR_ENABLED = "censorEnabled";
     public static final String KEY_CENSOR_URL = "censorUrl";
@@ -582,7 +584,9 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_EMOJI_ENABLED, trueString, override);
         setPropertyOverride(KEY_EMOJI_BADGES, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE_TO_LINE, trueString, override);
+        setPropertyOverride(KEY_EMOJI_BADGE_SCALE_TO_LINE, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE, Integer.toString(100), override);
+        setPropertyOverride(KEY_EMOJI_BADGE_SCALE, Integer.toString(100), override);
         setPropertyOverride(KEY_EMOJI_DISPLAY_STRAT, EmojiLoadingDisplayStragegy.SPACE.name(), override);
         setPropertyOverride(KEY_EMOJI_TWITCH_ENABLE, trueString, override);
         setPropertyOverride(KEY_EMOJI_TWITCH_CACHE, falseString, override);
@@ -591,7 +595,7 @@ public class FontificatorProperties extends Properties
 
         setPropertyOverride(KEY_CENSOR_ENABLED, trueString, override);
         setPropertyOverride(KEY_CENSOR_URL, falseString, override);
-        setPropertyOverride(KEY_CENSOR_FIRST_URL, trueString, override);
+        setPropertyOverride(KEY_CENSOR_FIRST_URL, falseString, override);
         setPropertyOverride(KEY_CENSOR_UNKNOWN_CHARS, trueString, override);
         setPropertyOverride(KEY_CENSOR_UNKNOWN_CHARS_PERCENT, Integer.toString(20), override);
         setPropertyOverride(KEY_CENSOR_WHITE, "", override);

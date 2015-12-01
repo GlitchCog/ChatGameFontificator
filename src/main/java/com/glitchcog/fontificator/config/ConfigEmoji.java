@@ -2,9 +2,13 @@ package com.glitchcog.fontificator.config;
 
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
+import com.glitchcog.fontificator.emoji.EmojiJob;
 import com.glitchcog.fontificator.emoji.EmojiOperation;
 import com.glitchcog.fontificator.emoji.EmojiType;
+import com.glitchcog.fontificator.gui.controls.panel.ControlPanelEmoji;
 
 /**
  * The configuration for the Emoji and Badges
@@ -13,6 +17,8 @@ import com.glitchcog.fontificator.emoji.EmojiType;
  */
 public class ConfigEmoji extends Config
 {
+    private static final Logger logger = Logger.getLogger(ConfigEmoji.class);
+
     public static final int MIN_SCALE = 10;
     public static final int MAX_SCALE = 500;
 
@@ -30,12 +36,23 @@ public class ConfigEmoji extends Config
      * Whether the emoji scale value is used to modify the size of the emoji relative to the line height, or the
      * original emoji image size
      */
-    private Boolean scaleToLine;
+    private Boolean emojiScaleToLine;
+
+    /**
+     * Whether the badge scale value is used to modify the size of the badge relative to the line height, or the
+     * original badge image size
+     */
+    private Boolean badgeScaleToLine;
 
     /**
      * The scale value to be applied to the emoji
      */
-    private Integer scale;
+    private Integer emojiScale;
+
+    /**
+     * The scale value to be applied to the badge
+     */
+    private Integer badgeScale;
 
     /**
      * The strategy for drawing an emoji when the emoji key word and image URL are loaded, but the image itself is not
@@ -83,6 +100,11 @@ public class ConfigEmoji extends Config
     private String ffzLoadedChannel;
 
     /**
+     * Whether the FrankerFaceZ global emotes are loaded
+     */
+    private Boolean ffzGlobalLoaded;
+
+    /**
      * Whether FrankerFaceZ global and channel specific emotes have been cached
      */
     private Boolean ffzCached;
@@ -91,6 +113,7 @@ public class ConfigEmoji extends Config
     {
         twitchBadgesLoadedChannel = null;
         twitchLoaded = false;
+        ffzGlobalLoaded = false;
         ffzLoadedChannel = null;
         twitchCached = false;
         ffzCached = false;
@@ -101,8 +124,10 @@ public class ConfigEmoji extends Config
     {
         emojiEnabled = null;
         badgesEnabled = null;
-        scaleToLine = null;
-        scale = null;
+        emojiScaleToLine = null;
+        badgeScaleToLine = null;
+        emojiScale = null;
+        badgeScale = null;
         displayStrategy = null;
         twitchEnabled = null;
         twitchCacheEnabled = null;
@@ -132,26 +157,48 @@ public class ConfigEmoji extends Config
         props.setProperty(FontificatorProperties.KEY_EMOJI_BADGES, Boolean.toString(badgesEnabled));
     }
 
-    public boolean isScaleToLine()
+    public boolean isEmojiScaleToLine()
     {
-        return scaleToLine;
+        return emojiScaleToLine;
     }
 
-    public void setScaleToLine(Boolean scaleToLine)
+    public void setEmojiScaleToLine(Boolean emojiScaleToLine)
     {
-        this.scaleToLine = scaleToLine;
-        props.setProperty(FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE, Boolean.toString(scaleToLine));
+        this.emojiScaleToLine = emojiScaleToLine;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE, Boolean.toString(emojiScaleToLine));
     }
 
-    public Integer getScale()
+    public boolean isBadgeScaleToLine()
     {
-        return scale;
+        return badgeScaleToLine;
     }
 
-    public void setScale(Integer scale)
+    public void setBadgeScaleToLine(Boolean badgeScaleToLine)
     {
-        this.scale = scale;
-        props.setProperty(FontificatorProperties.KEY_EMOJI_SCALE, Integer.toString(scale));
+        this.badgeScaleToLine = badgeScaleToLine;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_BADGE_SCALE_TO_LINE, Boolean.toString(badgeScaleToLine));
+    }
+
+    public Integer getEmojiScale()
+    {
+        return emojiScale;
+    }
+
+    public void setEmojiScale(Integer emojiScale)
+    {
+        this.emojiScale = emojiScale;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_SCALE, Integer.toString(emojiScale));
+    }
+
+    public Integer getBadgeScale()
+    {
+        return badgeScale;
+    }
+
+    public void setBadgeScale(Integer badgeScale)
+    {
+        this.badgeScale = badgeScale;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_BADGE_SCALE, Integer.toString(badgeScale));
     }
 
     public EmojiLoadingDisplayStragegy getDisplayStrategy()
@@ -227,9 +274,13 @@ public class ConfigEmoji extends Config
             {
             case FRANKERFACEZ_CHANNEL:
                 return ffzEnabled != null && ffzEnabled && ffzLoadedChannel != null;
+            case FRANKERFACEZ_GLOBAL:
+                return ffzEnabled != null && ffzEnabled && ffzGlobalLoaded != null && ffzGlobalLoaded;
             case TWITCH_V2:
             case TWITCH_V3:
-                return twitchEnabled != null && twitchEnabled && twitchLoaded != null && twitchLoaded;
+                // Only V2 and V3. V1 doesn't use the normal EmojiTypeMap, so it doesn't need to be checked. They're
+                // loaded on the fly.
+                return ControlPanelEmoji.TWITCH_EMOTE_VERSION.equals(type) && twitchEnabled != null && twitchEnabled && twitchLoaded != null && twitchLoaded;
             case TWITCH_BADGE:
                 return badgesEnabled != null && badgesEnabled && twitchBadgesLoadedChannel != null;
             default:
@@ -239,10 +290,11 @@ public class ConfigEmoji extends Config
         }
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String scaleEnabledBool, String scale, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool)
     {
-        validateBooleanStrings(report, enabledBool, scaleEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool);
+        validateBooleanStrings(report, enabledBool, scaleEnabledBool, scaleBadgeEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_SCALE, scale, MIN_SCALE, MAX_SCALE, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_BADGE_SCALE, scaleBadge, MIN_SCALE, MAX_SCALE, report);
 
         return report;
     }
@@ -262,7 +314,9 @@ public class ConfigEmoji extends Config
             final String enabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_ENABLED);
 
             final String scaleEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE);
+            final String scaleBadgeEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BADGE_SCALE_TO_LINE);
             final String scaleStr = props.getProperty(FontificatorProperties.KEY_EMOJI_SCALE);
+            final String scaleBadgeStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BADGE_SCALE);
             final String displayStratStr = props.getProperty(FontificatorProperties.KEY_EMOJI_DISPLAY_STRAT);
 
             final String twitchEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_TWITCH_ENABLE);
@@ -272,15 +326,17 @@ public class ConfigEmoji extends Config
             final String ffzCacheStr = props.getProperty(FontificatorProperties.KEY_EMOJI_FFZ_CACHE);
 
             // Check that the values are valid
-            validateStrings(report, enabledStr, scaleEnabledStr, scaleStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr);
+            validateStrings(report, enabledStr, scaleEnabledStr, scaleBadgeEnabledStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr);
 
             // Fill the values
             if (report.isErrorFree())
             {
                 emojiEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_ENABLED, report);
                 badgesEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BADGES, report);
-                scaleToLine = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE, report);
-                scale = evaluateIntegerString(props, FontificatorProperties.KEY_EMOJI_SCALE, report);
+                emojiScaleToLine = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE, report);
+                badgeScaleToLine = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BADGE_SCALE_TO_LINE, report);
+                emojiScale = evaluateIntegerString(props, FontificatorProperties.KEY_EMOJI_SCALE, report);
+                badgeScale = evaluateIntegerString(props, FontificatorProperties.KEY_EMOJI_BADGE_SCALE, report);
                 displayStrategy = EmojiLoadingDisplayStragegy.valueOf(displayStratStr);
                 twitchEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_TWITCH_ENABLE, report);
                 twitchCacheEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_TWITCH_CACHE, report);
@@ -302,8 +358,11 @@ public class ConfigEmoji extends Config
         result = prime * result + ((badgesEnabled == null) ? 0 : badgesEnabled.hashCode());
         result = prime * result + ((ffzEnabled == null) ? 0 : ffzEnabled.hashCode());
         result = prime * result + ((ffzLoadedChannel == null) ? 0 : ffzLoadedChannel.hashCode());
-        result = prime * result + ((scale == null) ? 0 : scale.hashCode());
-        result = prime * result + ((scaleToLine == null) ? 0 : scaleToLine.hashCode());
+        result = prime * result + ((ffzGlobalLoaded == null) ? 0 : ffzGlobalLoaded.hashCode());
+        result = prime * result + ((emojiScale == null) ? 0 : emojiScale.hashCode());
+        result = prime * result + ((emojiScaleToLine == null) ? 0 : emojiScaleToLine.hashCode());
+        result = prime * result + ((badgeScale == null) ? 0 : badgeScale.hashCode());
+        result = prime * result + ((badgeScaleToLine == null) ? 0 : badgeScaleToLine.hashCode());
         result = prime * result + ((twitchEnabled == null) ? 0 : twitchEnabled.hashCode());
         result = prime * result + ((twitchLoaded == null) ? 0 : twitchLoaded.hashCode());
         result = prime * result + ((twitchBadgesLoadedChannel == null) ? 0 : twitchBadgesLoadedChannel.hashCode());
@@ -374,25 +433,58 @@ public class ConfigEmoji extends Config
         {
             return false;
         }
-        if (scale == null)
+        if (ffzGlobalLoaded == null)
         {
-            if (other.scale != null)
+            if (other.ffzGlobalLoaded != null)
             {
                 return false;
             }
         }
-        else if (!scale.equals(other.scale))
+        else if (!ffzGlobalLoaded.equals(other.ffzGlobalLoaded))
         {
             return false;
         }
-        if (scaleToLine == null)
+        if (emojiScale == null)
         {
-            if (other.scaleToLine != null)
+            if (other.emojiScale != null)
             {
                 return false;
             }
         }
-        else if (!scaleToLine.equals(other.scaleToLine))
+        else if (!emojiScale.equals(other.emojiScale))
+        {
+            return false;
+        }
+        if (badgeScale == null)
+        {
+            if (other.badgeScale != null)
+            {
+                return false;
+            }
+        }
+        else if (!badgeScale.equals(other.badgeScale))
+        {
+            return false;
+        }
+        if (emojiScaleToLine == null)
+        {
+            if (other.emojiScaleToLine != null)
+            {
+                return false;
+            }
+        }
+        else if (!emojiScaleToLine.equals(other.emojiScaleToLine))
+        {
+            return false;
+        }
+        if (badgeScaleToLine == null)
+        {
+            if (other.badgeScaleToLine != null)
+            {
+                return false;
+            }
+        }
+        else if (!badgeScaleToLine.equals(other.badgeScaleToLine))
         {
             return false;
         }
@@ -442,14 +534,17 @@ public class ConfigEmoji extends Config
     {
         this.emojiEnabled = copy.emojiEnabled;
         this.badgesEnabled = copy.badgesEnabled;
-        this.scaleToLine = copy.scaleToLine;
-        this.scale = copy.scale;
+        this.emojiScaleToLine = copy.emojiScaleToLine;
+        this.emojiScale = copy.emojiScale;
+        this.badgeScaleToLine = copy.badgeScaleToLine;
+        this.badgeScale = copy.badgeScale;
         this.displayStrategy = copy.displayStrategy;
         this.twitchEnabled = copy.twitchEnabled;
         this.ffzEnabled = copy.ffzEnabled;
         this.twitchLoaded = copy.twitchLoaded;
         this.twitchBadgesLoadedChannel = copy.twitchBadgesLoadedChannel;
         this.ffzLoadedChannel = copy.ffzLoadedChannel;
+        this.ffzGlobalLoaded = copy.ffzGlobalLoaded;
     }
 
     /**
@@ -459,7 +554,7 @@ public class ConfigEmoji extends Config
      */
     public Boolean isTwitchLoaded()
     {
-        return twitchLoaded;
+        return twitchLoaded != null && twitchLoaded;
     }
 
     /**
@@ -479,7 +574,7 @@ public class ConfigEmoji extends Config
      */
     public Boolean isTwitchCached()
     {
-        return twitchCached;
+        return twitchCached != null && twitchCached;
     }
 
     /**
@@ -535,13 +630,33 @@ public class ConfigEmoji extends Config
     }
 
     /**
+     * Get whether the global FrankerFaceZ emotes have been loaded
+     * 
+     * @return ffzGlobalLoaded
+     */
+    public Boolean isFfzGlobalLoaded()
+    {
+        return ffzGlobalLoaded != null && ffzGlobalLoaded;
+    }
+
+    /**
+     * Set whether the global FrankerFaceZ emotes have been loaded
+     * 
+     * @param ffzGlobalLoaded
+     */
+    public void setFfzGlobalLoaded(Boolean ffzGlobalLoaded)
+    {
+        this.ffzGlobalLoaded = ffzGlobalLoaded;
+    }
+
+    /**
      * Get whether the FrankerFaceZ emotes have been cached
      * 
      * @return ffzCached
      */
     public boolean isFfzCached()
     {
-        return ffzCached;
+        return ffzCached != null && ffzCached;
     }
 
     /**
@@ -557,15 +672,16 @@ public class ConfigEmoji extends Config
     /**
      * Mark work as being completed by setting the loaded and cached member variables of this emoji config
      * 
-     * @param emojiType
-     *            The type of emoji on which the operation was done
-     * @param emojiOp
-     *            The operation done, loading or caching
-     * @param channel
-     *            The channel the work was done for, only used for FrankerFazeZ emotes
+     * @param job
+     *            Contains the type, op, and channel of the job completed
      */
-    public void setWorkCompleted(EmojiType emojiType, EmojiOperation emojiOp, String channel)
+    public void setWorkCompleted(EmojiJob job)
     {
+        logger.trace(job.toString() + " completed");
+
+        final EmojiType emojiType = job.getType();
+        final EmojiOperation emojiOp = job.getOp();
+
         if (emojiType.isTwitchEmote())
         {
             if (EmojiOperation.LOAD == emojiOp)
@@ -579,13 +695,20 @@ public class ConfigEmoji extends Config
         }
         else if (EmojiType.TWITCH_BADGE.equals(emojiType))
         {
-            this.twitchBadgesLoadedChannel = channel;
+            this.twitchBadgesLoadedChannel = job.getChannel();
         }
         else if (emojiType.isFrankerFaceZEmote())
         {
             if (EmojiOperation.LOAD == emojiOp)
             {
-                this.ffzLoadedChannel = channel;
+                if (emojiType == EmojiType.FRANKERFACEZ_CHANNEL)
+                {
+                    this.ffzLoadedChannel = job.getChannel();
+                }
+                else if (emojiType == EmojiType.FRANKERFACEZ_GLOBAL)
+                {
+                    this.ffzGlobalLoaded = true;
+                }
             }
             else if (EmojiOperation.CACHE == emojiOp)
             {
@@ -594,11 +717,27 @@ public class ConfigEmoji extends Config
         }
     }
 
+    /**
+     * Reset the flags indicating any completed work. This enables a reloading of everything. It does not clear out the
+     * previously loaded or cached data, just enables the system to reload or recache it.
+     */
     public void resetWorkCompleted()
     {
         this.twitchLoaded = false;
         this.twitchCached = false;
+        this.twitchBadgesLoadedChannel = null;
         this.ffzLoadedChannel = null;
+        this.ffzGlobalLoaded = false;
         this.ffzCached = null;
+    }
+
+    /**
+     * Get whether any work been done to load or cache any emoji or badges
+     * 
+     * @return whether work was done
+     */
+    public boolean isAnyWorkDone()
+    {
+        return twitchBadgesLoadedChannel != null || isTwitchLoaded() || isTwitchCached() || ffzLoadedChannel != null || isFfzGlobalLoaded() || isFfzCached();
     }
 }

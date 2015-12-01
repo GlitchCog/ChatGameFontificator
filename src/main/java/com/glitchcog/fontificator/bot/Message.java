@@ -1,9 +1,12 @@
 package com.glitchcog.fontificator.bot;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.ConfigMessage;
@@ -20,11 +23,18 @@ import com.glitchcog.fontificator.sprite.SpriteCharacterKey;
  */
 public class Message
 {
+    private static final Logger logger = Logger.getLogger(Message.class);
+
     /**
      * A regex for checking for emoji keys in the text. Used in a String.split to divide the message into an array of
      * words and the spaces between them.
      */
     public static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
+
+    /**
+     * The character to separate badges from the username
+     */
+    private static final char BADGE_SEPARATOR_CHARACTER = ' ';
 
     /**
      * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored
@@ -407,6 +417,13 @@ public class Message
                 keyList.add(new SpriteCharacterKey(badgeBank.getEmoji(turboStr), true));
                 badgeCount++;
             }
+
+            // Add a space if there is at least one badge
+            if (badgeCount > 0)
+            {
+                keyList.add(new SpriteCharacterKey(BADGE_SEPARATOR_CHARACTER));
+                badgeCount++;
+            }
         }
 
         if (messageConfig.showUsernames())
@@ -431,62 +448,10 @@ public class Message
             }
         }
 
+        // Parse out the emoji, if enabled
         if (emojiConfig.isEmojiEnabled())
         {
-            Map<Integer, EmoteAndIndices> emotes = privmsg.getEmotes();
-
-            String[] words = content.split(SPACE_BOUNDARY_REGEX);
-
-            int charIndex = 0;
-
-            LazyLoadEmoji[] emoji = null;
-            for (int w = 0; w < words.length; w++)
-            {
-                EmoteAndIndices eai = emotes.get(charIndex);
-                if (eai != null)
-                {
-                    emoji = emojiManager.getEmojiById(eai.getEmoteId(), emojiConfig);
-
-                    // There is an emoji here, but we couldn't find it in the emoteId map, so just use the map
-                    if (emoji == null)
-                    {
-                        emoji = emojiManager.getEmoji(EmojiType.TWITCH_V3, words[w], emojiConfig);
-                    }
-                }
-                // At this point, only 3rd party emoji should be a possibility for this word (with the exception of
-                // manual messages)
-                else
-                {
-                    // This is the manual message exception
-                    if (MessageType.MANUAL.equals(type))
-                    {
-                        // As a bug here, all manual messages will have access to all Twitch emotes, regardless of
-                        // subscriber status
-                        emoji = emojiManager.getEmoji(words[w], emojiConfig);
-                    }
-                    // Only check 3rd party emotes
-                    else
-                    {
-                        emoji = emojiManager.getEmoji(new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL }, words[w], emojiConfig);
-                    }
-                }
-
-                if (emoji == null)
-                {
-                    // Done checking for all sorts of emoji types, so it's just a word. Set the characters.
-                    for (int c = 0; c < words[w].length(); c++)
-                    {
-                        keyList.add(new SpriteCharacterKey(words[w].charAt(c)));
-                    }
-                }
-                else
-                {
-                    keyList.add(new SpriteCharacterKey(emoji, false));
-                }
-
-                // Increment the charIndex by the current word's length
-                charIndex += words[w].length();
-            }
+            processEmoji(content, privmsg, keyList, emojiManager, emojiConfig, MessageType.MANUAL.equals(type));
         }
         // Configured for no emoji, so just chars
         else
@@ -497,7 +462,85 @@ public class Message
             }
         }
 
+        // Return the list as an array, to be kept until configuration is modified requiring a reprocessing
         return keyList.toArray(new SpriteCharacterKey[keyList.size()]);
+    }
+
+    /**
+     * Convert the content of the message into the appropriate emoji. Add those emoji and the remaining characters
+     * between them to the specified keyList array.
+     * 
+     * @param content
+     * @param privmsg
+     * @param keyList
+     *            The array to add the emoji and remaining characters to
+     * @param emojiManager
+     * @param emojiConfig
+     * @param isManualMessage
+     */
+    private static void processEmoji(String content, TwitchPrivmsg privmsg, List<SpriteCharacterKey> keyList, EmojiManager emojiManager, ConfigEmoji emojiConfig, boolean isManualMessage)
+    {
+        Map<Integer, EmoteAndIndices> emotes = privmsg.getEmotes();
+
+        String[] words = content.split(SPACE_BOUNDARY_REGEX);
+
+        int charIndex = 0;
+
+        LazyLoadEmoji[] emoji = null;
+        for (int w = 0; w < words.length; w++)
+        {
+            EmoteAndIndices eai = emotes.get(charIndex);
+            if (eai != null)
+            {
+                // This catches subscriber emotes and any non-global emotes
+                emoji = emojiManager.getEmojiById(eai.getEmoteId(), words[w], emojiConfig);
+                if (emoji == null)
+                {
+                    // The already loaded Twitch V1 emoji map doesn't this emote ID yet, so add it
+                    try
+                    {
+                        emoji = emojiManager.putEmojiById(eai.getEmoteId(), words[w], emojiConfig);
+                    }
+                    catch (MalformedURLException e)
+                    {
+                        logger.error("Unable to load emote for emote ID " + eai.getEmoteId(), e);
+                    }
+                }
+            }
+            // At this point, only 3rd party emoji should be a possibility for this word (with the exception of
+            // manual messages)
+            else
+            {
+                // This is the manual message exception
+                if (isManualMessage)
+                {
+                    // As a known bug here, all manual messages will have access to all Twitch emotes, regardless of
+                    // subscriber status
+                    emoji = emojiManager.getEmoji(words[w], emojiConfig);
+                }
+                // Only check 3rd party emotes
+                else
+                {
+                    emoji = emojiManager.getEmoji(new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL }, words[w], emojiConfig);
+                }
+            }
+
+            if (emoji == null)
+            {
+                // Done checking for all sorts of emoji types, so it's just a word. Set the characters.
+                for (int c = 0; c < words[w].length(); c++)
+                {
+                    keyList.add(new SpriteCharacterKey(words[w].charAt(c)));
+                }
+            }
+            else
+            {
+                keyList.add(new SpriteCharacterKey(emoji, false));
+            }
+
+            // Increment the charIndex by the current word's length
+            charIndex += words[w].length();
+        }
     }
 
     public String getCensoredReason()

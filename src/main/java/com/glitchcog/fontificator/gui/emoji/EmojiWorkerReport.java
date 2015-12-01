@@ -18,30 +18,21 @@ public class EmojiWorkerReport
     private final int percentComplete;
 
     /**
-     * Indicates an error has occured
+     * Indicates an error has occurred
      */
-    private boolean error;
+    private final boolean error;
 
     /**
-     * Constructs a report that indicates an error
-     * 
-     * @param errorMessage
+     * Indicates the work has been canceled
      */
-    public EmojiWorkerReport(String errorMessage)
-    {
-        this(errorMessage, 0, true);
-    }
+    private final boolean canceled;
 
-    public EmojiWorkerReport(String message, int percentComplete)
-    {
-        this(message, percentComplete, false);
-    }
-
-    private EmojiWorkerReport(String message, int percentComplete, boolean error)
+    public EmojiWorkerReport(String message, int percentComplete, boolean error, boolean canceled)
     {
         this.message = message;
         this.percentComplete = percentComplete;
         this.error = error;
+        this.canceled = canceled;
     }
 
     /**
@@ -81,11 +72,16 @@ public class EmojiWorkerReport
 
     public boolean isComplete()
     {
-        return percentComplete == 100;
+        return percentComplete == 100 && !isError() && !isCanceled();
     }
 
     public boolean isError()
     {
         return error;
+    }
+
+    public boolean isCanceled()
+    {
+        return canceled;
     }
 }

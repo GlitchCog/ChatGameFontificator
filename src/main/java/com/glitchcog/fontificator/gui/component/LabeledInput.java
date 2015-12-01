@@ -60,6 +60,7 @@ public class LabeledInput extends JPanel
         add(this.input, gbc);
     }
 
+    @Override
     public void setEnabled(boolean enabled)
     {
         input.setEnabled(enabled);
@@ -98,6 +99,7 @@ public class LabeledInput extends JPanel
         input.getDocument().addDocumentListener(dl);
     }
 
+    @Override
     public void addFocusListener(FocusListener fl)
     {
         input.addFocusListener(fl);

@@ -8,6 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.log4j.Logger;
+
 import com.glitchcog.fontificator.emoji.EmojiType;
 
 /**
@@ -17,12 +19,31 @@ import com.glitchcog.fontificator.emoji.EmojiType;
  */
 public class EmojiApiLoader
 {
+    private static final Logger logger = Logger.getLogger(EmojiApiLoader.class);
+
     private static final String CHANNEL_NAME_REPLACE = "%CHANNEL_NAME%";
+
+    public static final String EMOTE_ID_REPLACE = "%EMOTE_ID%";
+
+    public static final String EMOTE_SIZE_REPLACE = "%EMOTE_SIZE%";
+
+    /**
+     * The URL template for loading V1 Twitch emotes. The ID in this URL is the emote ID value in the IRC tag prepended
+     * to a post to the Twitch IRC server.
+     */
+    public static final String TWITCH_EMOTE_ID_V1_URL = "http://static-cdn.jtvnw.net/emoticons/v1/" + EMOTE_ID_REPLACE + "/" + EMOTE_SIZE_REPLACE;
 
     /**
      * The base URL for getting the channel specific Twitch emotes from V2 of the API
      */
     private static final String TWITCH_URL_V2_BASE = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/emoticons";
+
+    /**
+     * Twitch gives a specific emote ID with each post, but identifies all its V3 emotes with a broader "set" ID, so
+     * this API links the narrow emote ID to a wider emote set ID. This is an ineffective way to map these data, but
+     * Twitch's V3 API demands it.
+     */
+    private static final String TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP = "https://api.twitch.tv/kraken/chat/emoticon_images";
 
     /**
      * The URL for getting all Twitch emotes from V3 of the API
@@ -58,6 +79,40 @@ public class EmojiApiLoader
 
     private boolean loadComplete;
 
+    /**
+     * Get the URL for a V1 Twitch emote URL with the default size. The specified ID is the value given by the IRC tags
+     * prepended onto posts from the Twitch server
+     * 
+     * @param emoteId
+     *            The ID of the desired emote.
+     * @return URL
+     */
+    public static String getTwitchEmoteV1Url(Integer emoteId)
+    {
+        return getTwitchEmoteV1Url(emoteId, 2);
+    }
+
+    /**
+     * Get the URL for a V1 Twitch emote URL. The specified ID is the value given by the IRC tags prepended onto posts
+     * from the Twitch server
+     * 
+     * @param emoteId
+     *            The ID of the desired emote.
+     * @param emoteSize
+     *            The desired size of the emote. 1, 2, or 3
+     * @return URL
+     */
+    public static String getTwitchEmoteV1Url(Integer emoteId, int emoteSize)
+    {
+        if (1 > emoteSize || emoteSize > 3)
+        {
+            logger.warn("Invalid emote size: " + emoteSize + ". Valid sizes are 1, 2, or 3.");
+            emoteSize = 2;
+            logger.info("Defaulting to size " + emoteSize + ".");
+        }
+        return TWITCH_EMOTE_ID_V1_URL.replaceAll(EMOTE_ID_REPLACE, Integer.toString(emoteId)).replaceAll(EMOTE_SIZE_REPLACE, Integer.toString(emoteSize) + ".0");
+    }
+
     public EmojiApiLoader()
     {
         buffer = new char[BUFFER_SIZE];
@@ -70,6 +125,13 @@ public class EmojiApiLoader
         this.jsonLength = 0.0f;
         this.reader = null;
         this.loadComplete = false;
+    }
+
+    public void prepSetMapLoad()
+    {
+        this.loadComplete = false;
+        this.jsonStringBuilder = new StringBuilder();
+        this.url = TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP;
     }
 
     public void prepLoad(EmojiType emojiType, String channel)
@@ -100,12 +162,20 @@ public class EmojiApiLoader
         }
     }
 
-    public void initLoad() throws IOException, MalformedURLException, FileNotFoundException
+    public boolean initLoad() throws IOException, MalformedURLException, FileNotFoundException
     {
-        URL url = new URL(this.url);
-        URLConnection conn = url.openConnection();
-        this.jsonLength = conn.getContentLengthLong();
-        this.reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        if (this.url != null)
+        {
+            URL url = new URL(this.url);
+            URLConnection conn = url.openConnection();
+            this.jsonLength = conn.getContentLengthLong();
+            this.reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public boolean isPercentCalculationPossible()

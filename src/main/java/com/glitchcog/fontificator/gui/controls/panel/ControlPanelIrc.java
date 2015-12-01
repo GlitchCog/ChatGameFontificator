@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.IOException;
 import java.net.URI;
 
@@ -171,6 +173,35 @@ public class ControlPanelIrc extends ControlPanelBase
         hostInput = new LabeledInput("Host", 7);
         portInput = new LabeledInput("Port", 3);
 
+        FocusListener fl = new FocusListener()
+        {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                // The user was in the input field, and then clicked on something other than the input field, so update
+                // the configuration
+                try
+                {
+                    fillConfigFromInput();
+                }
+                catch (Exception ex)
+                {
+                    logger.trace(ex.toString(), ex);
+                }
+            }
+        };
+
+        userInput.addFocusListener(fl);
+        authInput.addFocusListener(fl);
+        chanInput.addFocusListener(fl);
+        hostInput.addFocusListener(fl);
+        portInput.addFocusListener(fl);
+
         authHelpButton.addActionListener(new ActionListener()
         {
             final String url = "http://www.twitchapps.com/tmi/";
@@ -215,11 +246,7 @@ public class ControlPanelIrc extends ControlPanelBase
                         {
                             // Connect to the IRC channel
                             connect();
-
-                            // Queue up all the worker threads for loading emotes based on configuration
-                            emojiControl.loadEmojiWork();
-                            // Kick off emote loading
-                            emojiControl.runEmojiWork();
+                            emojiControl.loadAndRunEmojiWork();
                         }
                         else
                         {
@@ -378,5 +405,17 @@ public class ControlPanelIrc extends ControlPanelBase
     public void log(String line)
     {
         logBox.log(line);
+    }
+
+    /**
+     * This value is exposed so the ChatViewerBot that has a reference to this object can access the current no-hash
+     * version of the channel value. It uses it to determine whether to give a user the broadcaster badge because Twitch
+     * does not set that usertype in its IRC tags.
+     * 
+     * @return channel, no hash ('#')
+     */
+    public String getChannelNoHash()
+    {
+        return config.getChannelNoHash();
     }
 }

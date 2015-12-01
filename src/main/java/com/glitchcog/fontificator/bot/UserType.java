@@ -2,7 +2,7 @@ package com.glitchcog.fontificator.bot;
 
 public enum UserType
 {
-    NONE(""), MOD("mod"), GLOBAL_MOD("global_mod"), ADMIN("admin"), STAFF("staff"), BOT("bot");
+    NONE(""), MOD("mod"), GLOBAL_MOD("global_mod"), ADMIN("admin"), STAFF("staff"), BROADCASTER("broadcaster");
 
     private final String key;
 

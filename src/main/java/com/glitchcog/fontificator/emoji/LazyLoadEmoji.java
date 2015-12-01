@@ -1,6 +1,7 @@
 package com.glitchcog.fontificator.emoji;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,6 +22,11 @@ public class LazyLoadEmoji
 {
     private static final Logger logger = Logger.getLogger(LazyLoadEmoji.class);
 
+    /**
+     * The word or regex that identifies this emoji
+     */
+    private final String identifier;
+
     private final EmojiType type;
 
     private Image image;
@@ -35,12 +41,23 @@ public class LazyLoadEmoji
 
     private int height;
 
-    public LazyLoadEmoji(String url, int width, int height, EmojiType type) throws MalformedURLException
+    private static final int DEFAULT_EMOJI_SIZE = 24;
+
+    private boolean firstLoadFailureReported;
+
+    public LazyLoadEmoji(String id, String url, EmojiType type) throws MalformedURLException
     {
+        this(id, url, DEFAULT_EMOJI_SIZE, DEFAULT_EMOJI_SIZE, type);
+    }
+
+    public LazyLoadEmoji(String identifier, String url, int width, int height, EmojiType type) throws MalformedURLException
+    {
+        this.identifier = identifier;
         this.url = new URL(url);
         this.type = type;
         this.width = width;
         this.height = height;
+        this.firstLoadFailureReported = false;
     }
 
     /**
@@ -54,13 +71,38 @@ public class LazyLoadEmoji
         {
             try
             {
-                image = ImageIO.read(url);
+                BufferedImage imageFromTwitch = ImageIO.read(url);
+
+                // Hack to make image background transparent because Twitch emote V1 of sizes 2.0 and 3.0 sometimes are
+                // not of the correct type for transparency. Kappa (ID 25) is an example of a non transparent emoji in
+                // sizes 2.0 and 3.0. Seriously. Download a Kappa size 2.0 image from the V1 URL and open it in an
+                // editor. The background is solid, but when Twitch displays it in their chat, it displays transparent.
+                if (EmojiOpacityHandler.isCandidateForModification(type, imageFromTwitch.getType(), identifier))
+                {
+                    image = EmojiOpacityHandler.fixOpaqueEmote(identifier, imageFromTwitch);
+                }
+                // No hack required
+                else
+                {
+                    image = imageFromTwitch;
+                }
             }
             catch (IOException e)
             {
-                logger.trace("Could not load from " + url);
+                if (!firstLoadFailureReported)
+                {
+                    logger.error("Unable to load emoji: " + url, e);
+                    firstLoadFailureReported = true;
+                }
             }
         }
+
+        if (image != null)
+        {
+            this.width = this.image.getWidth(null);
+            this.height = this.image.getHeight(null);
+        }
+
         return image;
     }
 
@@ -107,5 +149,10 @@ public class LazyLoadEmoji
     public void setHeight(int height)
     {
         this.height = height;
+    }
+
+    public URL getUrl()
+    {
+        return url;
     }
 }

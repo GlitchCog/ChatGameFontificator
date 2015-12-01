@@ -86,7 +86,7 @@ public class SpriteFont
                 break;
             case UNKNOWN:
                 // Do not use the emoji scaling below because it's a character, not an emoji
-                return new int[] {getCharacterWidth(new SpriteCharacterKey(config.getUnknownChar()), emojiConfig), 1};
+                return new int[] { getCharacterWidth(new SpriteCharacterKey(config.getUnknownChar()), emojiConfig), 1 };
             case NOTHING:
             default:
                 iw = 0;
@@ -103,8 +103,8 @@ public class SpriteFont
         float h;
         float w;
 
-        float eScale = (emojiConfig.getScale() / 100.0f);
-        if (emojiConfig.isScaleToLine())
+        float eScale = emoji.getType().isBadge() ? (emojiConfig.getBadgeScale() / 100.0f) : (emojiConfig.getEmojiScale() / 100.0f);
+        if ((emoji.getType().isBadge() && emojiConfig.isBadgeScaleToLine()) || (!emoji.getType().isBadge() && emojiConfig.isEmojiScaleToLine()))
         {
             final float emojiScaleRatio = eScale * getLineHeightScaled() / (float) ih;
             h = ih * emojiScaleRatio;

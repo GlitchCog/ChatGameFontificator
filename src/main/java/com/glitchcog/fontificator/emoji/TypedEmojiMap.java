@@ -46,23 +46,11 @@ public class TypedEmojiMap
         return getEmoji(testKey, null);
     }
 
-    public LazyLoadEmoji[] put(String key, LazyLoadEmoji[] value)
-    {
-        if (isRegularExpression(key))
-        {
-            key = fixRegularExpression(key);
-            return regexMap.put(key, value);
-        }
-        else
-        {
-            return normalMap.put(key, value);
-        }
-    }
-
     /**
      * Get the emoji, if the configuration allows for that type of emoji
      * 
      * @param testKey
+     *            A String key
      * @param config
      * @return emoji or null if not found or if configuration prohibits this emoji
      */
@@ -90,6 +78,19 @@ public class TypedEmojiMap
         return emoji;
     }
 
+    public LazyLoadEmoji[] put(String key, LazyLoadEmoji[] value)
+    {
+        if (isRegularExpression(key))
+        {
+            key = fixRegularExpression(key);
+            return regexMap.put(key, value);
+        }
+        else
+        {
+            return normalMap.put(key, value);
+        }
+    }
+
     public Collection<String> keySet()
     {
         Set<String> keys = new HashSet<String>(normalMap.keySet().size() + regexMap.keySet().size());
@@ -103,7 +104,7 @@ public class TypedEmojiMap
      * entirely of alpha numeric characters indicating it's just a word
      * 
      * @param key
-     * @return is a regular expressi
+     * @return is a regular expression
      */
     private static boolean isRegularExpression(String key)
     {
@@ -139,4 +140,5 @@ public class TypedEmojiMap
     {
         return regexMap;
     }
+
 }

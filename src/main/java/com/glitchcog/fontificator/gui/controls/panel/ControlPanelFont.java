@@ -67,12 +67,12 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Crystalis", "Crystalis"), new DropdownFont("crystalis_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownFont("dw1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownFont("dw2_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II (SFC)"), new DropdownFont("dq1_2_sfc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III"), new DropdownFont("dw3_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III (GBC) Dialog"), new DropdownFont("dw3gbc_dialog_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III (GBC) Fight"), new DropdownFont("dw3gbc_fight_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownFont("dw4_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II"), new DropdownFont("dq1_2_sfc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownFont("dq3_sfc_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownFont("dw4_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Earthbound", "Earthbound Zero Bold"), new DropdownFont("eb0_bold_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Earthbound", "Earthbound"), new DropdownFont("eb_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Earthbound", "Earthbound Mr. Saturn"), new DropdownFont("eb_saturn_font.png", FontType.VARIABLE_WIDTH));
@@ -93,7 +93,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 2"), new DropdownFont("smb2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3"), new DropdownFont("smb3_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD"), new DropdownFont("smb3_hud_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Lowercase)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Mixed Case)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World"), new DropdownFont("smw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Mario is Missing"), new DropdownFont("mmiss_font.png", FontType.FIXED_WIDTH));
@@ -105,7 +105,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Metal Gear", "Metal Gear"), new DropdownFont("mg_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownFont("metroid_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Super Metroid"), new DropdownFont("smetroid_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Metroid", "Super Metroid Mixed Case"), new DropdownFont("smetroid_mixedcase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Metroid", "Super Metroid (Mixed Case)"), new DropdownFont("smetroid_mixedcase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownFont("ps1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownFont("ps2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
@@ -116,11 +116,12 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sega System"), new DropdownFont("sega_sys_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sonic Team"), new DropdownFont("sonic_team_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownFont("suiko_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda"), new DropdownFont("loz_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda (Lowercase)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda (Mixed Case)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Zelda", "Zelda II (Lowercase)"), new DropdownFont("zelda2_lowercase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Zelda", "Zelda II (Mixed Case)"), new DropdownFont("zelda2_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownFont("lttp_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: Ocarina of Time"), new DropdownFont("loz_oot_font.png", FontType.VARIABLE_WIDTH));
@@ -141,8 +142,10 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Cyrstalis", "Crystalis"), new DropdownBorder("crystalis_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownBorder("dw1_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownBorder("dw2_border.png"));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II (SFC)"), new DropdownBorder("dq1_2_sfc_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III"), new DropdownBorder("dw3_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III (GBC)"), new DropdownBorder("dw3gbc_border.png"));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownBorder("dq3_sfc_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownBorder("dw4_border.png"));
             put(new DropdownLabel("Earthbound", "Earthbound Zero"), new DropdownBorder("eb0_border.png"));
             put(new DropdownLabel("Earthbound", "Earthbound Plain"), new DropdownBorder("eb_plain.png"));
@@ -196,6 +199,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png"));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png"));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png"));
+            put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png"));
             put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png"));
             put(new DropdownLabel("Tales", "Tales of Symphonia C"), new DropdownBorder("tos_c_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Bush"), new DropdownBorder("loz_bush_border.png"));

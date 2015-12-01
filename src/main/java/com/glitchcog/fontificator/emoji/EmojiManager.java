@@ -1,9 +1,13 @@
 package com.glitchcog.fontificator.emoji;
 
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.glitchcog.fontificator.config.ConfigEmoji;
+import com.glitchcog.fontificator.emoji.loader.EmojiApiLoader;
 
 /**
  * Handles accessing LazyLoadEmoji objects based on text keys to match emoji regular expressions
@@ -12,28 +16,59 @@ import com.glitchcog.fontificator.config.ConfigEmoji;
  */
 public class EmojiManager
 {
-    /**
-     * Holds all the loaded emoji
-     */
-    private Map<EmojiType, TypedEmojiMap> allEmoji;
+    private static final Logger logger = Logger.getLogger(EmojiManager.class);
+
+    private static final String FFZ_REPLACEMENT_EMOTE_URL_BASE = "http://cdn.frankerfacez.com/script/replacements/";
 
     /**
-     * Holds the same loaded emoji references, but accessible via emoji ID key, used for Twitch V3 emote access when the
-     * Twitch emote ID is in the information prepended to each message
+     * Replacement FFZ emoji, because Twitch's look horrible
      */
-    private Map<Integer, LazyLoadEmoji[]> emojiById;
+    private static final Map<Integer, String> FFZ_REPLACEMENT_EMOTE_URLS = new HashMap<Integer, String>()
+    {
+        private static final long serialVersionUID = 1L;
+
+        {
+            put(15, FFZ_REPLACEMENT_EMOTE_URL_BASE + "15-JKanStyle.png");
+            put(16, FFZ_REPLACEMENT_EMOTE_URL_BASE + "16-OptimizePrime.png");
+            put(17, FFZ_REPLACEMENT_EMOTE_URL_BASE + "17-StoneLightning.png");
+            put(18, FFZ_REPLACEMENT_EMOTE_URL_BASE + "18-TheRinger.png");
+            put(19, FFZ_REPLACEMENT_EMOTE_URL_BASE + "19-PazPazowitz.png");
+            put(20, FFZ_REPLACEMENT_EMOTE_URL_BASE + "20-EagleEye.png");
+            put(21, FFZ_REPLACEMENT_EMOTE_URL_BASE + "21-CougarHunt.png");
+            put(22, FFZ_REPLACEMENT_EMOTE_URL_BASE + "22-RedCoat.png");
+            put(26, FFZ_REPLACEMENT_EMOTE_URL_BASE + "26-JonCarnage.png");
+            put(33, FFZ_REPLACEMENT_EMOTE_URL_BASE + "33-DansGame.png");
+            put(26, FFZ_REPLACEMENT_EMOTE_URL_BASE + "26-JonCarnage.png");
+            put(27, FFZ_REPLACEMENT_EMOTE_URL_BASE + "27-PicoMause.png");
+            put(30, FFZ_REPLACEMENT_EMOTE_URL_BASE + "30-BCWarrior.png");
+            put(33, FFZ_REPLACEMENT_EMOTE_URL_BASE + "33-DansGame.png");
+            put(36, FFZ_REPLACEMENT_EMOTE_URL_BASE + "36-PJSalt.png");
+        }
+    };
+
+    /**
+     * Holds all the pre-loaded emoji. This is where any pre-loadable emoji go. Basically, it holds anything other than
+     * the Twitch emoji, because Twitch's emoji API is stupid and wrong.
+     */
+    private Map<EmojiType, TypedEmojiMap> preloadedEmoji;
+
+    /**
+     * V1 Twitch emotes loaded whenever a loaded on the fly via the emote ID on the IRC post tags' emote ID. These
+     * aren't ever lazy loaded because they are only loaded on the fly when used.
+     */
+    private Map<String, LazyLoadEmoji[]> emojiById;
 
     /**
      * Construct an emoji manager object, instantiates the map of maps keyed off of all the possible emoji types
      */
     public EmojiManager()
     {
-        allEmoji = new HashMap<EmojiType, TypedEmojiMap>();
+        preloadedEmoji = new HashMap<EmojiType, TypedEmojiMap>();
         for (EmojiType type : EmojiType.values())
         {
-            allEmoji.put(type, new TypedEmojiMap(type));
+            preloadedEmoji.put(type, new TypedEmojiMap(type));
         }
-        emojiById = new HashMap<Integer, LazyLoadEmoji[]>();
+        emojiById = new HashMap<String, LazyLoadEmoji[]>();
     }
 
     /**
@@ -44,7 +79,7 @@ public class EmojiManager
      */
     public TypedEmojiMap getEmojiByType(EmojiType type)
     {
-        return allEmoji.get(type);
+        return preloadedEmoji.get(type);
     }
 
     /**
@@ -83,7 +118,7 @@ public class EmojiManager
      *            The word keying the emoji
      * @param config
      *            The emoji configuration
-     * @return
+     * @return emoji or null if not found
      */
     public LazyLoadEmoji[] getEmoji(EmojiType type, String testKey, ConfigEmoji config)
     {
@@ -110,7 +145,7 @@ public class EmojiManager
         {
             if (config == null || config.isTypeEnabledAndLoaded(type))
             {
-                TypedEmojiMap typedEmoji = allEmoji.get(type);
+                TypedEmojiMap typedEmoji = preloadedEmoji.get(type);
                 if (typedEmoji != null)
                 {
                     emoji = typedEmoji.getEmoji(testKey, config);
@@ -125,32 +160,76 @@ public class EmojiManager
     }
 
     /**
-     * Add to the a map of all the Twitch V3 emoji keyed by emote ID, which is the number given in the prepended Twitch
-     * IRC message tags
+     * This has a hard-coded URL in it. It should probably be stored in EmojiApiLoader, but it is not.
      * 
-     * @return emojiById
+     * @param emojiId
+     * @return the emoji that was added. (Note, this is different than the default return value of a map, which returns
+     *         the previous value or null if there was none.
+     * @throws MalformedURLException
      */
-    public LazyLoadEmoji[] putEmojiById(Integer id, LazyLoadEmoji[] emoji)
+
+    /**
+     * @param emojiId
+     * @param word
+     * @param emojiConfig
+     * @return
+     * @throws MalformedURLException
+     */
+    public LazyLoadEmoji[] putEmojiById(Integer emojiId, String word, ConfigEmoji emojiConfig) throws MalformedURLException
     {
-        return emojiById.put(id, emoji);
+        logger.trace("Loading unmapped emote from emote ID " + emojiId);
+        final String emoteUrl = EmojiApiLoader.getTwitchEmoteV1Url(emojiId);
+        LazyLoadEmoji[] emoji = new LazyLoadEmoji[1]; // Assume they're all just one frame
+        emoji[0] = new LazyLoadEmoji(word, emoteUrl, EmojiType.TWITCH_V1);
+        emojiById.put(Integer.toString(emojiId), emoji);
+        return emoji;
     }
 
     /**
-     * Get the emoji, if the configuration allows for that type of emoji, based on the emote ID. This is the method to
-     * call if you have the prepended data from a Twitch message that includes the Twitch emote set ID and the indicies
-     * of the word indicating an emoji.
+     * Get the V1 Twitch emoji by ID. This is only ever a single frame, but it's an array anyhow to match the pre-loaded
+     * style. Depending on the emojiConfig, a few of these can be substituted for FrankerFaceZ replacement emotes
      * 
-     * @param setId
-     *            the key (note, null is a valid key, indicating the global Twitch emotes set)
-     * @return TypedEmojiMap
+     * @param emojiId
+     * @param word
+     * @param emojiConfig
+     * @return
      */
-    public LazyLoadEmoji[] getEmojiById(Integer emojiId, ConfigEmoji config)
+    public LazyLoadEmoji[] getEmojiById(Integer emojiId, String word, ConfigEmoji emojiConfig)
     {
-        if (config != null && !config.isTypeEnabledAndLoaded(EmojiType.TWITCH_V3))
+        if (emojiConfig != null && emojiConfig.isFfzEnabled() && FFZ_REPLACEMENT_EMOTE_URLS.keySet().contains(emojiId))
         {
-            return null;
+            TypedEmojiMap tem = preloadedEmoji.get(EmojiType.FRANKERFACEZ_REPLACEMENT);
+            LazyLoadEmoji[] emoji = tem.getEmoji(getFfzReplacementKey(emojiId));
+            if (emoji == null)
+            {
+                try
+                {
+                    logger.trace("Loading replacement FFZ emote for " + word);
+                    emoji = new LazyLoadEmoji[1];
+                    emoji[0] = new LazyLoadEmoji(word, FFZ_REPLACEMENT_EMOTE_URLS.get(emojiId), EmojiType.FRANKERFACEZ_REPLACEMENT);
+                    tem.put(getFfzReplacementKey(emojiId), emoji);
+                    return emoji;
+                }
+                catch (MalformedURLException e)
+                {
+                    logger.error(e.toString(), e);
+                    return emojiById.get(Integer.toString(emojiId));
+                }
+            }
+            else
+            {
+                return emoji;
+            }
         }
-        return emojiById.get(emojiId);
+        else
+        {
+            return emojiById.get(Integer.toString(emojiId));
+        }
+    }
+
+    private static String getFfzReplacementKey(Integer emojiId)
+    {
+        return "FfzRep" + Integer.toString(emojiId);
     }
 
 }
