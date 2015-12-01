@@ -1,4 +1,5 @@
 #Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)]
+## 12/01 UPDATE: Twitch subscriber emotes and badges!
 ## 11/01 UPDATE: Message censorship is now supported!
 ## 9/22 UPDATE: Emoji are now supported! <img src="http://static-cdn.jtvnw.net/emoticons/v1/41/1.0" alt="Kreygasm">
 
@@ -109,3 +110,75 @@ All the font and border images are available as part of the source code on this 
 Sorry. Here are a few versions of the program for download immediately preceding notable feature additions. These versions will be missing any fonts and borders added subsequently though.
 Last version without emoji support: [JAR from August 20, 2015] (../../raw/29dade0e07918c7ebbdd9e3428ec7f637d946914/jar/ChatGameFontificator.jar). 
 Last version without message censorship support: [JAR from October 20, 2015] (../../raw/4c31662a29dc9ac5b7437ecbaf904069d878e676/jar/ChatGameFontificator.jar).
+Last version before subscriber emotes and badges: [JAR from November 06, 2015]
+(../../raw/38257dc575fef2cc66f8dea6bfd134632889bb51/jar/ChatGameFontificator.jar).
+
+* Why didn't you tell me there were more game fonts available than just those in the Preset menu?
+I'm sorry, I should have mentioned that you can use the Font/Border tab to select fonts from some games that aren't even represented with a preset option.
+
+* Could I please see an exhaustive list of the fonts represented in this program?
+  - 7th Dragon Name
+  - Chrono Cross
+  - Chrono Trigger
+  - Crystalis
+  - Dragon Warrior
+  - Dragon Warrior II
+  - Dragon Quest I.II (SFC)
+  - Dragon Warrior III
+  - Dragon Warrior III (GBC) Dialog
+  - Dragon Warrior III (GBC) Fight
+  - Dragon Quest III (SFC)
+  - Dragon Warrior IV
+  - EarthBound Zero Bold
+  - EarthBound
+  - EarthBound Mr. Saturn
+  - Mother 3
+  - Final Fantasy
+  - Final Fantasy VI
+  - Final Fantasy VI (Battle)
+  - Final Fantasy VII
+  - Freedom Planet
+  - Ghosts n Goblins
+  - Golden Sun
+  - Golden Sun (Battle)
+  - Friends of Mineral Town
+  - River City Ransom
+  - The Lost Vikings
+  - Super Mario Bros.
+  - Super Mario Bros. 2
+  - Super Mario Bros. 3
+  - Super Mario Bros. 3 HUD
+  - Super Mario Bros. 3 HUD (Mixed Case)
+  - Super Mario World
+  - Super Mario World 2: Yoshi's Island
+  - Mario is Missing
+  - Super Mario RPG: Dark
+  - Super Mario RPG: Light
+  - Paper Mario: The Thousand Year Door
+  - Mega Man 9
+  - Mega Man X
+  - Metal Gear
+  - Metroid
+  - Super Metroid
+  - Super Metroid (Mixed Case)
+  - Phantasy Star
+  - Phantasy Star 2
+  - Pokemon Red/Blue
+  - Pokemon Fire Red/Leaf Green
+  - Secret of Evermore
+  - Shantae
+  - Bart vs. the Space Mutants
+  - Solstice
+  - Sega System
+  - Sonic Team
+  - Suikoden
+  - Tales of Symphonia
+  - The Legend of Zelda
+  - The Legend of Zelda (Mixed Case)
+  - Zelda II: The Adventures of Link
+  - Zelda II (Mixed Case)
+  - Link's Awakening
+  - The Legend of Zelda: A Link to the Past
+  - The Legend of Zelda: Ocarina of Time
+  - The Legend of Zelda: The Wind Waker
+  - Zero Wing
