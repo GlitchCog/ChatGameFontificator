@@ -32,11 +32,6 @@ public class Message
     public static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
 
     /**
-     * The character to separate badges from the username
-     */
-    private static final char BADGE_SEPARATOR_CHARACTER = ' ';
-
-    /**
      * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored
      * in the ChatViewerBot, so it is possible to update that object and see the effects on this message
      */
@@ -415,13 +410,6 @@ public class Message
             if (privmsg.isTurbo() && badgeBank.getEmoji(turboStr) != null)
             {
                 keyList.add(new SpriteCharacterKey(badgeBank.getEmoji(turboStr), true));
-                badgeCount++;
-            }
-
-            // Add a space if there is at least one badge
-            if (badgeCount > 0)
-            {
-                keyList.add(new SpriteCharacterKey(BADGE_SEPARATOR_CHARACTER));
                 badgeCount++;
             }
         }

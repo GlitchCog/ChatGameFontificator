@@ -31,6 +31,11 @@ public class SpriteFont
 
     public static final String NORMAL_ASCII_KEY = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~" + (char) 127;
 
+    /**
+     * The number of pixels between each individual badge and between badges and the username;
+     */
+    public static final int BADGE_MINIMUM_SPACING_PIXELS = 2;
+
     protected SpriteCache sprites;
 
     protected Map<Character, Rectangle> characterBounds;
@@ -137,7 +142,9 @@ public class SpriteFont
         {
             // Emoji
             int[] eDim = getEmojiDimensions(c.getEmoji(), emojiConfig);
-            return eDim[0] + (config.getCharSpacing() * config.getFontScale());
+            final int charSpacing = (config.getCharSpacing() * config.getFontScale());
+            final int extraSpacing = (c.getEmoji().getType().isBadge() ? Math.max(charSpacing, BADGE_MINIMUM_SPACING_PIXELS) : charSpacing);
+            return eDim[0] + extraSpacing;
         }
 
     }
