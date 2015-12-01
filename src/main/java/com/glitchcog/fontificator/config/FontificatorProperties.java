@@ -584,7 +584,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_EMOJI_ENABLED, trueString, override);
         setPropertyOverride(KEY_EMOJI_BADGES, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE_TO_LINE, trueString, override);
-        setPropertyOverride(KEY_EMOJI_BADGE_SCALE_TO_LINE, trueString, override);
+        setPropertyOverride(KEY_EMOJI_BADGE_SCALE_TO_LINE, falseString, override);
         setPropertyOverride(KEY_EMOJI_SCALE, Integer.toString(100), override);
         setPropertyOverride(KEY_EMOJI_BADGE_SCALE, Integer.toString(100), override);
         setPropertyOverride(KEY_EMOJI_DISPLAY_STRAT, EmojiLoadingDisplayStragegy.SPACE.name(), override);
