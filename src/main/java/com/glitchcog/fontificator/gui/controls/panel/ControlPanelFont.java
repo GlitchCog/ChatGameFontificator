@@ -62,6 +62,7 @@ public class ControlPanelFont extends ControlPanelBase
         {
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon Name"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownFont("ct_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Crystalis", "Crystalis"), new DropdownFont("crystalis_font.png", FontType.FIXED_WIDTH));
@@ -77,6 +78,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("EarthBound", "EarthBound"), new DropdownFont("eb_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound Mr. Saturn"), new DropdownFont("eb_saturn_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("EarthBound", "Mother 3"), new DropdownFont("m3_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Faxanadu", "Faxanadu Dialog"), new DropdownFont("faxanadu_dialog_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Faxanadu", "Faxanadu HUD"), new DropdownFont("faxanadu_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownFont("ff1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownFont("ff6_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI (Battle)"), new DropdownFont("ff6_battle_font.png", FontType.FIXED_WIDTH));
@@ -96,6 +99,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Mixed Case)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World"), new DropdownFont("smw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mario", "Dr. Mario"), new DropdownFont("drmario_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Mario is Missing"), new DropdownFont("mmiss_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario RPG: Dark"), new DropdownFont("smrpg_dark_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario RPG: Light"), new DropdownFont("smrpg_light_font.png", FontType.VARIABLE_WIDTH));
@@ -116,8 +120,13 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sega System"), new DropdownFont("sega_sys_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sonic Team"), new DropdownFont("sonic_team_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownFont("staroc_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownFont("suiko_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Tales", "Tales of Phantasia HUD (SFC, Mixed Case)"), new DropdownFont("tophan_hud_sfc_mixedcase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Tales", "Tales of Phantasia HUD (SFC, Upper Case)"), new DropdownFont("tophan_hud_sfc_uppercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda"), new DropdownFont("loz_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda (Mixed Case)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
@@ -154,6 +163,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("EarthBound", "EarthBound Banana"), new DropdownBorder("eb_banana.png"));
             put(new DropdownLabel("EarthBound", "EarthBound Peanut"), new DropdownBorder("eb_peanut.png"));
             put(new DropdownLabel("EarthBound", "Mother 3"), new DropdownBorder("m3_border.png"));
+            put(new DropdownLabel("Faxanadu", "Faxanadu"), new DropdownBorder("faxanadu_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownBorder("ff6_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownBorder("ff7_border.png"));
@@ -172,6 +182,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 2 Pause"), new DropdownBorder("smb2_pause_border.png"));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 3 HUD"), new DropdownBorder("smb3_hud_border.png"));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 3 Letter"), new DropdownBorder("smb3_letter_border.png"));
+            put(new DropdownLabel("Mario (NES)", "Dr. Mario"), new DropdownBorder("drmario_border.png"));
             put(new DropdownLabel("Mario (SNES)", "Super Mario World Block"), new DropdownBorder("smw_block_border.png"));
             put(new DropdownLabel("Mario (SNES)", "Super Mario World Bonus"), new DropdownBorder("smw_bonus_border.png"));
             put(new DropdownLabel("Mario (SNES)", "Super Mario World Gold"), new DropdownBorder("smw_gold_border.png"));
@@ -199,9 +210,14 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png"));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png"));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png"));
+            put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownBorder("staroc_border.png"));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png"));
+            put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png"));
             put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png"));
             put(new DropdownLabel("Tales", "Tales of Symphonia C"), new DropdownBorder("tos_c_border.png"));
+            put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png"));
+            put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png"));
+            put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Bush"), new DropdownBorder("loz_bush_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Rock"), new DropdownBorder("loz_rock_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Dungeon"), new DropdownBorder("loz_dungeon_border.png"));
