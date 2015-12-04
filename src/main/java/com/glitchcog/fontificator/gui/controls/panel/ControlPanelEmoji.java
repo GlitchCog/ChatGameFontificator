@@ -466,7 +466,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     {
         if (enableAll.isSelected() || enableTwitchBadges.isSelected())
         {
-            Set<EmojiJob> jobs = collectJobs();
+            Set<EmojiJob> jobs = collectJobs(false);
 
             if (jobs.isEmpty())
             {
@@ -486,9 +486,13 @@ public class ControlPanelEmoji extends ControlPanelBase
      * if any of the jobs specified by the UI require a channel and no channel is provided on the Connection tab. A
      * popup will present this information to the user.
      * 
+     * @param onlyForCounting
+     *            Whether this collection is only for the purposes of knowing how many jobs are specified, for purposes
+     *            of enabling or disabling buttons on the emoji progress panel. If it's only for counting, supress any
+     *            popup errors and continue on counting.
      * @return jobs
      */
-    public Set<EmojiJob> collectJobs()
+    public Set<EmojiJob> collectJobs(boolean onlyForCounting)
     {
         Set<EmojiJob> jobs = new HashSet<EmojiJob>();
 
@@ -502,7 +506,7 @@ public class ControlPanelEmoji extends ControlPanelBase
             if (workTwitchLoad)
             {
                 jobs.add(new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, getConnectChannel()));
-                if (getConnectChannel() == null)
+                if (!onlyForCounting && getConnectChannel() == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load Emoji");
                     jobs.clear();
@@ -519,7 +523,7 @@ public class ControlPanelEmoji extends ControlPanelBase
             {
                 jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.LOAD, getConnectChannel()));
                 jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.LOAD));
-                if (getConnectChannel() == null)
+                if (!onlyForCounting && getConnectChannel() == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load Emoji");
                     jobs.clear();
@@ -537,7 +541,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         if (enableTwitchBadges.isSelected() && !config.isTwitchBadgesLoaded(getConnectChannel()))
         {
             jobs.add(new EmojiJob(EmojiType.TWITCH_BADGE, EmojiOperation.LOAD, getConnectChannel()));
-            if (getConnectChannel() == null)
+            if (!onlyForCounting && getConnectChannel() == null)
             {
                 ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load Emoji");
                 jobs.clear();

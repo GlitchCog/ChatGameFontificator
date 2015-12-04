@@ -88,8 +88,11 @@ public class ControlWindow extends JDialog
 
     // @formatter:off
     private static String ABOUT_CONTENTS = "<html><table bgcolor=#EEEEEE width=100% border=1><tr><td>" + 
-        "<center><font face=\"Arial, Helvetica\"><b>Chat Game Fontificator</b> is an Internet Relay Chat (IRC) display that<br />" + 
-        "makes the chat look like the text boxes from various video games.<br /><br />" + 
+        "<center><font face=\"Arial, Helvetica\"><b>Chat Game Fontificator</b> is a Twitch chat display that makes<br />" + 
+        "the chat look like the text boxes from various video games.<br /><br />" + 
+        "It is free, open source, and in the public domain to the furthest<br />" + 
+        "extent I am permitted to forfeit my copyright over this software.<br /><br />" + 
+        "Please enjoy!<br /><br />" + 
         "By Matt Yanos<br /><br />" + 
         "<a href=\"www.github.com/GlitchCog/ChatGameFontificator\">www.github.com/GlitchCog/ChatGameFontificator</a>" + 
         "</font></center>" + 

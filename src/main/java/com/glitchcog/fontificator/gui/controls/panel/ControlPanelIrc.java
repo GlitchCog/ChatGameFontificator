@@ -131,7 +131,7 @@ public class ControlPanelIrc extends ControlPanelBase
 
         if (chanInput.getText().isEmpty())
         {
-            report.addError("An input value for the channel is required", LoadConfigErrorType.MISSING_VALUE);
+            report.addError("An input value for the Channel is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
         if (hostInput.getText().trim().isEmpty())
@@ -141,7 +141,7 @@ public class ControlPanelIrc extends ControlPanelBase
 
         if (portInput.getText().isEmpty())
         {
-            report.addError("An input value for the port is required", LoadConfigErrorType.MISSING_VALUE);
+            report.addError("An input value for the Port is required", LoadConfigErrorType.MISSING_VALUE);
         }
         else
         {

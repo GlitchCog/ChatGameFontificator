@@ -216,12 +216,12 @@ public class EmojiLoadProgressPanel extends JPanel
     {
         cancelButton.setEnabled(currentWorker != null);
         resetButton.setEnabled(emojiConfig != null && emojiConfig.isAnyWorkDone());
-        manualButton.setEnabled(!emojiControlPanel.collectJobs().isEmpty() && currentWorker == null && workerTaskListLoad.isEmpty() && workerTaskListCache.isEmpty());
+        manualButton.setEnabled(!emojiControlPanel.collectJobs(true).isEmpty() && currentWorker == null && workerTaskListLoad.isEmpty() && workerTaskListCache.isEmpty());
 
         // @formatter:off
         logger.trace("Cancel: " + cancelButton.isEnabled() + " b/c currWork " + (currentWorker == null ? "is null" : "is NOT null") + 
         "; Reset: " + resetButton.isEnabled() + " b/c " + (emojiConfig != null && emojiConfig.isAnyWorkDone() ? "some work is done" : "no work has been done") + 
-        "; Manual: " + manualButton.isEnabled() + " b/c there are " + emojiControlPanel.collectJobs().size() + " jobs left undone and " + 
+        "; Manual: " + manualButton.isEnabled() + " b/c there are " + emojiControlPanel.collectJobs(true).size() + " jobs left undone and " + 
         (currentWorker == null && workerTaskListLoad.isEmpty() && workerTaskListCache.isEmpty() ? "nothing" : "something") + " is currently running or is queued");
         // @formatter:on
     }

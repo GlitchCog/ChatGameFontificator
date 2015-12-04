@@ -20,7 +20,8 @@ table {
   </tr>
   <tr>
     <td>The File menu contains options for Opening and Saving custom configurations. These files contain all the options you can specify on each of the tabs. The last file successfully loaded or saved will be automatically opened the next time the
-      program runs. The files are plain text Java properties files with a .cgf extension, but the OAuth Token is encrypted before it is stored, so it cannot be read.</td>
+      program runs. The files are plain text Java properties files with a .cgf extension, but the OAuth Token is encrypted before it is stored, so it cannot be read. The option to save a screenshot is also available, and will write a PNG image file of the
+      graphical contents of the Chat Window.</td>
   </tr>
   <tr>
     <td>The Presets menu contains all the built-in configurations for various games. Care was taken to approximate the appearance of the text from the respective games. These presets are configuration files, just like the custom ones that can be saved
@@ -31,8 +32,8 @@ table {
       back by single clicking anywhere inside the Chat window on the chat display.</td>
   </tr>
   <tr>
-    <td>The Message menu contains an option to display a pop-up dialog for managing message, which includes the ability to post a manual message and to enable and edit message censorship rules. All effects on messages from this popup are only for the
-      chat display; they have no effect on the IRC server for either posting in the actual IRC chat or banning users or censoring messages.</td>
+    <td>The Message menu contains an option to display a pop-up dialog for managing messages, which includes the ability to post a manual message and to enable and edit message censorship and message censorship rules. All effects on messages from this
+      popup are only for the chat display; they have no effect on the IRC server for either posting in the actual IRC chat or banning users or censoring messages.</td>
   </tr>
   <tr>
     <td>Message censorship rules include a master option to enable or disable any message censorship, an option to censor messages that contain a specifiable percentage of unknown characters, an option for censoring any message that contains a URL,
@@ -47,6 +48,11 @@ table {
     <td>The user whitelist is a list of users who are exempt from any censorship. The messages of any user added to this list will not be subject to censorship from user blacklisting, the message containing banned words, or for the message containing
       URLs. The user blacklist is a list of users whose messages will always be censored regardless of content. And the banned word list contains words that will trigger message censorship when they are included in a message. Only single words can be
       included, not phrases, and words that may be turned into emoji are also banned word list candidates. The user whitelist, user blacklist, and banned word list are all case insensitive.</td>
+  </tr>
+  <tr>
+    <td>Manually toggling message censorship is possible with the checkboxes in the list of all the messages. Once a message is manually censored or uncensored, its status will remain unchanged by any rule changes. From the first instance of manual
+      intervention on that message, it is only subject to further manual intervention. The Reapply Rules button will undo this manual intervention lock and will undo all manual censorship and re-enforce the rules. This will affect all manually censored or
+      uncensored messages at once.</td>
   </tr>
   <tr>
     <td>For the option to post manual messages, both the Username and Message fields are required. Checking the 'Retain message input after post' option will preserve the Username and Message input for reposting. The Post button posts the message to
@@ -180,15 +186,6 @@ table {
             magnification, so highly magnified fonts may appear jaggy or rounded edges may appear more like stair steps. This was done intentionally to match the art style of retro games.</td>
         </tr>
         <tr>
-          <td>Font Type Selection (Fixed or Variable Width)</td>
-          <td>The type of font is either fixed or variable width. Fixed width (or mono-spaced) fonts use a set character width to display each letter in series, so even traditionally slimmer characters, like 'i' will be spaced to take up the same
-            space as traditionally wider characters like 'W'. For this program, the width of a fixed width font is determined by the size of the grid of the font image, and is typically the widest character, although if the widest character still has extra
-            space on its left or right side, the width of each character will include that space as well. Typically older games employ these types of fonts because they are easier to lay out, but the result is sometimes awkwardly blocky when periods or
-            commas are buffered with much more space than they would normally take up. Variable width fonts can have different widths per letter. This program calculates the width of all non-transparent pixels per character and makes that value the width
-            of that character. Each font has an associated font type: fixed or variable width. When a font is selected, this associated type will be selected automatically to match. However, this can be overridden if you would like a normally fixed width
-            font to be variable width, or a variable width font to be fixed width.</td>
-        </tr>
-        <tr>
           <td>Line Spacing</td>
           <td>This is the distance between each row of messages in pixels, from -16 to 32 pixels. This value is magnified by the font scale, so for example a value of 2 pixels with a font magnification of 3 would space lines 6 pixels apart on the
             screen. The negative values can be used to bring lines closer together if you desire some characters to overlap, like the bottom of a 'y' hitting the top of a '^'.</td>
@@ -200,9 +197,18 @@ table {
             non-transparent pixel edge of one character to the next.</td>
         </tr>
         <tr>
-          <td>Variable Width Space</td>
-          <td>For variable width fonts, there is no defined width for a space character which has no non-transparent pixels, so this width is set by this value as a percentage of the maximum possible width of that font. The maximum possible width of
-            that font is determined as it would be for a fixed width font, based on the font image grid size.</td>
+          <td>Variable Width Characters</td>
+          <td>Font characters can be drawn with either fixed or variable width spacing. Fixed width (or mono-spaced) fonts use a set character width to display each letter in series, so even traditionally slimmer characters, like 'i' will be spaced to
+            take up the same space as traditionally wider characters like 'W'. For this program, the width of a fixed width font is determined by the size of the grid of the font image, and is typically the widest character, although if the widest
+            character still has extra space on its left or right side, the width of each character will include that space as well. Typically older games employ these types of fonts because they are easier to lay out, but the result is sometimes awkwardly
+            blocky when periods or commas are buffered with much more space than they would normally take up. Variable width fonts can have different widths per letter. This program calculates the width of all non-transparent pixels per character and makes
+            that value the width of that character. Each font has an associated font type: fixed or variable width. When a font is selected, this checkbox will be set automatically to match. However, this can be overridden if you would like a normally
+            fixed width font to be variable width, or a variable width font to be fixed width.</td>
+        </tr>
+        <tr>
+          <td>Space Width</td>
+          <td>For variable width fonts only, there is no defined width for a space character which has no non-transparent pixels, so this width is set by this value as a percentage of the maximum possible width of that font. The maximum possible width
+            of that font is determined as it would be for a fixed width font, based on the font image grid size.</td>
         </tr>
         <tr>
           <td>Border Selection</td>
@@ -373,22 +379,18 @@ table {
           <td>This option acts as a master switch to toggle the use of emoji from any source</td>
         </tr>
         <tr>
-          <td>Scale</td>
-          <td>This slider value is the percent of the to scale the emoji images by. The scale value is multiplied by the actual size of the emoji image, unless the Scale to Line Height option is checked, in which case the emoji will be scaled to the
-            line height multiplied by whatever percent the scale slider is at.</td>
+          <td>Enable Twitch Badges</td>
+          <td>This option acts as a switch to toggle the use of Twitch badges. Badges are considered a different feature than emoji, so the master Enable Emoji switch will not affect whether badges are displayed.</td>
         </tr>
         <tr>
-          <td>Scale to Line Height</td>
-          <td>Checking this option will cause emoji to be scaled relative to the height of a line, rather than the height of the actual emoji. The scaling will maintain the width to height aspect ratio of the image, so no stretch distortion will
-            occur.</td>
+          <td>Emoji and Badge Scale</td>
+          <td>This slider value is the percent of the to scale the emoji or badge images by. The scale value is multiplied by the actual size of the emoji or badge image, unless the Scale to Line Height option is checked, in which case the emoji or
+            badges will be scaled to the line height multiplied by whatever percent the scale slider is at.</td>
         </tr>
         <tr>
-          <td>Channel</td>
-          <td>This is the channel for which to load emoji.</td>
-        </tr>
-        <tr>
-          <td>Use Connection Channel for Emoji Loading</td>
-          <td>When this option is checked, the channel for which to load emoji is linked to the channel being connected to on the Connection tab.</td>
+          <td>Relative to Line Height (For emoji and badges respectively)</td>
+          <td>Checking this option will cause emoji or badges to be scaled relative to the height of a line, rather than the height of the actual emoji. The scaling will maintain the width to height aspect ratio of the image, so no stretch distortion
+            will occur.</td>
         </tr>
         <tr>
           <td>Emoji Loading Display Strategy</td>
@@ -396,34 +398,34 @@ table {
         </tr>
         <tr>
           <td>Enable Twitch Emotes</td>
-          <td>This option acts to toggle the use of Twitch emotes.</td>
-        </tr>
-        <tr>
-          <td>Load Twitch Emotes</td>
-          <td>Clicking this button will load the Twitch emotes information from the Twitch Emotes API for the specified channel. The actual images are not yet loaded, but the information about the words that trigger the emote images and the URLs for
-            the images to be displayed are loaded.</td>
+          <td>This option acts to toggle the use of Twitch emotes. A few of the Twitch emotes that are of poor quality will be modified to remove non-transparent backgrounds algorithmically.</td>
         </tr>
         <tr>
           <td>Cache Global Twitch Emotes</td>
           <td>Clicking this button will cache the global Twitch emotes. This caching downloads the actual emote images into memory so there is no delay in displaying them in the chat.</td>
         </tr>
         <tr>
-          <td>Disable Subscriber Emotes</td>
-          <td>This option disables the use of any Twitch emotes marked as subscriber emotes.</td>
-        </tr>
-        <tr>
           <td>Enable FrankerFaceZ Emotes</td>
-          <td>This option acts to toggle the use of FrankerFaceZ emotes.</td>
-        </tr>
-        <tr>
-          <td>Load FrankerFaceZ Emotes</td>
-          <td>Clicking this button will load the FrankerFaceZ emotes information from the Twitch Emotes API for the specified channel. The actual images are not yet loaded, but the information about the words that trigger the emote images and the URLs
-            for the images to be displayed are loaded.</td>
+          <td>This option acts to toggle the use of FrankerFaceZ emotes. Even if the channel being connected to does not have FrankerFaceZ emotes, the global emotes will be available in the chat, and the replacements for the few Twitch emotes of poor
+            quality will also be used.</td>
         </tr>
         <tr>
           <td>Cache FrankerFaceZ Emotes</td>
           <td>Clicking this button will cache all global and channel-based FrankerFaceZ emotes. This caching downloads the actual emote images into memory so there is no delay in displaying them in the chat.</td>
         </tr>
+        <tr>
+          <td>Emoji and Badge Loading, Caching and Logging</td>
+          <td>The bottom part of the Emoji tab contains a log of what emoji have been loaded and or cached, and whether any errors were encountered during the process. The progress bar at the very bottom of the tab documents any work currently being
+            done to load or cache emoji or badges. The job of loading and caching emoji and badges will commence automatically whenever the program makes a connection. Alternately, if emoji are enabled after a connection is established, the loading will
+            occur then. If emoji options are unchecked while loading is happening, the specific jobs related to the options that were unchecked will be canceled and removed from the queue.</td>
+        </tr>
+        <tr>
+          <td>Manual Emoji and Badge Buttons</td>
+          <td>The Cancel, Load/Cache, and Reset buttons on the bottom right of the Emoji tab are for manually managing emoji and badge jobs. The Cancel button will cancel any currently running loading or caching job. The Load/Cache button will load
+            and or cache any required emoji or badges based on the configuration of the tab. The Reset button will remove all record the program has of what is loaded. The emoji and badges will remain loaded in memory as they were, but this reset will
+            re-enable their manual reloading or re-caching.</td>
+        </tr>
+
       </table>
     </td>
   </tr>

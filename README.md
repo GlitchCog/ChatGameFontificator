@@ -1,7 +1,7 @@
 #Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)]
 ## 12/01 UPDATE: Twitch subscriber emotes and badges!
-## 11/01 UPDATE: Message censorship is now supported!
-## 9/22 UPDATE: Emoji are now supported! <img src="http://static-cdn.jtvnw.net/emoticons/v1/41/1.0" alt="Kreygasm">
+#### 11/01 UPDATE: Message censorship is now supported!
+##### 9/22 UPDATE: Emoji are now supported! <img src="http://static-cdn.jtvnw.net/emoticons/v1/41/1.0" alt="Kreygasm">
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
@@ -38,7 +38,7 @@ Enjoy!
 <img src="http://www.glitchcog.com/cgf/cgf.png" alt="Chat Game Fontificator">
 3. Enter your credentials: the Twitch user name you want to join the chat with, and your [OAuth token](http://www.twitchapps.com/tmi/). ([What is an OAuth token?](http://oauth.net/about/))
 4. Enter the channel you want to join (the # is optional, but Twitch channels should be in all lowercase, but that is done invisibly and automatically if you're connecting to the Twitch IRC server).
-5. Make the chat look how you want it to look. Either select something from the Presets menu, or use the Fontificator Configuration window tabs to configure to your heart's content.
+5. Make the chat look how you want it to look. Either select something from the Presets menu, or use the Fontificator Configuration window tabs to configure to your heart's content. There are many more games available on the Font/Border tab that don't have representation in the Preset menu.
 6. Click connect and enjoy.
 
 *****
@@ -115,14 +115,17 @@ Last version before subscriber emotes and badges: [JAR from November 06, 2015]
 
 * Why didn't you tell me there were more game fonts available than just those in the Preset menu?
 
-I'm sorry, I should have mentioned that you can use the Font/Border tab to select fonts from some games that aren't even represented with a preset option.
+I'm sorry, I should have mentioned that you can use the Font/Border tab to select fonts from some games that aren't even represented with a preset option. Making presets is more tedious than you might think because I take care to try to match ever aspect of the game's dialog, including pixel-perfect kerning, line spacing, text positioning and coloration. I don't always get it exactly correct, but many of the presets represent exactly how the text would appear if it were actually in the game.
 
-* Could I please see an exhaustive list of the fonts represented in this program?
+* Could I please see an exhaustive list of all 71 games represented in this program?
 
   - 7th Dragon Name
+  - Bahamut Lagoon
+  - Bart vs. the Space Mutants
   - Chrono Cross
   - Chrono Trigger
   - Crystalis
+  - Dr. Mario
   - Dragon Warrior
   - Dragon Warrior II
   - Dragon Quest I.II (SFC)
@@ -135,6 +138,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - EarthBound
   - EarthBound Mr. Saturn
   - Mother 3
+  - Faxanadu
   - Final Fantasy
   - Final Fantasy VI
   - Final Fantasy VI (Battle)
@@ -143,7 +147,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Ghosts n Goblins
   - Golden Sun
   - Golden Sun (Battle)
-  - Friends of Mineral Town
+  - Harvest Moon: Friends of Mineral Town
   - River City Ransom
   - The Lost Vikings
   - Super Mario Bros.
@@ -169,12 +173,14 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Pokemon Fire Red/Leaf Green
   - Secret of Evermore
   - Shantae
-  - Bart vs. the Space Mutants
+  - Star Ocean
   - Solstice
   - Sega System
   - Sonic Team
   - Suikoden
+  - Tales of Phantasia (SFC)
   - Tales of Symphonia
+  - Tetris (GB and NES)
   - The Legend of Zelda
   - The Legend of Zelda (Mixed Case)
   - Zelda II: The Adventures of Link
