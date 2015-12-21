@@ -16,7 +16,7 @@ table {
 
 <table>
   <tr>
-    <td>The Chat Game Fontificator (CGF) is an Internet Relay Chat (IRC) display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.</td>
+    <td>The Chat Game Fontificator (CGF) is a Twitch chat display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.</td>
   </tr>
   <tr>
     <td>The File menu contains options for Opening and Saving custom configurations. These files contain all the options you can specify on each of the tabs. The last file successfully loaded or saved will be automatically opened the next time the
@@ -25,7 +25,7 @@ table {
   </tr>
   <tr>
     <td>The Presets menu contains all the built-in configurations for various games. Care was taken to approximate the appearance of the text from the respective games. These presets are configuration files, just like the custom ones that can be saved
-      and opened using the options in the File menu, but they do not contain any Connection information.</td>
+      and opened using the options in the File menu, but they only contain any properties related to the font, border, and colors.</td>
   </tr>
   <tr>
     <td>The View menu contains options for making this program Always on Top, and for hiding the Configuration window so only the Chat window is displayed. Closing the Configuration window has the same effect. The Configuration window can be brought
@@ -41,8 +41,8 @@ table {
       that comes as a single message from a user that has never posted to the chat before.</td>
   </tr>
   <tr>
-    <td>The option to censor messages based on the number of unknown characters will censor messages whenever the percentage of characters that fall outside the standard ASCII range exceeds the specified percentage. This should censor any ASCII art style
-      messages that will show up only as unknown characters in the chat display.</td>
+    <td>The option to censor messages based on the number of unknown characters will censor messages whenever the percentage of characters that fall outside the standard ASCII range exceeds the specified percentage. When appropriately calibrated, this
+      should censor any messages containing ASCII art, while permitting a few characters with umlauts or accents.</td>
   </tr>
   <tr>
     <td>The user whitelist is a list of users who are exempt from any censorship. The messages of any user added to this list will not be subject to censorship from user blacklisting, the message containing banned words, or for the message containing
@@ -230,7 +230,8 @@ table {
         </tr>
         <tr>
           <td>Display Extended Characters</td>
-          <td>The option to display extended characters means that for characters outside the inclusive game-themed font character range between ASCII space (#32) and ASCII delete (#127), the character from the available native font will be substituted.</td>
+          <td>The option to display extended characters means that for characters outside the inclusive game-themed font character range between ASCII space (#32) and ASCII delete (#127), the character from the available native font will be
+            substituted. If this option is unchecked, any extended characters will be replaced with the Missing Character Substitute selection.</td>
         </tr>
         <tr>
           <td>Missing Character Substitute</td>

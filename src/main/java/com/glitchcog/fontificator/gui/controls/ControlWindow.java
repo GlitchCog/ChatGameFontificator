@@ -258,6 +258,7 @@ public class ControlWindow extends JDialog
         JEditorPane helpPane = new JEditorPane();
         helpPane.setContentType("text/html");
         helpPane.setText(helpText);
+        helpPane.setEditable(false);
         JScrollPane scrollHelp = new JScrollPane(helpPane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         JButton ok = new JButton("Close");

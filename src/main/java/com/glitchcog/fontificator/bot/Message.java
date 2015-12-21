@@ -428,7 +428,7 @@ public class Message
                 keyList.add(new SpriteCharacterKey(username.charAt(c)));
             }
         }
-        if (messageConfig.showUsernames() || messageConfig.showTimestamps() || emojiConfig.isBadgesEnabled())
+        if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isBadgesEnabled() && badgeCount > 0))
         {
             for (int c = 0; c < type.getContentBreaker().length(); c++)
             {
