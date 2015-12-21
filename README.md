@@ -1,7 +1,7 @@
 #Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)]
-## 12/01 UPDATE: Twitch subscriber emotes and badges!
-#### 11/01 UPDATE: Message censorship is now supported!
-##### 9/22 UPDATE: Emoji are now supported! <img src="http://static-cdn.jtvnw.net/emoticons/v1/41/1.0" alt="Kreygasm">
+## 12/21 UPDATE: Extended characters supported!
+### 12/01 UPDATE: Twitch subscriber emotes and badges!
+##### 11/01 UPDATE: Message censorship is now supported!
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
@@ -108,6 +108,7 @@ All the font and border images are available as part of the source code on this 
 * The program wasn't broken. Why did you "fix" it?
 
 Sorry. Here are a few versions of the program for download immediately preceding notable feature additions. These versions will be missing any fonts and borders added subsequently though.
+Last version without extended character support: [JAR from December 4, 2015] (../../raw/cb1d26f56ba7a17d3f2a539ed0ee5e688261092c/jar/ChatGameFontificator.jar).
 Last version without emoji support: [JAR from August 20, 2015] (../../raw/29dade0e07918c7ebbdd9e3428ec7f637d946914/jar/ChatGameFontificator.jar). 
 Last version without message censorship support: [JAR from October 20, 2015] (../../raw/4c31662a29dc9ac5b7437ecbaf904069d878e676/jar/ChatGameFontificator.jar).
 Last version before subscriber emotes and badges: [JAR from November 06, 2015]
