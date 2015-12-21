@@ -93,6 +93,7 @@ public class LazyLoadEmoji
                 {
                     logger.error("Unable to load emoji: " + url, e);
                     firstLoadFailureReported = true;
+                    image = null;
                 }
             }
         }

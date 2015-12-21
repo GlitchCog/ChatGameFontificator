@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.gui.controls;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Event;
@@ -20,7 +21,13 @@ import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageTypeSpecifier;
+import javax.imageio.ImageWriter;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.metadata.IIOMetadataNode;
+import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
@@ -54,6 +61,7 @@ import com.glitchcog.fontificator.gui.chat.ChatPanel;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.MenuComponent;
 import com.glitchcog.fontificator.gui.controls.messages.MessageDialog;
+import com.glitchcog.fontificator.gui.controls.panel.ControlPanelFont;
 import com.glitchcog.fontificator.gui.controls.panel.ControlTabs;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 
@@ -111,6 +119,8 @@ public class ControlWindow extends JDialog
 
     private JFileChooser screenshotSaver;
 
+    private ScreenshotOptions screenshotOptions;
+
     public ControlWindow(JFrame parent, FontificatorProperties fProps, LogBox logBox)
     {
         super(parent);
@@ -166,8 +176,11 @@ public class ControlWindow extends JDialog
         this.configSaver = new JFileChooser();
         this.configSaver.setFileFilter(cgfFileFilter);
 
+        this.screenshotOptions = new ScreenshotOptions();
+
         this.screenshotSaver = new JFileChooser();
         this.screenshotSaver.setFileFilter(pngFileFilter);
+        this.screenshotSaver.setAccessory(screenshotOptions);
     }
 
     public void loadLastData(ChatWindow chatWindow)
@@ -713,16 +726,68 @@ public class ControlWindow extends JDialog
      */
     private boolean saveScreenshot()
     {
+        // Take the screenshot before the save file chooser is shown
+        ChatPanel chat = chatWindow.getChatPanel();
+        BufferedImage chatImage = new BufferedImage(chat.getWidth(), chat.getHeight(), screenshotOptions.isTransparencyEnabled() ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB);
+        Graphics chatGraphics = chatImage.getGraphics();
+        chat.paint(chatGraphics);
+
+        final boolean chromaEnabled = Boolean.toString(true).equalsIgnoreCase(fProps.getProperty(FontificatorProperties.KEY_CHAT_CHROMA_ENABLED));
+        if (screenshotOptions.isTransparencyEnabled() && chromaEnabled)
+        {
+            final int chromaKey = new Color(Integer.parseInt(fProps.getProperty(FontificatorProperties.KEY_COLOR_CHROMA_KEY), 16)).getRGB();
+            final int transparentPixel = new Color(0, true).getRGB();
+
+            for (int r = 0; r < chatImage.getHeight(); r++)
+            {
+                for (int c = 0; c < chatImage.getWidth(); c++)
+                {
+                    if (chatImage.getRGB(c, r) == chromaKey)
+                    {
+                        chatImage.setRGB(c, r, transparentPixel);
+                    }
+                }
+            }
+        }
+
         File saveFile = getTargetSaveFile(screenshotSaver, DEFAULT_SCREENSHOT_FILE_EXTENSION);
         if (saveFile != null)
         {
-            ChatPanel chat = chatWindow.getChatPanel();
-            BufferedImage chatImage = new BufferedImage(chat.getWidth(), chat.getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics chatGraphics = chatImage.getGraphics();
-            chat.paint(chatGraphics);
             try
             {
-                ImageIO.write(chatImage, "png", saveFile);
+                if (screenshotOptions.isMetadataEnabled())
+                {
+                    ImageWriter writer = ImageIO.getImageWritersByFormatName("PNG").next();
+                    ImageOutputStream stream = ImageIO.createImageOutputStream(saveFile);
+                    writer.setOutput(stream);
+
+                    IIOMetadata metadata = writer.getDefaultImageMetadata(ImageTypeSpecifier.createFromRenderedImage(chatImage), writer.getDefaultWriteParam());
+
+                    IIOMetadataNode title = generateMetadataNode("Title", "CGF Screenshot");
+                    IIOMetadataNode software = generateMetadataNode("Software", "Chat Game Fontificator");
+                    final String fontGameName = ControlPanelFont.getFontGameName(fProps.getProperty(FontificatorProperties.KEY_FONT_FILE_FONT));
+                    final String borderGameName = ControlPanelFont.getBorderGameName(fProps.getProperty(FontificatorProperties.KEY_FONT_FILE_BORDER));
+                    IIOMetadataNode description = generateMetadataNode("Description", fontGameName + " Font / " + borderGameName + " Border");
+
+                    IIOMetadataNode text = new IIOMetadataNode("tEXt");
+                    text.appendChild(title);
+                    text.appendChild(software);
+                    text.appendChild(description);
+
+                    final String metadataFormatStr = "javax_imageio_png_1.0";
+                    IIOMetadataNode root = new IIOMetadataNode(metadataFormatStr);
+                    root.appendChild(text);
+                    metadata.mergeTree(metadataFormatStr, root);
+
+                    writer.write(metadata, new IIOImage(chatImage, null, metadata), writer.getDefaultWriteParam());
+
+                    stream.close();
+                }
+                else
+                {
+                    ImageIO.write(chatImage, "png", saveFile);
+                }
+
                 return true;
             }
             catch (Exception e)
@@ -732,6 +797,14 @@ public class ControlWindow extends JDialog
             }
         }
         return false;
+    }
+
+    private IIOMetadataNode generateMetadataNode(String key, String value)
+    {
+        IIOMetadataNode node = new IIOMetadataNode("tEXtEntry");
+        node.setAttribute("keyword", key);
+        node.setAttribute("value", value);
+        return node;
     }
 
     public void setAlwaysOnTopMenu(boolean alwaysOnTop)

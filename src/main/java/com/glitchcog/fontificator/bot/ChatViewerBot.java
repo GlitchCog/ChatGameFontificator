@@ -2,6 +2,8 @@ package com.glitchcog.fontificator.bot;
 
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -26,6 +28,25 @@ import com.google.gson.Gson;
 public class ChatViewerBot extends PircBot
 {
     private static final Logger logger = Logger.getLogger(ChatViewerBot.class);
+
+    /**
+     * Debugging method to feed captured strings that include Twitch tags into the program
+     * 
+     * @param filename
+     *            Name of a text file containing one tagged IRC post per line
+     * @throws Exception
+     */
+    public void debug(String filename) throws Exception
+    {
+        File f = new File(filename);
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String line;
+        while ((line = br.readLine()) != null)
+        {
+            onUnknown(line);
+        }
+        br.close();
+    }
 
     /**
      * Separates segments of the post, the parameters, the prefix, and the message itself, for Twitch messages
@@ -78,6 +99,17 @@ public class ChatViewerBot extends PircBot
     {
         this.usernameCases = new HashMap<String, String>();
         this.privmsgs = new HashMap<String, TwitchPrivmsg>();
+
+        final String encoding = "UTF-8";
+        try
+        {
+            this.setEncoding(encoding);
+            logger.info("IRC encoding set to " + encoding);
+        }
+        catch (Exception e)
+        {
+            logger.error("Unable to set IRC encoding to " + encoding, e);
+        }
     }
 
     public void reset()
@@ -387,7 +419,6 @@ public class ChatViewerBot extends PircBot
         if (displayName == null || displayName.trim().isEmpty())
         {
             privmsg.setDisplayName(prefix.substring(0, prefix.indexOf("!")));
-
         }
 
         return privmsg;

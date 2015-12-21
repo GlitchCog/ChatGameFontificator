@@ -36,13 +36,13 @@ table {
       popup are only for the chat display; they have no effect on the IRC server for either posting in the actual IRC chat or banning users or censoring messages.</td>
   </tr>
   <tr>
-    <td>Message censorship rules include a master option to enable or disable any message censorship, an option to censor messages that contain a specifiable percentage of unknown characters, an option for censoring any message that contains a URL,
-      and an option for censoring any message that contains a URL when that message is a user's first post of the session. The first post of the session URL censorship should censor most Twitch bot Spam that comes as a single message from a user that has
-      never posted to the chat before.</td>
+    <td>Message censorship rules include a master option to enable or disable any message censorship, an option to censor messages that contain a specifiable percentage of extended characters (characters outside the ASCII range of 32 to 127), an
+      option for censoring any message that contains a URL, and an option for censoring any message that contains a URL when that message is a user's first post of the session. The first post of the session URL censorship should censor any Twitch bot Spam
+      that comes as a single message from a user that has never posted to the chat before.</td>
   </tr>
   <tr>
-    <td>The option to censor messages based on the number of unknown characters will censor messages whenever the percentage of characters that fall outside the standard ASCII range exceeds the specified percentage. This should censor any ASCII art
-      style messages that will show up only as unknown characters in the chat display.</td>
+    <td>The option to censor messages based on the number of unknown characters will censor messages whenever the percentage of characters that fall outside the standard ASCII range exceeds the specified percentage. This should censor any ASCII art style
+      messages that will show up only as unknown characters in the chat display.</td>
   </tr>
   <tr>
     <td>The user whitelist is a list of users who are exempt from any censorship. The messages of any user added to this list will not be subject to censorship from user blacklisting, the message containing banned words, or for the message containing
@@ -227,6 +227,10 @@ table {
           <td>This is the distance in pixels that the messages are displayed from the borders in the horizontal (x) and vertical (y) directions, which run from -256 to 256 pixels in both directions. These distances are not affected by any scale
             settings, so even if a border or a font is scaled up, this distance will remain the same. These values can be negative, which will set the distance between the font and the border to one that overlaps. This is typically desirable when the
             border has extra blank space on the inside on which the messages can be displayed without actually overlapping any non-transparent part of the border.</td>
+        </tr>
+        <tr>
+          <td>Display Extended Characters</td>
+          <td>The option to display extended characters means that for characters outside the inclusive game-themed font character range between ASCII space (#32) and ASCII delete (#127), the character from the available native font will be substituted.</td>
         </tr>
         <tr>
           <td>Missing Character Substitute</td>

@@ -83,7 +83,7 @@ public class MessageCensorPanel extends ControlPanelBase
         enableCensorshipBox = new JCheckBox("Enable message censoring");
         censorAllUrlsBox = new JCheckBox("Censor all messages containing URLs");
         censorFirstPostUrlsBox = new JCheckBox("Censor messages containing URLs in a user's initial post");
-        censorUnknownCharsBox = new JCheckBox("Censor messages containing a specified percentage of unknown characters:");
+        censorUnknownCharsBox = new JCheckBox("Censor messages containing a specified percentage of extended characters:");
 
         final String minLabel = "> 0";
         // @formatter:off

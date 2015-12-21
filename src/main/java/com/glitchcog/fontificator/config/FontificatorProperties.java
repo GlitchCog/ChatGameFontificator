@@ -77,11 +77,12 @@ public class FontificatorProperties extends Properties
     public static final String KEY_FONT_BORDER_INSET_Y = "fontBorderInsetY";
     public static final String KEY_FONT_SPACE_WIDTH = "fontSpaceWidth";
     public static final String KEY_FONT_UNKNOWN_CHAR = "fontUnknownChar";
+    public static final String KEY_FONT_EXTENDED_CHAR = "fontExtendedChar";
     public static final String KEY_FONT_CHARACTERS = "fontCharacters";
     public static final String KEY_FONT_SPACING_LINE = "fontLineSpacing";
     public static final String KEY_FONT_SPACING_CHAR = "fontCharSpacing";
 
-    public static final String[] FONT_KEYS = new String[] { KEY_FONT_FILE_BORDER, KEY_FONT_FILE_FONT, KEY_FONT_TYPE, KEY_FONT_GRID_WIDTH, KEY_FONT_GRID_HEIGHT, KEY_FONT_SCALE, KEY_FONT_BORDER_SCALE, KEY_FONT_BORDER_INSET_X, KEY_FONT_BORDER_INSET_Y, KEY_FONT_SPACE_WIDTH, KEY_FONT_UNKNOWN_CHAR, KEY_FONT_CHARACTERS, KEY_FONT_SPACING_LINE, KEY_FONT_SPACING_CHAR };
+    public static final String[] FONT_KEYS = new String[] { KEY_FONT_FILE_BORDER, KEY_FONT_FILE_FONT, KEY_FONT_TYPE, KEY_FONT_GRID_WIDTH, KEY_FONT_GRID_HEIGHT, KEY_FONT_SCALE, KEY_FONT_BORDER_SCALE, KEY_FONT_BORDER_INSET_X, KEY_FONT_BORDER_INSET_Y, KEY_FONT_SPACE_WIDTH, KEY_FONT_UNKNOWN_CHAR, KEY_FONT_EXTENDED_CHAR, KEY_FONT_CHARACTERS, KEY_FONT_SPACING_LINE, KEY_FONT_SPACING_CHAR };
 
     public static final String KEY_CHAT_SCROLL = "chatScrollEnabled";
     public static final String KEY_CHAT_RESIZABLE = "chatResizable";
@@ -545,6 +546,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_FONT_SPACE_WIDTH, Integer.toString(25), override);
         setPropertyOverride(KEY_FONT_CHARACTERS, SpriteFont.NORMAL_ASCII_KEY, override);
         setPropertyOverride(KEY_FONT_UNKNOWN_CHAR, Character.toString((char) 127), override);
+        setPropertyOverride(KEY_FONT_EXTENDED_CHAR, trueString, override);
         setPropertyOverride(KEY_FONT_SPACING_LINE, Integer.toString(2), override);
         setPropertyOverride(KEY_FONT_SPACING_CHAR, Integer.toString(0), override);
 

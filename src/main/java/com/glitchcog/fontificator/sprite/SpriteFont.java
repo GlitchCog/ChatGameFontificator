@@ -2,6 +2,7 @@ package com.glitchcog.fontificator.sprite;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -91,7 +92,9 @@ public class SpriteFont
                 break;
             case UNKNOWN:
                 // Do not use the emoji scaling below because it's a character, not an emoji
-                return new int[] { getCharacterWidth(new SpriteCharacterKey(config.getUnknownChar()), emojiConfig), 1 };
+                // We can pass a null in for the FontMetrics, because we know the unknown character falls within the
+                // non-extended range
+                return new int[] { getCharacterWidth(null, new SpriteCharacterKey(config.getUnknownChar()), emojiConfig), 1 };
             case NOTHING:
             default:
                 iw = 0;
@@ -124,18 +127,43 @@ public class SpriteFont
         return new int[] { (int) w, (int) h };
     }
 
+    private char[] fontMetricCharArray = new char[1];
+
     /**
      * Return how wide a character is in pixels- must take scale into consideration scale
      * 
      * @param c
      * @return character width
      */
-    public int getCharacterWidth(SpriteCharacterKey c, ConfigEmoji emojiConfig)
+    private int getCharacterWidth(FontMetrics fontMetrics, SpriteCharacterKey c, ConfigEmoji emojiConfig)
     {
         if (c.isChar())
         {
-            // Character
-            int baseWidth = getCharacterBounds(c.getChar()).width;
+            int baseWidth;
+
+            // Extended characters are enabled
+            if (c.isExtended())
+            {
+                if (config.isExtendedCharEnabled())
+                {
+                    // Return string width of extended char
+                    fontMetricCharArray[0] = c.getChar();
+                    baseWidth = fontMetrics.charsWidth(fontMetricCharArray, 0, 1);
+                    // Don't include scale in this calculation, because it's already built into the font size
+                    return baseWidth + config.getCharSpacing() * config.getFontScale();
+                }
+                // The extended character should be replaced with the unknown character
+                else
+                {
+                    baseWidth = getCharacterBounds(config.getUnknownChar()).width;
+                }
+            }
+            // It's a normal character
+            else
+            {
+                // Character
+                baseWidth = getCharacterBounds(c.getChar()).width;
+            }
             return (baseWidth + config.getCharSpacing()) * config.getFontScale();
         }
         else
@@ -326,7 +354,12 @@ public class SpriteFont
      */
     public int getLineHeight()
     {
-        return sprites.getSprite(config).pixelHeight + config.getLineSpacing();
+        return getFontHeight() + config.getLineSpacing();
+    }
+
+    public int getFontHeight()
+    {
+        return sprites.getSprite(config).pixelHeight;
     }
 
     public int getLineScrollOffset()
@@ -370,14 +403,16 @@ public class SpriteFont
      * @param lineWrapLength
      * @return The size of the bounding box of the drawn message
      */
-    public Dimension getMessageDimensions(Message message, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int lineWrapLength)
+    public Dimension getMessageDimensions(Message message, FontMetrics fontMetrics, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int lineWrapLength)
     {
-        return drawMessage(null, message, null, null, messageConfig, emojiConfig, emojiManager, 0, 0, 0, 0, lineWrapLength);
+        return drawMessage(null, fontMetrics, message, null, null, messageConfig, emojiConfig, emojiManager, 0, 0, 0, 0, lineWrapLength);
     }
 
     /**
      * @param g2d
      *            The graphics object upon which to draw
+     * @param font
+     *            The actual font of the JPanel drawing this SpriteFont, used to draw extended characters
      * @param msg
      *            The message to draw
      * @param userColor
@@ -403,7 +438,22 @@ public class SpriteFont
      *            How long to let the text go to the right before going to a new line
      * @return The size of the bounding box of the drawn message
      */
-    public Dimension drawMessage(Graphics2D g2d, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int edgeThickness, int bottomEdgeY, int lineWrapLength)
+    /**
+     * @param g2d
+     * @param msg
+     * @param userColor
+     * @param colorConfig
+     * @param messageConfig
+     * @param emojiConfig
+     * @param emojiManager
+     * @param x_init
+     * @param y_init
+     * @param edgeThickness
+     * @param bottomEdgeY
+     * @param lineWrapLength
+     * @return
+     */
+    public Dimension drawMessage(Graphics2D g2d, FontMetrics fontMetrics, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int edgeThickness, int bottomEdgeY, int lineWrapLength)
     {
         if (msg.isJoinType() && !messageConfig.showJoinMessages())
         {
@@ -415,7 +465,7 @@ public class SpriteFont
         int maxCharWidth = 0;
         for (int c = 0; c < text.length; c++)
         {
-            maxCharWidth = Math.max(maxCharWidth, getCharacterWidth(text[c], emojiConfig));
+            maxCharWidth = Math.max(maxCharWidth, getCharacterWidth(fontMetrics, text[c], emojiConfig));
         }
         if (maxCharWidth > lineWrapLength)
         {
@@ -463,7 +513,7 @@ public class SpriteFont
             // the next word fits
             else if (WORD_BREAKS.contains(String.valueOf(text[ci].getChar())))
             {
-                int charWidth = getCharacterWidth(text[ci], emojiConfig);
+                int charWidth = getCharacterWidth(fontMetrics, text[ci], emojiConfig);
                 x += charWidth;
                 width += charWidth;
                 forcedBreak = false;
@@ -473,7 +523,7 @@ public class SpriteFont
                 int currentWordPixelWidth = 0;
                 for (int nwc = 0; nwc < text.length - ci && !WORD_BREAKS.contains(String.valueOf(text[ci + nwc].getChar())); nwc++)
                 {
-                    currentWordPixelWidth += getCharacterWidth(text[ci + nwc], emojiConfig);
+                    currentWordPixelWidth += getCharacterWidth(fontMetrics, text[ci + nwc], emojiConfig);
                 }
                 int distanceAlreadyFilled = x - x_init;
 
@@ -482,9 +532,9 @@ public class SpriteFont
                 {
                     if (g2d != null && y >= edgeThickness && y < bottomEdgeY && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, text[ci], x, y, emojiConfig, color);
+                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color);
                     }
-                    int charWidth = getCharacterWidth(text[ci], emojiConfig);
+                    int charWidth = getCharacterWidth(fontMetrics, text[ci], emojiConfig);
                     x += charWidth;
                     width += charWidth;
                 }
@@ -502,9 +552,9 @@ public class SpriteFont
                     }
                     if (g2d != null && y >= edgeThickness && y < bottomEdgeY && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, text[ci], x, y, emojiConfig, color);
+                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color);
                     }
-                    int charWidth = getCharacterWidth(text[ci], emojiConfig);
+                    int charWidth = getCharacterWidth(fontMetrics, text[ci], emojiConfig);
                     x += charWidth;
                     width += charWidth;
                 }
@@ -515,7 +565,7 @@ public class SpriteFont
                     forcedBreak = true;
                     distanceAlreadyFilled = x - x_init;
                     final int remainderOfTheLine = lineWrapLength - distanceAlreadyFilled;
-                    int charWidth = getCharacterWidth(text[ci], emojiConfig);
+                    int charWidth = getCharacterWidth(fontMetrics, text[ci], emojiConfig);
                     if (charWidth > remainderOfTheLine)
                     {
                         x = x_init;
@@ -530,7 +580,7 @@ public class SpriteFont
 
                     if (g2d != null && y >= edgeThickness && y < bottomEdgeY && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, text[ci], x, y, emojiConfig, color);
+                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color);
                     }
                     x += charWidth;
                     width += charWidth;
@@ -541,19 +591,32 @@ public class SpriteFont
         return new Dimension(maxWidth, height);
     }
 
-    private void drawCharacter(Graphics2D g2d, SpriteCharacterKey sck, int x, int y, ConfigEmoji emojiConfig, Color color)
+    private void drawCharacter(Graphics2D g2d, FontMetrics fontMetrics, SpriteCharacterKey sck, int x, int y, ConfigEmoji emojiConfig, Color color)
     {
         final int drawX = x + config.getCharSpacing() / 2;
         int drawY = y;
 
         if (sck.isChar())
         {
-            if (!characterBounds.containsKey(sck.getChar()))
+            final boolean validNormalChar = !sck.isExtended() && characterBounds.containsKey(sck.getChar());
+            final boolean drawUnknownChar = !validNormalChar && !config.isExtendedCharEnabled();
+
+            if (drawUnknownChar)
             {
                 sck = new SpriteCharacterKey(config.getUnknownChar());
             }
-            Rectangle bounds = characterBounds.get(sck.getChar());
-            sprites.getSprite(config).draw(g2d, drawX, drawY, bounds.width, bounds.height, bounds, config.getFontScale(), color);
+
+            if (validNormalChar || drawUnknownChar)
+            {
+                Rectangle bounds = characterBounds.get(sck.getChar());
+                sprites.getSprite(config).draw(g2d, drawX, drawY, bounds.width, bounds.height, bounds, config.getFontScale(), color);
+            }
+            // The character is invalid, and drawing the unknown char is not selected, so draw the extended characters
+            else
+            {
+                g2d.setColor(color);
+                g2d.drawString(Character.toString(sck.getChar()), drawX, drawY + (fontMetrics.getHeight() - fontMetrics.getDescent()));
+            }
         }
         else
         {
@@ -575,7 +638,7 @@ public class SpriteFont
                     g2d.drawRect(drawX, drawY, eDim[0], eDim[1]);
                     break;
                 case UNKNOWN:
-                    drawCharacter(g2d, new SpriteCharacterKey(config.getUnknownChar()), x, y, emojiConfig, color);
+                    drawCharacter(g2d, fontMetrics, new SpriteCharacterKey(config.getUnknownChar()), x, y, emojiConfig, color);
                     break;
                 case SPACE:
                 case NOTHING:

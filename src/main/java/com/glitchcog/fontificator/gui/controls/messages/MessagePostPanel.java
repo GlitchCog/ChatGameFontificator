@@ -59,7 +59,7 @@ public class MessagePostPanel extends JPanel
                                                      "Alena", "Talloon", "Ragnar", "Brey", "Cristo", "Maya", "Nara", "Maribel", "Kiefer", "Gabo", "Melvin", "Aira", 
                                                      "Terra", "Locke", "Celes", "Edgar", "Sabin", "Kefka", "Cloud", "Tifa", "Aerith", "Barret", "Sephiroth" };
 
-    private String[] TEST_MESSAGES = new String[] { "You presumptious little twit. I'll have you for lunch!", 
+    private String[] TEST_MESSAGES = new String[] { "You presumptuous little twit. I'll have you for lunch!", 
                                                     "Thank you Mario! But our princess is in another castle!", 
                                                     "It's dangerous to go alone. Take this.", 
                                                     "It's a secret to everybody.", 
@@ -81,7 +81,7 @@ public class MessagePostPanel extends JPanel
                                                     "Now you're thinking with portals.", 
                                                     "Would you kindly?", 
                                                     "The cake is a lie.", 
-                                                    "We've both said a lot of things that you're going to regret", 
+                                                    "We've both said a lot of things that you're going to regret.", 
                                                     "It's like my Rattata is in the top percentage of rattatas.", 
                                                     "You have died of dysentery."
                                                    };

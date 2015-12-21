@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -81,6 +82,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Faxanadu", "Faxanadu Dialog"), new DropdownFont("faxanadu_dialog_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Faxanadu", "Faxanadu HUD"), new DropdownFont("faxanadu_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownFont("ff1_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownFont("ff4_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownFont("ff6_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI (Battle)"), new DropdownFont("ff6_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownFont("ff7_font.png", FontType.VARIABLE_WIDTH));
@@ -127,6 +129,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownFont("wildarms_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda"), new DropdownFont("loz_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda (Mixed Case)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
@@ -139,6 +142,32 @@ public class ControlPanelFont extends ControlPanelBase
         }
     };
 
+    /**
+     * A reverse lookup through the map to get the actual name of a game for a font
+     * 
+     * @param font
+     *            filename
+     * @return game name
+     */
+    public static String getFontGameName(String filename)
+    {
+        for (Entry<DropdownLabel, DropdownFont> e : PRESET_FONT_FILE_MAP.entrySet())
+        {
+            if (CUSTOM_KEY.equals(e.getKey()))
+            {
+                continue;
+            }
+
+            final String fontFilename = e.getValue().getFontFilename();
+
+            if (fontFilename.equals(filename))
+            {
+                return e.getKey().getLabel();
+            }
+        }
+        return "Unknown";
+    }
+
     private static final Map<DropdownLabel, DropdownBorder> PRESET_BORDER_FILE_MAP = new LinkedHashMap<DropdownLabel, DropdownBorder>()
     {
         private static final long serialVersionUID = 1L;
@@ -146,6 +175,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png"));
             put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png"));
+            put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownBorder(""));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
             put(new DropdownLabel("Cyrstalis", "Crystalis"), new DropdownBorder("crystalis_border.png"));
@@ -165,6 +195,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("EarthBound", "Mother 3"), new DropdownBorder("m3_border.png"));
             put(new DropdownLabel("Faxanadu", "Faxanadu"), new DropdownBorder("faxanadu_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_border.png"));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownBorder("ff4_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownBorder("ff6_border.png"));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownBorder("ff7_border.png"));
             put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownBorder("freep_border.png"));
@@ -218,6 +249,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png"));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png"));
             put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png"));
+            put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Bush"), new DropdownBorder("loz_bush_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Rock"), new DropdownBorder("loz_rock_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Dungeon"), new DropdownBorder("loz_dungeon_border.png"));
@@ -229,6 +261,32 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownBorder("loz_ww_border.png"));
         }
     };
+
+    /**
+     * A reverse lookup through the map to get the actual name of a game for a border
+     * 
+     * @param border
+     *            filename
+     * @return game name
+     */
+    public static String getBorderGameName(String filename)
+    {
+        for (Entry<DropdownLabel, DropdownBorder> e : PRESET_BORDER_FILE_MAP.entrySet())
+        {
+            if (CUSTOM_KEY.equals(e.getKey()))
+            {
+                continue;
+            }
+
+            final String borderFilename = e.getValue().getBorderFilename();
+
+            if (borderFilename.equals(filename))
+            {
+                return e.getKey().getLabel();
+            }
+        }
+        return "Unknown";
+    }
 
     private LabeledInput fontFilenameInput;
 
@@ -269,6 +327,8 @@ public class ControlPanelFont extends ControlPanelBase
     private CharacterPicker charPicker;
 
     private JLabel unknownCharLabel;
+
+    private JCheckBox extendedCharBox;
 
     private ConfigFont config;
 
@@ -411,7 +471,22 @@ public class ControlPanelFont extends ControlPanelBase
             }
         };
 
-        unknownCharLabel = new JLabel("Missing Character Substitute: ");
+        extendedCharBox = new JCheckBox("Display Extended Characters");
+        extendedCharBox.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                final boolean ecbSelected = extendedCharBox.isSelected();
+
+                config.setExtendedCharEnabled(ecbSelected);
+                unknownCharPopupButton.setEnabled(!ecbSelected);
+                unknownCharLabel.setEnabled(!ecbSelected);
+                chat.repaint();
+            }
+        });
+
+        unknownCharLabel = new JLabel("");
         charPicker = new CharacterPicker(ControlWindow.me, fProps.getFontConfig(), unknownCharLabel, chat);
 
         Map<String, List<String>> fontMenuMap = getMenuMapFromPresets(PRESET_FONT_FILE_MAP.keySet());
@@ -462,7 +537,7 @@ public class ControlPanelFont extends ControlPanelBase
 
         fontPanel.setBorder(new TitledBorder(baseBorder, "Font"));
         borderPanel.setBorder(new TitledBorder(baseBorder, "Border"));
-        unknownPanel.setBorder(new TitledBorder(baseBorder, "Missing Characters"));
+        unknownPanel.setBorder(new TitledBorder(baseBorder, "Extended and Unicode Characters"));
 
         GridBagConstraints fontGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
         GridBagConstraints borderGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
@@ -492,11 +567,11 @@ public class ControlPanelFont extends ControlPanelBase
 
         JPanel variableWidthPanel = new JPanel(new GridBagLayout());
         GridBagConstraints vwpGbc = getGbc();
-        vwpGbc.anchor  = GridBagConstraints.EAST;
+        vwpGbc.anchor = GridBagConstraints.EAST;
         vwpGbc.weightx = 0.0;
         vwpGbc.fill = GridBagConstraints.NONE;
         variableWidthPanel.add(fontTypeCheckbox, vwpGbc);
-        vwpGbc.anchor  = GridBagConstraints.WEST;
+        vwpGbc.anchor = GridBagConstraints.WEST;
         vwpGbc.weightx = 1.0;
         vwpGbc.fill = GridBagConstraints.HORIZONTAL;
         vwpGbc.gridx++;
@@ -522,9 +597,11 @@ public class ControlPanelFont extends ControlPanelBase
         borderPanel.add(borderInsetYSlider, borderGbc);
         borderGbc.gridy++;
 
-        unknownPanel.add(unknownCharLabel, unknownGbc);
+        unknownPanel.add(extendedCharBox, unknownGbc);
         unknownGbc.gridx++;
         unknownPanel.add(unknownCharPopupButton, unknownGbc);
+        unknownGbc.gridx++;
+        unknownPanel.add(unknownCharLabel, unknownGbc);
         unknownGbc.gridx++;
 
         JPanel everything = new JPanel(new GridBagLayout());
@@ -634,6 +711,7 @@ public class ControlPanelFont extends ControlPanelBase
         borderInsetXSlider.setValue(config.getBorderInsetX());
         borderInsetYSlider.setValue(config.getBorderInsetY());
         characterKeyInput.setText(config.getCharacterKey());
+        extendedCharBox.setSelected(config.isExtendedCharEnabled());
         charPicker.setSelectedChar(config.getUnknownChar());
         spaceWidthSlider.setValue(config.getSpaceWidth());
         lineSpacingSlider.setValue(config.getLineSpacing());
@@ -714,6 +792,7 @@ public class ControlPanelFont extends ControlPanelBase
         config.setBorderInsetX(borderInsetXSlider.getValue());
         config.setBorderInsetY(borderInsetYSlider.getValue());
         config.setCharacterKey(characterKeyInput.getText());
+        config.setExtendedCharEnabled(extendedCharBox.isSelected());
         config.setUnknownChar(charPicker.getSelectedChar());
         config.setSpaceWidth(spaceWidthSlider.getValue());
         config.setLineSpacing(lineSpacingSlider.getValue());

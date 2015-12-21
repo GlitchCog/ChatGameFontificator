@@ -238,7 +238,7 @@ public class ControlPanelEmoji extends ControlPanelBase
                 JCheckBox source = (JCheckBox) e.getSource();
                 if (bot.isConnected())
                 {
-                    Set<EmojiJob> jobsToDo = new HashSet<EmojiJob>();
+                    Set<EmojiJob> jobsToRun = new HashSet<EmojiJob>();
                     Set<EmojiJob> jobsToCancel = new HashSet<EmojiJob>();
 
                     final boolean clickAll = enableAll.equals(source);
@@ -255,7 +255,7 @@ public class ControlPanelEmoji extends ControlPanelBase
                         EmojiJob job = new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.LOAD);
                         if (enableAll.isSelected() && enableTwitch.isSelected())
                         {
-                            jobsToDo.add(job);
+                            jobsToRun.add(job);
                         }
                         else
                         {
@@ -268,7 +268,7 @@ public class ControlPanelEmoji extends ControlPanelBase
                         EmojiJob job = new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.CACHE);
                         if (enableAll.isSelected() && cacheTwitch.isSelected())
                         {
-                            jobsToDo.add(job);
+                            jobsToRun.add(job);
                         }
                         else
                         {
@@ -283,8 +283,8 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                         if (enableAll.isSelected() && enableFrankerFaceZ.isSelected())
                         {
-                            jobsToDo.add(jobA);
-                            jobsToDo.add(jobB);
+                            jobsToRun.add(jobA);
+                            jobsToRun.add(jobB);
                         }
                         else
                         {
@@ -299,8 +299,8 @@ public class ControlPanelEmoji extends ControlPanelBase
                         EmojiJob jobB = new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.CACHE);
                         if (enableAll.isSelected() && cacheFrankerFaceZ.isSelected())
                         {
-                            jobsToDo.add(jobA);
-                            jobsToDo.add(jobB);
+                            jobsToRun.add(jobA);
+                            jobsToRun.add(jobB);
                         }
                         else
                         {
@@ -315,7 +315,7 @@ public class ControlPanelEmoji extends ControlPanelBase
                         // No check for enable all here, because badges are independent of the emoji enableAll toggle
                         if (enableTwitchBadges.isSelected())
                         {
-                            jobsToDo.add(job);
+                            jobsToRun.add(job);
                         }
                         else
                         {
@@ -323,11 +323,11 @@ public class ControlPanelEmoji extends ControlPanelBase
                         }
                     }
 
-                    loadEmojiWork(jobsToDo);
+                    loadEmojiWork(jobsToRun);
 
                     cancelEmojiWork(jobsToCancel);
 
-                    if (!jobsToDo.isEmpty())
+                    if (!jobsToRun.isEmpty())
                     {
                         runEmojiWork();
                     }

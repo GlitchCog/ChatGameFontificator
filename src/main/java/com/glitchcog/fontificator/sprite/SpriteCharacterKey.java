@@ -15,6 +15,11 @@ public class SpriteCharacterKey
     private char character;
 
     /**
+     * Whether the character falls outside of the inclusive ASCII range 32-127
+     */
+    private boolean extended;
+
+    /**
      * The emoji this character represents
      */
     private LazyLoadEmoji[] emoji;
@@ -49,11 +54,13 @@ public class SpriteCharacterKey
      * 
      * @param character
      * @param emoji
-     * @param badge Only used for emoji
+     * @param badge
+     *            Only used for emoji
      */
     private SpriteCharacterKey(char character, LazyLoadEmoji[] emoji, boolean badge)
     {
         this.character = character;
+        this.extended = !SpriteFont.NORMAL_ASCII_KEY.contains(Character.toString(this.character));
         this.emoji = emoji;
         this.badge = badge;
     }
@@ -114,5 +121,13 @@ public class SpriteCharacterKey
     public String toString()
     {
         return isEmoji() ? "[E]" : Character.toString(getChar());
+    }
+
+    /**
+     * @return
+     */
+    public boolean isExtended()
+    {
+        return extended;
     }
 }

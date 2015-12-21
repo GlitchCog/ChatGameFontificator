@@ -2,6 +2,7 @@ package com.glitchcog.fontificator.gui.chat;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -190,6 +191,18 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         Graphics2D g2d = (Graphics2D) g;
 
+        // fits in the line height.
+        boolean stillFits = true;
+        int fontSize = 0;
+        while (stillFits)
+        {
+            fontSize++;
+            g2d.setFont(new Font(g2d.getFont().getName(), Font.PLAIN, fontSize));
+            stillFits = font.getFontHeight() * fontConfig.getFontScale() > g2d.getFontMetrics().getStringBounds("A", 0, 1, g2d).getHeight();
+        }
+
+        logger.trace("Calulated font size: " + fontSize);
+
         // Draws the background color and the chroma key border
         drawBackground(g2d);
 
@@ -293,7 +306,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         int totalHeight = 0;
         for (Message msg : drawMessages)
         {
-            Dimension dim = font.getMessageDimensions(msg, messageConfig, emojiConfig, emojiManager, lineWrapLength);
+            Dimension dim = font.getMessageDimensions(msg, g2d.getFontMetrics(), messageConfig, emojiConfig, emojiManager, lineWrapLength);
             totalHeight += dim.getHeight();
         }
 
@@ -321,7 +334,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
                 col = colorConfig.getPalette().isEmpty() ? colorConfig.getHighlight() : colorConfig.getPalette().get(Math.abs(msg.getUsername().toLowerCase().hashCode()) % colorConfig.getPalette().size());
             }
 
-            Dimension dim = font.drawMessage(g2d, msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, getHeight() - borderEdgeThickness, lineWrapLength);
+            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, getHeight() - borderEdgeThickness, lineWrapLength);
             y += dim.getHeight();
         }
     }

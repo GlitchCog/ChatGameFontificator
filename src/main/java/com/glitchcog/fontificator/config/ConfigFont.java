@@ -57,6 +57,8 @@ public class ConfigFont extends Config
 
     private char unknownChar;
 
+    private Boolean extendedCharEnabled;
+
     private int lineSpacing;
 
     private int charSpacing;
@@ -85,6 +87,7 @@ public class ConfigFont extends Config
         borderInsetY = 0;
         characterKey = null;
         unknownChar = '\0';
+        extendedCharEnabled = null;
         lineSpacing = 0;
         charSpacing = 0;
     }
@@ -121,7 +124,6 @@ public class ConfigFont extends Config
         }
     }
 
-
     public void validateStrings(LoadConfigReport report, String widthStr, String heightStr, String charKey, String unknownCharStr)
     {
         if (unknownCharStr.length() != 1)
@@ -151,21 +153,7 @@ public class ConfigFont extends Config
         }
     }
 
-    public void validateStrings(LoadConfigReport report, 
-                                String fontFilenameStr, 
-                                String borderFilenameStr, 
-                                String widthStr, 
-                                String heightStr, 
-                                String charKey, 
-                                String unknownCharStr, 
-                                String scaleStr, 
-                                String borderScaleStr, 
-                                String borderInsetXStr, 
-                                String borderInsetYStr, 
-                                String spaceWidthStr, 
-                                String lineStr, 
-                                String charStr, 
-                                String fontTypeStr)
+    public void validateStrings(LoadConfigReport report, String fontFilenameStr, String borderFilenameStr, String widthStr, String heightStr, String charKey, String unknownCharStr, String extendedCharStr, String scaleStr, String borderScaleStr, String borderInsetXStr, String borderInsetYStr, String spaceWidthStr, String lineStr, String charStr, String fontTypeStr)
     {
         validateStrings(report, widthStr, heightStr, charKey, unknownCharStr);
 
@@ -178,6 +166,8 @@ public class ConfigFont extends Config
         {
             report.addError("A border filename is required", LoadConfigErrorType.MISSING_VALUE);
         }
+
+        validateBooleanStrings(report, extendedCharStr);
 
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SCALE, scaleStr, MIN_FONT_SCALE, MAX_FONT_SCALE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_SCALE, borderScaleStr, MIN_BORDER_SCALE, MAX_BORDER_SCALE, report);
@@ -213,6 +203,7 @@ public class ConfigFont extends Config
             final String borderInsetYStr = props.getProperty(FontificatorProperties.KEY_FONT_BORDER_INSET_Y);
             final String spaceWidthStr = props.getProperty(FontificatorProperties.KEY_FONT_SPACE_WIDTH);
             final String unknownCharStr = props.getProperty(FontificatorProperties.KEY_FONT_UNKNOWN_CHAR);
+            final String extendedCharStr = props.getProperty(FontificatorProperties.KEY_FONT_EXTENDED_CHAR);
             final String lineSpacingStr = props.getProperty(FontificatorProperties.KEY_FONT_SPACING_LINE);
             final String charSpacingStr = props.getProperty(FontificatorProperties.KEY_FONT_SPACING_CHAR);
             final String fontTypeStr = props.getProperty(FontificatorProperties.KEY_FONT_TYPE);
@@ -222,7 +213,7 @@ public class ConfigFont extends Config
             final String fontFilenameStr = props.getProperty(FontificatorProperties.KEY_FONT_FILE_FONT);
 
             // Check that the values are valid
-            validateStrings(report,  fontFilenameStr, borderFilenameStr, gridWidthStr, gridHeightStr, charKeyStr, unknownCharStr, scaleStr, borderScaleStr, borderInsetXStr, borderInsetYStr, spaceWidthStr, lineSpacingStr, charSpacingStr, fontTypeStr);
+            validateStrings(report, fontFilenameStr, borderFilenameStr, gridWidthStr, gridHeightStr, charKeyStr, unknownCharStr, extendedCharStr, scaleStr, borderScaleStr, borderInsetXStr, borderInsetYStr, spaceWidthStr, lineSpacingStr, charSpacingStr, fontTypeStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -231,6 +222,7 @@ public class ConfigFont extends Config
                 this.fontFilename = props.getProperty(FontificatorProperties.KEY_FONT_FILE_FONT);
                 this.fontType = FontType.valueOf(props.getProperty(FontificatorProperties.KEY_FONT_TYPE));
                 this.unknownChar = unknownCharStr.charAt(0);
+                this.extendedCharEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_FONT_EXTENDED_CHAR, report);
                 this.characterKey = props.getProperty(FontificatorProperties.KEY_FONT_CHARACTERS);
                 this.gridWidth = Integer.parseInt(gridWidthStr);
                 this.gridHeight = Integer.parseInt(gridHeightStr);
@@ -366,6 +358,17 @@ public class ConfigFont extends Config
     {
         this.unknownChar = unknownChar;
         props.setProperty(FontificatorProperties.KEY_FONT_UNKNOWN_CHAR, Character.toString(unknownChar));
+    }
+
+    public boolean isExtendedCharEnabled()
+    {
+        return extendedCharEnabled;
+    }
+
+    public void setExtendedCharEnabled(boolean extendedCharEnabled)
+    {
+        this.extendedCharEnabled = extendedCharEnabled;
+        props.setProperty(FontificatorProperties.KEY_FONT_EXTENDED_CHAR, Boolean.toString(extendedCharEnabled));
     }
 
     public int getLineSpacing()

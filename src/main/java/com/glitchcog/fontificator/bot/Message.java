@@ -454,6 +454,34 @@ public class Message
         return keyList.toArray(new SpriteCharacterKey[keyList.size()]);
     }
 
+    public static String[] codePointSpaceSplit(String content)
+    {
+        List<String> words = new ArrayList<String>();
+        if (!content.isEmpty())
+        {
+            int breakIndex = 0;
+            int c = 0;
+            boolean currentlyInWord = !Character.isWhitespace(content.codePointAt(c));
+            while (c < content.length())
+            {
+                final int codePoint = content.codePointAt(c);
+                final boolean isWhitespace = Character.isWhitespace(codePoint);
+                final int charSize = Character.charCount(codePoint);
+
+                if ((currentlyInWord && isWhitespace) || (!currentlyInWord && !isWhitespace))
+                {
+                    words.add(content.substring(breakIndex, c));
+                    breakIndex = c;
+                    currentlyInWord = !currentlyInWord;
+                }
+
+                c += charSize;
+            }
+            words.add(content.substring(breakIndex, content.length()));
+        }
+        return words.toArray(new String[words.size()]);
+    }
+
     /**
      * Convert the content of the message into the appropriate emoji. Add those emoji and the remaining characters
      * between them to the specified keyList array.
