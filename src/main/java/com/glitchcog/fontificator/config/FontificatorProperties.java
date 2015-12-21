@@ -598,7 +598,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_CENSOR_ENABLED, trueString, override);
         setPropertyOverride(KEY_CENSOR_URL, falseString, override);
         setPropertyOverride(KEY_CENSOR_FIRST_URL, falseString, override);
-        setPropertyOverride(KEY_CENSOR_UNKNOWN_CHARS, trueString, override);
+        setPropertyOverride(KEY_CENSOR_UNKNOWN_CHARS, falseString, override);
         setPropertyOverride(KEY_CENSOR_UNKNOWN_CHARS_PERCENT, Integer.toString(20), override);
         setPropertyOverride(KEY_CENSOR_WHITE, "", override);
         setPropertyOverride(KEY_CENSOR_BLACK, "", override);
