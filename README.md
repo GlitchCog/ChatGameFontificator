@@ -141,6 +141,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Mother 3
   - Faxanadu
   - Final Fantasy
+  - Final Fantasy IV
   - Final Fantasy VI
   - Final Fantasy VI (Battle)
   - Final Fantasy VII
@@ -164,6 +165,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Paper Mario: The Thousand Year Door
   - Mega Man 9
   - Mega Man X
+  - Mega Man Battle Network
   - Metal Gear
   - Metroid
   - Super Metroid
@@ -182,6 +184,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
   - Tetris (GB and NES)
+  - Wild Arms
   - The Legend of Zelda
   - The Legend of Zelda (Mixed Case)
   - Zelda II: The Adventures of Link
