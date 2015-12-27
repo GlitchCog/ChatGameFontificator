@@ -1,0 +1,17 @@
+fontBorderInsetY=8
+colorBackground=000000
+colorPalette=0070EC,80D010,E40058,8000F0,FCD8A8,B53120
+fontBorderInsetX=8
+colorBorder=FFFFFF
+fontCharSpacing=0
+fontBorderScale=2
+fontLineSpacing=0
+fontGridHeight=12
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/cad_font.png
+colorHighlight=CCCC00
+fontGridWidth=8
+fontType=FIXED_WIDTH
+colorForeground=FFFFFF
+fontScale=2
+fontBorderFile=preset\://borders/cad_border.png

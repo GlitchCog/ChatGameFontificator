@@ -66,6 +66,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownFont("ct_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownFont("cad_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Crystalis", "Crystalis"), new DropdownFont("crystalis_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownFont("dw1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownFont("dw2_font.png", FontType.FIXED_WIDTH));
@@ -82,10 +83,13 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Faxanadu", "Faxanadu Dialog"), new DropdownFont("faxanadu_dialog_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Faxanadu", "Faxanadu HUD"), new DropdownFont("faxanadu_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownFont("ff1_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy Dawn of Souls"), new DropdownFont("ffdos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownFont("ff4_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownFont("ff6_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI (Battle)"), new DropdownFont("ff6_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownFont("ff7_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy Tactics Advance (Dialog)"), new DropdownFont("ffta_dialog_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy Tactics Advance (Menu)"), new DropdownFont("ffta_menu_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownFont("freep_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ghosts and Goblins", "Ghosts n Goblins"), new DropdownFont("gng_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownFont("gsun_font.png", FontType.VARIABLE_WIDTH));
@@ -179,6 +183,10 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownBorder(""));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png"));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Hermit"), new DropdownBorder("cad_hermit_border.png"));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Shop"), new DropdownBorder("cad_shop_border.png"));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Suzie"), new DropdownBorder("cad_suzie_border.png"));
             put(new DropdownLabel("Cyrstalis", "Crystalis"), new DropdownBorder("crystalis_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownBorder("dw1_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownBorder("dw2_border.png"));

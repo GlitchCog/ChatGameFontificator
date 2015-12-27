@@ -118,13 +118,14 @@ Last version before subscriber emotes and badges: [JAR from November 06, 2015]
 
 I'm sorry, I should have mentioned that you can use the Font/Border tab to select fonts from some games that aren't even represented with a preset option. Making presets is more tedious than you might think because I take care to try to match every aspect of the game's dialog, including pixel-perfect kerning, line spacing, text positioning and coloration. I don't always get it exactly correct, but many of the presets represent exactly how the text would appear if it were actually in the game.
 
-* Could I please see an exhaustive list of all 75 game fonts represented in this program?
+* Could I please see an exhaustive list of all 77 game fonts represented in this program?
 
   - 7th Dragon Name
   - Bahamut Lagoon
   - Bart vs. the Space Mutants
   - Chrono Cross
   - Chrono Trigger
+  - Clash at Demonhead
   - Crystalis
   - Dr. Mario
   - Dragon Warrior
@@ -141,10 +142,13 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Mother 3
   - Faxanadu
   - Final Fantasy
+  - Final Fantasy Dawn of Souls
   - Final Fantasy IV
   - Final Fantasy VI
   - Final Fantasy VI (Battle)
   - Final Fantasy VII
+  - Final Fantasy Tactics Advance (Dialog)
+  - Final Fantasy Tactics Advance (Menu)
   - Freedom Planet
   - Ghosts n Goblins
   - Golden Sun
