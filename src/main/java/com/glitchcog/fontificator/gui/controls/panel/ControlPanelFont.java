@@ -52,8 +52,7 @@ public class ControlPanelFont extends ControlPanelBase
     private static final long serialVersionUID = 1L;
 
     /**
-     * Text of the selection option in the font and border preset dropdown menus to prompt the user to specify her own
-     * file
+     * Text of the selection option in the font and border preset dropdown menus to prompt the user to specify her own file
      */
     private final static DropdownLabel CUSTOM_KEY = new DropdownLabel(null, "Custom...");
 
@@ -115,6 +114,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mega Man", "Mega Man Battle Network"), new DropdownFont("mmbn1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metal Gear", "Metal Gear"), new DropdownFont("mg_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownFont("metroid_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Metroid", "Metroid II"), new DropdownFont("metroid2_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Metroid", "Metroid II (Credits)"), new DropdownFont("metroid2_credits_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Super Metroid"), new DropdownFont("smetroid_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Super Metroid (Mixed Case)"), new DropdownFont("smetroid_mixedcase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownFont("ps1_font.png", FontType.FIXED_WIDTH));
@@ -239,6 +240,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mega Man", "Mega Man 9 Menu Popup"), new DropdownBorder("mm9_popup_border.png"));
             put(new DropdownLabel("Mega Man", "Mega Man X"), new DropdownBorder("mmx_border.png"));
             put(new DropdownLabel("Metroid", "Metroid"), new DropdownBorder("metroid_border.png"));
+            put(new DropdownLabel("Metroid", "Metroid II"), new DropdownBorder("metroid2_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Pipes"), new DropdownBorder("metroid_pipe_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Mother Brain Glass"), new DropdownBorder("metroid_glass_border.png"));
             put(new DropdownLabel("Metroid", "Super Metroid Mother Inventory"), new DropdownBorder("smetroid_inventory_border.png"));
@@ -635,8 +637,7 @@ public class ControlPanelFont extends ControlPanelBase
     }
 
     /**
-     * Turns a list of keys with a single pipe deliminating the parent menu from the menu item into a map that can be a
-     * parameter to create a ComboMenuBar
+     * Turns a list of keys with a single pipe deliminating the parent menu from the menu item into a map that can be a parameter to create a ComboMenuBar
      * 
      * @param keys
      * @return

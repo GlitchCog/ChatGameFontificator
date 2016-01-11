@@ -1,0 +1,17 @@
+fontBorderInsetY=0
+fontBorderInsetX=8
+fontCharSpacing=0
+fontGridWidth=8
+fontScale=2
+fontBorderScale=2
+fontLineSpacing=2
+fontGridHeight=12
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/metroid2_font.png
+fontType=FIXED_WIDTH
+fontBorderFile=preset\://borders/metroid2_border.png
+colorHighlight=6699FF
+colorForeground=FFFFFF
+colorBackground=000000
+colorBorder=FFFFFF
+colorPalette=5080FF,F769FF,4ACEDE,FF9999,FF6666,FF33CC
