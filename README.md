@@ -172,6 +172,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Mega Man Battle Network
   - Metal Gear
   - Metroid
+  - Metroid II
   - Super Metroid
   - Super Metroid (Mixed Case)
   - Phantasy Star
