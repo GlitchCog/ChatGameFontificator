@@ -26,14 +26,12 @@ public class Message
     private static final Logger logger = Logger.getLogger(Message.class);
 
     /**
-     * A regex for checking for emoji keys in the text. Used in a String.split to divide the message into an array of
-     * words and the spaces between them.
+     * A regex for checking for emoji keys in the text. Used in a String.split to divide the message into an array of words and the spaces between them.
      */
     public static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
 
     /**
-     * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored
-     * in the ChatViewerBot, so it is possible to update that object and see the effects on this message
+     * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored in the ChatViewerBot, so it is possible to update that object and see the effects on this message
      */
     private final TwitchPrivmsg privmsg;
 
@@ -73,15 +71,13 @@ public class Message
     private final MessageType type;
 
     /**
-     * The number of badges to draw, to keep track of the position of the username, which is used for coloring. This
-     * value is calculated when the text is parsed into SpriteCharacterKeys and will be zero if badges are switched off.
+     * The number of badges to draw, to keep track of the position of the username, which is used for coloring. This value is calculated when the text is parsed into SpriteCharacterKeys and will be zero if badges are switched off.
      */
     private int badgeCount;
 
     /**
-     * Whether the message is completely drawn or not. Because the fully displayed message can change, like if the
-     * option to show the time stamp is selected on the fly, once any configuration of the message is fully displayed,
-     * it should remain fully displayed, even though the draw cursor won't be at the end of the now longer message text
+     * Whether the message is completely drawn or not. Because the fully displayed message can change, like if the option to show the time stamp is selected on the fly, once any configuration of the message is fully displayed, it should
+     * remain fully displayed, even though the draw cursor won't be at the end of the now longer message text
      */
     private boolean completelyDrawn;
 
@@ -96,8 +92,7 @@ public class Message
     private static final String TIMESTAMP_USERNAME_SPACER = " ";
 
     /**
-     * The maximum possible value of an int cast into a float, used to max out the character count if the message speed
-     * is maxed out
+     * The maximum possible value of an int cast into a float, used to max out the character count if the message speed is maxed out
      */
     private static final float MAX_INT_AS_FLOAT = (float) Integer.MAX_VALUE;
 
@@ -107,23 +102,26 @@ public class Message
     private float drawCursor;
 
     /**
-     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check
-     * using ConfigMessage.equals), then there's no need to re-parse it
+     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check using ConfigMessage.equals), then there's no need to re-parse it
      */
     private ConfigMessage lastMessageConfig;
 
     /**
-     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check
-     * using ConfigEmoji.equals), then there's no need to re-parse it
+     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check using ConfigEmoji.equals), then there's no need to re-parse it
      */
     private ConfigEmoji lastEmojiConfig;
 
     /**
-     * Construct a message specifying the type, username and content, but set the time stamp to the current time
+     * Construct a message specifying the type, username and content, but set the time stamp to the current local time
      * 
      * @param type
+     *            The type of this message
      * @param username
+     *            The username of whomever posted this message
      * @param content
+     *            The text of the message
+     * @param privmsg
+     *            The Twitch Privmsg object, will not be null
      */
     public Message(MessageType type, String username, String content, TwitchPrivmsg privmsg)
     {
@@ -134,9 +132,15 @@ public class Message
      * Construct a message specifying everything
      * 
      * @param type
+     *            The type of this message
      * @param username
+     *            The username of whomever posted this message
      * @param timestamp
+     *            When the message was posted (local time)
      * @param content
+     *            The text of the message
+     * @param privmsg
+     *            The Twitch Privmsg object, will not be null
      */
     public Message(MessageType type, String username, Date timestamp, String content, TwitchPrivmsg privmsg)
     {
@@ -181,8 +185,7 @@ public class Message
     }
 
     /**
-     * Increment the draw cursor based on the message text as defined by the specified messageConfig and its message
-     * speed setting
+     * Increment the draw cursor based on the message text as defined by the specified messageConfig and its message speed setting
      * 
      * @param messageConfig
      * @param emojiConfig
@@ -357,8 +360,7 @@ public class Message
     }
 
     /**
-     * Compile the array of SpriteCharacterKeys using the specified configuration. This can be a bit memory intensive
-     * since each character is a new albeit small object, so this should not be done many times a second, rather only if
+     * Compile the array of SpriteCharacterKeys using the specified configuration. This can be a bit memory intensive since each character is a new albeit small object, so this should not be done many times a second, rather only if
      * something has changed in the configuration to warrant a re-translation.
      * 
      * @param emojiManager
@@ -483,8 +485,7 @@ public class Message
     }
 
     /**
-     * Convert the content of the message into the appropriate emoji. Add those emoji and the remaining characters
-     * between them to the specified keyList array.
+     * Convert the content of the message into the appropriate emoji. Add those emoji and the remaining characters between them to the specified keyList array.
      * 
      * @param content
      * @param privmsg

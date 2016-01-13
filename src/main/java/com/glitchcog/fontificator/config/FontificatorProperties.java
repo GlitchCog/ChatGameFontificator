@@ -24,8 +24,7 @@ import com.glitchcog.fontificator.gui.controls.ControlWindow;
 import com.glitchcog.fontificator.sprite.SpriteFont;
 
 /**
- * Contains all the properties for configuring the font display. They are divided into member Config variables whose
- * reference is shared by the ControlPanels and ChatPanel:
+ * Contains all the properties for configuring the font display. They are divided into member Config variables whose reference is shared by the ControlPanels and ChatPanel:
  * <ul>
  * <li>ConfigIrc</li>
  * <li>ConfigFont</li>
@@ -53,8 +52,7 @@ public class FontificatorProperties extends Properties
     private final static String ENC_PASSWORD = "Eastmost penninsula is the secret.";
 
     /**
-     * The name of the file that holds the location of the last file saved or loaded by a user, to be used when the
-     * program starts to automatically load the previously used configuration
+     * The name of the file that holds the location of the last file saved or loaded by a user, to be used when the program starts to automatically load the previously used configuration
      */
     private static final String CONFIG_FILE_LAST_LOCATION = ".fontificator.conf";
 
@@ -109,10 +107,11 @@ public class FontificatorProperties extends Properties
     public static final String KEY_COLOR_TIMESTAMP = "colorTimestamp";
     public static final String KEY_COLOR_MESSAGE = "colorMessage";
     public static final String KEY_COLOR_JOIN = "colorJoin";
+    public static final String KEY_COLOR_TWITCH = "colorUseTwitch";
 
-    public static final String[] COLOR_KEYS = new String[] { KEY_COLOR_BG, KEY_COLOR_FG, KEY_COLOR_BORDER, KEY_COLOR_HIGHLIGHT, KEY_COLOR_CHROMA_KEY, KEY_COLOR_PALETTE, KEY_COLOR_USERNAME, KEY_COLOR_TIMESTAMP, KEY_COLOR_MESSAGE, KEY_COLOR_JOIN };
+    public static final String[] COLOR_KEYS = new String[] { KEY_COLOR_BG, KEY_COLOR_FG, KEY_COLOR_BORDER, KEY_COLOR_HIGHLIGHT, KEY_COLOR_CHROMA_KEY, KEY_COLOR_PALETTE, KEY_COLOR_USERNAME, KEY_COLOR_TIMESTAMP, KEY_COLOR_MESSAGE, KEY_COLOR_JOIN, KEY_COLOR_TWITCH };
 
-    public static final String[] COLOR_KEYS_WITHOUT_PALETTE = new String[] { KEY_COLOR_BG, KEY_COLOR_FG, KEY_COLOR_BORDER, KEY_COLOR_HIGHLIGHT, KEY_COLOR_CHROMA_KEY, KEY_COLOR_USERNAME, KEY_COLOR_TIMESTAMP, KEY_COLOR_MESSAGE, KEY_COLOR_JOIN };
+    public static final String[] COLOR_KEYS_WITHOUT_PALETTE = new String[] { KEY_COLOR_BG, KEY_COLOR_FG, KEY_COLOR_BORDER, KEY_COLOR_HIGHLIGHT, KEY_COLOR_CHROMA_KEY, KEY_COLOR_USERNAME, KEY_COLOR_TIMESTAMP, KEY_COLOR_MESSAGE, KEY_COLOR_JOIN, KEY_COLOR_TWITCH };
 
     public static final String KEY_MESSAGE_JOIN = "messageShowJoin";
     public static final String KEY_MESSAGE_USERNAME = "messageShowUsername";
@@ -250,8 +249,7 @@ public class FontificatorProperties extends Properties
     }
 
     /**
-     * Load configuration from the file indicated by the specified filename, or a preset file contained in the classpath
-     * resource directory
+     * Load configuration from the file indicated by the specified filename, or a preset file contained in the classpath resource directory
      * 
      * @param filename
      * @return report
@@ -382,8 +380,7 @@ public class FontificatorProperties extends Properties
     }
 
     /**
-     * Delete the last config file location conf file that stored the path to a configuration file. To be used to remove
-     * a file that is not found or has errors.
+     * Delete the last config file location conf file that stored the path to a configuration file. To be used to remove a file that is not found or has errors.
      */
     public void forgetLastConfigFile()
     {
@@ -573,6 +570,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_COLOR_TIMESTAMP, falseString, override);
         setPropertyOverride(KEY_COLOR_MESSAGE, falseString, override);
         setPropertyOverride(KEY_COLOR_JOIN, falseString, override);
+        setPropertyOverride(KEY_COLOR_TWITCH, falseString, override);
 
         setPropertyOverride(KEY_MESSAGE_JOIN, falseString, override);
         setPropertyOverride(KEY_MESSAGE_USERNAME, trueString, override);

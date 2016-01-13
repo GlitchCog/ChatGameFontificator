@@ -38,6 +38,8 @@ public class ConfigColor extends Config
 
     private Boolean colorJoin;
 
+    private Boolean useTwitchColors;
+
     @Override
     public void reset()
     {
@@ -51,9 +53,10 @@ public class ConfigColor extends Config
         this.colorTimestamp = null;
         this.colorMessage = null;
         this.colorJoin = null;
+        this.useTwitchColors = null;
     }
 
-    private void validateStrings(LoadConfigReport report, String palStr, String userBool, String timeBool, String msgBool, String joinBool)
+    private void validateStrings(LoadConfigReport report, String palStr, String userBool, String timeBool, String msgBool, String joinBool, String twitchBool)
     {
         evaluateColorString(props, FontificatorProperties.KEY_COLOR_BG, report);
         evaluateColorString(props, FontificatorProperties.KEY_COLOR_FG, report);
@@ -61,7 +64,7 @@ public class ConfigColor extends Config
         evaluateColorString(props, FontificatorProperties.KEY_COLOR_HIGHLIGHT, report);
         evaluateColorString(props, FontificatorProperties.KEY_COLOR_CHROMA_KEY, report);
 
-        validateBooleanStrings(report, userBool, timeBool, msgBool, joinBool);
+        validateBooleanStrings(report, userBool, timeBool, msgBool, joinBool, twitchBool);
 
         // An empty palette is allowed
         if (!palStr.trim().isEmpty())
@@ -94,9 +97,10 @@ public class ConfigColor extends Config
             final String timeBool = props.getProperty(FontificatorProperties.KEY_COLOR_TIMESTAMP);
             final String msgBool = props.getProperty(FontificatorProperties.KEY_COLOR_MESSAGE);
             final String joinBool = props.getProperty(FontificatorProperties.KEY_COLOR_JOIN);
+            final String twitchBool = props.getProperty(FontificatorProperties.KEY_COLOR_TWITCH);
 
             // Check that the values are valid
-            validateStrings(report, paletteStr, userBool, timeBool, msgBool, joinBool);
+            validateStrings(report, paletteStr, userBool, timeBool, msgBool, joinBool, twitchBool);
 
             // Fill the values
             if (report.isErrorFree())
@@ -122,6 +126,7 @@ public class ConfigColor extends Config
                 colorTimestamp = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_TIMESTAMP, report);
                 colorMessage = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_MESSAGE, report);
                 colorJoin = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_JOIN, report);
+                useTwitchColors = evaluateBooleanString(props, FontificatorProperties.KEY_COLOR_TWITCH, report);
             }
         }
 
@@ -241,6 +246,17 @@ public class ConfigColor extends Config
     {
         this.colorJoin = colorJoin;
         props.setProperty(FontificatorProperties.KEY_COLOR_JOIN, Boolean.toString(colorJoin));
+    }
+
+    public boolean isUseTwitchColors()
+    {
+        return useTwitchColors;
+    }
+
+    public void setUseTwitchColors(Boolean useTwitchColors)
+    {
+        this.useTwitchColors = useTwitchColors;
+        props.setProperty(FontificatorProperties.KEY_COLOR_TWITCH, Boolean.toString(useTwitchColors));
     }
 
     public static String getColorHex(Color c)

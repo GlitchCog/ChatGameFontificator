@@ -33,8 +33,7 @@ import com.glitchcog.fontificator.sprite.Sprite;
 import com.glitchcog.fontificator.sprite.SpriteFont;
 
 /**
- * This panel contains the entire visualization of the chat, so it handles all the drawing. It also handles scrolling
- * through the chat.
+ * This panel contains the entire visualization of the chat, so it handles all the drawing. It also handles scrolling through the chat.
  * 
  * @author Matt Yanos
  */
@@ -52,8 +51,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private MessageCensorPanel censor;
 
     /**
-     * Contains the timed task and a reference to this chat to be used to progress rolling out new messages at the
-     * appropriate speed
+     * Contains the timed task and a reference to this chat to be used to progress rolling out new messages at the appropriate speed
      */
     private MessageProgressor messageProgressor;
 
@@ -63,8 +61,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private Sprite border;
 
     /**
-     * The number of lines for all the messages in the chat buffer. This is not the number of messages, but the number
-     * of lines the messages will take up once drawn.
+     * The number of lines for all the messages in the chat buffer. This is not the number of messages, but the number of lines the messages will take up once drawn.
      */
     private int lineCount;
 
@@ -74,8 +71,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private ConfigFont fontConfig;
 
     /**
-     * Configuration for the chat, meaning whether scrolling is enabled and whether and how to draw the chroma key
-     * border
+     * Configuration for the chat, meaning whether scrolling is enabled and whether and how to draw the chroma key border
      */
     private ConfigChat chatConfig;
 
@@ -85,8 +81,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private ConfigColor colorConfig;
 
     /**
-     * Configuration for how to draw the messages, what parts of the messages to display, the rate to display new
-     * messages, the format for the timestamps, and the queue size
+     * Configuration for how to draw the messages, what parts of the messages to display, the rate to display new messages, the format for the timestamps, and the queue size
      */
     private ConfigMessage messageConfig;
 
@@ -106,9 +101,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private SpriteFont font;
 
     /**
-     * This indicates whether the configuration has been loaded. Before this is true, no call to any methods that draw
-     * should be called because they all rely on the configuration. Once it is set to true, it will remain true- it is
-     * only on the initial setup that configuration might be null
+     * This indicates whether the configuration has been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the configuration. Once it is set to true, it will remain true- it is only on
+     * the initial setup that configuration might be null
      */
     private boolean loaded;
 
@@ -121,8 +115,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * Construct the ChatPanel, which contains the entire visualization of the chat
      * 
      * @param censor
-     *            The message popup dialog from the Control Window to be updated when a message is posted so the censor
-     *            list is currenet
+     *            The message popup dialog from the Control Window to be updated when a message is posted so the censor list is currenet
      * @throws IOException
      */
     public ChatPanel() throws IOException
@@ -136,10 +129,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Get whether the configuration and message dialog have been loaded. Before this is true, no call to any methods
-     * that draw should be called because they all rely on the configuration and the link to the message dialog to be
-     * updated so censorship rules can be assessed. Once it returns true, it will remain true- it is only on the initial
-     * setup that configuration and the message dialog might be null.
+     * Get whether the configuration and message dialog have been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the configuration and the link to the message dialog to be updated so
+     * censorship rules can be assessed. Once it returns true, it will remain true- it is only on the initial setup that configuration and the message dialog might be null.
      * 
      * @return loaded
      */
@@ -149,8 +140,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Set the configuration references from the properties object. This method instantiates the font and border. Once
-     * this method is complete, loaded is set to true.
+     * Set the configuration references from the properties object. This method instantiates the font and border. Once this method is complete, loaded is set to true.
      * 
      * @param fProps
      *            The properties from which to get the configuration references
@@ -324,19 +314,28 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         // Draw each message in the drawMessages copy of the cache
         for (Message msg : drawMessages)
         {
-            Color col;
-            if (msg.isJoinType())
-            {
-                col = colorConfig.getHighlight();
-            }
-            else
-            {
-                col = colorConfig.getPalette().isEmpty() ? colorConfig.getHighlight() : colorConfig.getPalette().get(Math.abs(msg.getUsername().toLowerCase().hashCode()) % colorConfig.getPalette().size());
-            }
-
+            Color col = getUsernameColor(colorConfig, msg);
             Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, getHeight() - borderEdgeThickness, lineWrapLength);
             y += dim.getHeight();
         }
+    }
+
+    private static Color getUsernameColor(ConfigColor colorConfig, Message msg)
+    {
+        Color col;
+        if (msg.isJoinType())
+        {
+            col = colorConfig.getHighlight();
+        }
+        else if (colorConfig.isUseTwitchColors() && msg.getPrivmsg().getColor() != null)
+        {
+            col = msg.getPrivmsg().getColor();
+        }
+        else
+        {
+            col = colorConfig.getPalette().isEmpty() ? colorConfig.getHighlight() : colorConfig.getPalette().get(Math.abs(msg.getUsername().toLowerCase().hashCode()) % colorConfig.getPalette().size());
+        }
+        return col;
     }
 
     /**
@@ -487,8 +486,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Get the message cache. This is used by the timer task that resides in the MessageProgressor object to increment
-     * the drawing of the messages
+     * Get the message cache. This is used by the timer task that resides in the MessageProgressor object to increment the drawing of the messages
      * 
      * @return messages
      */

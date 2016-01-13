@@ -53,10 +53,14 @@ public class ControlPanelColor extends ControlPanelBase
     private ColorButton chromaColorButton;
 
     /**
-     * The palette UI object that lets you specify a collection of colors that are used for distinctly coloring
-     * usernames and messages, depending on the chat's configuration
+     * The palette UI object that lets you specify a collection of colors that are used for distinctly coloring usernames and messages, depending on the chat's configuration
      */
     private Palette palette;
+
+    /**
+     * Checkbox to indicate whether Twitch username colors should override the palette selection, when those colors are provided
+     */
+    private JCheckBox useTwitchBox;
 
     /**
      * Checkbox to indicate whether to color join messages
@@ -98,6 +102,7 @@ public class ControlPanelColor extends ControlPanelBase
     @Override
     protected void build()
     {
+        useTwitchBox = new JCheckBox("Override Palette with Twitch Username Colors when Available");
         joinBox = new JCheckBox("Color Join Messages");
         usernameBox = new JCheckBox("Color Usernames");
         timestampBox = new JCheckBox("Color Timestamps");
@@ -109,7 +114,11 @@ public class ControlPanelColor extends ControlPanelBase
             public void actionPerformed(ActionEvent e)
             {
                 JCheckBox source = (JCheckBox) e.getSource();
-                if (joinBox.equals(source))
+                if (useTwitchBox.equals(source))
+                {
+                    config.setUseTwitchColors(source.isSelected());
+                }
+                else if (joinBox.equals(source))
                 {
                     config.setColorJoin(source.isSelected());
                 }
@@ -129,6 +138,7 @@ public class ControlPanelColor extends ControlPanelBase
             }
         };
 
+        useTwitchBox.addActionListener(boxListener);
         joinBox.addActionListener(boxListener);
         usernameBox.addActionListener(boxListener);
         timestampBox.addActionListener(boxListener);
@@ -162,7 +172,10 @@ public class ControlPanelColor extends ControlPanelBase
         topColorPanel.add(colorPanelA);
         topColorPanel.add(colorPanelB);
 
-        palettePanel.add(palette, new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, NO_INSETS, 0, 0));
+        GridBagConstraints ppGbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, NO_INSETS, 0, 0);
+        palettePanel.add(palette, ppGbc);
+        ppGbc.gridy++;
+        palettePanel.add(useTwitchBox, ppGbc);
 
         GridBagConstraints optionsGbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
 
@@ -215,10 +228,12 @@ public class ControlPanelColor extends ControlPanelBase
             palette.addColor(col);
         }
         palette.refreshComponents();
+
+        useTwitchBox.setSelected(config.isUseTwitchColors());
+        joinBox.setSelected(config.isColorJoin());
         usernameBox.setSelected(config.isColorUsername());
         messageBox.setSelected(config.isColorMessage());
         timestampBox.setSelected(config.isColorTimestamp());
-        joinBox.setSelected(config.isColorJoin());
 
         // Update the control panel palette too
         palette.setBgColor(config.getBgColor());
@@ -240,6 +255,8 @@ public class ControlPanelColor extends ControlPanelBase
         config.setHighlight(highlightButton.getColor());
         config.setChromaColor(chromaColorButton.getColor());
         config.setPalette(palette.getColors());
+        config.setUseTwitchColors(useTwitchBox.isSelected());
+        config.setColorJoin(joinBox.isSelected());
         config.setColorUsername(usernameBox.isSelected());
         config.setColorMessage(messageBox.isSelected());
         config.setColorTimestamp(timestampBox.isSelected());
