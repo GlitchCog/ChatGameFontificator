@@ -132,8 +132,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     private JPanel frankerPanel;
 
     /**
-     * A reference to the IRC bot to check whether the user is already connected when they check to load or cache an
-     * emote type
+     * A reference to the IRC bot to check whether the user is already connected when they check to load or cache an emote type
      */
     private final ChatViewerBot bot;
 
@@ -252,7 +251,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickTwitchLoad && !config.isTwitchLoaded())
                     {
-                        EmojiJob job = new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.LOAD);
+                        EmojiJob job = new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, getConnectChannel());
                         if (enableAll.isSelected() && enableTwitch.isSelected())
                         {
                             jobsToRun.add(job);
@@ -458,9 +457,8 @@ public class ControlPanelEmoji extends ControlPanelBase
     }
 
     /**
-     * Load emoji based on what's already happened and what is checked. This is called by the IRC control panel when a
-     * connection is first made to the IRC channel or by the manual load button on the progress panel at the bottom of
-     * the Emoji tab of the Control Window.
+     * Load emoji based on what's already happened and what is checked. This is called by the IRC control panel when a connection is first made to the IRC channel or by the manual load button on the progress panel at the bottom of the Emoji
+     * tab of the Control Window.
      */
     public void loadAndRunEmojiWork()
     {
@@ -482,14 +480,12 @@ public class ControlPanelEmoji extends ControlPanelBase
     }
 
     /**
-     * Parse through the selected UI options to determine what jobs need to be done. This will return an empty job list
-     * if any of the jobs specified by the UI require a channel and no channel is provided on the Connection tab. A
-     * popup will present this information to the user.
+     * Parse through the selected UI options to determine what jobs need to be done. This will return an empty job list if any of the jobs specified by the UI require a channel and no channel is provided on the Connection tab. A popup will
+     * present this information to the user.
      * 
      * @param onlyForCounting
-     *            Whether this collection is only for the purposes of knowing how many jobs are specified, for purposes
-     *            of enabling or disabling buttons on the emoji progress panel. If it's only for counting, supress any
-     *            popup errors and continue on counting.
+     *            Whether this collection is only for the purposes of knowing how many jobs are specified, for purposes of enabling or disabling buttons on the emoji progress panel. If it's only for counting, supress any popup errors and
+     *            continue on counting.
      * @return jobs
      */
     public Set<EmojiJob> collectJobs(boolean onlyForCounting)
@@ -553,8 +549,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     }
 
     /**
-     * Queue the work of a specified operation (load or cache) on a specified type of emote (Twitch or FrankerFaceZ).
-     * Call runEmoteWork to run the loaded work in series.
+     * Queue the work of a specified operation (load or cache) on a specified type of emote (Twitch or FrankerFaceZ). Call runEmoteWork to run the loaded work in series.
      * 
      * @param types
      * @param ops
