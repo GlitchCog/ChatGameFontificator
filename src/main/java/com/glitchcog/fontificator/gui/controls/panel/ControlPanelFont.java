@@ -183,7 +183,6 @@ public class ControlPanelFont extends ControlPanelBase
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png"));
             put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png"));
-            put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownBorder(""));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png"));
