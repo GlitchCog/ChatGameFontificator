@@ -373,8 +373,7 @@ public class SpriteFont
     }
 
     /**
-     * Change the line scroll offset by the specified amount if it falls within or up/down to the specified min and max
-     * values
+     * Change the line scroll offset by the specified amount if it falls within or up/down to the specified min and max values
      * 
      * @param delta
      *            The amount to try to change the line scroll offset
@@ -383,18 +382,22 @@ public class SpriteFont
      * @param max
      *            The largest the line scroll offset should be
      */
-    public void setLineScrollOffset(int delta, int min, int max)
+    public void incrementLineScrollOffset(int delta, int min, int max)
     {
         final int test = lineScrollOffset + delta;
         if (test >= min && test < max)
         {
             lineScrollOffset = test;
         }
+        else
+        {
+            lineScrollOffset = Math.max(lineScrollOffset, min);
+            lineScrollOffset = Math.min(lineScrollOffset, max);
+        }
     }
 
     /**
-     * Do a mock drawing of the string to determine the dimensions of the bounding box that would surround the drawn
-     * message
+     * Do a mock drawing of the string to determine the dimensions of the bounding box that would surround the drawn message
      * 
      * @param message
      * @param messageConfig
@@ -411,8 +414,8 @@ public class SpriteFont
     /**
      * @param g2d
      *            The graphics object upon which to draw
-     * @param font
-     *            The actual font of the JPanel drawing this SpriteFont, used to draw extended characters
+     * @param fontMetrics
+     *            The actual font metrics of the JPanel drawing this SpriteFont, used to draw extended characters
      * @param msg
      *            The message to draw
      * @param userColor
@@ -428,8 +431,7 @@ public class SpriteFont
      * @param x_init
      *            The left edge x coordinate to start drawing from
      * @param y_init
-     *            The top edge y coordinate to start drawing from (probably up in negative space above the graphics
-     *            object)
+     *            The top edge y coordinate to start drawing from (probably up in negative space above the graphics object)
      * @param edgeThickness
      *            When to start drawing lines as y increases, because many will be off screen or under the top order
      * @param bottomEdgeY
@@ -437,21 +439,6 @@ public class SpriteFont
      * @param lineWrapLength
      *            How long to let the text go to the right before going to a new line
      * @return The size of the bounding box of the drawn message
-     */
-    /**
-     * @param g2d
-     * @param msg
-     * @param userColor
-     * @param colorConfig
-     * @param messageConfig
-     * @param emojiConfig
-     * @param emojiManager
-     * @param x_init
-     * @param y_init
-     * @param edgeThickness
-     * @param bottomEdgeY
-     * @param lineWrapLength
-     * @return
      */
     public Dimension drawMessage(Graphics2D g2d, FontMetrics fontMetrics, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int edgeThickness, int bottomEdgeY, int lineWrapLength)
     {
@@ -654,8 +641,7 @@ public class SpriteFont
     }
 
     /**
-     * If the change to the next character requires a change to the color of the text, this method will set the
-     * appropriate color
+     * If the change to the next character requires a change to the color of the text, this method will set the appropriate color
      * 
      * @param msg
      * @param c

@@ -41,6 +41,8 @@ public class ControlPanelChat extends ControlPanelBase
 
     private JCheckBox scrollableBox;
 
+    private JCheckBox chatFromBottomBox;
+
     private LabeledInput widthInput;
 
     private LabeledInput heightInput;
@@ -93,6 +95,11 @@ public class ControlPanelChat extends ControlPanelBase
                 config.setWidth(w);
                 config.setHeight(h);
                 updateSizeButton.setEnabled(false);
+                if (!config.isChatFromBottom())
+                {
+                    // Need to deal with scroll offset to avoid getting stuck out of bounds when chat starts at the top if the available space was full
+                    chat.refreshScrollOffset();
+                }
             }
 
             @Override
@@ -119,6 +126,8 @@ public class ControlPanelChat extends ControlPanelBase
     {
         resizableBox = new JCheckBox("Resize Chat by Dragging");
         scrollableBox = new JCheckBox("Scrollable Chat");
+        chatFromBottomBox = new JCheckBox("Chat Starts from Bottom");
+
         widthInput = new LabeledInput("Width", 3);
         heightInput = new LabeledInput("Height", 3);
 
@@ -143,8 +152,7 @@ public class ControlPanelChat extends ControlPanelBase
             }
 
             /**
-             * Something changed, so try to get the new width and height and set the updateSizeButton to enabled or
-             * disabled accordingly
+             * Something changed, so try to get the new width and height and set the updateSizeButton to enabled or disabled accordingly
              * 
              * @param e
              */
@@ -221,6 +229,12 @@ public class ControlPanelChat extends ControlPanelBase
                         chat.resetScrollOffset();
                     }
                 }
+                else if (chatFromBottomBox.equals(source))
+                {
+                    // Reset scrolling to avoid having to translate it between chat-start top/bottom styles
+                    chat.resetScrollOffset();
+                    config.setChatFromBottom(chatFromBottomBox.isSelected());
+                }
                 else if (chromaEnabledBox.equals(source))
                 {
                     config.setChromaEnabled(chromaEnabledBox.isSelected());
@@ -236,6 +250,7 @@ public class ControlPanelChat extends ControlPanelBase
 
         resizableBox.addActionListener(boxListener);
         scrollableBox.addActionListener(boxListener);
+        chatFromBottomBox.addActionListener(boxListener);
         chromaEnabledBox.addActionListener(boxListener);
         chromaInvertBox.addActionListener(boxListener);
 
@@ -332,6 +347,8 @@ public class ControlPanelChat extends ControlPanelBase
         chatOptionsPanel.add(resizableBox, coGbc);
         coGbc.gridy++;
         chatOptionsPanel.add(scrollableBox, coGbc);
+        coGbc.gridy++;
+        chatOptionsPanel.add(chatFromBottomBox, coGbc);
         coGbc.gridy++;
 
         GridBagConstraints chromaGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.VERTICAL, NO_INSETS, 0, 0);
@@ -449,6 +466,7 @@ public class ControlPanelChat extends ControlPanelBase
     {
         this.resizableBox.setSelected(config.isResizable());
         this.scrollableBox.setSelected(config.isScrollable());
+        this.chatFromBottomBox.setSelected(config.isChatFromBottom());
         this.widthInput.setText(Integer.toString(config.getWidth()));
         this.heightInput.setText(Integer.toString(config.getHeight()));
 
@@ -487,6 +505,7 @@ public class ControlPanelChat extends ControlPanelBase
     {
         config.setResizable(resizableBox.isSelected());
         config.setScrollable(scrollableBox.isSelected());
+        config.setChatFromBottom(chatFromBottomBox.isSelected());
         chatWindow.setAlwaysOnTop(config.isAlwaysOnTop());
         final int width = Integer.parseInt(widthInput.getText());
         final int height = Integer.parseInt(heightInput.getText());

@@ -66,6 +66,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private int lineCount;
 
     /**
+     * The number of lines that fit on the screen between the top border and bottom border.
+     */
+    private int onScreenLineCount;
+
+    /**
      * Configuration for the font and the border
      */
     private ConfigFont fontConfig;
@@ -122,6 +127,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     {
         loaded = false;
         lineCount = Integer.MAX_VALUE;
+        onScreenLineCount = 0;
         messages = new ConcurrentLinkedQueue<Message>();
 
         emojiManager = new EmojiManager();
@@ -293,6 +299,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         final int lineWrapLength = border == null || fontConfig.getBorderScale() < 1 ? getWidth() : border.getSpriteDrawWidth(fontConfig.getBorderScale()) * (getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale()) - 2) - fontConfig.getBorderInsetX() * 2;
         final int leftEdge = offset.x + (border == null || fontConfig.getBorderScale() < 1 ? 0 : border.getSpriteDrawWidth(fontConfig.getBorderScale())) + fontConfig.getBorderInsetX();
 
+        // totalHeight is the height of all the messages
         int totalHeight = 0;
         for (Message msg : drawMessages)
         {
@@ -300,16 +307,39 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             totalHeight += dim.getHeight();
         }
 
-        // Used to make sure scrolling is good
+        // Used for scrolling
         int lineHeight = font.getLineHeightScaled();
         lineCount = lineHeight == 0 ? 0 : totalHeight / lineHeight;
 
+        // borderEdgeThickness is the y-inset on the top plus the height of the top part of the border
         final int borderEdgeThickness = offset.y + (border == null || fontConfig.getBorderScale() < 1 ? 0 : border.getSpriteDrawHeight(fontConfig.getBorderScale())) + fontConfig.getBorderInsetY();
 
-        // This y initially represents the coordinate to start drawing the messages from the top down such that the last
-        // message to be displayed will be at the bottom of the chat panel. This variable is also incremented as each
-        // message is drawn
-        int y = getHeight() - totalHeight - borderEdgeThickness;
+        // y is where the drawing begins
+        int y;
+        if (chatConfig.isChatFromBottom())
+        {
+            y = getHeight() - totalHeight - borderEdgeThickness;
+        }
+        // else chat from top
+        else
+        {
+            final int drawableVerticalRange = getHeight() - borderEdgeThickness * 2;
+
+            // Used for scrolling when chat starts from the top
+            onScreenLineCount = drawableVerticalRange / lineHeight;
+
+            if (totalHeight > drawableVerticalRange)
+            {
+                // Not all the messages fit in the given space range, so start drawing up out of bounds at a negative y. This uses just the top borderEdgeThickness's height, not both top and bottom
+                y = (getHeight() - borderEdgeThickness) - totalHeight;
+            }
+            // If the total height of all the messages is less than or equal to the total height
+            else
+            {
+                // Just set the y to start drawing to the borderEdgeThickness because it should be fixed to the top when there's enough room for everything
+                y = borderEdgeThickness;
+            }
+        }
 
         // Draw each message in the drawMessages copy of the cache
         for (Message msg : drawMessages)
@@ -473,6 +503,48 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
+     * Used to fix scrolling on a resize if the chat is starting from the top of the window
+     */
+    public void refreshScrollOffset()
+    {
+        // Increment it zero lines just to enforce the min/max boundaries on a resize
+        incrementScrollOffset(false, 0);
+    }
+
+    /**
+     * Refresh the scroll offset in case of resize (only needed when chat starts at top)
+     * 
+     * @param positiveDirection
+     *            Whether the direction is up or down
+     * @param lines
+     *            how many lines to scroll
+     */
+    public void incrementScrollOffset(boolean positiveDirection, int lines)
+    {
+        if (isLoaded())
+        {
+            final int dir = positiveDirection ? lines : -lines;
+            if (chatConfig.isChatFromBottom())
+            {
+                font.incrementLineScrollOffset(dir, 0, lineCount);
+            }
+            else
+            {
+                final boolean screenIsOverflowing = lineCount >= onScreenLineCount;
+                if (screenIsOverflowing)
+                {
+                    font.incrementLineScrollOffset(dir, -onScreenLineCount + 1, lineCount - onScreenLineCount + 1);
+                }
+                else
+                {
+                    font.incrementLineScrollOffset(dir, lineCount == 0 ? 0 : -lineCount + 1, 1);    
+                }
+            }
+            repaint();
+        }
+    }
+
+    /**
      * This is added to the window above
      */
     @Override
@@ -480,8 +552,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     {
         if (isLoaded() && chatConfig.isScrollable())
         {
-            font.setLineScrollOffset(-e.getWheelRotation(), 0, lineCount);
-            repaint();
+            incrementScrollOffset(e.getWheelRotation() < 0, 1);
         }
     }
 

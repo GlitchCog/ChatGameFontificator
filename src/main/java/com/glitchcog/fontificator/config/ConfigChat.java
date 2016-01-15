@@ -15,26 +15,54 @@ public class ConfigChat extends Config
     public static final int MIN_CHROMA_CORNER_RADIUS = 0;
     public static final int MAX_CHROMA_CORNER_RADIUS = 128;
 
+    /**
+     * Whether the chat is scrollable by rolling the mouse wheel
+     */
     private Boolean scrollable;
 
+    /**
+     * Whether the chat window is resizable by dragging the mouse on its borders
+     */
     private Boolean resizable;
 
+    /**
+     * When the chat has too few messages to fill the available space, this determines whether the chat starts from the bottom and builds upward, or from the top and builds downward
+     */
+    private Boolean chatFromBottom;
+
+    /**
+     * The width of the chat window in pixels
+     */
     private Integer width;
 
+    /**
+     * The height of the chat window in pixels
+     */
     private Integer height;
 
+    /**
+     * Whether the chroma border is enabled
+     */
     private Boolean chromaEnabled;
 
+    /**
+     * Whether the chroma border is inverted
+     */
     private Boolean chromaInvert;
 
     /**
-     * Used to represent the border, so the x and y are the left and top borders, and w and h are the right and bottom
-     * borders
+     * Used to represent the border, so the x and y are the left and top borders, and w and h are the right and bottom borders
      */
     private Rectangle chromaBorder;
 
+    /**
+     * How rounded the corners of the chroma border should be
+     */
     private Integer chromaCornerRadius;
 
+    /**
+     * Whether the chat window should be set to always on top of other windows on the screen
+     */
     private Boolean alwaysOnTop;
 
     @Override
@@ -42,6 +70,7 @@ public class ConfigChat extends Config
     {
         this.scrollable = null;
         this.resizable = null;
+        this.chatFromBottom = null;
         this.width = null;
         this.height = null;
         this.chromaEnabled = null;
@@ -67,9 +96,9 @@ public class ConfigChat extends Config
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String widthStr, String heightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String resizeBool, String chromaBool, String invertBool, String topBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String widthStr, String heightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String resizeBool, String fromBottomBool, String chromaBool, String invertBool, String topBool)
     {
-        validateBooleanStrings(report, scrollBool, resizeBool, chromaBool, invertBool, topBool);
+        validateBooleanStrings(report, scrollBool, resizeBool, fromBottomBool, chromaBool, invertBool, topBool);
 
         validateDimStrings(report, widthStr, heightStr);
         validateChromaDimStrings(report, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr);
@@ -101,12 +130,13 @@ public class ConfigChat extends Config
 
             final String scrollBool = props.getProperty(FontificatorProperties.KEY_CHAT_SCROLL);
             final String resizeBool = props.getProperty(FontificatorProperties.KEY_CHAT_RESIZABLE);
+            final String fromBottomBool = props.getProperty(FontificatorProperties.KEY_CHAT_FROM_BOTTOM);
             final String chromaBool = props.getProperty(FontificatorProperties.KEY_CHAT_CHROMA_ENABLED);
             final String invertBool = props.getProperty(FontificatorProperties.KEY_CHAT_INVERT_CHROMA);
             final String topBool = props.getProperty(FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP);
 
             // Check that the values are valid
-            validateStrings(report, widthStr, heightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, resizeBool, chromaBool, invertBool, topBool);
+            validateStrings(report, widthStr, heightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, resizeBool, fromBottomBool, chromaBool, invertBool, topBool);
 
             // Fill the values
             if (report.isErrorFree())
@@ -124,6 +154,7 @@ public class ConfigChat extends Config
 
                 scrollable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_SCROLL, report);
                 resizable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_RESIZABLE, report);
+                chatFromBottom = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_FROM_BOTTOM, report);
                 chromaEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_CHROMA_ENABLED, report);
                 chromaInvert = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_INVERT_CHROMA, report);
                 alwaysOnTop = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP, report);
@@ -153,6 +184,17 @@ public class ConfigChat extends Config
     {
         this.resizable = resizable;
         props.setProperty(FontificatorProperties.KEY_CHAT_RESIZABLE, Boolean.toString(resizable));
+    }
+
+    public boolean isChatFromBottom()
+    {
+        return chatFromBottom;
+    }
+
+    public void setChatFromBottom(boolean chatFromBottom)
+    {
+        this.chatFromBottom = chatFromBottom;
+        props.setProperty(FontificatorProperties.KEY_CHAT_FROM_BOTTOM, Boolean.toString(chatFromBottom));
     }
 
     public int getWidth()

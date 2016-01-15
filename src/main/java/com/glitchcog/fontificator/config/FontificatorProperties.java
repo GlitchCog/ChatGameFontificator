@@ -84,6 +84,7 @@ public class FontificatorProperties extends Properties
 
     public static final String KEY_CHAT_SCROLL = "chatScrollEnabled";
     public static final String KEY_CHAT_RESIZABLE = "chatResizable";
+    public static final String KEY_CHAT_FROM_BOTTOM = "chatFromBottom";
     public static final String KEY_CHAT_WIDTH = "chatWidth";
     public static final String KEY_CHAT_HEIGHT = "chatHeight";
     public static final String KEY_CHAT_CHROMA_ENABLED = "chromaEnabled";
@@ -95,7 +96,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_CHAT_CHROMA_CORNER = "chromaCornerRadius";
     public static final String KEY_CHAT_ALWAYS_ON_TOP = "chatAlwaysOnTop";
 
-    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP };
+    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP };
 
     public static final String KEY_COLOR_BG = "colorBackground";
     public static final String KEY_COLOR_FG = "colorForeground";
@@ -549,6 +550,7 @@ public class FontificatorProperties extends Properties
 
         setPropertyOverride(KEY_CHAT_SCROLL, falseString, override);
         setPropertyOverride(KEY_CHAT_RESIZABLE, trueString, override);
+        setPropertyOverride(KEY_CHAT_FROM_BOTTOM, falseString, override);
         setPropertyOverride(KEY_CHAT_WIDTH, Integer.toString(550), override);
         setPropertyOverride(KEY_CHAT_HEIGHT, Integer.toString(450), override);
         setPropertyOverride(KEY_CHAT_CHROMA_ENABLED, falseString, override);
