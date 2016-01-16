@@ -176,6 +176,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Metroid II (Credits)
   - Super Metroid
   - Super Metroid (Mixed Case)
+  - Metroid Fusion
+  - Metroid Fusion Outline
   - Metroid Zero Mission
   - Metroid Zero Mission Outline
   - Phantasy Star

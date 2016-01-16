@@ -1,0 +1,18 @@
+fontBorderInsetY=-36
+fontBorderInsetX=-36
+fontCharSpacing=0
+fontBorderScale=2
+fontLineSpacing=2
+fontGridHeight=12
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/metroid_fusion_outline_font.png
+fontSpaceWidth=75
+fontGridWidth=8
+fontType=VARIABLE_WIDTH
+fontScale=2
+fontBorderFile=preset\://borders/metroid_fusion_border.png
+colorBorder=FFFFFF
+colorHighlight=6699FF
+colorForeground=FFFFFF
+colorBackground=000000
+colorPalette=F858F0,F8F800,68E0A0,28A0F0,F8D0F8,C0F058,08D8E0

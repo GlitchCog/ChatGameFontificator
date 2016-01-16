@@ -118,6 +118,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Metroid", "Metroid II (Credits)"), new DropdownFont("metroid2_credits_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Super Metroid"), new DropdownFont("smetroid_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Metroid", "Super Metroid (Mixed Case)"), new DropdownFont("smetroid_mixedcase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Metroid", "Metroid Fusion"), new DropdownFont("metroid_fusion_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Metroid", "Metroid Fusion Outline"), new DropdownFont("metroid_fusion_outline_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid Zero Mission"), new DropdownFont("metroid_zm_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid Zero Mission Outline"), new DropdownFont("metroid_zm_outline_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownFont("ps1_font.png", FontType.FIXED_WIDTH));
@@ -247,6 +249,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Metroid", "Super Metroid Mother Inventory"), new DropdownBorder("smetroid_inventory_border.png"));
             put(new DropdownLabel("Metroid", "Super Metroid Broken Glass"), new DropdownBorder("smetroid_glass_broke_border.png"));
             put(new DropdownLabel("Metroid", "Super Metroid Glass"), new DropdownBorder("smetroid_glass_border.png"));
+            put(new DropdownLabel("Metroid", "Metroid Fusion"), new DropdownBorder("metroid_fusion_border.png"));
+            put(new DropdownLabel("Metroid", "Metroid Fusion Frame"), new DropdownBorder("metroid_fusion_frame_border.png"));
             put(new DropdownLabel("Metroid", "Metroid Zero Mission"), new DropdownBorder("metroid_zm_border.png"));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownBorder("ps1_border.png"));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownBorder("ps2_border.png"));
