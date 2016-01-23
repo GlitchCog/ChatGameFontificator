@@ -602,7 +602,6 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         {
             final String errorMessage = "Unable to load border sprite " + (fontConfig == null ? "for null font configuration" : "for border filename " + fontConfig.getBorderFilename());
             logger.error(errorMessage, e);
-            ChatWindow.popup.handleProblem(errorMessage);
             border = new Sprite();
         }
     }
