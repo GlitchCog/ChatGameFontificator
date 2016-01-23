@@ -296,7 +296,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             }
         }
 
-        final int lineWrapLength = border == null || fontConfig.getBorderScale() < 1 ? getWidth() : border.getSpriteDrawWidth(fontConfig.getBorderScale()) * (getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale()) - 2) - fontConfig.getBorderInsetX() * 2;
+        final int lineWrapLength = (border == null || fontConfig.getBorderScale() < 1 ? getWidth() : border.getSpriteDrawWidth(fontConfig.getBorderScale()) * (getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale()) - 2)) - fontConfig.getBorderInsetX() * 2;
         final int leftEdge = offset.x + (border == null || fontConfig.getBorderScale() < 1 ? 0 : border.getSpriteDrawWidth(fontConfig.getBorderScale())) + fontConfig.getBorderInsetX();
 
         // totalHeight is the height of all the messages
@@ -537,7 +537,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
                 }
                 else
                 {
-                    font.incrementLineScrollOffset(dir, lineCount == 0 ? 0 : -lineCount + 1, 1);    
+                    font.incrementLineScrollOffset(dir, lineCount == 0 ? 0 : -lineCount + 1, 1);
                 }
             }
             repaint();
