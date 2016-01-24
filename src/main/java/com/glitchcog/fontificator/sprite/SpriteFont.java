@@ -602,14 +602,14 @@ public class SpriteFont
             else
             {
                 g2d.setColor(color);
-                g2d.drawString(Character.toString(sck.getChar()), drawX, drawY + (fontMetrics.getHeight() - fontMetrics.getDescent()) - config.getBaselineOffset());
+                g2d.drawString(Character.toString(sck.getChar()), drawX, drawY + (fontMetrics.getHeight() - fontMetrics.getDescent()) - config.getBaselineOffset() * config.getFontScale());
             }
         }
         else
         {
             int[] eDim = getEmojiDimensions(sck.getEmoji(), emojiConfig);
             // yOffset is to center the emoji on the line
-            int yOffset = sprites.getSprite(config).getSpriteDrawHeight(config.getFontScale()) / 2 - config.getBaselineOffset() - (sck.isBadge() ? emojiConfig.getBadgeHeightOffset() : 0);
+            int yOffset = sprites.getSprite(config).getSpriteDrawHeight(config.getFontScale()) / 2 - config.getBaselineOffset() * config.getFontScale() - (sck.isBadge() ? emojiConfig.getBadgeHeightOffset() : 0);
             drawY += yOffset - eDim[1] / 2;
             Image eImage = sck.getEmoji().getImage();
             if (eImage == null)
