@@ -96,8 +96,9 @@ public class FontificatorProperties extends Properties
     public static final String KEY_CHAT_CHROMA_BOTTOM = "chromaBottom";
     public static final String KEY_CHAT_CHROMA_CORNER = "chromaCornerRadius";
     public static final String KEY_CHAT_ALWAYS_ON_TOP = "chatAlwaysOnTop";
+    public static final String KEY_CHAT_ANTIALIAS = "chatAntialias";
 
-    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP };
+    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP, KEY_CHAT_ANTIALIAS };
 
     public static final String KEY_COLOR_BG = "colorBackground";
     public static final String KEY_COLOR_FG = "colorForeground";
@@ -564,6 +565,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_CHAT_CHROMA_BOTTOM, Integer.toString(10), override);
         setPropertyOverride(KEY_CHAT_CHROMA_CORNER, Integer.toString(10), override);
         setPropertyOverride(KEY_CHAT_ALWAYS_ON_TOP, falseString, override);
+        setPropertyOverride(KEY_CHAT_ANTIALIAS, falseString, override);
 
         setPropertyOverride(KEY_COLOR_BG, "000000", override);
         setPropertyOverride(KEY_COLOR_FG, "FFFFFF", override);

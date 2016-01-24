@@ -53,8 +53,7 @@ public class ControlTabs extends JTabbedPane
     private ControlPanelFont fontPanel;
 
     /**
-     * A reference to the color control panel, containing all the options for specifying the colors used in the chat
-     * view
+     * A reference to the color control panel, containing all the options for specifying the colors used in the chat view
      */
     private ControlPanelColor colorPanel;
 
@@ -64,15 +63,13 @@ public class ControlTabs extends JTabbedPane
     private ControlPanelMessage messagePanel;
 
     /**
-     * A reference to the emoji control panel, containing all the options for whether to and how to display emoji in the
-     * chat messages
+     * A reference to the emoji control panel, containing all the options for whether to and how to display emoji in the chat messages
      */
     private ControlPanelEmoji emojiPanel;
 
     /**
-     * A reference to the message censorship control panel. This panel is not in a tab, but is accessible via the
-     * Message menu item. Nevertheless, it must be updated from the config objects in the same way as the tabbed control
-     * panels, so it is managed here in this tabs object.
+     * A reference to the message censorship control panel. This panel is not in a tab, but is accessible via the Message menu item. Nevertheless, it must be updated from the config objects in the same way as the tabbed control panels, so
+     * it is managed here in this tabs object.
      */
     private MessageCensorPanel censorPanel;
 
@@ -165,4 +162,8 @@ public class ControlTabs extends JTabbedPane
         chatPanel.setAlwaysOnTop(alwaysOnTop);
     }
 
+    public void setAntiAlias(boolean antiAlias)
+    {
+        chatPanel.setAntiAlias(antiAlias);
+    }
 }

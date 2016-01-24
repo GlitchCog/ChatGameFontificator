@@ -65,6 +65,11 @@ public class ConfigChat extends Config
      */
     private Boolean alwaysOnTop;
 
+    /**
+     * Whether the graphics of the chat panel should be anti-aliased when scaled
+     */
+    private Boolean antiAlias;
+
     @Override
     public void reset()
     {
@@ -78,6 +83,7 @@ public class ConfigChat extends Config
         this.chromaBorder = null;
         this.chromaCornerRadius = null;
         this.alwaysOnTop = null;
+        this.antiAlias = null;
     }
 
     public LoadConfigReport validateDimStrings(LoadConfigReport report, String widthStr, String heightStr)
@@ -158,6 +164,7 @@ public class ConfigChat extends Config
                 chromaEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_CHROMA_ENABLED, report);
                 chromaInvert = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_INVERT_CHROMA, report);
                 alwaysOnTop = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP, report);
+                antiAlias = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_ANTIALIAS, report);
             }
         }
 
@@ -228,6 +235,17 @@ public class ConfigChat extends Config
     {
         this.alwaysOnTop = alwaysOnTop;
         props.setProperty(FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP, Boolean.toString(alwaysOnTop));
+    }
+
+    public boolean isAntiAlias()
+    {
+        return antiAlias;
+    }
+
+    public void setAntiAlias(boolean antiAlias)
+    {
+        this.antiAlias = antiAlias;
+        props.setProperty(FontificatorProperties.KEY_CHAT_ANTIALIAS, Boolean.toString(antiAlias));
     }
 
     public Boolean isChromaEnabled()

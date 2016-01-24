@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
@@ -187,7 +188,13 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         Graphics2D g2d = (Graphics2D) g;
 
-        // fits in the line height.
+        if (chatConfig.isAntiAlias())
+        {
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        }
+
+        // Fits in the line height.
         boolean stillFits = true;
         int fontSize = 0;
         while (stillFits)

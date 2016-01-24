@@ -241,6 +241,7 @@ public class ControlWindow extends JDialog
         // This wasn't built before the config was loaded into the chat control
         // tab, so set it here
         setAlwaysOnTopMenu(fProps.getChatConfig().isAlwaysOnTop());
+        setAntiAliasMenu(fProps.getChatConfig().isAntiAlias());
 
         setupHelp();
 
@@ -333,9 +334,10 @@ public class ControlWindow extends JDialog
         // @formatter:on
 
         /* View Menu Item Text */
+        final String strAntiAlias = "Anti-Aliased";
         final String strViewTop = "Always On Top";
         final String strViewHide = "Hide Control Window";
-        final MenuComponent[] viewComponents = new MenuComponent[] { new MenuComponent(strViewTop, KeyEvent.VK_A, null, true), new MenuComponent(strViewHide, KeyEvent.VK_H, KeyStroke.getKeyStroke(KeyEvent.VK_H, Event.CTRL_MASK)) };
+        final MenuComponent[] viewComponents = new MenuComponent[] { new MenuComponent(strAntiAlias, KeyEvent.VK_A, null, true), null, new MenuComponent(strViewTop, KeyEvent.VK_T, null, true), new MenuComponent(strViewHide, KeyEvent.VK_H, KeyStroke.getKeyStroke(KeyEvent.VK_H, Event.CTRL_MASK)) };
 
         /* Message Menu Item Text */
         final String strMsgMsg = "Message Management";
@@ -375,6 +377,12 @@ public class ControlWindow extends JDialog
                 else if (strFileExit.equals(mi.getText()))
                 {
                     attemptToExit();
+                }
+                else if (strAntiAlias.equals(mi.getText()))
+                {
+                    JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) e.getSource();
+                    controlTabs.setAntiAlias(checkBox.isSelected());
+                    chatWindow.getChatPanel().repaint();
                 }
                 else if (strViewTop.equals(mi.getText()))
                 {
@@ -822,7 +830,12 @@ public class ControlWindow extends JDialog
 
     public void setAlwaysOnTopMenu(boolean alwaysOnTop)
     {
-        ((JCheckBoxMenuItem) (getJMenuBar().getMenu(2).getItem(0))).setSelected(alwaysOnTop);
+        ((JCheckBoxMenuItem) (getJMenuBar().getMenu(2).getItem(2))).setSelected(alwaysOnTop);
+    }
+
+    public void setAntiAliasMenu(boolean antiAlias)
+    {
+        ((JCheckBoxMenuItem) (getJMenuBar().getMenu(2).getItem(0))).setSelected(antiAlias);
     }
 
     public void clearUsernameCases()

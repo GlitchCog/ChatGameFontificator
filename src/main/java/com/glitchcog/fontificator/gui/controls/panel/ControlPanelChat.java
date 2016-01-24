@@ -488,6 +488,7 @@ public class ControlPanelChat extends ControlPanelBase
         if (ctrlWindow != null)
         {
             ctrlWindow.setAlwaysOnTopMenu(config.isAlwaysOnTop());
+            ctrlWindow.setAntiAliasMenu(config.isAntiAlias());
         }
     }
 
@@ -520,7 +521,11 @@ public class ControlPanelChat extends ControlPanelBase
 
     public void setAlwaysOnTop(boolean alwaysOnTop)
     {
-        Logger.getLogger(ControlPanelChat.class).debug("Always on top passed through ControlPanelChat");
         config.setAlwaysOnTop(alwaysOnTop);
+    }
+
+    public void setAntiAlias(boolean antiAlias)
+    {
+        config.setAntiAlias(antiAlias);
     }
 }

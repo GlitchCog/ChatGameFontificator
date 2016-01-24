@@ -28,8 +28,8 @@ table {
       and opened using the options in the File menu, but they only contain any properties related to the font, border, and colors.</td>
   </tr>
   <tr>
-    <td>The View menu contains options for making this program Always on Top, and for hiding the Configuration window so only the Chat window is displayed. Closing the Configuration window has the same effect. The Configuration window can be brought
-      back by single clicking anywhere inside the Chat window on the chat display.</td>
+    <td>The View menu contains options for rendering the chat using Anti-Aliasing, making the chat window Always on Top, and for hiding the Configuration window so only the Chat window is displayed. Closing the Configuration window has the same effect
+      as selecting the option to hide it. The Configuration window can be brought back by single clicking anywhere inside the Chat window on the chat display. The Anti-Aliasing and Always on Top selections are saved as part of the configuration.</td>
   </tr>
   <tr>
     <td>The Message menu contains an option to display a pop-up dialog for managing messages, which includes the ability to post a manual message and to enable and edit message censorship and message censorship rules. All effects on messages from this
@@ -213,6 +213,12 @@ table {
           <td>Space Width</td>
           <td>For variable width fonts only, there is no defined width for a space character which has no non-transparent pixels, so this width is set by this value as a percentage of the maximum possible width of that font. The maximum possible width
             of that font is determined as it would be for a fixed width font, based on the font image grid size.</td>
+        </tr>
+        <tr>
+          <td>Baseline Offset</td>
+          <td>The baseline offset is the distance from the bottom of a font's characters to the place where the characters would be written on a line. For example, the tail a lowercase 'p' character would hang below the baseline. When the baseline
+            offset value is zero, the very bottom of the entire character height is the baseline. If the baseline of the font is higher, this offset can indicate that offset so calculations made to place things like badges or extended characters can be
+            based on the baseline rather than the whole character height.</td>
         </tr>
         <tr>
           <td>Border Selection</td>
@@ -399,6 +405,10 @@ table {
           <td>Emoji and Badge Scale</td>
           <td>This slider value is the percent of the to scale the emoji or badge images by. The scale value is multiplied by the actual size of the emoji or badge image, unless the Scale to Line Height option is checked, in which case the emoji or
             badges will be scaled to the line height multiplied by whatever percent the scale slider is at.</td>
+        </tr>
+        <tr>
+          <td>Badge Height Offset</td>
+          <td>This slider value represents the number of pixels to offset the height of badges. This value, in conjunction with the Font Baseline Height is used to calculate where to center the badge on the line.</td>
         </tr>
         <tr>
           <td>Relative to Line Height (For emoji and badges respectively)</td>
