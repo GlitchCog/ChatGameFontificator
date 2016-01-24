@@ -143,6 +143,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         this.progressPanel = progressPanel;
         this.job = job;
         this.initialReport = initialReport;
+        logBox.log(initialReport.getMessage());
 
         loader = new EmojiApiLoader();
         parser = new EmojiParser(logBox);

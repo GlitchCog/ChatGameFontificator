@@ -22,6 +22,9 @@ public class ConfigEmoji extends Config
     public static final int MIN_SCALE = 10;
     public static final int MAX_SCALE = 500;
 
+    public static final int MIN_BADGE_OFFSET = -32;
+    public static final int MAX_BADGE_OFFSET = 64;
+
     /**
      * Whether all emoji are enabled or not
      */
@@ -33,16 +36,19 @@ public class ConfigEmoji extends Config
     private Boolean badgesEnabled;
 
     /**
-     * Whether the emoji scale value is used to modify the size of the emoji relative to the line height, or the
-     * original emoji image size
+     * Whether the emoji scale value is used to modify the size of the emoji relative to the line height, or the original emoji image size
      */
     private Boolean emojiScaleToLine;
 
     /**
-     * Whether the badge scale value is used to modify the size of the badge relative to the line height, or the
-     * original badge image size
+     * Whether the badge scale value is used to modify the size of the badge relative to the line height, or the original badge image size
      */
     private Boolean badgeScaleToLine;
+
+    /**
+     * This is the number of pixels to offset the badges vertically to accommodate the fact that sprite fonts don't have a baseline to determine where the vertical center of the text is appropriately
+     */
+    private Integer badgeHeightOffset;
 
     /**
      * The scale value to be applied to the emoji
@@ -111,12 +117,7 @@ public class ConfigEmoji extends Config
 
     public ConfigEmoji()
     {
-        twitchBadgesLoadedChannel = null;
-        twitchLoaded = false;
-        ffzGlobalLoaded = false;
-        ffzLoadedChannel = null;
-        twitchCached = false;
-        ffzCached = false;
+        resetWorkCompleted();
     }
 
     @Override
@@ -126,6 +127,7 @@ public class ConfigEmoji extends Config
         badgesEnabled = null;
         emojiScaleToLine = null;
         badgeScaleToLine = null;
+        badgeHeightOffset = null;
         emojiScale = null;
         badgeScale = null;
         displayStrategy = null;
@@ -177,6 +179,17 @@ public class ConfigEmoji extends Config
     {
         this.badgeScaleToLine = badgeScaleToLine;
         props.setProperty(FontificatorProperties.KEY_EMOJI_BADGE_SCALE_TO_LINE, Boolean.toString(badgeScaleToLine));
+    }
+
+    public int getBadgeHeightOffset()
+    {
+        return badgeHeightOffset;
+    }
+
+    public void setBadgeHeightOffset(int badgeHeightOffset)
+    {
+        this.badgeHeightOffset = badgeHeightOffset;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_BADGE_HEIGHT_OFFSET, Integer.toString(badgeHeightOffset));
     }
 
     public Integer getEmojiScale()
@@ -290,11 +303,12 @@ public class ConfigEmoji extends Config
         }
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String badgeHeightOffsetStr, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool)
     {
         validateBooleanStrings(report, enabledBool, scaleEnabledBool, scaleBadgeEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_SCALE, scale, MIN_SCALE, MAX_SCALE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_BADGE_SCALE, scaleBadge, MIN_SCALE, MAX_SCALE, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_BADGE_HEIGHT_OFFSET, badgeHeightOffsetStr, MIN_BADGE_OFFSET, MAX_BADGE_OFFSET, report);
 
         return report;
     }
@@ -315,6 +329,7 @@ public class ConfigEmoji extends Config
 
             final String scaleEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE);
             final String scaleBadgeEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BADGE_SCALE_TO_LINE);
+            final String badgeHeightOffsetStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BADGE_HEIGHT_OFFSET);
             final String scaleStr = props.getProperty(FontificatorProperties.KEY_EMOJI_SCALE);
             final String scaleBadgeStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BADGE_SCALE);
             final String displayStratStr = props.getProperty(FontificatorProperties.KEY_EMOJI_DISPLAY_STRAT);
@@ -326,7 +341,7 @@ public class ConfigEmoji extends Config
             final String ffzCacheStr = props.getProperty(FontificatorProperties.KEY_EMOJI_FFZ_CACHE);
 
             // Check that the values are valid
-            validateStrings(report, enabledStr, scaleEnabledStr, scaleBadgeEnabledStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr);
+            validateStrings(report, enabledStr, scaleEnabledStr, scaleBadgeEnabledStr, badgeHeightOffsetStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -335,6 +350,7 @@ public class ConfigEmoji extends Config
                 badgesEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BADGES, report);
                 emojiScaleToLine = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE, report);
                 badgeScaleToLine = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BADGE_SCALE_TO_LINE, report);
+                badgeHeightOffset = evaluateIntegerString(props, FontificatorProperties.KEY_EMOJI_BADGE_HEIGHT_OFFSET, report);
                 emojiScale = evaluateIntegerString(props, FontificatorProperties.KEY_EMOJI_SCALE, report);
                 badgeScale = evaluateIntegerString(props, FontificatorProperties.KEY_EMOJI_BADGE_SCALE, report);
                 displayStrategy = EmojiLoadingDisplayStragegy.valueOf(displayStratStr);
@@ -363,6 +379,7 @@ public class ConfigEmoji extends Config
         result = prime * result + ((emojiScaleToLine == null) ? 0 : emojiScaleToLine.hashCode());
         result = prime * result + ((badgeScale == null) ? 0 : badgeScale.hashCode());
         result = prime * result + ((badgeScaleToLine == null) ? 0 : badgeScaleToLine.hashCode());
+        result = prime * result + ((badgeHeightOffset == null) ? 0 : badgeHeightOffset.hashCode());
         result = prime * result + ((twitchEnabled == null) ? 0 : twitchEnabled.hashCode());
         result = prime * result + ((twitchLoaded == null) ? 0 : twitchLoaded.hashCode());
         result = prime * result + ((twitchBadgesLoadedChannel == null) ? 0 : twitchBadgesLoadedChannel.hashCode());
@@ -488,6 +505,17 @@ public class ConfigEmoji extends Config
         {
             return false;
         }
+        if (badgeHeightOffset == null)
+        {
+            if (other.badgeHeightOffset != null)
+            {
+                return false;
+            }
+        }
+        else if (!badgeHeightOffset.equals(other.badgeHeightOffset))
+        {
+            return false;
+        }
         if (twitchEnabled == null)
         {
             if (other.twitchEnabled != null)
@@ -525,8 +553,7 @@ public class ConfigEmoji extends Config
     }
 
     /**
-     * Perform a deep copy of the emoji config, used to compare against the previous one used to generated the string of
-     * characters and emojis that are stored in a Message object
+     * Perform a deep copy of the emoji config, used to compare against the previous one used to generated the string of characters and emojis that are stored in a Message object
      * 
      * @param copy
      */
@@ -537,6 +564,7 @@ public class ConfigEmoji extends Config
         this.emojiScaleToLine = copy.emojiScaleToLine;
         this.emojiScale = copy.emojiScale;
         this.badgeScaleToLine = copy.badgeScaleToLine;
+        this.badgeHeightOffset = copy.badgeHeightOffset;
         this.badgeScale = copy.badgeScale;
         this.displayStrategy = copy.displayStrategy;
         this.twitchEnabled = copy.twitchEnabled;
@@ -718,8 +746,7 @@ public class ConfigEmoji extends Config
     }
 
     /**
-     * Reset the flags indicating any completed work. This enables a reloading of everything. It does not clear out the
-     * previously loaded or cached data, just enables the system to reload or recache it.
+     * Reset the flags indicating any completed work. This enables a reloading of everything. It does not clear out the previously loaded or cached data, just enables the system to reload or recache it.
      */
     public void resetWorkCompleted()
     {

@@ -82,6 +82,11 @@ public class ControlPanelEmoji extends ControlPanelBase
     private LabeledSlider badgeScale;
 
     /**
+     * How much to offset the badge vertically, needed because the middle line of a font image is much lower than the middle line calculated from the font baseline to the top
+     */
+    private LabeledSlider badgeHeightOffset;
+
+    /**
      * Label for menu for how to deal with emote images that are not yet loaded
      */
     private JLabel emojiLoadingDisplayStratLabel;
@@ -161,6 +166,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         badgeScaleToLineHeight.setEnabled(badges);
         emojiScale.setEnabled(all);
         badgeScale.setEnabled(badges);
+        badgeHeightOffset.setEnabled(badges);
         emojiLoadingDisplayStratLabel.setEnabled(all || badges);
         emojiLoadingDisplayStrat.setEnabled(all || badges);
 
@@ -188,6 +194,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
         badgeScaleToLineHeight = new JCheckBox("Relative to Line Height");
         badgeScale = new LabeledSlider("Badge Scale", "%", ConfigEmoji.MIN_SCALE, ConfigEmoji.MAX_SCALE, 100, 3);
+        badgeHeightOffset = new LabeledSlider("Badge Height Offset", "pixels", ConfigEmoji.MIN_BADGE_OFFSET, ConfigEmoji.MAX_BADGE_OFFSET, 0, 3);
 
         emojiLoadingDisplayStratLabel = new JLabel("Emoji Loading Display Strategy:");
         emojiLoadingDisplayStrat = new JComboBox<EmojiLoadingDisplayStragegy>(EmojiLoadingDisplayStragegy.values());
@@ -214,6 +221,16 @@ public class ControlPanelEmoji extends ControlPanelBase
             public void stateChanged(ChangeEvent e)
             {
                 config.setBadgeScale(badgeScale.getValue());
+                chat.repaint();
+            }
+        });
+
+        badgeHeightOffset.addChangeListener(new ChangeListener()
+        {
+            @Override
+            public void stateChanged(ChangeEvent e)
+            {
+                config.setBadgeHeightOffset(badgeHeightOffset.getValue());
                 chat.repaint();
             }
         });
@@ -394,6 +411,10 @@ public class ControlPanelEmoji extends ControlPanelBase
         scaleAndDisplayGbc.weightx = 0.0;
         scaleAndDisplayPanel.add(badgeScaleToLineHeight, scaleAndDisplayGbc);
         scaleAndDisplayGbc.gridx = 0;
+        scaleAndDisplayGbc.gridy++;
+        scaleAndDisplayGbc.fill = GridBagConstraints.HORIZONTAL;
+        scaleAndDisplayGbc.gridwidth = 2;
+        scaleAndDisplayPanel.add(badgeHeightOffset, scaleAndDisplayGbc);
         scaleAndDisplayGbc.gridy++;
 
         scaleAndDisplayGbc.gridwidth = 2;

@@ -194,7 +194,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         {
             fontSize++;
             g2d.setFont(new Font(g2d.getFont().getName(), Font.PLAIN, fontSize));
-            stillFits = font.getFontHeight() * fontConfig.getFontScale() > g2d.getFontMetrics().getStringBounds("A", 0, 1, g2d).getHeight();
+            stillFits = font.getFontHeight() * fontConfig.getFontScale() - fontConfig.getBaselineOffset() > g2d.getFontMetrics().getStringBounds("A", 0, 1, g2d).getHeight();
         }
 
         logger.trace("Calulated font size: " + fontSize);

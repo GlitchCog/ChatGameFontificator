@@ -3,7 +3,6 @@ package com.glitchcog.fontificator.gui.emoji;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -24,10 +23,8 @@ import com.glitchcog.fontificator.gui.controls.panel.ControlPanelEmoji;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 
 /**
- * A panel to display progress for loading and caching emoji that sits on the bottom of the Emoji tab of the Control
- * Window. It also contains a cancel button to stop jobs currently being worked and a manual reload button for canceling
- * everything and starting all loads from scratch. This panel contains methods for adding and removing work to and from
- * the worker queue as well.
+ * A panel to display progress for loading and caching emoji that sits on the bottom of the Emoji tab of the Control Window. It also contains a cancel button to stop jobs currently being worked and a manual reload button for canceling
+ * everything and starting all loads from scratch. This panel contains methods for adding and removing work to and from the worker queue as well.
  * 
  * @author Matt Yanos
  */
@@ -43,11 +40,6 @@ public class EmojiLoadProgressPanel extends JPanel
     private static final String EMPTY_VALUE_TEXT = "    ";
 
     /**
-     * Describes what is being progressed
-     */
-    private JLabel label;
-
-    /**
      * Visually shows the progress
      */
     private JProgressBar bar;
@@ -55,7 +47,7 @@ public class EmojiLoadProgressPanel extends JPanel
     /**
      * Displays the percentage on the bar
      */
-    private JLabel value;
+    private JLabel percentValue;
 
     /**
      * The cancel button for terminating the current work task
@@ -63,8 +55,7 @@ public class EmojiLoadProgressPanel extends JPanel
     private JButton cancelButton;
 
     /**
-     * Button for loading and caching everything. This is intended as a catch-all for any trouble encountered while
-     * loading or caching emotes or badges.
+     * Button for loading and caching everything. This is intended as a catch-all for any trouble encountered while loading or caching emotes or badges.
      */
     private JButton manualButton;
 
@@ -124,10 +115,9 @@ public class EmojiLoadProgressPanel extends JPanel
         this.currentWorker = null;
         this.emojiLogBox = new LogBox();
 
-        this.label = new JLabel("");
         this.bar = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
-        this.value = new JLabel(EMPTY_VALUE_TEXT);
-        this.value.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        this.percentValue = new JLabel(EMPTY_VALUE_TEXT);
+        this.percentValue.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         this.cancelButton = new JButton("Cancel");
         this.cancelButton.setToolTipText("Cancel any emoji or badge loading or caching currently running or queued to run");
         this.manualButton = new JButton("Load/Cache");
@@ -170,35 +160,24 @@ public class EmojiLoadProgressPanel extends JPanel
 
         setLayout(new GridBagLayout());
 
-        JPanel workPanel = new JPanel(new GridLayout(2, 1));
-
-        JPanel top = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = ControlPanelBase.getGbc();
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        top.add(label, gbc);
-        gbc.gridx++;
-        gbc.weightx = 0.0;
         gbc.fill = GridBagConstraints.NONE;
-        top.add(value, gbc);
-
         gbc.gridx = 0;
         gbc.gridy = 0;
-        JPanel bottom = new JPanel(new GridBagLayout());
+        JPanel workPanel = new JPanel(new GridBagLayout());
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
-        bottom.add(this.bar, gbc);
+        workPanel.add(this.bar, gbc);
         gbc.gridx++;
         gbc.weightx = 0.0;
         gbc.fill = GridBagConstraints.VERTICAL;
-        bottom.add(this.cancelButton, gbc);
+        workPanel.add(percentValue, gbc);
         gbc.gridx++;
-        bottom.add(this.manualButton, gbc);
+        workPanel.add(this.cancelButton, gbc);
         gbc.gridx++;
-        bottom.add(this.resetButton, gbc);
-
-        workPanel.add(top);
-        workPanel.add(bottom);
+        workPanel.add(this.manualButton, gbc);
+        gbc.gridx++;
+        workPanel.add(this.resetButton, gbc);
 
         gbc = ControlPanelBase.getGbc();
         gbc.fill = GridBagConstraints.BOTH;
@@ -264,9 +243,8 @@ public class EmojiLoadProgressPanel extends JPanel
         }
         else
         {
-            label.setText(report.getMessage());
             bar.setValue(report.getPercentComplete());
-            value.setText(report.getPercentText());
+            percentValue.setText(report.getPercentText());
 
             if (report.isComplete())
             {
@@ -302,8 +280,7 @@ public class EmojiLoadProgressPanel extends JPanel
      */
     synchronized private void blankAllValues()
     {
-        label.setText("");
-        value.setText("");
+        percentValue.setText(EMPTY_VALUE_TEXT);
         bar.setValue(0);
     }
 
@@ -337,7 +314,6 @@ public class EmojiLoadProgressPanel extends JPanel
         if (!taskList.isEmpty())
         {
             currentWorker = taskList.poll();
-            emojiLogBox.log(currentWorker.getInitialReport().getMessage());
             setLocation(getParent().getLocation().x + (getParent().getWidth() - getWidth()) / 2, getParent().getLocation().y + (getParent().getHeight() - getHeight()) / 2);
             cancelButton.setEnabled(true);
             update(currentWorker.getInitialReport());
@@ -350,7 +326,7 @@ public class EmojiLoadProgressPanel extends JPanel
      */
     synchronized private void initiateNextWork()
     {
-        this.value.setText(EMPTY_VALUE_TEXT);
+        this.percentValue.setText(EMPTY_VALUE_TEXT);
 
         ConcurrentLinkedQueue<EmojiWorker> taskList = getTaskList();
         this.currentWorker = taskList.poll();
@@ -368,8 +344,7 @@ public class EmojiLoadProgressPanel extends JPanel
     }
 
     /**
-     * Take any worker containing a job that matches the specified job off the queue of workers to be executed. Also
-     * cancels the currently running worker if it matches.
+     * Take any worker containing a job that matches the specified job off the queue of workers to be executed. Also cancels the currently running worker if it matches.
      * 
      * @param job
      */

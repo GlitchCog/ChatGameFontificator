@@ -59,8 +59,7 @@ public class LoadConfigReport
     }
 
     /**
-     * Whether no errors have been reported, whether they are problems or not. This check identifies the load as being
-     * capable of handling any subsequent work, no need to supplement the results with defaults.
+     * Whether no errors have been reported, whether they are problems or not. This check identifies the load as being capable of handling any subsequent work, no need to supplement the results with defaults.
      * 
      * @return error free
      */
@@ -80,8 +79,7 @@ public class LoadConfigReport
     }
 
     /**
-     * Get whether there is a problem. A problem is whenever at least one of the types of errors is marked as a
-     * problem-type error.
+     * Get whether there is a problem. A problem is whenever at least one of the types of errors is marked as a problem-type error.
      * 
      * @return problem
      */

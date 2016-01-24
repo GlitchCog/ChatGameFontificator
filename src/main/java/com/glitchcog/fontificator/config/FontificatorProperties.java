@@ -74,13 +74,14 @@ public class FontificatorProperties extends Properties
     public static final String KEY_FONT_BORDER_INSET_X = "fontBorderInsetX";
     public static final String KEY_FONT_BORDER_INSET_Y = "fontBorderInsetY";
     public static final String KEY_FONT_SPACE_WIDTH = "fontSpaceWidth";
+    public static final String KEY_FONT_BASELINE_OFFSET = "fontBaselineOffset";
     public static final String KEY_FONT_UNKNOWN_CHAR = "fontUnknownChar";
     public static final String KEY_FONT_EXTENDED_CHAR = "fontExtendedChar";
     public static final String KEY_FONT_CHARACTERS = "fontCharacters";
     public static final String KEY_FONT_SPACING_LINE = "fontLineSpacing";
     public static final String KEY_FONT_SPACING_CHAR = "fontCharSpacing";
 
-    public static final String[] FONT_KEYS = new String[] { KEY_FONT_FILE_BORDER, KEY_FONT_FILE_FONT, KEY_FONT_TYPE, KEY_FONT_GRID_WIDTH, KEY_FONT_GRID_HEIGHT, KEY_FONT_SCALE, KEY_FONT_BORDER_SCALE, KEY_FONT_BORDER_INSET_X, KEY_FONT_BORDER_INSET_Y, KEY_FONT_SPACE_WIDTH, KEY_FONT_UNKNOWN_CHAR, KEY_FONT_EXTENDED_CHAR, KEY_FONT_CHARACTERS, KEY_FONT_SPACING_LINE, KEY_FONT_SPACING_CHAR };
+    public static final String[] FONT_KEYS = new String[] { KEY_FONT_FILE_BORDER, KEY_FONT_FILE_FONT, KEY_FONT_TYPE, KEY_FONT_GRID_WIDTH, KEY_FONT_GRID_HEIGHT, KEY_FONT_SCALE, KEY_FONT_BORDER_SCALE, KEY_FONT_BORDER_INSET_X, KEY_FONT_BORDER_INSET_Y, KEY_FONT_SPACE_WIDTH, KEY_FONT_BASELINE_OFFSET, KEY_FONT_UNKNOWN_CHAR, KEY_FONT_EXTENDED_CHAR, KEY_FONT_CHARACTERS, KEY_FONT_SPACING_LINE, KEY_FONT_SPACING_CHAR };
 
     public static final String KEY_CHAT_SCROLL = "chatScrollEnabled";
     public static final String KEY_CHAT_RESIZABLE = "chatResizable";
@@ -129,6 +130,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_EMOJI_BADGES = "badgesEnabled";
     public static final String KEY_EMOJI_SCALE_TO_LINE = "emojiScaleToLine";
     public static final String KEY_EMOJI_BADGE_SCALE_TO_LINE = "badgeScaleToLine";
+    public static final String KEY_EMOJI_BADGE_HEIGHT_OFFSET = "badgeHeightOffset";
     public static final String KEY_EMOJI_SCALE = "emojiScale";
     public static final String KEY_EMOJI_BADGE_SCALE = "badgeScale";
     public static final String KEY_EMOJI_DISPLAY_STRAT = "emojiDisplayStrat";
@@ -137,7 +139,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_EMOJI_FFZ_ENABLE = "emojiFfzEnabled";
     public static final String KEY_EMOJI_FFZ_CACHE = "emojiFfzCached";
 
-    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE };
+    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_BADGE_HEIGHT_OFFSET, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE };
 
     public static final String KEY_CENSOR_ENABLED = "censorEnabled";
     public static final String KEY_CENSOR_URL = "censorUrl";
@@ -542,6 +544,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_FONT_BORDER_INSET_X, Integer.toString(1), override);
         setPropertyOverride(KEY_FONT_BORDER_INSET_Y, Integer.toString(1), override);
         setPropertyOverride(KEY_FONT_SPACE_WIDTH, Integer.toString(25), override);
+        setPropertyOverride(KEY_FONT_BASELINE_OFFSET, Integer.toString(0), override);
         setPropertyOverride(KEY_FONT_CHARACTERS, SpriteFont.NORMAL_ASCII_KEY, override);
         setPropertyOverride(KEY_FONT_UNKNOWN_CHAR, Character.toString((char) 127), override);
         setPropertyOverride(KEY_FONT_EXTENDED_CHAR, trueString, override);
@@ -587,6 +590,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_EMOJI_BADGES, trueString, override);
         setPropertyOverride(KEY_EMOJI_SCALE_TO_LINE, trueString, override);
         setPropertyOverride(KEY_EMOJI_BADGE_SCALE_TO_LINE, falseString, override);
+        setPropertyOverride(KEY_EMOJI_BADGE_HEIGHT_OFFSET, Integer.toString(0), override);
         setPropertyOverride(KEY_EMOJI_SCALE, Integer.toString(100), override);
         setPropertyOverride(KEY_EMOJI_BADGE_SCALE, Integer.toString(100), override);
         setPropertyOverride(KEY_EMOJI_DISPLAY_STRAT, EmojiLoadingDisplayStragegy.SPACE.name(), override);

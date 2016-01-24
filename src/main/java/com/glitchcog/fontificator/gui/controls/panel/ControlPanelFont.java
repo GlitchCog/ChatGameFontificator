@@ -335,6 +335,8 @@ public class ControlPanelFont extends ControlPanelBase
 
     private LabeledSlider spaceWidthSlider;
 
+    private LabeledSlider baselineOffsetSlider;
+
     private LabeledSlider lineSpacingSlider;
 
     private LabeledSlider charSpacingSlider;
@@ -414,6 +416,10 @@ public class ControlPanelFont extends ControlPanelBase
                 else if (spaceWidthSlider.getSlider().equals(source))
                 {
                     config.setSpaceWidth(spaceWidthSlider.getValue());
+                }
+                else if (baselineOffsetSlider.getSlider().equals(source))
+                {
+                    config.setBaselineOffset(baselineOffsetSlider.getValue());
                 }
                 else if (lineSpacingSlider.getSlider().equals(source))
                 {
@@ -524,6 +530,7 @@ public class ControlPanelFont extends ControlPanelBase
         borderInsetYSlider = new LabeledSlider("Y", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         characterKeyInput = new LabeledInput("Character Key", 32);
         spaceWidthSlider = new LabeledSlider("Space Width", "%", ConfigFont.MIN_SPACE_WIDTH, ConfigFont.MAX_SPACE_WIDTH);
+        baselineOffsetSlider = new LabeledSlider("Baseline Height Offset", "pixels", ConfigFont.MIN_BASELINE_OFFSET, ConfigFont.MAX_BASELINE_OFFSET);
         lineSpacingSlider = new LabeledSlider("Line Spacing", "pixels", ConfigFont.MIN_LINE_SPACING, ConfigFont.MAX_LINE_SPACING);
         charSpacingSlider = new LabeledSlider("Char Spacing", "pixels", ConfigFont.MIN_CHAR_SPACING, ConfigFont.MAX_LINE_SPACING);
         unknownCharPopupButton = new JButton("Select Missing Character");
@@ -545,6 +552,7 @@ public class ControlPanelFont extends ControlPanelBase
         borderInsetXSlider.addChangeListener(sliderListener);
         borderInsetYSlider.addChangeListener(sliderListener);
         spaceWidthSlider.addChangeListener(sliderListener);
+        baselineOffsetSlider.addChangeListener(sliderListener);
         lineSpacingSlider.addChangeListener(sliderListener);
         charSpacingSlider.addChangeListener(sliderListener);
 
@@ -594,6 +602,9 @@ public class ControlPanelFont extends ControlPanelBase
         vwpGbc.gridx++;
         variableWidthPanel.add(spaceWidthSlider, vwpGbc);
         fontPanel.add(variableWidthPanel, fontGbc);
+        fontGbc.gridy++;
+
+        fontPanel.add(baselineOffsetSlider, fontGbc);
         fontGbc.gridy++;
 
         borderPanel.add(borderPresetDropdown, borderGbc);
@@ -730,6 +741,7 @@ public class ControlPanelFont extends ControlPanelBase
         extendedCharBox.setSelected(config.isExtendedCharEnabled());
         charPicker.setSelectedChar(config.getUnknownChar());
         spaceWidthSlider.setValue(config.getSpaceWidth());
+        baselineOffsetSlider.setValue(config.getBaselineOffset());
         lineSpacingSlider.setValue(config.getLineSpacing());
         charSpacingSlider.setValue(config.getCharSpacing());
         fontTypeCheckbox.setSelected(FontType.VARIABLE_WIDTH.equals(config.getFontType()));
@@ -811,6 +823,7 @@ public class ControlPanelFont extends ControlPanelBase
         config.setExtendedCharEnabled(extendedCharBox.isSelected());
         config.setUnknownChar(charPicker.getSelectedChar());
         config.setSpaceWidth(spaceWidthSlider.getValue());
+        config.setBaselineOffset(baselineOffsetSlider.getValue());
         config.setLineSpacing(lineSpacingSlider.getValue());
         config.setCharSpacing(charSpacingSlider.getValue());
     }

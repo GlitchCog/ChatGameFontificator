@@ -205,8 +205,11 @@ public class ControlWindow extends JDialog
 
         if (!report.isErrorFree())
         {
-            fProps.forgetLastConfigFile();
             final boolean overwriteExistingValues = report.isProblem();
+            if (overwriteExistingValues)
+            {
+                fProps.forgetLastConfigFile();
+            }
             fProps.loadDefaultValues(overwriteExistingValues);
         }
     }

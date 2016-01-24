@@ -100,7 +100,7 @@ public class ChatViewerBot extends PircBot
         try
         {
             this.setEncoding(encoding);
-            logger.info("IRC encoding set to " + encoding);
+            logger.debug("IRC encoding set to " + encoding);
         }
         catch (Exception e)
         {
