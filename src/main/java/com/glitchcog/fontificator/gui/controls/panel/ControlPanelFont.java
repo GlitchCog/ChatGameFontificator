@@ -62,6 +62,7 @@ public class ControlPanelFont extends ControlPanelBase
         {
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon Name"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("7th Saga", "7th Saga Battle"), new DropdownFont("7saga_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownFont("ct_font.png", FontType.VARIABLE_WIDTH));
