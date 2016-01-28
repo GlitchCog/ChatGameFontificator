@@ -18,8 +18,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.apache.log4j.Logger;
-
 import com.glitchcog.fontificator.config.ConfigChat;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;

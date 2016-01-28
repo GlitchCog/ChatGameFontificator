@@ -150,7 +150,7 @@ public class SpriteFont
                     fontMetricCharArray[0] = c.getChar();
                     baseWidth = fontMetrics.charsWidth(fontMetricCharArray, 0, 1);
                     // Don't include scale in this calculation, because it's already built into the font size
-                    return baseWidth + config.getCharSpacing() * config.getFontScale();
+                    return (int) (baseWidth + config.getCharSpacing() * config.getFontScale());
                 }
                 // The extended character should be replaced with the unknown character
                 else
@@ -164,13 +164,13 @@ public class SpriteFont
                 // Character
                 baseWidth = getCharacterBounds(c.getChar()).width;
             }
-            return (baseWidth + config.getCharSpacing()) * config.getFontScale();
+            return (int) ((baseWidth + config.getCharSpacing()) * config.getFontScale());
         }
         else
         {
             // Emoji
             int[] eDim = getEmojiDimensions(c.getEmoji(), emojiConfig);
-            final int charSpacing = (config.getCharSpacing() * config.getFontScale());
+            final int charSpacing = (int) (config.getCharSpacing() * config.getFontScale());
             final int extraSpacing = (c.getEmoji().getType().isBadge() ? Math.max(charSpacing, BADGE_MINIMUM_SPACING_PIXELS) : charSpacing);
             return eDim[0] + extraSpacing;
         }
@@ -609,7 +609,7 @@ public class SpriteFont
         {
             int[] eDim = getEmojiDimensions(sck.getEmoji(), emojiConfig);
             // yOffset is to center the emoji on the line
-            int yOffset = sprites.getSprite(config).getSpriteDrawHeight(config.getFontScale()) / 2 - config.getBaselineOffset() * config.getFontScale() - (sck.isBadge() ? emojiConfig.getBadgeHeightOffset() : 0);
+            int yOffset = (int) (sprites.getSprite(config).getSpriteDrawHeight(config.getFontScale()) / 2 - config.getBaselineOffset() * config.getFontScale()) - (sck.isBadge() ? emojiConfig.getBadgeHeightOffset() : 0);
             drawY += yOffset - eDim[1] / 2;
             Image eImage = sck.getEmoji().getImage();
             if (eImage == null)

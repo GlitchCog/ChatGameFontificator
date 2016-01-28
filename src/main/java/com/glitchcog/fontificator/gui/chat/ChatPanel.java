@@ -107,8 +107,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private SpriteFont font;
 
     /**
-     * This indicates whether the configuration has been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the configuration. Once it is set to true, it will remain true- it is only on
-     * the initial setup that configuration might be null
+     * This indicates whether the configuration has been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the configuration.
+     * Once it is set to true, it will remain true- it is only on the initial setup that configuration might be null
      */
     private boolean loaded;
 
@@ -136,8 +136,9 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Get whether the configuration and message dialog have been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the configuration and the link to the message dialog to be updated so
-     * censorship rules can be assessed. Once it returns true, it will remain true- it is only on the initial setup that configuration and the message dialog might be null.
+     * Get whether the configuration and message dialog have been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the
+     * configuration and the link to the message dialog to be updated so censorship rules can be assessed. Once it returns true, it will remain true- it is only on the initial
+     * setup that configuration and the message dialog might be null.
      * 
      * @return loaded
      */
@@ -316,6 +317,10 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         // Used for scrolling
         int lineHeight = font.getLineHeightScaled();
+        if (lineHeight == 0)
+        {
+            lineHeight = 1;
+        }
         lineCount = lineHeight == 0 ? 0 : totalHeight / lineHeight;
 
         // borderEdgeThickness is the y-inset on the top plus the height of the top part of the border

@@ -162,8 +162,7 @@ public class Sprite
     }
 
     /**
-     * Sets the number of frames that make up the width of the image grid and calculates the pixel width of a frame
-     * accordingly
+     * Sets the number of frames that make up the width of the image grid and calculates the pixel width of a frame accordingly
      * 
      * @param gridWidth
      */
@@ -179,8 +178,7 @@ public class Sprite
     }
 
     /**
-     * Sets the number of frames that make up the height of the image grid and calculates the pixel height of a frame
-     * accordingly
+     * Sets the number of frames that make up the height of the image grid and calculates the pixel height of a frame accordingly
      * 
      * @param gridHeight
      */
@@ -270,6 +268,10 @@ public class Sprite
             coloredImgs.put(color, drawImg);
         }
         g2d.drawImage(drawImg, x, y, x + (int) (pixelWidth * scale), y + (int) (pixelHeight * scale), sourceX, sourceY, sourceX + pixelWidth, sourceY + pixelHeight, null);
+
+        // Crops the image before anti-aliasing is applied, so pixels on the edges of cropping lines don't bleed over, but it's slow!
+        // final BufferedImage bi = drawImg.getSubimage(sourceX, sourceY, pixelWidth, pixelHeight);
+        // g2d.drawImage(bi, x, y, (int) (pixelWidth * scale), (int) (pixelHeight * scale), null);
     }
 
     /**
@@ -293,6 +295,10 @@ public class Sprite
             coloredImgs.put(color, drawImg);
         }
         g2d.drawImage(drawImg, x, y, x + (int) (w * scale), y + (int) (h * scale), source.x, source.y, source.x + source.width, source.y + source.height, null);
+
+        // Crops the image before anti-aliasing is applied, so pixels on the edges of cropping lines don't bleed over, but it's slow!
+        // final BufferedImage bi = drawImg.getSubimage(source.x, source.y, source.width, source.height);
+        // g2d.drawImage(bi, x, y, (int) (w * scale), (int) (h * scale), null);
     }
 
 }

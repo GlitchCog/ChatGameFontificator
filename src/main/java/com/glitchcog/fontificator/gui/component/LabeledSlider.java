@@ -19,6 +19,8 @@ public class LabeledSlider extends JPanel
 {
     private static final long serialVersionUID = 1L;
 
+    private static final float NO_SCALE = 1.0f;
+
     protected JSlider slider;
 
     private JLabel label;
@@ -29,9 +31,16 @@ public class LabeledSlider extends JPanel
 
     private int maxValueDigits;
 
+    private float scale;
+
     public LabeledSlider(String labelStr, String unitLabelStr, int min, int max)
     {
         this(labelStr, unitLabelStr, min, max, Math.max(Integer.toString(min).length(), Integer.toString(max).length()));
+    }
+
+    public LabeledSlider(String labelStr, String unitLabelStr, int min, int max, float scale)
+    {
+        this(labelStr, unitLabelStr, min, max, Math.max(Integer.toString(min).length(), Integer.toString(max).length()), scale);
     }
 
     public LabeledSlider(String labelStr, String unitLabelStr, int min, int max, int maxValueDigits)
@@ -39,8 +48,19 @@ public class LabeledSlider extends JPanel
         this(labelStr, unitLabelStr, min, max, min, maxValueDigits);
     }
 
+    public LabeledSlider(String labelStr, String unitLabelStr, int min, int max, int maxValueDigits, float scale)
+    {
+        this(labelStr, unitLabelStr, min, max, min, maxValueDigits, scale);
+    }
+
     public LabeledSlider(String labelStr, String unitLabelStr, int min, int max, int value, int maxValueDigits)
     {
+        this(labelStr, unitLabelStr, min, max, value, maxValueDigits, NO_SCALE);
+    }
+
+    public LabeledSlider(String labelStr, String unitLabelStr, int min, int max, int value, int maxValueDigits, float scale)
+    {
+        this.scale = scale;
         this.unitLabelStr = unitLabelStr;
         this.slider = new JSlider(JSlider.HORIZONTAL, min, max, value);
         this.label = new JLabel(labelStr);
@@ -97,9 +117,21 @@ public class LabeledSlider extends JPanel
         return slider.getValue();
     }
 
+    public float getScaledValue()
+    {
+        return getValue() * scale;
+    }
+
     public String getValueString()
     {
-        return Integer.toString(getValue());
+        if (scale == NO_SCALE)
+        {
+            return Integer.toString(getValue());
+        }
+        else
+        {
+            return String.format("%.2f", getScaledValue());
+        }
     }
 
     protected void setUnitLabel()
@@ -125,6 +157,11 @@ public class LabeledSlider extends JPanel
     public void setValue(int value)
     {
         slider.setValue(value);
+    }
+
+    public void setScaledValue(float value)
+    {
+        setValue((int) (value / scale));
     }
 
     public JSlider getSlider()

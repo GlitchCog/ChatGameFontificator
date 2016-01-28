@@ -13,6 +13,7 @@ public enum LoadConfigErrorType
     MISSING_VALUE(false), 
     VALUE_OUT_OF_RANGE(true), 
     PARSE_ERROR_INT(true), 
+    PARSE_ERROR_FLOAT(true), 
     PARSE_ERROR_BOOL(true), 
     PARSE_ERROR_CHAR(true), 
     PARSE_ERROR_COLOR(true), 

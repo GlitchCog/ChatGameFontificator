@@ -400,11 +400,11 @@ public class ControlPanelFont extends ControlPanelBase
                 JSlider source = (JSlider) e.getSource();
                 if (fontScaleSlider.getSlider().equals(source))
                 {
-                    config.setFontScale(fontScaleSlider.getValue());
+                    config.setFontScale(fontScaleSlider.getScaledValue());
                 }
                 else if (borderScaleSlider.getSlider().equals(source))
                 {
-                    config.setBorderScale(borderScaleSlider.getValue());
+                    config.setBorderScale(borderScaleSlider.getScaledValue());
                 }
                 else if (borderInsetXSlider.getSlider().equals(source))
                 {
@@ -525,8 +525,8 @@ public class ControlPanelFont extends ControlPanelBase
         borderPresetDropdown = new ComboMenuBar(borderMenuMap, borderAl);
         gridWidthInput = new LabeledInput("Grid Width", 4);
         gridHeightInput = new LabeledInput("Grid Height", 4);
-        fontScaleSlider = new LabeledSlider("Font Scale", "x", ConfigFont.MIN_FONT_SCALE, ConfigFont.MAX_FONT_SCALE);
-        borderScaleSlider = new LabeledSlider("Border Scale", "x", ConfigFont.MIN_BORDER_SCALE, ConfigFont.MAX_BORDER_SCALE);
+        fontScaleSlider = new LabeledSlider("Font Scale", "x", ConfigFont.MIN_FONT_SCALE, ConfigFont.MAX_FONT_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
+        borderScaleSlider = new LabeledSlider("Border Scale", "x", ConfigFont.MIN_BORDER_SCALE, ConfigFont.MAX_BORDER_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
         borderInsetXSlider = new LabeledSlider("X", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         borderInsetYSlider = new LabeledSlider("Y", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         characterKeyInput = new LabeledInput("Character Key", 32);
@@ -734,8 +734,8 @@ public class ControlPanelFont extends ControlPanelBase
         fontFilenameInput.setText(config.getFontFilename());
         gridWidthInput.setText(Integer.toString(config.getGridWidth()));
         gridHeightInput.setText(Integer.toString(config.getGridHeight()));
-        fontScaleSlider.setValue(config.getFontScale());
-        borderScaleSlider.setValue(config.getBorderScale());
+        fontScaleSlider.setScaledValue(config.getFontScale());
+        borderScaleSlider.setScaledValue(config.getBorderScale());
         borderInsetXSlider.setValue(config.getBorderInsetX());
         borderInsetYSlider.setValue(config.getBorderInsetY());
         characterKeyInput.setText(config.getCharacterKey());
@@ -816,8 +816,8 @@ public class ControlPanelFont extends ControlPanelBase
         config.setFontType(fontTypeCheckbox.isSelected() ? FontType.VARIABLE_WIDTH : FontType.FIXED_WIDTH);
         config.setGridWidth(Integer.parseInt(gridWidthInput.getText()));
         config.setGridHeight(Integer.parseInt(gridHeightInput.getText()));
-        config.setFontScale(fontScaleSlider.getValue());
-        config.setBorderScale(borderScaleSlider.getValue());
+        config.setFontScale(fontScaleSlider.getScaledValue());
+        config.setBorderScale(borderScaleSlider.getScaledValue());
         config.setBorderInsetX(borderInsetXSlider.getValue());
         config.setBorderInsetY(borderInsetYSlider.getValue());
         config.setCharacterKey(characterKeyInput.getText());

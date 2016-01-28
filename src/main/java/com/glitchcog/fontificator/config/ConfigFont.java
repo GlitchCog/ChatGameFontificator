@@ -17,11 +17,16 @@ public class ConfigFont extends Config
     public static final String INTERNAL_FONT_DIR = "fonts/";
     public static final String INTERNAL_BORDER_DIR = "borders/";
 
+    /**
+     * The size of a step in the scale of a font or border on the sliders in ControlPanelFont
+     */
+    public static final float FONT_BORDER_SCALE_GRANULARITY = 0.25f;
+
     public static final int MIN_FONT_SCALE = 1;
-    public static final int MAX_FONT_SCALE = 8;
+    public static final int MAX_FONT_SCALE = (int) (8 / FONT_BORDER_SCALE_GRANULARITY);
 
     public static final int MIN_BORDER_SCALE = 0;
-    public static final int MAX_BORDER_SCALE = 8;
+    public static final int MAX_BORDER_SCALE = (int) (8 / FONT_BORDER_SCALE_GRANULARITY);
 
     public static final int MIN_BORDER_INSET = -256;
     public static final int MAX_BORDER_INSET = 256;
@@ -46,9 +51,9 @@ public class ConfigFont extends Config
 
     private int gridHeight;
 
-    private int fontScale;
+    private float fontScale;
 
-    private int borderScale;
+    private float borderScale;
 
     private int borderInsetX;
 
@@ -87,8 +92,8 @@ public class ConfigFont extends Config
         baselineOffset = 0;
         gridWidth = 0;
         gridHeight = 0;
-        fontScale = 1;
-        borderScale = 1;
+        fontScale = 1.0f;
+        borderScale = 1.0f;
         borderInsetX = 0;
         borderInsetY = 0;
         characterKey = null;
@@ -175,8 +180,8 @@ public class ConfigFont extends Config
 
         validateBooleanStrings(report, extendedCharStr);
 
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SCALE, scaleStr, MIN_FONT_SCALE, MAX_FONT_SCALE, report);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_SCALE, borderScaleStr, MIN_BORDER_SCALE, MAX_BORDER_SCALE, report);
+        validateFloatWithLimitString(FontificatorProperties.KEY_FONT_SCALE, scaleStr, MIN_FONT_SCALE, MAX_FONT_SCALE, report);
+        validateFloatWithLimitString(FontificatorProperties.KEY_FONT_BORDER_SCALE, borderScaleStr, MIN_BORDER_SCALE, MAX_BORDER_SCALE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_INSET_X, borderInsetXStr, MIN_BORDER_INSET, MAX_BORDER_INSET, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BORDER_INSET_Y, borderInsetYStr, MIN_BORDER_INSET, MAX_BORDER_INSET, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACE_WIDTH, spaceWidthStr, MIN_SPACE_WIDTH, MAX_SPACE_WIDTH, report);
@@ -234,8 +239,8 @@ public class ConfigFont extends Config
                 this.characterKey = props.getProperty(FontificatorProperties.KEY_FONT_CHARACTERS);
                 this.gridWidth = Integer.parseInt(gridWidthStr);
                 this.gridHeight = Integer.parseInt(gridHeightStr);
-                this.fontScale = Integer.parseInt(scaleStr);
-                this.borderScale = Integer.parseInt(borderScaleStr);
+                this.fontScale = Float.parseFloat(scaleStr);
+                this.borderScale = Float.parseFloat(borderScaleStr);
                 this.borderInsetX = Integer.parseInt(borderInsetXStr);
                 this.borderInsetY = Integer.parseInt(borderInsetYStr);
                 this.spaceWidth = Integer.parseInt(spaceWidthStr);
@@ -292,26 +297,26 @@ public class ConfigFont extends Config
         props.setProperty(FontificatorProperties.KEY_FONT_GRID_HEIGHT, Integer.toString(gridHeight));
     }
 
-    public int getFontScale()
+    public float getFontScale()
     {
         return fontScale;
     }
 
-    public void setFontScale(int fontScale)
+    public void setFontScale(float fontScale)
     {
         this.fontScale = fontScale;
-        props.setProperty(FontificatorProperties.KEY_FONT_SCALE, Integer.toString(fontScale));
+        props.setProperty(FontificatorProperties.KEY_FONT_SCALE, Float.toString(fontScale));
     }
 
-    public int getBorderScale()
+    public float getBorderScale()
     {
         return borderScale;
     }
 
-    public void setBorderScale(int borderScale)
+    public void setBorderScale(float borderScale)
     {
         this.borderScale = borderScale;
-        props.setProperty(FontificatorProperties.KEY_FONT_BORDER_SCALE, Integer.toString(borderScale));
+        props.setProperty(FontificatorProperties.KEY_FONT_BORDER_SCALE, Float.toString(borderScale));
     }
 
     public int getBorderInsetX()

@@ -7,8 +7,7 @@ import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 
 /**
- * Config objects bridge the gap between the raw, unvalidated properties object and the processed values the
- * ControlPanels need for configuration
+ * Config objects bridge the gap between the raw, unvalidated properties object and the processed values the ControlPanels need for configuration
  * 
  * @author Matt Yanos
  */
@@ -69,12 +68,14 @@ public abstract class Config
     }
 
     /**
-     * Collect and return report errors for the specified String representation value of an integer with the specified
-     * minimum. The key is just used to report the error.
+     * Collect and return report errors for the specified String representation value of an integer with the specified minimum. The key is just used to report the error.
      * 
      * @param key
+     *            the key for the value to check
      * @param value
+     *            the value to check
      * @param minimum
+     *            inclusive minimum
      * @param report
      * @return report
      */
@@ -84,17 +85,16 @@ public abstract class Config
     }
 
     /**
-     * Collect and return load report for the specified String representation value of an integer with the specified
-     * minimum and maximum. The key is just used to report the error.
+     * Collect and return load report for the specified String representation value of an integer with the specified minimum and maximum. The key is just used to report the error.
      * 
      * @param key
      *            the key for the value to check
      * @param value
      *            the value to check
      * @param minimum
-     *            exclusive minimum
+     *            inclusive minimum
      * @param maximum
-     *            exclusive maximum
+     *            inclusive maximum
      * @param report
      * @return report
      */
@@ -118,11 +118,12 @@ public abstract class Config
     }
 
     /**
-     * Check that the specified value is a valid integer without any range checking. The key is just used to report the
-     * error.
+     * Check that the specified value is a valid integer without any range checking. The key is just used to report the error.
      * 
      * @param key
+     *            the key for the value to check
      * @param value
+     *            the value to check
      * @param report
      * @return report
      */
@@ -148,9 +149,74 @@ public abstract class Config
     }
 
     /**
+     * Collect and return load report for the specified String representation value of a float with the specified minimum and maximum. The key is just used to report the error.
+     * 
+     * @param key
+     *            the key for the value to check
+     * @param value
+     *            the value to check
+     * @param minimum
+     *            inclusive minimum
+     * @param maximum
+     *            inclusive maximum
+     * @param report
+     * @return report
+     */
+    protected LoadConfigReport validateFloatWithLimitString(String key, String value, float minimum, float maximum, LoadConfigReport report)
+    {
+        validateFloatString(key, value, report);
+        if (report.isErrorFree())
+        {
+            final float test = Float.parseFloat(value);
+            if (test < minimum)
+            {
+                report.addError("Value \"" + value + "\" for key \"" + key + "\" must be at least " + minimum, LoadConfigErrorType.VALUE_OUT_OF_RANGE);
+            }
+            else if (test > maximum)
+            {
+                report.addError("Value \"" + value + "\" for key \"" + key + "\" must be at most " + maximum, LoadConfigErrorType.VALUE_OUT_OF_RANGE);
+            }
+        }
+
+        return report;
+    }
+
+    /**
+     * Check that the specified value is a valid float without any range checking. The key is just used to report the error.
+     * 
+     * @param key
+     *            the key for the value to check
+     * @param value
+     *            the value to check
+     * @param report
+     * @return report
+     */
+    protected LoadConfigReport validateFloatString(String key, String value, LoadConfigReport report)
+    {
+        if (value == null)
+        {
+            report.addError("Value missing for key \"" + key + "\"", LoadConfigErrorType.MISSING_VALUE);
+        }
+        else
+        {
+            try
+            {
+                Float.parseFloat(value);
+            }
+            catch (Exception e)
+            {
+                report.addError("Unable to parse the value \"" + value + "\" for key \"" + key + "\"", LoadConfigErrorType.PARSE_ERROR_FLOAT);
+            }
+        }
+
+        return report;
+    }
+
+    /**
      * Get the Boolean value of the String, filling the specified error array with any problems encountered
      * 
      * @param value
+     *            the value to check
      * @param report
      * @return Boolean value
      */
@@ -180,8 +246,8 @@ public abstract class Config
     }
 
     /**
-     * Get a Boolean value from a string in a Properties object. There is no default value. A missing value will be
-     * returned as null, not false. Any errors beyond a missing value will be added to the specified report errors list.
+     * Get a Boolean value from a string in a Properties object. There is no default value. A missing value will be returned as null, not false. Any errors beyond a missing value
+     * will be added to the specified report errors list.
      * 
      * @param props
      * @param key
@@ -222,8 +288,8 @@ public abstract class Config
     }
 
     /**
-     * Get an Integer value from a string in a Properties object. There is no default value. A missing value will be
-     * returned as null, not zero. Any errors beyond a missing value will be added to the specified report error list.
+     * Get an Integer value from a string in a Properties object. There is no default value. A missing value will be returned as null, not zero. Any errors beyond a missing value
+     * will be added to the specified report error list.
      * 
      * @param props
      * @param key
@@ -251,8 +317,8 @@ public abstract class Config
     }
 
     /**
-     * Get a Color value from a string in a Properties object. There is no default value. A missing value will be
-     * returned as null, not zero. Any errors beyond a missing value will be added to the specified report errors list.
+     * Get a Color value from a string in a Properties object. There is no default value. A missing value will be returned as null, not zero. Any errors beyond a missing value will
+     * be added to the specified report errors list.
      * 
      * @param props
      * @param key
@@ -267,8 +333,8 @@ public abstract class Config
     }
 
     /**
-     * Get a color by parsing the specified String containing the hexadecimal numeric representation of the color,
-     * adding to the specified report error list if any problems are encountered during the translation
+     * Get a color by parsing the specified String containing the hexadecimal numeric representation of the color, adding to the specified report error list if any problems are
+     * encountered during the translation
      * 
      * @param hexString
      * @param report
