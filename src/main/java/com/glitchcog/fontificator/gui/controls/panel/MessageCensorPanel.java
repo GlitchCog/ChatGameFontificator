@@ -271,7 +271,7 @@ public class MessageCensorPanel extends ControlPanelBase
         }
 
         final float percentUnknownChars = 100 * getPercentUnknownChars(msg.getContent());
-        if (percentUnknownChars > 0.0f && percentUnknownChars >= unknownCharSlider.getValue())
+        if (censorUnknownCharsBox.isSelected() && percentUnknownChars > 0.0f && percentUnknownChars >= unknownCharSlider.getValue())
         {
             msg.setCensored(true);
             msg.setCensoredReason("UNKNOWN CHARACTERS");
