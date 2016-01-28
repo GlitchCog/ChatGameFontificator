@@ -215,7 +215,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         // If border scale is zero, just skip this. The drawBorder method won't draw a zero scale border, but if these
         // calculations are attempted with a zero scale it will throw a divide by zero exception
-        if (fontConfig.getBorderScale() > 0)
+        if (fontConfig.getBorderScale() > 0.0f)
         {
             final int gridWidth = getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale());
             final int gridHeight = getHeight() / border.getSpriteDrawHeight(fontConfig.getBorderScale());
@@ -304,8 +304,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             }
         }
 
-        final int lineWrapLength = (border == null || fontConfig.getBorderScale() < 1 ? getWidth() : border.getSpriteDrawWidth(fontConfig.getBorderScale()) * (getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale()) - 2)) - fontConfig.getBorderInsetX() * 2;
-        final int leftEdge = offset.x + (border == null || fontConfig.getBorderScale() < 1 ? 0 : border.getSpriteDrawWidth(fontConfig.getBorderScale())) + fontConfig.getBorderInsetX();
+        final int lineWrapLength = (border == null || fontConfig.getBorderScale() <= 0.0f ? getWidth() : border.getSpriteDrawWidth(fontConfig.getBorderScale()) * (getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale()) - 2)) - fontConfig.getBorderInsetX() * 2;
+        final int leftEdge = offset.x + (border == null || fontConfig.getBorderScale() <= 0.0f ? 0 : border.getSpriteDrawWidth(fontConfig.getBorderScale())) + fontConfig.getBorderInsetX();
 
         // totalHeight is the height of all the messages
         int totalHeight = 0;
@@ -324,7 +324,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         lineCount = lineHeight == 0 ? 0 : totalHeight / lineHeight;
 
         // borderEdgeThickness is the y-inset on the top plus the height of the top part of the border
-        final int borderEdgeThickness = offset.y + (border == null || fontConfig.getBorderScale() < 1 ? 0 : border.getSpriteDrawHeight(fontConfig.getBorderScale())) + fontConfig.getBorderInsetY();
+        final int borderEdgeThickness = offset.y + (border == null || fontConfig.getBorderScale() < ConfigFont.FONT_BORDER_SCALE_GRANULARITY ? 0 : border.getSpriteDrawHeight(fontConfig.getBorderScale())) + fontConfig.getBorderInsetY();
 
         // y is where the drawing begins
         int y;
@@ -393,7 +393,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     {
         final float scale = fontConfig.getBorderScale();
 
-        if (scale < 1)
+        if (scale <= 0.0f)
         {
             return;
         }
