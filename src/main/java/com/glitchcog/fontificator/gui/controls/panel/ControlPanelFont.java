@@ -64,6 +64,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("7th Dragon", "7th Dragon Name"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("7th Saga", "7th Saga Battle"), new DropdownFont("7saga_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Castlevania", "Castlevania 2 Title"), new DropdownFont("cv2_title_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownFont("cv3_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownFont("ct_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownFont("cad_font.png", FontType.FIXED_WIDTH));
@@ -145,8 +147,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda (Mixed Case)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownFont("zelda2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "Zelda II (Mixed Case)"), new DropdownFont("zelda2_lowercase_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Zelda", "Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownFont("lttp_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: Ocarina of Time"), new DropdownFont("loz_oot_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownFont("loz_ww_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zero Wing", "Zero Wing"), new DropdownFont("zw_font.png", FontType.FIXED_WIDTH));
@@ -186,6 +188,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png"));
             put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png"));
+            put(new DropdownLabel("Castlevania", "Castlevania 2"), new DropdownBorder("cv2_border.png"));
+            put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownBorder("cv3_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png"));
@@ -200,6 +204,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III (GBC)"), new DropdownBorder("dw3gbc_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownBorder("dq3_sfc_border.png"));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownBorder("dw4_border.png"));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Quest VI (SFC)"), new DropdownBorder("dq6_border.png"));
             put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownBorder("eb0_border.png"));
             put(new DropdownLabel("EarthBound", "EarthBound Plain"), new DropdownBorder("eb_plain.png"));
             put(new DropdownLabel("EarthBound", "EarthBound Mint"), new DropdownBorder("eb_mint.png"));
@@ -273,9 +278,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda Dungeon"), new DropdownBorder("loz_dungeon_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda Story"), new DropdownBorder("loz_story_border.png"));
             put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownBorder("zelda2_border.png"));
-            put(new DropdownLabel("Zelda", "Link's Awakening Room"), new DropdownBorder("loz_la_room_border.png"));
-            put(new DropdownLabel("Zelda", "Link's Awakening Name"), new DropdownBorder("loz_la_name_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownBorder("lttp_border.png"));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Room"), new DropdownBorder("loz_la_room_border.png"));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Name"), new DropdownBorder("loz_la_name_border.png"));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownBorder("loz_ww_border.png"));
         }
     };

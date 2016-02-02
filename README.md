@@ -121,8 +121,11 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
 * Could I please see an exhaustive list of all the game fonts represented in this program?
 
   - 7th Dragon Name
+  - 7th Saga Battle
   - Bahamut Lagoon
   - Bart vs. the Space Mutants
+  - Castlevania II: Simon's Quest
+  - Castlevania III: Dracula's Curse
   - Chrono Cross
   - Chrono Trigger
   - Clash at Demonhead
@@ -199,8 +202,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - The Legend of Zelda (Mixed Case)
   - Zelda II: The Adventures of Link
   - Zelda II (Mixed Case)
-  - Link's Awakening
   - The Legend of Zelda: A Link to the Past
+  - The Legend of Zelda: Link's Awakening
   - The Legend of Zelda: Ocarina of Time
   - The Legend of Zelda: The Wind Waker
   - Zero Wing
