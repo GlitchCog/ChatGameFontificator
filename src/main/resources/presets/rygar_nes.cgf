@@ -1,0 +1,18 @@
+fontBorderInsetY=0
+fontBorderInsetX=0
+fontCharSpacing=0
+fontType=FIXED_WIDTH
+fontScale=2.0
+fontBorderScale=2.0
+fontLineSpacing=2
+fontGridWidth=8
+fontGridHeight=12
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/rygar_nes_font.png
+fontBorderFile=preset\://borders/rygar_nes_border.png
+fontBaselineOffset=0
+colorBackground=000000
+colorPalette=F7977A,FDC68A,FFF79A,A2D39C,6ECFF6,A187BE,F6989D
+colorBorder=FFFFFF
+colorHighlight=6699FF
+colorForeground=FFFFFF
