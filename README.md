@@ -158,6 +158,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Golden Sun (Battle)
   - Harvest Moon: Friends of Mineral Town
   - River City Ransom
+  - Rygar (NES)
   - The Lost Vikings
   - Super Mario Bros.
   - Super Mario Bros. 2
