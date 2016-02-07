@@ -1,18 +1,20 @@
-fontCharSpacing=0
+colorBackground=000000
 colorBorder=CEDBE8
-fontType=VARIABLE_WIDTH
-fontGridWidth=8
-fontBorderInsetY=-8
-fontBorderInsetX=-8
-colorPalette=E76308,52ADFF,CEBD6B,39D639,EFBD10,A5395A,EFE7A5
-fontGridHeight=12
-fontBorderFile=preset\://borders/soe_border.png
-fontFile=preset\://fonts/soe_font.png
+colorForeground=CECECE
 colorHighlight=FF42D5
+colorPalette=E76308,52ADFF,CEBD6B,39D639,EFBD10,A5395A,EFE7A5
+fontBorderFile=preset\://borders/soe_border.png
+fontBorderInsetX=-8
+fontBorderInsetY=-8
+fontBorderScale=2
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/soe_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=0
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
 fontSpaceWidth=31
-colorForeground=CECECE
-colorBackground=000000
+fontType=VARIABLE_WIDTH
+group=
+name=Secret of Evermore

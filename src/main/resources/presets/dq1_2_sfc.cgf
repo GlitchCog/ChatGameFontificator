@@ -1,18 +1,20 @@
-fontCharSpacing=1
+colorBackground=303030
 colorBorder=FFFFFF
-fontType=VARIABLE_WIDTH
-fontGridWidth=8
-fontBorderInsetY=0
-fontBorderInsetX=0
-colorPalette=80F828,DE394A,F7CE6B,10B8F8,D17CDE,05FFC1,B9FFC3
-fontGridHeight=12
-fontBorderFile=preset\://borders/dq1_2_sfc_border.png
-fontFile=preset\://fonts/dq1_2_sfc_font.png
+colorForeground=F8F8F8
 colorHighlight=CCCC00
+colorPalette=80F828,DE394A,F7CE6B,10B8F8,D17CDE,05FFC1,B9FFC3
+fontBorderFile=preset\://borders/dq1_2_sfc_border.png
+fontBorderInsetX=0
+fontBorderInsetY=0
+fontBorderScale=2
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/dq1_2_sfc_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=6
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
 fontSpaceWidth=25
-colorForeground=F8F8F8
-colorBackground=303030
+fontType=VARIABLE_WIDTH
+group=Dragon Warrior
+name=Dragon Quest I.II (SCF)

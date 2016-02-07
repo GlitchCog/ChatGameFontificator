@@ -1,18 +1,20 @@
-fontCharSpacing=1
+colorBackground=101010
 colorBorder=FFFFFF
-fontType=VARIABLE_WIDTH
-fontGridWidth=8
-fontBorderInsetY=4
-fontBorderInsetX=4
-colorPalette=10FB6B,B8C070,F8D8E0,D8F8F0,C07080,C0B8F8,6A854D,E4763B
-fontGridHeight=12
-fontBorderFile=preset\://borders/eb_plain.png
-fontFile=preset\://fonts/eb_font.png
+colorForeground=F0F0F0
 colorHighlight=10FF6B
+colorPalette=10FB6B,B8C070,F8D8E0,D8F8F0,C07080,C0B8F8,6A854D,E4763B
+fontBorderFile=preset\://borders/eb_plain.png
+fontBorderInsetX=4
+fontBorderInsetY=4
+fontBorderScale=2
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/eb_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=2
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
 fontSpaceWidth=25
-colorForeground=F0F0F0
-colorBackground=101010
+fontType=VARIABLE_WIDTH
+group=EarthBound
+name=EarthBound Plain

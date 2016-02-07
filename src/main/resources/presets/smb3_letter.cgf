@@ -1,17 +1,19 @@
-fontCharSpacing=0
+colorBackground=FFFFFF
 colorBorder=FBA7C3
-fontType=FIXED_WIDTH
-fontGridWidth=8
-fontBorderInsetY=8
-fontBorderInsetX=8
-colorPalette=00FFFF,F85898,D82800,4CDC48,FC9838,183C5C,7C0800
-fontGridHeight=12
-fontBorderFile=preset\://borders/smb3_letter_border.png
-fontFile=preset\://fonts/smb3_font.png
+colorForeground=000000
 colorHighlight=F85898
+colorPalette=00FFFF,F85898,D82800,4CDC48,FC9838,183C5C,7C0800
+fontBorderFile=preset\://borders/smb3_letter_border.png
+fontBorderInsetX=8
+fontBorderInsetY=8
+fontBorderScale=2
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/smb3_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=0
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
-colorForeground=000000
-colorBackground=FFFFFF
+fontType=FIXED_WIDTH
+group=Mario
+name=Super Mario Bros. 3 Letter

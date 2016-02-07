@@ -1,17 +1,19 @@
-fontCharSpacing=0
+colorBackground=F8F8F8
 colorBorder=000000
-fontType=FIXED_WIDTH
-fontGridWidth=8
-fontBorderInsetY=0
-fontBorderInsetX=0
-colorPalette=D02800,F0C830,90C828,0000F8,990099
-fontGridHeight=12
-fontBorderFile=preset\://borders/dw3gbc_border.png
-fontFile=preset\://fonts/dw3gbc_dialog_font.png
+colorForeground=000000
 colorHighlight=CCCC00
+colorPalette=D02800,F0C830,90C828,0000F8,990099
+fontBorderFile=preset\://borders/dw3gbc_border.png
+fontBorderInsetX=0
+fontBorderInsetY=0
+fontBorderScale=2
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/dw3gbc_dialog_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=0
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
-colorForeground=000000
-colorBackground=F8F8F8
+fontType=FIXED_WIDTH
+group=Dragon Warrior
+name=Dragon Warrior III (GBC)

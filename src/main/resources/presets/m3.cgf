@@ -1,18 +1,20 @@
-fontCharSpacing=1
+colorBackground=E0D0C8
 colorBorder=FFFFFF
-fontType=VARIABLE_WIDTH
-fontGridWidth=8
-fontBorderInsetY=4
-fontBorderInsetX=4
-colorPalette=F81070,F88000,30D0E0,30B870,B078E0,6058C0,FFD313
-fontGridHeight=12
-fontBorderFile=preset\://borders/m3_border.png
-fontFile=preset\://fonts/m3_font.png
+colorForeground=000000
 colorHighlight=10FF6B
+colorPalette=F81070,F88000,30D0E0,30B870,B078E0,6058C0,FFD313
+fontBorderFile=preset\://borders/m3_border.png
+fontBorderInsetX=4
+fontBorderInsetY=4
+fontBorderScale=2
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/m3_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=2
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
 fontSpaceWidth=25
-colorForeground=000000
-colorBackground=E0D0C8
+fontType=VARIABLE_WIDTH
+group=EarthBound
+name=Mother 3

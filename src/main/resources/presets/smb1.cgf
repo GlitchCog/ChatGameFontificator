@@ -1,17 +1,19 @@
-fontCharSpacing=1
+colorBackground=6888FC
 colorBorder=994E00
-fontType=FIXED_WIDTH
-fontGridWidth=8
-fontBorderInsetY=8
-fontBorderInsetX=8
-colorPalette=FF0000,6B6D00,008088,183C5C,004400,E46018
-fontGridHeight=12
-fontBorderFile=preset\://borders/smb1_brick_border.png
-fontFile=preset\://fonts/smb1_font.png
+colorForeground=FFFFFF
 colorHighlight=994E00
+colorPalette=FF0000,6B6D00,008088,183C5C,004400,E46018
+fontBorderFile=preset\://borders/smb1_brick_border.png
+fontBorderInsetX=8
+fontBorderInsetY=8
+fontBorderScale=2
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/smb1_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=2
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
-colorForeground=FFFFFF
-colorBackground=6888FC
+fontType=FIXED_WIDTH
+group=Mario
+name=Super Mario Bros.

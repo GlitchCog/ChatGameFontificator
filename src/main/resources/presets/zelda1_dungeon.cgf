@@ -1,17 +1,19 @@
-fontCharSpacing=0
+colorBackground=000000
 colorBorder=007C8D
-fontType=FIXED_WIDTH
-fontGridWidth=8
-fontBorderInsetY=8
-fontBorderInsetX=16
-colorPalette=98E800,F0BC3C,BCBCBC,FFFF66,66FFCC,FF99FF
-fontGridHeight=12
-fontBorderFile=preset\://borders/loz_dungeon_border.png
-fontFile=preset\://fonts/loz_font.png
+colorForeground=FFFFFF
 colorHighlight=D3D2FF
+colorPalette=98E800,F0BC3C,BCBCBC,FFFF66,66FFCC,FF99FF
+fontBorderFile=preset\://borders/loz_dungeon_border.png
+fontBorderInsetX=16
+fontBorderInsetY=8
+fontBorderScale=2
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/loz_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=2
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
-colorForeground=FFFFFF
-colorBackground=000000
+fontType=FIXED_WIDTH
+group=Zelda
+name=The Legend of Zelda Dungeon

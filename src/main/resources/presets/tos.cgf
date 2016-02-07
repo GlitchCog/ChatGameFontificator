@@ -1,18 +1,20 @@
-fontCharSpacing=1
-fontType=VARIABLE_WIDTH
-fontGridWidth=8
-fontBorderInsetY=0
-fontBorderInsetX=0
-fontGridHeight=12
+colorBackground=052341
+colorBorder=FFFFFF
+colorForeground=D6D6D6
+colorHighlight=6699FF
+colorPalette=F7977A,FDC68A,FFF79A,A2D39C,6ECFF6,A187BE,F6989D
 fontBorderFile=preset\://borders/tos_b_border.png
+fontBorderInsetX=0
+fontBorderInsetY=0
+fontBorderScale=1
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
 fontFile=preset\://fonts/tos_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=2
 fontScale=1
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=1
 fontSpaceWidth=25
-colorForeground=D6D6D6
-colorBackground=052341
-colorPalette=F7977A,FDC68A,FFF79A,A2D39C,6ECFF6,A187BE,F6989D
-colorBorder=FFFFFF
-colorHighlight=6699FF
+fontType=VARIABLE_WIDTH
+group=
+name=Tales of Symphonia

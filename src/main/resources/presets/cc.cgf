@@ -1,18 +1,20 @@
-fontCharSpacing=1
-fontType=VARIABLE_WIDTH
-fontGridWidth=8
-fontBorderInsetY=1
-fontBorderInsetX=1
-fontGridHeight=12
-fontBorderFile=preset\://borders/cc_border.png
-fontFile=preset\://fonts/cc_font.png
-fontLineSpacing=2
-fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
-fontSpaceWidth=25
-colorForeground=FFFFFF
 colorBackground=000000
 colorBorder=FFFFFF
+colorForeground=FFFFFF
 colorHighlight=18F3FF
 colorPalette=E7F323,FF2432,31C23F,6863B3,743042,DDD8C4
+fontBorderFile=preset\://borders/cc_border.png
+fontBorderInsetX=1
+fontBorderInsetY=1
+fontBorderScale=2
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/cc_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=2
+fontScale=2
+fontSpaceWidth=25
+fontType=VARIABLE_WIDTH
+group=Chrono
+name=Chrono Cross

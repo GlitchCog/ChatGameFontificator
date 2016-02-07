@@ -1,18 +1,20 @@
-fontCharSpacing=1
+colorBackground=FFFFFF
 colorBorder=66CCFF
-fontType=VARIABLE_WIDTH
-fontGridWidth=8
-fontBorderInsetY=-12
-fontBorderInsetX=8
-colorPalette=FFA000,E05000,50A000,5080FF,F769FF,4ACEDE
-fontGridHeight=12
-fontBorderFile=preset\://borders/pkmnfrlg_border.png
-fontFile=preset\://fonts/pkmnfrlg_font.png
+colorForeground=333333
 colorHighlight=990066
+colorPalette=FFA000,E05000,50A000,5080FF,F769FF,4ACEDE
+fontBorderFile=preset\://borders/pkmnfrlg_border.png
+fontBorderInsetX=8
+fontBorderInsetY=-12
+fontBorderScale=2
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/pkmnfrlg_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=2
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
 fontSpaceWidth=25
-colorForeground=333333
-colorBackground=FFFFFF
+fontType=VARIABLE_WIDTH
+group=Pokémon
+name=Pokémon Fire Red/Leaf Green

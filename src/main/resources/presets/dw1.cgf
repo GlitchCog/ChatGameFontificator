@@ -1,17 +1,19 @@
-fontCharSpacing=0
+colorBackground=000000
 colorBorder=FFFFFF
-fontType=FIXED_WIDTH
-fontGridWidth=8
-fontBorderInsetY=0
-fontBorderInsetX=0
-colorPalette=0070EC,80D010,E40058,8000F0,FCD8A8,B53120
-fontGridHeight=12
-fontBorderFile=preset\://borders/dw1_border.png
-fontFile=preset\://fonts/dw1_font.png
+colorForeground=FFFFFF
 colorHighlight=CCCC00
+colorPalette=0070EC,80D010,E40058,8000F0,FCD8A8,B53120
+fontBorderFile=preset\://borders/dw1_border.png
+fontBorderInsetX=0
+fontBorderInsetY=0
+fontBorderScale=2
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/dw1_font.png
+fontGridHeight=12
+fontGridWidth=8
 fontLineSpacing=0
 fontScale=2
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontBorderScale=2
-colorForeground=FFFFFF
-colorBackground=000000
+fontType=FIXED_WIDTH
+group=Dragon Warrior
+name=Dragon Warrior

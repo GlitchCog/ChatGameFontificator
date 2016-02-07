@@ -478,7 +478,7 @@ public class ControlWindow extends JDialog
         final String[] strMetroidZero = new String[] { "Metroid Zero Mission", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid_zm.cgf" };
         /* Presets Phantasy Star */
         final String[] strPhanStar1 = new String[] { "Phantasy Star", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ps1.cgf" };
-        final String[] strPhanStar2 = new String[] { "Phantasy Star 2", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ps2.cgf" };
+        final String[] strPhanStar2 = new String[] { "Phantasy Star II", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ps2.cgf" };
         /* Presets Pokemon */
         final String[] strPkmnRb = new String[] { "Pokemon Red/Blue", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrb.cgf" };
         final String[] strPkmnFrlg = new String[] { "Pokemon Fire Red/Leaf Green", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnfrlg.cgf" };
@@ -542,7 +542,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDq1_2[0], strDw3[0], strDw3Gbc[0], strDq3[0], strDw4[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
         presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy4[0], strFinalFantasy6[0], strFinalFantasy7[0] });
-        presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0], strMarioRpg[0] });
+        presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario1Underworld[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0], strMarioRpg[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strMetroid2[0], strSuperMetroid[0], strMetroidFusion[0], strMetroidZero[0] });
         presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
