@@ -66,8 +66,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Castlevania", "Castlevania 2 Title"), new DropdownFont("cv2_title_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownFont("cv3_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownFont("ct_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownFont("cad_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Crystalis", "Crystalis"), new DropdownFont("crystalis_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownFont("dw1_font.png", FontType.FIXED_WIDTH));
@@ -191,8 +191,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png"));
             put(new DropdownLabel("Castlevania", "Castlevania 2"), new DropdownBorder("cv2_border.png"));
             put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownBorder("cv3_border.png"));
-            put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
+            put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png"));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Hermit"), new DropdownBorder("cad_hermit_border.png"));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Shop"), new DropdownBorder("cad_shop_border.png"));
@@ -754,6 +754,9 @@ public class ControlPanelFont extends ControlPanelBase
         charSpacingSlider.setValue(config.getCharSpacing());
         fontTypeCheckbox.setSelected(FontType.VARIABLE_WIDTH.equals(config.getFontType()));
         spaceWidthSlider.setEnabled(fontTypeCheckbox.isSelected());
+        final boolean ecbSelected = extendedCharBox.isSelected();
+        unknownCharPopupButton.setEnabled(!ecbSelected);
+        unknownCharLabel.setEnabled(!ecbSelected);
 
         boolean found;
 
