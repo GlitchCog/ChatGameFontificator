@@ -59,6 +59,7 @@ public class ControlPanelFont extends ControlPanelBase
     private static final Map<DropdownLabel, DropdownFont> PRESET_FONT_FILE_MAP = new LinkedHashMap<DropdownLabel, DropdownFont>()
     {
         private static final long serialVersionUID = 1L;
+
         {
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon Name"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
@@ -132,6 +133,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownFont("rygar_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Shovel Knight", "Shovel Knight"), new DropdownFont("sk_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Simpsons", "Bart vs. the Space Mutants"), new DropdownFont("bart_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sega System"), new DropdownFont("sega_sys_font.png", FontType.FIXED_WIDTH));
@@ -185,6 +187,7 @@ public class ControlPanelFont extends ControlPanelBase
     private static final Map<DropdownLabel, DropdownBorder> PRESET_BORDER_FILE_MAP = new LinkedHashMap<DropdownLabel, DropdownBorder>()
     {
         private static final long serialVersionUID = 1L;
+
         {
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png"));
@@ -266,6 +269,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png"));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png"));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png"));
+            put(new DropdownLabel("Shovel Knight", "Shovel Knight"), new DropdownBorder("sk_border.png"));
             put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownBorder("staroc_border.png"));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png"));
             put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png"));
