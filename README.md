@@ -189,11 +189,12 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Pokemon Red/Blue
   - Pokemon Fire Red/Leaf Green
   - Secret of Evermore
-  - Shantae
-  - Star Ocean
-  - Solstice
   - Sega System
+  - Shantae
+  - Shovel Knight
+  - Solstice
   - Sonic Team
+  - Star Ocean
   - Suikoden
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
