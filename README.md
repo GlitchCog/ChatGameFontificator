@@ -200,6 +200,9 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tales of Symphonia
   - Tetris (GB and NES)
   - Wild Arms
+  - Ys (FC)
+  - Ys III (FC)
+  - Ys III (SNES)
   - The Legend of Zelda
   - The Legend of Zelda (Mixed Case)
   - Zelda II: The Adventures of Link

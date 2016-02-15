@@ -482,6 +482,10 @@ public class ControlWindow extends JDialog
         /* Presets Pokemon */
         final String[] strPkmnRb = new String[] { "Pokemon Red/Blue", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrb.cgf" };
         final String[] strPkmnFrlg = new String[] { "Pokemon Fire Red/Leaf Green", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnfrlg.cgf" };
+        /* Presets Ys */
+        final String[] strYs1fc = new String[] { "Ys (FC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ys1_fc.cgf" };
+        final String[] strYs3fc = new String[] { "Ys III (FC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ys3_fc.cgf" };
+        final String[] strYs3snes = new String[] { "Ys III (SNES)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ys3_snes.cgf" };
         /* Presets Zelda */
         final String[] strLozBush = new String[] { "The Legend of Zelda Bushes", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_bush.cgf" };
         final String[] strLozRock = new String[] { "The Legend of Zelda Moutains", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_rock.cgf" };
@@ -515,6 +519,7 @@ public class ControlWindow extends JDialog
             strMetroid, strMetroidBoss, strMetroid2, strSuperMetroid, strMetroidFusion, strMetroidZero, 
             strPhanStar1, strPhanStar2, 
             strPkmnRb, strPkmnFrlg, 
+            strYs1fc, strYs3fc, strYs3snes, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw,  
             strClash, strCrystalis, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strRiverCityRansom, strRygarNes, strSecretOfEvermore, strShantae, strShovel, strSuikoden, strTalesOfSymphonia
         };
@@ -547,6 +552,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strMetroid2[0], strSuperMetroid[0], strMetroidFusion[0], strMetroidZero[0] });
         presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
+        presetMapSubmenuToItem.put("Ys", new String[] { strYs1fc[0], strYs3fc[0], strYs3snes[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0] });
         presetMapSubmenuToItem.put(null, new String[] { strClash[0], strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strRiverCityRansom[0], strRygarNes[0], strSecretOfEvermore[0], strShantae[0], strShovel[0], strSuikoden[0], strTalesOfSymphonia[0] });
 

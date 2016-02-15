@@ -1,0 +1,19 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=EA9E22
+colorPalette=F7977A,FDC68A,FFF79A,A2D39C,6ECFF6,A187BE,F6989D
+fontBorderFile=preset\://borders/ys1_fc_dialog_border.png
+fontBorderInsetX=16
+fontBorderInsetY=0
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/ys1_fc_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=8
+fontScale=2.0
+fontType=FIXED_WIDTH
+group=Ys
+name=Ys (FC)
