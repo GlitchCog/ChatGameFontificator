@@ -146,8 +146,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownFont("wildarms_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Ys", "Ys (NES)"), new DropdownFont("ys1_nes_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Ys", "Ys III (NES)"), new DropdownFont("ys3_nes_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Ys", "Ys (NES)"), new DropdownFont("ys1_fc_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Ys", "Ys III (NES)"), new DropdownFont("ys3_fc_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ys", "Ys III (SNES)"), new DropdownFont("ys3_snes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda"), new DropdownFont("loz_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda (Mixed Case)"), new DropdownFont("loz_lowercase_font.png", FontType.FIXED_WIDTH));
