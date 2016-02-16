@@ -507,7 +507,7 @@ public class Message
         for (int w = 0; w < words.length; w++)
         {
             EmoteAndIndices eai = emotes.get(charIndex);
-            if (eai != null)
+            if (eai != null && emojiConfig.isTwitchEnabled())
             {
                 // This catches subscriber emotes and any non-global emotes
                 emoji = emojiManager.getEmojiById(eai.getEmoteId(), words[w], emojiConfig);

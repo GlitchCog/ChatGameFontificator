@@ -196,10 +196,10 @@ public class EmojiManager
      */
     public LazyLoadEmoji[] getEmojiById(Integer emojiId, String word, ConfigEmoji emojiConfig)
     {
-        if (emojiConfig != null && emojiConfig.isFfzEnabled() && FFZ_REPLACEMENT_EMOTE_URLS.keySet().contains(emojiId))
+        if (emojiConfig != null && emojiConfig.isTwitchEnabled() && emojiConfig.isFfzEnabled() && FFZ_REPLACEMENT_EMOTE_URLS.keySet().contains(emojiId))
         {
             TypedEmojiMap tem = preloadedEmoji.get(EmojiType.FRANKERFACEZ_REPLACEMENT);
-            LazyLoadEmoji[] emoji = tem.getEmoji(getFfzReplacementKey(emojiId));
+            LazyLoadEmoji[] emoji = tem.getEmoji(getFfzReplacementKey(emojiId), emojiConfig);
             if (emoji == null)
             {
                 try
@@ -221,9 +221,13 @@ public class EmojiManager
                 return emoji;
             }
         }
-        else
+        else if (emojiConfig.isTwitchEnabled())
         {
             return emojiById.get(Integer.toString(emojiId));
+        }
+        else
+        {
+            return null;
         }
     }
 
