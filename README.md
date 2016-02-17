@@ -157,8 +157,6 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Golden Sun
   - Golden Sun (Battle)
   - Harvest Moon: Friends of Mineral Town
-  - River City Ransom
-  - Rygar (NES)
   - The Lost Vikings
   - Super Mario Bros.
   - Super Mario Bros. 2
@@ -188,6 +186,10 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Phantasy Star 2
   - Pokemon Red/Blue
   - Pokemon Fire Red/Leaf Green
+  - River City Ransom
+  - Robotech
+  - Robotech (Battle)
+  - Rygar (NES)
   - Secret of Evermore
   - Sega System
   - Shantae
@@ -198,7 +200,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Suikoden
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
-  - Tetris (GB and NES)
+  - Tetris (GB)
+  - Tetris (NES)
   - Wild Arms
   - Ys (FC)
   - Ys III (FC)
