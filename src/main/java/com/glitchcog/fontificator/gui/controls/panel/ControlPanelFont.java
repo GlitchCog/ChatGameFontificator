@@ -130,8 +130,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownFont("ps2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
-            put(new DropdownLabel("Robotech", "Robotech"), new DropdownFont("robotech_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Robotech", "Robotech (Battle)"), new DropdownFont("robotech_battle_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownFont("robotrek_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownFont("robotrek_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownFont("rygar_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
@@ -272,8 +272,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownBorder("ps2_border.png"));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownBorder("pkmnrb_border.png"));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png"));
-            put(new DropdownLabel("Robotech", "Robotech"), new DropdownBorder("robotech_border.png"));
-            put(new DropdownLabel("Robotech", "Robotech (Battle)"), new DropdownBorder("robotech_battle_border.png"));
+            put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownBorder("robotrek_border.png"));
+            put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownBorder("robotrek_battle_border.png"));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png"));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png"));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png"));

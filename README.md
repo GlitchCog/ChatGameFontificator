@@ -187,8 +187,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Pokemon Red/Blue
   - Pokemon Fire Red/Leaf Green
   - River City Ransom
-  - Robotech
-  - Robotech (Battle)
+  - Robotrek
+  - Robotrek (Battle)
   - Rygar (NES)
   - Secret of Evermore
   - Sega System
