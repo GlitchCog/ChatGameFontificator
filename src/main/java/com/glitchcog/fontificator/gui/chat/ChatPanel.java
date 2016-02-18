@@ -515,15 +515,6 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Used to fix scrolling on a resize if the chat is starting from the top of the window
-     */
-    public void refreshScrollOffset()
-    {
-        // Increment it zero lines just to enforce the min/max boundaries on a resize
-        incrementScrollOffset(false, 0);
-    }
-
-    /**
      * Refresh the scroll offset in case of resize (only needed when chat starts at top)
      * 
      * @param positiveDirection

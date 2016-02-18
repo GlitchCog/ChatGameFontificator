@@ -106,6 +106,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Bros. 3"), new DropdownFont("smb3_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD"), new DropdownFont("smb3_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3 HUD (Mixed Case)"), new DropdownFont("smb3_hud_lowercase_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mario", "Super Mario Land"), new DropdownFont("sml_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World"), new DropdownFont("smw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Dr. Mario"), new DropdownFont("drmario_font.png", FontType.FIXED_WIDTH));
@@ -147,6 +148,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Wario", "Wario Land 4 (Dark)"), new DropdownFont("wl4_dark_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Wario", "Wario Land 4 (Light)"), new DropdownFont("wl4_light_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownFont("wildarms_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownFont("willow_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ys", "Ys (NES)"), new DropdownFont("ys1_fc_font.png", FontType.FIXED_WIDTH));
@@ -286,6 +289,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png"));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png"));
             put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png"));
+            put(new DropdownLabel("Wario", "Wario Land 4"), new DropdownBorder("wl4_border.png"));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png"));
             put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownBorder("willow_nes_border.png"));
             put(new DropdownLabel("Ys", "Ys Dialog (FC)"), new DropdownBorder("ys1_fc_dialog_border.png"));

@@ -93,11 +93,6 @@ public class ControlPanelChat extends ControlPanelBase
                 config.setWidth(w);
                 config.setHeight(h);
                 updateSizeButton.setEnabled(false);
-                if (!config.isChatFromBottom())
-                {
-                    // Need to deal with scroll offset to avoid getting stuck out of bounds when chat starts at the top if the available space was full
-                    chat.refreshScrollOffset();
-                }
             }
 
             @Override

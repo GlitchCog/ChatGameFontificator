@@ -163,6 +163,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Mario Bros. 3
   - Super Mario Bros. 3 HUD
   - Super Mario Bros. 3 HUD (Mixed Case)
+  - Super Mario Land
   - Super Mario World
   - Super Mario World 2: Yoshi's Island
   - Mario is Missing
@@ -202,7 +203,10 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tales of Symphonia
   - Tetris (GB)
   - Tetris (NES)
+  - Wario Land 4 (Dark)
+  - Wario Land 4 (Light)
   - Wild Arms
+  - Willow (NES)
   - Ys (FC)
   - Ys III (FC)
   - Ys III (SNES)
