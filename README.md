@@ -59,7 +59,7 @@ Yes, I stream, although I haven't for a long time because I was spending my free
 
 * How did you choose these games? What about this other game?
 
-The selection of games is informed by what I like and want to stream myself, what I could find images of fonts for, and the random whims of my OCD while putting the font sprite sheets together. I'll likely keep adding more in the future.
+The selection of games is informed by what I like and want to stream myself, what I could find images of fonts for, and the random whims of my OCD while putting the font sprite sheets together. I'll likely keep adding more in the future. Please feel free to message me on Twitch if you'd like to request a game for a future update, and I'll see if I can make it happen.
 
 * What's the difference between these two fonts?
 
@@ -92,6 +92,24 @@ First, make sure messages are actually being posted to the chat. Only messages p
   -The message speed is too slow for the number of messages flooding into the channel, which in turn empties out the full message queue faster than any messages can be displayed. Increase the message speed and the queue size. Also consider opting to forgo including join messages.
 
   -All the messages you're posting are in violation of your message censorship rules. The easiest way to check this is to disable all censorship in the Message menu, Message Management popup.
+
+* Can I use the Fontificator with non-Twitch IRC channels?
+
+Yes, just change the host on the Connection tab to a different server. Twitch-specific features like emotes won't work though.
+
+* Are there any known bugs?
+
+Yes there are. Here is a list of them with some additional information:
+
+  - When anti-aliasing is turned on, it leaves little flecks all over the chat window. Anti-aliasing is applied to the whole sheet of characters and components of the border, so if there are pixels from a character adjacent to another cell of the grid, the anti-aliasing bleeds a little over into that next cell. This bug affects any fonts that don't have at least a single pixel buffer of space around their letters. Unfortunately, if anti-aliasing is applied to each character individually as the image is drawn, the program runs very slowly. One possible solution would be to cache these individually anti-aliased characters, but that might be a little messy to implement. I won't resort to that until I've attempted to fix it some other way, perhaps drawing each layer (background, border, and text) aliased separately, and then applying the anti-aliasing to the combination of just those three images.
+
+  - A message consisting of a single period will not show up in the chat program. I'm not sure why this happens. The message appears to never be received by the program. It might be on Twitch's end, or in the PircBot IRC library this program uses.
+
+  - If your resolution is too low, the list of fonts or borders might go off the bottom of your screen. As a workaround, you can use the arrow keys to select fonts, although you won't be able to see which font you've arrowed down to until you press enter to select it. I'm working on a different GUI mechanism for selecting fonts... some sort of text input where you can type the name of a game or console to filter the list. 
+
+  - In some rare unknown circumstance (possibly related to changing the rate at which messages are drawn?) the framerate can drop, making the message roll-out look choppy. Typically restarting will fix this.
+
+  - Messages from massively popular streams like GamesDoneQuick don't show up in the chat window. I suspect Twitch uses a different protocol for massively populated streams, but I'm not sure. GamesDoneQuick is the only channel I've seen this happen with. 
 
 * How do I use a custom font?
 
@@ -130,6 +148,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Chrono Trigger
   - Clash at Demonhead
   - Crystalis
+  - Donkey Kong Country
   - Dr. Mario
   - Dragon Warrior
   - Dragon Warrior II

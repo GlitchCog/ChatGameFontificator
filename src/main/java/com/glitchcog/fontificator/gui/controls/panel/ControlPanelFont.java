@@ -71,6 +71,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownFont("cad_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Crystalis", "Crystalis"), new DropdownFont("crystalis_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Donkey Kong", "Donkey Kong"), new DropdownFont("dkc_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Donkey Kong", "Donkey Kong Banana"), new DropdownFont("dkc_banana_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Donkey Kong", "Donkey Kong KONG"), new DropdownFont("dkc_kong_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownFont("dw1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownFont("dw2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II (SFC)"), new DropdownFont("dq1_2_sfc_font.png", FontType.VARIABLE_WIDTH));
