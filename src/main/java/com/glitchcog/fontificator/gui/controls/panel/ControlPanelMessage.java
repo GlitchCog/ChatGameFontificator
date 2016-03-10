@@ -24,6 +24,7 @@ import javax.swing.event.DocumentListener;
 import com.glitchcog.fontificator.bot.ChatViewerBot;
 import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.FontificatorProperties;
+import com.glitchcog.fontificator.config.MessageCasing;
 import com.glitchcog.fontificator.config.UsernameCaseResolutionType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
@@ -100,6 +101,11 @@ public class ControlPanelMessage extends ControlPanelBase
     private JCheckBox specifyCaseBox;
 
     /**
+     * Dropdown menu to specify the choices for enforcing upper or lower case on the entire message
+     */
+    private JComboBox<MessageCasing> messageCasingDropdown;
+
+    /**
      * Construct a message control panel
      * 
      * @param fProps
@@ -143,6 +149,7 @@ public class ControlPanelMessage extends ControlPanelBase
         };
         caseTypeDropdown = new JComboBox<UsernameCaseResolutionType>(UsernameCaseResolutionType.values());
         specifyCaseBox = new JCheckBox("Permit users to specify their own username case in posts");
+        messageCasingDropdown = new JComboBox<MessageCasing>(MessageCasing.values());
 
         DocumentListener docListener = new DocumentListener()
         {
@@ -179,6 +186,16 @@ public class ControlPanelMessage extends ControlPanelBase
                 {
                     chatWindow.clearUsernameCases();
                 }
+            }
+        });
+
+        messageCasingDropdown.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                config.setMessageCasing((MessageCasing) messageCasingDropdown.getSelectedItem());
+                chat.repaint();
             }
         });
 
@@ -320,7 +337,15 @@ public class ControlPanelMessage extends ControlPanelBase
         usernameOptions.add(caseTypeDropdown);
         usernameOptions.add(specifyCaseBox);
 
+        JPanel casingOptions = new JPanel();
+        casingOptions.setBorder(new TitledBorder(baseBorder, "Message Casing Options", TitledBorder.CENTER, TitledBorder.TOP));
+        casingOptions.add(new JLabel("Force uppercase or lowercase: "));
+        casingOptions.add(messageCasingDropdown);
+
         add(usernameOptions, gbc);
+        gbc.gridy++;
+
+        add(casingOptions, gbc);
         gbc.gridy++;
 
         // Filler panel
@@ -373,6 +398,7 @@ public class ControlPanelMessage extends ControlPanelBase
         messageSpeedSlider.setValue(config.getMessageSpeed());
         caseTypeDropdown.setSelectedItem(config.getCaseResolutionType());
         specifyCaseBox.setSelected(config.isSpecifyCaseAllowed());
+        messageCasingDropdown.setSelectedItem(config.getMessageCasing());
     }
 
     @Override
@@ -395,6 +421,7 @@ public class ControlPanelMessage extends ControlPanelBase
         config.setMessageSpeed(messageSpeedSlider.getValue(), chat.getMessageProgressor());
         config.setCaseResolutionType((UsernameCaseResolutionType) caseTypeDropdown.getSelectedItem());
         config.setSpecifyCaseAllowed(specifyCaseBox.isSelected());
+        config.setMessageCasing((MessageCasing) messageCasingDropdown.getSelectedItem());
     }
 
 }

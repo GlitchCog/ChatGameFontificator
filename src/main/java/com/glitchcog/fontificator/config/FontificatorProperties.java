@@ -24,7 +24,8 @@ import com.glitchcog.fontificator.gui.controls.ControlWindow;
 import com.glitchcog.fontificator.sprite.SpriteFont;
 
 /**
- * Contains all the properties for configuring the font display. They are divided into member Config variables whose reference is shared by the ControlPanels and ChatPanel:
+ * Contains all the properties for configuring the font display. They are divided into member Config variables whose
+ * reference is shared by the ControlPanels and ChatPanel:
  * <ul>
  * <li>ConfigIrc</li>
  * <li>ConfigFont</li>
@@ -52,7 +53,8 @@ public class FontificatorProperties extends Properties
     private final static String ENC_PASSWORD = "Eastmost penninsula is the secret.";
 
     /**
-     * The name of the file that holds the location of the last file saved or loaded by a user, to be used when the program starts to automatically load the previously used configuration
+     * The name of the file that holds the location of the last file saved or loaded by a user, to be used when the
+     * program starts to automatically load the previously used configuration
      */
     private static final String CONFIG_FILE_LAST_LOCATION = ".fontificator.conf";
 
@@ -124,8 +126,9 @@ public class FontificatorProperties extends Properties
     public static final String KEY_MESSAGE_SPEED = "messageSpeed";
     public static final String KEY_MESSAGE_CASE_TYPE = "messageUserCase";
     public static final String KEY_MESSAGE_CASE_SPECIFY = "messageUserCaseSpecify";
+    public static final String KEY_MESSAGE_CASING = "messageCasing";
 
-    public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY };
+    public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY, KEY_MESSAGE_CASING };
 
     public static final String KEY_EMOJI_ENABLED = "emojiEnabled";
     public static final String KEY_EMOJI_BADGES = "badgesEnabled";
@@ -253,7 +256,8 @@ public class FontificatorProperties extends Properties
     }
 
     /**
-     * Load configuration from the file indicated by the specified filename, or a preset file contained in the classpath resource directory
+     * Load configuration from the file indicated by the specified filename, or a preset file contained in the classpath
+     * resource directory
      * 
      * @param filename
      * @return report
@@ -384,7 +388,8 @@ public class FontificatorProperties extends Properties
     }
 
     /**
-     * Delete the last config file location conf file that stored the path to a configuration file. To be used to remove a file that is not found or has errors.
+     * Delete the last config file location conf file that stored the path to a configuration file. To be used to remove
+     * a file that is not found or has errors.
      */
     public void forgetLastConfigFile()
     {
@@ -587,6 +592,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_MESSAGE_SPEED, Integer.toString((int) (ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)), override);
         setPropertyOverride(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.NONE.name(), override);
         setPropertyOverride(KEY_MESSAGE_CASE_SPECIFY, falseString, override);
+        setPropertyOverride(KEY_MESSAGE_CASING, MessageCasing.MIXED_CASE.name(), override);
 
         setPropertyOverride(KEY_EMOJI_ENABLED, trueString, override);
         setPropertyOverride(KEY_EMOJI_BADGES, trueString, override);

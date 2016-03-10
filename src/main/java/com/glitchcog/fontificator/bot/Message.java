@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.config.ConfigMessage;
+import com.glitchcog.fontificator.config.MessageCasing;
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
@@ -26,12 +27,14 @@ public class Message
     private static final Logger logger = Logger.getLogger(Message.class);
 
     /**
-     * A regex for checking for emoji keys in the text. Used in a String.split to divide the message into an array of words and the spaces between them.
+     * A regex for checking for emoji keys in the text. Used in a String.split to divide the message into an array of
+     * words and the spaces between them.
      */
     public static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
 
     /**
-     * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored in the ChatViewerBot, so it is possible to update that object and see the effects on this message
+     * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored
+     * in the ChatViewerBot, so it is possible to update that object and see the effects on this message
      */
     private final TwitchPrivmsg privmsg;
 
@@ -71,13 +74,15 @@ public class Message
     private final MessageType type;
 
     /**
-     * The number of badges to draw, to keep track of the position of the username, which is used for coloring. This value is calculated when the text is parsed into SpriteCharacterKeys and will be zero if badges are switched off.
+     * The number of badges to draw, to keep track of the position of the username, which is used for coloring. This
+     * value is calculated when the text is parsed into SpriteCharacterKeys and will be zero if badges are switched off.
      */
     private int badgeCount;
 
     /**
-     * Whether the message is completely drawn or not. Because the fully displayed message can change, like if the option to show the time stamp is selected on the fly, once any configuration of the message is fully displayed, it should
-     * remain fully displayed, even though the draw cursor won't be at the end of the now longer message text
+     * Whether the message is completely drawn or not. Because the fully displayed message can change, like if the
+     * option to show the time stamp is selected on the fly, once any configuration of the message is fully displayed,
+     * it should remain fully displayed, even though the draw cursor won't be at the end of the now longer message text
      */
     private boolean completelyDrawn;
 
@@ -92,7 +97,8 @@ public class Message
     private static final String TIMESTAMP_USERNAME_SPACER = " ";
 
     /**
-     * The maximum possible value of an int cast into a float, used to max out the character count if the message speed is maxed out
+     * The maximum possible value of an int cast into a float, used to max out the character count if the message speed
+     * is maxed out
      */
     private static final float MAX_INT_AS_FLOAT = (float) Integer.MAX_VALUE;
 
@@ -102,12 +108,14 @@ public class Message
     private float drawCursor;
 
     /**
-     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check using ConfigMessage.equals), then there's no need to re-parse it
+     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check
+     * using ConfigMessage.equals), then there's no need to re-parse it
      */
     private ConfigMessage lastMessageConfig;
 
     /**
-     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check using ConfigEmoji.equals), then there's no need to re-parse it
+     * Keep track of the configuration the last time this message was parsed, so if no configuration has changed (check
+     * using ConfigEmoji.equals), then there's no need to re-parse it
      */
     private ConfigEmoji lastEmojiConfig;
 
@@ -185,7 +193,8 @@ public class Message
     }
 
     /**
-     * Increment the draw cursor based on the message text as defined by the specified messageConfig and its message speed setting
+     * Increment the draw cursor based on the message text as defined by the specified messageConfig and its message
+     * speed setting
      * 
      * @param messageConfig
      * @param emojiConfig
@@ -360,7 +369,8 @@ public class Message
     }
 
     /**
-     * Compile the array of SpriteCharacterKeys using the specified configuration. This can be a bit memory intensive since each character is a new albeit small object, so this should not be done many times a second, rather only if
+     * Compile the array of SpriteCharacterKeys using the specified configuration. This can be a bit memory intensive
+     * since each character is a new albeit small object, so this should not be done many times a second, rather only if
      * something has changed in the configuration to warrant a re-translation.
      * 
      * @param emojiManager
@@ -374,7 +384,8 @@ public class Message
 
         if (messageConfig.showTimestamps())
         {
-            final String timeStampStr = messageConfig.getTimerFormatter().format(timestamp);
+            String timeStampStr = messageConfig.getTimerFormatter().format(timestamp);
+            timeStampStr = applyCasing(timeStampStr, messageConfig.getMessageCasing());
             for (int c = 0; c < timeStampStr.length(); c++)
             {
                 keyList.add(new SpriteCharacterKey(timeStampStr.charAt(c)));
@@ -425,9 +436,10 @@ public class Message
                     keyList.add(new SpriteCharacterKey(TIMESTAMP_USERNAME_SPACER.charAt(c)));
                 }
             }
-            for (int c = 0; c < username.length(); c++)
+            String casedUsername = applyCasing(username, messageConfig.getMessageCasing());
+            for (int c = 0; c < casedUsername.length(); c++)
             {
-                keyList.add(new SpriteCharacterKey(username.charAt(c)));
+                keyList.add(new SpriteCharacterKey(casedUsername.charAt(c)));
             }
         }
         if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isBadgesEnabled() && badgeCount > 0))
@@ -441,14 +453,15 @@ public class Message
         // Parse out the emoji, if enabled
         if (emojiConfig.isEmojiEnabled())
         {
-            processEmoji(content, privmsg, keyList, emojiManager, emojiConfig, MessageType.MANUAL.equals(type));
+            processEmoji(content, privmsg, keyList, emojiManager, emojiConfig, MessageType.MANUAL.equals(type), messageConfig.getMessageCasing());
         }
         // Configured for no emoji, so just chars
         else
         {
-            for (int c = 0; c < content.length(); c++)
+            String casedContent = applyCasing(content, messageConfig.getMessageCasing());
+            for (int c = 0; c < casedContent.length(); c++)
             {
-                keyList.add(new SpriteCharacterKey(content.charAt(c)));
+                keyList.add(new SpriteCharacterKey(casedContent.charAt(c)));
             }
         }
 
@@ -485,7 +498,8 @@ public class Message
     }
 
     /**
-     * Convert the content of the message into the appropriate emoji. Add those emoji and the remaining characters between them to the specified keyList array.
+     * Convert the content of the message into the appropriate emoji. Add those emoji and the remaining characters
+     * between them to the specified keyList array.
      * 
      * @param content
      * @param privmsg
@@ -495,7 +509,7 @@ public class Message
      * @param emojiConfig
      * @param isManualMessage
      */
-    private static void processEmoji(String content, TwitchPrivmsg privmsg, List<SpriteCharacterKey> keyList, EmojiManager emojiManager, ConfigEmoji emojiConfig, boolean isManualMessage)
+    private static void processEmoji(String content, TwitchPrivmsg privmsg, List<SpriteCharacterKey> keyList, EmojiManager emojiManager, ConfigEmoji emojiConfig, boolean isManualMessage, MessageCasing casing)
     {
         Map<Integer, EmoteAndIndices> emotes = privmsg.getEmotes();
 
@@ -544,10 +558,11 @@ public class Message
 
             if (emoji == null)
             {
+                String casedWord = applyCasing(words[w], casing);
                 // Done checking for all sorts of emoji types, so it's just a word. Set the characters.
-                for (int c = 0; c < words[w].length(); c++)
+                for (int c = 0; c < casedWord.length(); c++)
                 {
-                    keyList.add(new SpriteCharacterKey(words[w].charAt(c)));
+                    keyList.add(new SpriteCharacterKey(casedWord.charAt(c)));
                 }
             }
             else
@@ -609,5 +624,24 @@ public class Message
     public TwitchPrivmsg getPrivmsg()
     {
         return privmsg;
+    }
+
+    private static String applyCasing(String str, MessageCasing casing)
+    {
+        if (casing == null)
+        {
+            return null;
+        }
+
+        switch (casing)
+        {
+        case LOWERCASE:
+            return str.toLowerCase();
+        case UPPERCASE:
+            return str.toUpperCase();
+        case MIXED_CASE:
+        default:
+            return str;
+        }
     }
 }

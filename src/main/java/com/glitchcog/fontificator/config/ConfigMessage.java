@@ -76,6 +76,11 @@ public class ConfigMessage extends Config
      */
     private Boolean specifyCaseAllowed;
 
+    /**
+     * Whether to leave casing alone in the message, or force all alphabetic characters to uppercase or lowercase
+     */
+    private MessageCasing messageCasing;
+
     @Override
     public void reset()
     {
@@ -87,6 +92,7 @@ public class ConfigMessage extends Config
         this.messageSpeed = null;
         this.caseResolutionType = null;
         this.specifyCaseAllowed = null;
+        this.messageCasing = null;
     }
 
     public LoadConfigReport validateTimeFormat(LoadConfigReport report, String timeFormatStr)
@@ -113,18 +119,23 @@ public class ConfigMessage extends Config
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport reoprt, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool, String msgCasingStr)
     {
-        validateStrings(reoprt, timeFormatStr, queueSizeStr, messageSpeedStr);
+        validateStrings(report, timeFormatStr, queueSizeStr, messageSpeedStr);
 
-        validateBooleanStrings(reoprt, joinBool, userBool, timestampBool, specifyCaseBool);
+        validateBooleanStrings(report, joinBool, userBool, timestampBool, specifyCaseBool);
 
         if (!UsernameCaseResolutionType.contains(caseTypeStr))
         {
-            reoprt.addError("Value of key \"" + FontificatorProperties.KEY_MESSAGE_CASE_TYPE + "\" is invalid.", LoadConfigErrorType.PARSE_ERROR_ENUM);
+            report.addError("Value of key \"" + FontificatorProperties.KEY_MESSAGE_CASE_TYPE + "\" is invalid.", LoadConfigErrorType.PARSE_ERROR_ENUM);
         }
 
-        return reoprt;
+        if (!MessageCasing.contains(msgCasingStr))
+        {
+            report.addError("Value of key \"" + FontificatorProperties.KEY_MESSAGE_CASING + "\" is invalid.", LoadConfigErrorType.PARSE_ERROR_ENUM);
+        }
+
+        return report;
     }
 
     @Override
@@ -148,7 +159,8 @@ public class ConfigMessage extends Config
             final String userBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_USERNAME);
             final String timestampBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_TIMESTAMP);
             final String specifyCaseBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY);
-            validateStrings(report, tfString, quSizeStr, msgSpeedStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool);
+            final String msgCaseStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_CASING);
+            validateStrings(report, tfString, quSizeStr, msgSpeedStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool, msgCaseStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -161,6 +173,7 @@ public class ConfigMessage extends Config
                 this.messageSpeed = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_SPEED, report);
                 this.caseResolutionType = UsernameCaseResolutionType.valueOf(caseTpStr);
                 this.specifyCaseAllowed = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY, report);
+                this.messageCasing = MessageCasing.valueOf(msgCaseStr);
             }
         }
 
@@ -296,6 +309,17 @@ public class ConfigMessage extends Config
         props.setProperty(FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY, Boolean.toString(specifyCaseAllowed));
     }
 
+    public MessageCasing getMessageCasing()
+    {
+        return messageCasing;
+    }
+
+    public void setMessageCasing(MessageCasing messageCasing)
+    {
+        this.messageCasing = messageCasing;
+        props.setProperty(FontificatorProperties.KEY_MESSAGE_CASING, messageCasing.name());
+    }
+
     @Override
     public int hashCode()
     {
@@ -305,6 +329,7 @@ public class ConfigMessage extends Config
         result = prime * result + ((timeFormat == null) ? 0 : timeFormat.hashCode());
         result = prime * result + ((timestamps == null) ? 0 : timestamps.hashCode());
         result = prime * result + ((usernames == null) ? 0 : usernames.hashCode());
+        result = prime * result + ((messageCasing == null) ? 0 : messageCasing.hashCode());
         return result;
     }
 
@@ -318,6 +343,8 @@ public class ConfigMessage extends Config
         if (getClass() != obj.getClass())
             return false;
         ConfigMessage other = (ConfigMessage) obj;
+        if (messageCasing != other.messageCasing)
+            return false;
         if (joinMessages == null)
         {
             if (other.joinMessages != null)
@@ -361,6 +388,7 @@ public class ConfigMessage extends Config
         this.timeFormat = copy.timeFormat;
         this.timestamps = copy.timestamps;
         this.usernames = copy.usernames;
+        this.messageCasing = copy.messageCasing;
     }
 
 }
