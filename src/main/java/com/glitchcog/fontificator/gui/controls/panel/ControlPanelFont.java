@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.gui.controls.panel;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -52,9 +53,14 @@ public class ControlPanelFont extends ControlPanelBase
     private static final long serialVersionUID = 1L;
 
     /**
-     * Text of the selection option in the font and border preset dropdown menus to prompt the user to specify her own file
+     * Text of the selection option in the font and border preset dropdown menus to prompt the user to specify her own
+     * file
      */
     private final static DropdownLabel CUSTOM_KEY = new DropdownLabel(null, "Custom...");
+
+    private static final Color SCALE_EVEN = Color.BLACK;
+
+    private static final Color SCALE_UNEVEN = new Color(0x661033);
 
     private static final Map<DropdownLabel, DropdownFont> PRESET_FONT_FILE_MAP = new LinkedHashMap<DropdownLabel, DropdownFont>()
     {
@@ -438,10 +444,12 @@ public class ControlPanelFont extends ControlPanelBase
                 if (fontScaleSlider.getSlider().equals(source))
                 {
                     config.setFontScale(fontScaleSlider.getScaledValue());
+                    fontScaleSlider.setValueTextColor(((int) config.getFontScale() == config.getFontScale()) ? SCALE_EVEN : SCALE_UNEVEN);
                 }
                 else if (borderScaleSlider.getSlider().equals(source))
                 {
                     config.setBorderScale(borderScaleSlider.getScaledValue());
+                    borderScaleSlider.setValueTextColor(((int) config.getBorderScale() == config.getBorderScale()) ? SCALE_EVEN : SCALE_UNEVEN);
                 }
                 else if (borderInsetXSlider.getSlider().equals(source))
                 {
@@ -692,7 +700,8 @@ public class ControlPanelFont extends ControlPanelBase
     }
 
     /**
-     * Turns a list of keys with a single pipe deliminating the parent menu from the menu item into a map that can be a parameter to create a ComboMenuBar
+     * Turns a list of keys with a single pipe deliminating the parent menu from the menu item into a map that can be a
+     * parameter to create a ComboMenuBar
      * 
      * @param keys
      * @return

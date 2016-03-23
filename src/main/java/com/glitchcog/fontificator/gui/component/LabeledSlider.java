@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.gui.component;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -167,5 +168,10 @@ public class LabeledSlider extends JPanel
     public JSlider getSlider()
     {
         return slider;
+    }
+
+    public void setValueTextColor(Color textColor)
+    {
+        unitLabel.setForeground(textColor);
     }
 }
