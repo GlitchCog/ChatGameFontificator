@@ -39,6 +39,8 @@ public class ControlPanelChat extends ControlPanelBase
 
     private JCheckBox scrollableBox;
 
+    private JCheckBox reverseScrollBox;
+
     private JCheckBox chatFromBottomBox;
 
     private LabeledInput widthInput;
@@ -111,14 +113,14 @@ public class ControlPanelChat extends ControlPanelBase
             }
         };
         this.chatWindow.addComponentListener(resizeListener);
-
     }
 
     @Override
     protected void build()
     {
         resizableBox = new JCheckBox("Resize Chat by Dragging");
-        scrollableBox = new JCheckBox("Scrollable Chat");
+        scrollableBox = new JCheckBox("Mouse Wheel Scrolls Chat");
+        reverseScrollBox = new JCheckBox("Reverse Chat Direction");
         chatFromBottomBox = new JCheckBox("Chat Starts from Bottom");
 
         widthInput = new LabeledInput("Width", 3);
@@ -145,7 +147,8 @@ public class ControlPanelChat extends ControlPanelBase
             }
 
             /**
-             * Something changed, so try to get the new width and height and set the updateSizeButton to enabled or disabled accordingly
+             * Something changed, so try to get the new width and height and set the updateSizeButton to enabled or
+             * disabled accordingly
              * 
              * @param e
              */
@@ -222,6 +225,10 @@ public class ControlPanelChat extends ControlPanelBase
                         chat.resetScrollOffset();
                     }
                 }
+                else if (reverseScrollBox.equals(source))
+                {
+                    config.setReverseScrolling(reverseScrollBox.isSelected());
+                }
                 else if (chatFromBottomBox.equals(source))
                 {
                     // Reset scrolling to avoid having to translate it between chat-start top/bottom styles
@@ -243,6 +250,7 @@ public class ControlPanelChat extends ControlPanelBase
 
         resizableBox.addActionListener(boxListener);
         scrollableBox.addActionListener(boxListener);
+        reverseScrollBox.addActionListener(boxListener);
         chatFromBottomBox.addActionListener(boxListener);
         chromaEnabledBox.addActionListener(boxListener);
         chromaInvertBox.addActionListener(boxListener);
@@ -334,12 +342,14 @@ public class ControlPanelChat extends ControlPanelBase
         dGbc.gridwidth = 2;
         chatDimPanel.add(updateSizeButton, dGbc);
         dGbc.gridy++;
+        chatDimPanel.add(resizableBox, dGbc);
+        dGbc.gridy++;
 
         GridBagConstraints coGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.VERTICAL, DEFAULT_INSETS, 0, 0);
         coGbc.anchor = GridBagConstraints.WEST;
-        chatOptionsPanel.add(resizableBox, coGbc);
-        coGbc.gridy++;
         chatOptionsPanel.add(scrollableBox, coGbc);
+        coGbc.gridy++;
+        chatOptionsPanel.add(reverseScrollBox, coGbc);
         coGbc.gridy++;
         chatOptionsPanel.add(chatFromBottomBox, coGbc);
         coGbc.gridy++;
@@ -459,6 +469,7 @@ public class ControlPanelChat extends ControlPanelBase
     {
         this.resizableBox.setSelected(config.isResizable());
         this.scrollableBox.setSelected(config.isScrollable());
+        this.reverseScrollBox.setSelected(config.isReverseScrolling());
         this.chatFromBottomBox.setSelected(config.isChatFromBottom());
         this.widthInput.setText(Integer.toString(config.getWidth()));
         this.heightInput.setText(Integer.toString(config.getHeight()));
@@ -499,6 +510,7 @@ public class ControlPanelChat extends ControlPanelBase
     {
         config.setResizable(resizableBox.isSelected());
         config.setScrollable(scrollableBox.isSelected());
+        config.setReverseScrolling(reverseScrollBox.isSelected());
         config.setChatFromBottom(chatFromBottomBox.isSelected());
         chatWindow.setAlwaysOnTop(config.isAlwaysOnTop());
         final int width = Integer.parseInt(widthInput.getText());

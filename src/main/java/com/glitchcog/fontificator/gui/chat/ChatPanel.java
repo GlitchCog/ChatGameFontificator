@@ -34,7 +34,8 @@ import com.glitchcog.fontificator.sprite.Sprite;
 import com.glitchcog.fontificator.sprite.SpriteFont;
 
 /**
- * This panel contains the entire visualization of the chat, so it handles all the drawing. It also handles scrolling through the chat.
+ * This panel contains the entire visualization of the chat, so it handles all the drawing. It also handles scrolling
+ * through the chat.
  * 
  * @author Matt Yanos
  */
@@ -52,7 +53,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private MessageCensorPanel censor;
 
     /**
-     * Contains the timed task and a reference to this chat to be used to progress rolling out new messages at the appropriate speed
+     * Contains the timed task and a reference to this chat to be used to progress rolling out new messages at the
+     * appropriate speed
      */
     private MessageProgressor messageProgressor;
 
@@ -62,7 +64,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private Sprite border;
 
     /**
-     * The number of lines for all the messages in the chat buffer. This is not the number of messages, but the number of lines the messages will take up once drawn.
+     * The number of lines for all the messages in the chat buffer. This is not the number of messages, but the number
+     * of lines the messages will take up once drawn.
      */
     private int lineCount;
 
@@ -77,7 +80,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private ConfigFont fontConfig;
 
     /**
-     * Configuration for the chat, meaning whether scrolling is enabled and whether and how to draw the chroma key border
+     * Configuration for the chat, meaning whether scrolling is enabled and whether and how to draw the chroma key
+     * border
      */
     private ConfigChat chatConfig;
 
@@ -87,7 +91,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private ConfigColor colorConfig;
 
     /**
-     * Configuration for how to draw the messages, what parts of the messages to display, the rate to display new messages, the format for the timestamps, and the queue size
+     * Configuration for how to draw the messages, what parts of the messages to display, the rate to display new
+     * messages, the format for the timestamps, and the queue size
      */
     private ConfigMessage messageConfig;
 
@@ -107,8 +112,9 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private SpriteFont font;
 
     /**
-     * This indicates whether the configuration has been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the configuration.
-     * Once it is set to true, it will remain true- it is only on the initial setup that configuration might be null
+     * This indicates whether the configuration has been loaded. Before this is true, no call to any methods that draw
+     * should be called because they all rely on the configuration. Once it is set to true, it will remain true- it is
+     * only on the initial setup that configuration might be null
      */
     private boolean loaded;
 
@@ -121,7 +127,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * Construct the ChatPanel, which contains the entire visualization of the chat
      * 
      * @param censor
-     *            The message popup dialog from the Control Window to be updated when a message is posted so the censor list is currenet
+     *            The message popup dialog from the Control Window to be updated when a message is posted so the censor
+     *            list is currenet
      * @throws IOException
      */
     public ChatPanel() throws IOException
@@ -136,8 +143,9 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Get whether the configuration and message dialog have been loaded. Before this is true, no call to any methods that draw should be called because they all rely on the
-     * configuration and the link to the message dialog to be updated so censorship rules can be assessed. Once it returns true, it will remain true- it is only on the initial
+     * Get whether the configuration and message dialog have been loaded. Before this is true, no call to any methods
+     * that draw should be called because they all rely on the configuration and the link to the message dialog to be
+     * updated so censorship rules can be assessed. Once it returns true, it will remain true- it is only on the initial
      * setup that configuration and the message dialog might be null.
      * 
      * @return loaded
@@ -148,7 +156,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Set the configuration references from the properties object. This method instantiates the font and border. Once this method is complete, loaded is set to true.
+     * Set the configuration references from the properties object. This method instantiates the font and border. Once
+     * this method is complete, loaded is set to true.
      * 
      * @param fProps
      *            The properties from which to get the configuration references
@@ -326,38 +335,72 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         // borderEdgeThickness is the y-inset on the top plus the height of the top part of the border
         final int borderEdgeThickness = offset.y + (border == null || fontConfig.getBorderScale() < ConfigFont.FONT_BORDER_SCALE_GRANULARITY ? 0 : border.getSpriteDrawHeight(fontConfig.getBorderScale())) + fontConfig.getBorderInsetY();
 
+        final int drawableVerticalRange = getHeight() - borderEdgeThickness * 2;
+
+        // Used for scrolling when chat scrolls normally and starts from the top, or when chat scrolls reverse and starts from the bottom
+        onScreenLineCount = drawableVerticalRange / lineHeight;
+
         // y is where the drawing begins
         int y;
         if (chatConfig.isChatFromBottom())
         {
-            y = getHeight() - totalHeight - borderEdgeThickness;
+            if (chatConfig.isReverseScrolling())
+            {
+                if (totalHeight > drawableVerticalRange)
+                {
+                    y = borderEdgeThickness;
+                }
+                else
+                {
+                    y = getHeight() - totalHeight - borderEdgeThickness;
+                }
+            }
+            else
+            {
+                y = getHeight() - totalHeight - borderEdgeThickness;
+            }
         }
         // else chat from top
         else
         {
-            final int drawableVerticalRange = getHeight() - borderEdgeThickness * 2;
-
-            // Used for scrolling when chat starts from the top
-            onScreenLineCount = drawableVerticalRange / lineHeight;
-
-            if (totalHeight > drawableVerticalRange)
+            if (chatConfig.isReverseScrolling())
             {
-                // Not all the messages fit in the given space range, so start drawing up out of bounds at a negative y. This uses just the top borderEdgeThickness's height, not both top and bottom
-                y = (getHeight() - borderEdgeThickness) - totalHeight;
+                y = borderEdgeThickness;
             }
-            // If the total height of all the messages is less than or equal to the total height
             else
             {
-                // Just set the y to start drawing to the borderEdgeThickness because it should be fixed to the top when there's enough room for everything
-                y = borderEdgeThickness;
+                if (totalHeight > drawableVerticalRange)
+                {
+                    // Not all the messages fit in the given space range, so start drawing up out of bounds at a negative y. This uses just the top borderEdgeThickness's height, not both top and bottom
+                    y = (getHeight() - borderEdgeThickness) - totalHeight;
+                }
+                // If the total height of all the messages is less than or equal to the total height
+                else
+                {
+                    // Just set the y to start drawing to the borderEdgeThickness because it should be fixed to the top when there's enough room for everything
+                    y = borderEdgeThickness;
+                }
             }
         }
 
-        // Draw each message in the drawMessages copy of the cache
-        for (Message msg : drawMessages)
+        final int botLimit;
+        if (chatConfig.isReverseScrolling() && totalHeight > drawableVerticalRange)
         {
+            botLimit = getHeight() - borderEdgeThickness - font.getLineHeightScaled();
+        }
+        else
+        {
+            botLimit = getHeight() - borderEdgeThickness;
+        }
+
+        // Draw each message in the drawMessages copy of the cache
+        for (int i = 0; i < drawMessages.size(); i++)
+        {
+            int msgIndex = chatConfig.isReverseScrolling() ? drawMessages.size() - i - 1 : i;
+            Message msg = drawMessages.get(msgIndex);
             Color col = getUsernameColor(colorConfig, msg);
-            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, getHeight() - borderEdgeThickness, lineWrapLength);
+            // The call to drawMessage in SpriteFont will determine whether to draw each character based on whether it is located at a position appropriate to be drawn on
+            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, botLimit, lineWrapLength);
             y += dim.getHeight();
         }
     }
@@ -560,7 +603,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     }
 
     /**
-     * Get the message cache. This is used by the timer task that resides in the MessageProgressor object to increment the drawing of the messages
+     * Get the message cache. This is used by the timer task that resides in the MessageProgressor object to increment
+     * the drawing of the messages
      * 
      * @return messages
      */

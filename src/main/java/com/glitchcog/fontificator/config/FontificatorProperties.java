@@ -92,6 +92,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_CHAT_HEIGHT = "chatHeight";
     public static final String KEY_CHAT_CHROMA_ENABLED = "chromaEnabled";
     public static final String KEY_CHAT_INVERT_CHROMA = "invertChroma";
+    public static final String KEY_CHAT_REVERSE_SCROLLING = "reverseScrolling";
     public static final String KEY_CHAT_CHROMA_LEFT = "chromaLeft";
     public static final String KEY_CHAT_CHROMA_TOP = "chromaTop";
     public static final String KEY_CHAT_CHROMA_RIGHT = "chromaRight";
@@ -100,7 +101,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_CHAT_ALWAYS_ON_TOP = "chatAlwaysOnTop";
     public static final String KEY_CHAT_ANTIALIAS = "chatAntialias";
 
-    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP, KEY_CHAT_ANTIALIAS };
+    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_REVERSE_SCROLLING, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP, KEY_CHAT_ANTIALIAS };
 
     public static final String KEY_COLOR_BG = "colorBackground";
     public static final String KEY_COLOR_FG = "colorForeground";
@@ -564,6 +565,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_CHAT_HEIGHT, Integer.toString(450), override);
         setPropertyOverride(KEY_CHAT_CHROMA_ENABLED, falseString, override);
         setPropertyOverride(KEY_CHAT_INVERT_CHROMA, falseString, override);
+        setPropertyOverride(KEY_CHAT_REVERSE_SCROLLING, falseString, override);
         setPropertyOverride(KEY_CHAT_CHROMA_LEFT, Integer.toString(10), override);
         setPropertyOverride(KEY_CHAT_CHROMA_TOP, Integer.toString(10), override);
         setPropertyOverride(KEY_CHAT_CHROMA_RIGHT, Integer.toString(10), override);
