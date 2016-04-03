@@ -120,7 +120,7 @@ public class ControlPanelChat extends ControlPanelBase
     {
         resizableBox = new JCheckBox("Resize Chat by Dragging");
         scrollableBox = new JCheckBox("Mouse Wheel Scrolls Chat");
-        reverseScrollBox = new JCheckBox("Reverse Chat Direction");
+        reverseScrollBox = new JCheckBox("Reverse Chat Order");
         chatFromBottomBox = new JCheckBox("Chat Starts from Bottom");
 
         widthInput = new LabeledInput("Width", 3);
