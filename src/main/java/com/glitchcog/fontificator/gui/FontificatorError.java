@@ -25,7 +25,7 @@ public class FontificatorError
 
     public void handleProblem(String description)
     {
-        handleProblem(description, (Throwable)null);
+        handleProblem(description, (Throwable) null);
     }
 
     public void handleProblem(LoadConfigReport report)
@@ -53,7 +53,7 @@ public class FontificatorError
         {
             allErrors += er + "<br />";
             eCount++;
-            if (eCount > MAX_ERRORS_TO_DISPLAY)
+            if (eCount > MAX_ERRORS_TO_DISPLAY && errors.size() - eCount > 0)
             {
                 final int remaining = errors.size() - eCount;
                 allErrors += "and " + remaining + " other error" + (remaining == 1 ? "" : "s") + "<br />";
