@@ -128,7 +128,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * 
      * @param censor
      *            The message popup dialog from the Control Window to be updated when a message is posted so the censor
-     *            list is currenet
+     *            list is current
      * @throws IOException
      */
     public ChatPanel() throws IOException
