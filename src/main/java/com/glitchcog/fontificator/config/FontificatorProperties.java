@@ -87,6 +87,9 @@ public class FontificatorProperties extends Properties
 
     public static final String KEY_CHAT_SCROLL = "chatScrollEnabled";
     public static final String KEY_CHAT_RESIZABLE = "chatResizable";
+    public static final String KEY_CHAT_POSITION = "chatPosition";
+    public static final String KEY_CHAT_POSITION_X = "chatPositionX";
+    public static final String KEY_CHAT_POSITION_Y = "chatPositionY";
     public static final String KEY_CHAT_FROM_BOTTOM = "chatFromBottom";
     public static final String KEY_CHAT_WIDTH = "chatWidth";
     public static final String KEY_CHAT_HEIGHT = "chatHeight";
@@ -101,7 +104,9 @@ public class FontificatorProperties extends Properties
     public static final String KEY_CHAT_ALWAYS_ON_TOP = "chatAlwaysOnTop";
     public static final String KEY_CHAT_ANTIALIAS = "chatAntialias";
 
-    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_REVERSE_SCROLLING, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP, KEY_CHAT_ANTIALIAS };
+    public static final String[] CHAT_KEYS = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_POSITION, KEY_CHAT_POSITION_X, KEY_CHAT_POSITION_Y, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_REVERSE_SCROLLING, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP, KEY_CHAT_ANTIALIAS };
+
+    public static final String[] CHAT_KEYS_EXCEPT_WINDOW_POSITION = new String[] { KEY_CHAT_SCROLL, KEY_CHAT_RESIZABLE, KEY_CHAT_POSITION, KEY_CHAT_FROM_BOTTOM, KEY_CHAT_WIDTH, KEY_CHAT_HEIGHT, KEY_CHAT_CHROMA_ENABLED, KEY_CHAT_INVERT_CHROMA, KEY_CHAT_REVERSE_SCROLLING, KEY_CHAT_CHROMA_LEFT, KEY_CHAT_CHROMA_TOP, KEY_CHAT_CHROMA_RIGHT, KEY_CHAT_CHROMA_BOTTOM, KEY_CHAT_CHROMA_CORNER, KEY_CHAT_ALWAYS_ON_TOP, KEY_CHAT_ANTIALIAS };
 
     public static final String KEY_COLOR_BG = "colorBackground";
     public static final String KEY_COLOR_FG = "colorForeground";
@@ -157,7 +162,29 @@ public class FontificatorProperties extends Properties
 
     public static final String[] CENSOR_KEYS = new String[] { KEY_CENSOR_ENABLED, KEY_CENSOR_URL, KEY_CENSOR_FIRST_URL, KEY_CENSOR_UNKNOWN_CHARS, KEY_CENSOR_UNKNOWN_CHARS_PERCENT, KEY_CENSOR_WHITE, KEY_CENSOR_BLACK, KEY_CENSOR_BANNED };
 
-    public static final String[][] ALL_KEY = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS, COLOR_KEYS, MESSAGE_KEYS, EMOJI_KEYS, CENSOR_KEYS };
+    public static final String[][] ALL_KEYS_EXCEPT_CHAT_WINDOW_POSITION = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS_EXCEPT_WINDOW_POSITION, COLOR_KEYS, MESSAGE_KEYS, EMOJI_KEYS, CENSOR_KEYS };
+
+    public static final String[][] ALL_KEYS = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS, COLOR_KEYS, MESSAGE_KEYS, EMOJI_KEYS, CENSOR_KEYS };
+
+    /**
+     * Get all the property keys to be tested to determine if two fProps are equal. The parameter FontificatorProperties
+     * is to be used as a collection of configuration that is used to select which properties matter. For example, if
+     * chat window position should be remembered or not, so if remember position is unchecked, it doesn't ask you to
+     * save changes just because you moved the window.
+     * 
+     * @param fProps
+     *            contains configuration to be used to determine which keys are needed
+     * @return all keys to be tested for equals
+     */
+    private static String[][] getKeysForEqualsTest(FontificatorProperties fProps)
+    {
+        if (fProps != null && fProps.getChatConfig() != null && fProps.getChatConfig().isRememberPosition())
+        {
+            return ALL_KEYS_EXCEPT_CHAT_WINDOW_POSITION;
+        }
+
+        return ALL_KEYS;
+    }
 
     private ConfigIrc ircConfig = new ConfigIrc();
 
@@ -560,6 +587,9 @@ public class FontificatorProperties extends Properties
 
         setPropertyOverride(KEY_CHAT_SCROLL, falseString, override);
         setPropertyOverride(KEY_CHAT_RESIZABLE, trueString, override);
+        setPropertyOverride(KEY_CHAT_POSITION, falseString, override);
+        setPropertyOverride(KEY_CHAT_POSITION_X, Integer.toString(0), override);
+        setPropertyOverride(KEY_CHAT_POSITION_Y, Integer.toString(0), override);
         setPropertyOverride(KEY_CHAT_FROM_BOTTOM, falseString, override);
         setPropertyOverride(KEY_CHAT_WIDTH, Integer.toString(550), override);
         setPropertyOverride(KEY_CHAT_HEIGHT, Integer.toString(450), override);
@@ -684,7 +714,7 @@ public class FontificatorProperties extends Properties
 
         FontificatorProperties otherFp = (FontificatorProperties) obj;
 
-        return FontificatorProperties.propertyBatchMatch(ALL_KEY, this, otherFp);
+        return FontificatorProperties.propertyBatchMatch(getKeysForEqualsTest(this), this, otherFp);
     }
 
     private static boolean propertyBatchMatch(String[][] keys, FontificatorProperties a, FontificatorProperties b)

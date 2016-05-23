@@ -26,6 +26,21 @@ public class ConfigChat extends Config
     private Boolean resizable;
 
     /**
+     * Whether to remember the chat window position
+     */
+    private Boolean rememberPosition;
+
+    /**
+     * The remembered chat window position X coordinate
+     */
+    private Integer chatWindowPositionX;
+
+    /**
+     * The remembered chat window position Y coordinate
+     */
+    private Integer chatWindowPositionY;
+
+    /**
      * When the chat has too few messages to fill the available space, this determines whether the chat starts from the
      * bottom and builds upward, or from the top and builds downward
      */
@@ -82,6 +97,9 @@ public class ConfigChat extends Config
     {
         this.scrollable = null;
         this.resizable = null;
+        this.rememberPosition = null;
+        this.chatWindowPositionX = null;
+        this.chatWindowPositionY = null;
         this.chatFromBottom = null;
         this.width = null;
         this.height = null;
@@ -110,9 +128,9 @@ public class ConfigChat extends Config
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String widthStr, String heightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String reverseScrollBool, String resizeBool, String fromBottomBool, String chromaBool, String invertBool, String topBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String widthStr, String heightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String reverseScrollBool, String resizeBool, String remPosBool, String fromBottomBool, String chromaBool, String invertBool, String topBool)
     {
-        validateBooleanStrings(report, scrollBool, reverseScrollBool, resizeBool, fromBottomBool, chromaBool, invertBool, topBool);
+        validateBooleanStrings(report, scrollBool, reverseScrollBool, resizeBool, remPosBool, fromBottomBool, chromaBool, invertBool, topBool);
 
         validateDimStrings(report, widthStr, heightStr);
         validateChromaDimStrings(report, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr);
@@ -144,6 +162,7 @@ public class ConfigChat extends Config
 
             final String scrollBool = props.getProperty(FontificatorProperties.KEY_CHAT_SCROLL);
             final String resizeBool = props.getProperty(FontificatorProperties.KEY_CHAT_RESIZABLE);
+            final String remPosBool = props.getProperty(FontificatorProperties.KEY_CHAT_POSITION);
             final String fromBottomBool = props.getProperty(FontificatorProperties.KEY_CHAT_FROM_BOTTOM);
             final String reverseScrollBool = props.getProperty(FontificatorProperties.KEY_CHAT_REVERSE_SCROLLING);
             final String chromaBool = props.getProperty(FontificatorProperties.KEY_CHAT_CHROMA_ENABLED);
@@ -151,7 +170,7 @@ public class ConfigChat extends Config
             final String topBool = props.getProperty(FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP);
 
             // Check that the values are valid
-            validateStrings(report, widthStr, heightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, reverseScrollBool, resizeBool, fromBottomBool, chromaBool, invertBool, topBool);
+            validateStrings(report, widthStr, heightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, reverseScrollBool, resizeBool, remPosBool, fromBottomBool, chromaBool, invertBool, topBool);
 
             // Fill the values
             if (report.isErrorFree())
@@ -169,6 +188,9 @@ public class ConfigChat extends Config
 
                 scrollable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_SCROLL, report);
                 resizable = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_RESIZABLE, report);
+                rememberPosition = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_POSITION, report);
+                chatWindowPositionX = evaluateIntegerString(props, FontificatorProperties.KEY_CHAT_POSITION_X, report);
+                chatWindowPositionY = evaluateIntegerString(props, FontificatorProperties.KEY_CHAT_POSITION_Y, report);
                 chatFromBottom = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_FROM_BOTTOM, report);
                 reverseScrolling = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_REVERSE_SCROLLING, report);
                 chromaEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_CHAT_CHROMA_ENABLED, report);
@@ -201,6 +223,39 @@ public class ConfigChat extends Config
     {
         this.resizable = resizable;
         props.setProperty(FontificatorProperties.KEY_CHAT_RESIZABLE, Boolean.toString(resizable));
+    }
+
+    public boolean isRememberPosition()
+    {
+        return rememberPosition;
+    }
+
+    public void setRememberPosition(boolean rememberPosition)
+    {
+        this.rememberPosition = rememberPosition;
+        props.setProperty(FontificatorProperties.KEY_CHAT_POSITION, Boolean.toString(rememberPosition));
+    }
+
+    public int getChatWindowPositionX()
+    {
+        return chatWindowPositionX == null ? 0 : chatWindowPositionX;
+    }
+
+    public void setChatWindowPositionX(int chatWindowPositionX)
+    {
+        this.chatWindowPositionX = chatWindowPositionX;
+        props.setProperty(FontificatorProperties.KEY_CHAT_POSITION_X, Integer.toString(chatWindowPositionX));
+    }
+
+    public int getChatWindowPositionY()
+    {
+        return chatWindowPositionY == null ? 0 : chatWindowPositionY;
+    }
+
+    public void setChatWindowPositionY(int chatWindowPositionY)
+    {
+        this.chatWindowPositionY = chatWindowPositionY;
+        props.setProperty(FontificatorProperties.KEY_CHAT_POSITION_Y, Integer.toString(chatWindowPositionY));
     }
 
     public boolean isChatFromBottom()

@@ -241,6 +241,7 @@ public class ControlWindow extends JDialog
         // This wasn't built before the config was loaded into the chat control
         // tab, so set it here
         setAlwaysOnTopMenu(fProps.getChatConfig().isAlwaysOnTop());
+        setRememberPositionMenu(fProps.getChatConfig().isRememberPosition());
         setAntiAliasMenu(fProps.getChatConfig().isAntiAlias());
 
         setupHelp();
@@ -336,8 +337,9 @@ public class ControlWindow extends JDialog
         /* View Menu Item Text */
         final String strAntiAlias = "Anti-Aliased";
         final String strViewTop = "Always On Top";
+        final String strRememberPos = "Remember Chat Window Position";
         final String strViewHide = "Hide Control Window";
-        final MenuComponent[] viewComponents = new MenuComponent[] { new MenuComponent(strAntiAlias, KeyEvent.VK_A, null, true), null, new MenuComponent(strViewTop, KeyEvent.VK_T, null, true), new MenuComponent(strViewHide, KeyEvent.VK_H, KeyStroke.getKeyStroke(KeyEvent.VK_H, Event.CTRL_MASK)) };
+        final MenuComponent[] viewComponents = new MenuComponent[] { new MenuComponent(strAntiAlias, KeyEvent.VK_A, null, true), null, new MenuComponent(strViewTop, KeyEvent.VK_T, null, true), new MenuComponent(strRememberPos, KeyEvent.VK_P, null, true), new MenuComponent(strViewHide, KeyEvent.VK_H, KeyStroke.getKeyStroke(KeyEvent.VK_H, Event.CTRL_MASK)) };
 
         /* Message Menu Item Text */
         final String strMsgMsg = "Message Management";
@@ -389,6 +391,18 @@ public class ControlWindow extends JDialog
                     JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) e.getSource();
                     ((JFrame) getParent()).setAlwaysOnTop(checkBox.isSelected());
                     controlTabs.setAlwaysOnTopConfig(checkBox.isSelected());
+                }
+                else if (strRememberPos.equals(mi.getText()))
+                {
+                    JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) e.getSource();
+                    controlTabs.setRememberChatWindowPosition(checkBox.isSelected());
+                    if (checkBox.isSelected())
+                    {
+                        final int sx = (int) chatWindow.getLocationOnScreen().getX();
+                        final int sy = (int) chatWindow.getLocationOnScreen().getY();
+                        fProps.getChatConfig().setChatWindowPositionX(sx);
+                        fProps.getChatConfig().setChatWindowPositionY(sy);
+                    }
                 }
                 else if (strViewHide.equals(mi.getText()))
                 {
@@ -842,6 +856,11 @@ public class ControlWindow extends JDialog
         ((JCheckBoxMenuItem) (getJMenuBar().getMenu(2).getItem(2))).setSelected(alwaysOnTop);
     }
 
+    public void setRememberPositionMenu(boolean rememberPosition)
+    {
+        ((JCheckBoxMenuItem) (getJMenuBar().getMenu(2).getItem(3))).setSelected(rememberPosition);
+    }
+
     public void setAntiAliasMenu(boolean antiAlias)
     {
         ((JCheckBoxMenuItem) (getJMenuBar().getMenu(2).getItem(0))).setSelected(antiAlias);
@@ -917,6 +936,11 @@ public class ControlWindow extends JDialog
     public MessageDialog getMessageDialog()
     {
         return messageDialog;
+    }
+
+    public void loadAfterInit()
+    {
+        controlTabs.setChatWindowPosition();
     }
 
 }

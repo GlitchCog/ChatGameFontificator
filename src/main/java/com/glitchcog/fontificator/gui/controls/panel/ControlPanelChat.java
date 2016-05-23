@@ -100,6 +100,7 @@ public class ControlPanelChat extends ControlPanelBase
             @Override
             public void componentMoved(ComponentEvent e)
             {
+                rememberChatWindowPosition();
             }
 
             @Override
@@ -113,6 +114,17 @@ public class ControlPanelChat extends ControlPanelBase
             }
         };
         this.chatWindow.addComponentListener(resizeListener);
+    }
+
+    private void rememberChatWindowPosition()
+    {
+        if (config.isRememberPosition() && chatWindow != null && chatWindow.isVisible())
+        {
+            final int x = (int) chatWindow.getLocationOnScreen().getX();
+            final int y = (int) chatWindow.getLocationOnScreen().getY();
+            config.setChatWindowPositionX(x);
+            config.setChatWindowPositionY(y);
+        }
     }
 
     @Override
@@ -491,9 +503,24 @@ public class ControlPanelChat extends ControlPanelBase
         // Because it won't be set when this is called from the super class constructor
         if (ctrlWindow != null)
         {
-            ctrlWindow.setAlwaysOnTopMenu(config.isAlwaysOnTop());
-            ctrlWindow.setAntiAliasMenu(config.isAntiAlias());
+            fillInputAfterLoading();
         }
+    }
+
+    public void fillInputAfterLoading()
+    {
+        ctrlWindow.setAlwaysOnTopMenu(config.isAlwaysOnTop());
+        ctrlWindow.setRememberPositionMenu(config.isRememberPosition());
+
+        if (config.isRememberPosition())
+        {
+            final int cwpx = config.getChatWindowPositionX();
+            final int cwpy = config.getChatWindowPositionY();
+            // TODO validate screen positions
+            chatWindow.setLocation(cwpx, cwpy);
+        }
+
+        ctrlWindow.setAntiAliasMenu(config.isAntiAlias());
     }
 
     @Override
@@ -512,12 +539,12 @@ public class ControlPanelChat extends ControlPanelBase
         config.setScrollable(scrollableBox.isSelected());
         config.setReverseScrolling(reverseScrollBox.isSelected());
         config.setChatFromBottom(chatFromBottomBox.isSelected());
-        chatWindow.setAlwaysOnTop(config.isAlwaysOnTop());
+        config.setAlwaysOnTop(chatWindow.isAlwaysOnTop());
+        rememberChatWindowPosition();
         final int width = Integer.parseInt(widthInput.getText());
         final int height = Integer.parseInt(heightInput.getText());
         config.setWidth(width);
         config.setHeight(height);
-
         config.setChromaEnabled(chromaEnabledBox.isSelected());
         inputToConfigChromaBorders();
         config.setChromaCornerRadius(chromaCornerSlider.getValue());
@@ -529,8 +556,22 @@ public class ControlPanelChat extends ControlPanelBase
         config.setAlwaysOnTop(alwaysOnTop);
     }
 
+    public void setRememberPosition(boolean rememberPosition)
+    {
+        config.setRememberPosition(rememberPosition);
+    }
+
+    public void setRememberedPosition()
+    {
+        if (config != null && config.isRememberPosition())
+        {
+            chatWindow.setLocation(config.getChatWindowPositionX(), config.getChatWindowPositionY());
+        }
+    }
+
     public void setAntiAlias(boolean antiAlias)
     {
         config.setAntiAlias(antiAlias);
     }
+
 }

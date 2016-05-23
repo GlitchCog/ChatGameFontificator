@@ -14,6 +14,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import com.glitchcog.fontificator.game.VideoGame;
 
 /**
  * Adapted from https://www.crionics.com/public/swing_examples/JMenuExamples1.html
@@ -26,17 +30,44 @@ public class ComboMenuBar extends JMenuBar
 
     private Dimension preferredSize;
 
-    public ComboMenuBar(Map<String, List<String>> menuMap, ActionListener al)
-    {
-        Collection<String> menuLabels = menuMap.keySet();
+    private HintTextField filterInput;
 
-        List<JMenu> menus = new ArrayList<JMenu>();
+    private List<JMenu> menus;
+
+    public ComboMenuBar(Map<String, List<String>> menuTextMap, ActionListener al)
+    {
+        filterInput = new HintTextField("Filter", 7);
+        filterInput.getDocument().addDocumentListener(new DocumentListener()
+        {
+            @Override
+            public void insertUpdate(DocumentEvent e)
+            {
+                applyFilter(filterInput.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e)
+            {
+                applyFilter(filterInput.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e)
+            {
+                applyFilter(filterInput.getText());
+            }
+        });
+        add(filterInput);
+
+        Collection<String> menuLabels = menuTextMap.keySet();
+
+        menus = new ArrayList<JMenu>();
         List<JMenuItem> rootItems = new ArrayList<JMenuItem>();
 
         for (String label : menuLabels)
         {
             // Check if there is no submenu and add that as a root item if
-            if (menuMap.get(label) == null)
+            if (menuTextMap.get(label) == null)
             {
                 JMenuItem item = new JMenuItem(label);
                 item.addActionListener(al);
@@ -52,12 +83,12 @@ public class ComboMenuBar extends JMenuBar
 
         for (JMenu m : menus)
         {
-            List<String> submenus = menuMap.get(m.getText());
-            if (submenus != null)
+            List<String> submenuText = menuTextMap.get(m.getText());
+            if (submenuText != null)
             {
-                for (String submenuLabel : submenus)
+                for (String submenuLabel : submenuText)
                 {
-                    JMenuItem item = new JMenuItem(submenuLabel);
+                    JMenuItem item = new GameFontMenuItem(submenuLabel, new VideoGame(submenuLabel));
                     item.addActionListener(al);
                     m.add(item);
                 }
@@ -170,4 +201,27 @@ public class ComboMenuBar extends JMenuBar
         return d;
     }
 
+    private void applyFilter(String filterText)
+    {
+        for (JMenu menu : menus)
+        {
+            boolean atLeastOneHit = false;
+            for (int i = 0; i < menu.getItemCount(); i++)
+            {
+                GameFontMenuItem item = (GameFontMenuItem) menu.getItem(i);
+                final boolean matchesGame = item.isMatchingFilterGame(filterText);
+                final boolean matchesGenre = item.isMatchingFilterGenre(filterText);
+                final boolean matchesSystem = item.isMatchingFilterSystem(filterText);
+
+                boolean hit = matchesGame || matchesGenre || matchesSystem;
+
+                item.setVisible(hit);
+                if (hit)
+                {
+                    atLeastOneHit = true;
+                }
+            }
+            menu.setVisible(atLeastOneHit);
+        }
+    }
 }

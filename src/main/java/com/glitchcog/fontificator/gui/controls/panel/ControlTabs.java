@@ -162,6 +162,16 @@ public class ControlTabs extends JTabbedPane
         chatPanel.setAlwaysOnTop(alwaysOnTop);
     }
 
+    public void setRememberChatWindowPosition(boolean rememberPosition)
+    {
+        chatPanel.setRememberPosition(rememberPosition);
+    }
+
+    public void setChatWindowPosition()
+    {
+        chatPanel.setRememberedPosition();
+    }
+
     public void setAntiAlias(boolean antiAlias)
     {
         chatPanel.setAntiAlias(antiAlias);

@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.apache.log4j.BasicConfigurator;
@@ -53,7 +54,7 @@ public class FontificatorMain
         ChatWindow chatWindow = new ChatWindow();
 
         // The ControlWindow is the dependent window that has all the options for modifying the properties of the chat
-        ControlWindow controlWindow = new ControlWindow(chatWindow, fProps, logBox);
+        final ControlWindow controlWindow = new ControlWindow(chatWindow, fProps, logBox);
 
         // Attempt to load the last opened data, or fall back to defaults if nothing has been loaded or if there are any
         // errors loading
@@ -76,13 +77,31 @@ public class FontificatorMain
         // Build the GUI of the control window
         controlWindow.build(logBox);
 
+        // Load after init takes care of the (mostly chat window based) configurations that require the window be already set up
+        controlWindow.loadAfterInit();
+
         // Give the chat panel the message dialog so it can read censorship rules and call for the manual censorship
         // list to be redrawn when a message is posted
         chatWindow.getChatPanel().setMessageCensor(controlWindow.getMessageDialog().getCensorPanel());
 
         // Finally, display the chat and control windows now that everything has been constructed and connected
         chatWindow.setVisible(true);
-        controlWindow.setVisible(true);
+        try
+        {
+            // Do it ugly but thread safe
+            SwingUtilities.invokeAndWait(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    controlWindow.setVisible(true);
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            logger.error("Unable to display control window on initialization", e);
+        }
 
     }
 

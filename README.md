@@ -1,7 +1,4 @@
-#Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)]
-## 12/21 UPDATE: Extended characters supported!
-### 12/01 UPDATE: Twitch subscriber emotes and badges!
-##### 11/01 UPDATE: Message censorship is now supported!
+#Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
@@ -144,6 +141,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Bart vs. the Space Mutants
   - Castlevania II: Simon's Quest
   - Castlevania III: Dracula's Curse
+  - Castlevania: Symphony of the Night
   - Chrono Cross
   - Chrono Trigger
   - Clash at Demonhead
@@ -222,6 +220,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tales of Symphonia
   - Tetris (GB)
   - Tetris (NES)
+  - Undertale
   - Wario Land 4 (Dark)
   - Wario Land 4 (Light)
   - Wild Arms
