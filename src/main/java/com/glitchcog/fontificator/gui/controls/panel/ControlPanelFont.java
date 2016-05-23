@@ -73,6 +73,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Castlevania", "Castlevania 2 Title"), new DropdownFont("cv2_title_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownFont("cv3_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night"), new DropdownFont("csotn_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownFont("ct_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownFont("cad_font.png", FontType.FIXED_WIDTH));
@@ -157,6 +158,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Undertale", "Undertale"), new DropdownFont("undertale_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Wario", "Wario Land 4 (Dark)"), new DropdownFont("wl4_dark_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Wario", "Wario Land 4 (Light)"), new DropdownFont("wl4_light_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownFont("wildarms_font.png", FontType.FIXED_WIDTH));
@@ -212,6 +214,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png"));
             put(new DropdownLabel("Castlevania", "Castlevania 2"), new DropdownBorder("cv2_border.png"));
             put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownBorder("cv3_border.png"));
+            put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Name"), new DropdownBorder("csotn_name_border.png"));
+            put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Enemy"), new DropdownBorder("csotn_enemy_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png"));
@@ -298,6 +302,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png"));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png"));
             put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png"));
+            put(new DropdownLabel("Undertale", "Undertale"), new DropdownBorder("undertale_border.png"));
             put(new DropdownLabel("Wario", "Wario Land 4"), new DropdownBorder("wl4_border.png"));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png"));
             put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownBorder("willow_nes_border.png"));
