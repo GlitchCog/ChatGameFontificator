@@ -1,10 +1,12 @@
 package com.glitchcog.fontificator.game;
 
 /**
- * A video game represents a non-empty set of video game releases, sharing the same font and border aesthetic, regardless of when they were released or what system they were
- * released for. For example, the VideoGame object representing the original Super Mario Bros. would include the 1985 NES release and the 1999 Game Boy Color release which
- * maintained the original's graphics, but it would not include the SNES Super Mario All Stars release because of the new font and style. This class exists to create a better
- * method for searching through existing game fonts and borders.
+ * A video game represents a non-empty set of video game releases, sharing the same font and border aesthetic,
+ * regardless of when they were released or what system they were released for. For example, the VideoGame object
+ * representing the original Super Mario Bros. would include the 1985 NES release and the 1999 Game Boy Color release
+ * which maintained the original's graphics, but it would not include the SNES Super Mario All Stars release because of
+ * the new font and style. This class exists to create a better method for searching through existing game fonts and
+ * borders.
  * 
  * @author Matt Yanos
  */
