@@ -1,6 +1,8 @@
 package com.glitchcog.fontificator.gui.controls.panel;
 
 import java.awt.Component;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -511,16 +513,8 @@ public class ControlPanelChat extends ControlPanelBase
     {
         ctrlWindow.setAlwaysOnTopMenu(config.isAlwaysOnTop());
         ctrlWindow.setRememberPositionMenu(config.isRememberPosition());
-
-        if (config.isRememberPosition())
-        {
-            final int cwpx = config.getChatWindowPositionX();
-            final int cwpy = config.getChatWindowPositionY();
-            // TODO validate screen positions
-            chatWindow.setLocation(cwpx, cwpy);
-        }
-
         ctrlWindow.setAntiAliasMenu(config.isAntiAlias());
+        setRememberedPosition();
     }
 
     @Override
@@ -565,7 +559,46 @@ public class ControlPanelChat extends ControlPanelBase
     {
         if (config != null && config.isRememberPosition())
         {
-            chatWindow.setLocation(config.getChatWindowPositionX(), config.getChatWindowPositionY());
+            int cwpx = config.getChatWindowPositionX();
+            int cwpy = config.getChatWindowPositionY();
+
+            GraphicsDevice[] devs = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+            int totalWidth = 0;
+            int totalHeight = 0;
+            for (GraphicsDevice dev : devs)
+            {
+                if (dev.getDisplayMode() != null)
+                {
+                    totalWidth += dev.getDisplayMode().getWidth();
+                    totalHeight += dev.getDisplayMode().getHeight();
+                }
+            }
+
+            // Put it back on the screen
+            totalWidth -= chatWindow.getWidth();
+            totalHeight -= chatWindow.getHeight();
+
+            // Right / bottom boundary check
+            if (cwpx > totalWidth)
+            {
+                cwpx = totalWidth;
+            }
+            if (cwpy > totalHeight)
+            {
+                cwpy = totalHeight;
+            }
+
+            // Left / top boundary check
+            if (cwpx < 0)
+            {
+                cwpx = 0;
+            }
+            if (cwpy < 0)
+            {
+                cwpy = 0;
+            }
+
+            chatWindow.setLocation(cwpx, cwpy);
         }
     }
 

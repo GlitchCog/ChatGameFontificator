@@ -56,6 +56,10 @@ public class LogBox extends JScrollPane
             // Blank out any time the oauth key is logged- this output might accidentally wind up in a video stream
             line = line.replaceAll(authCode, blocks);
         }
+        if (line.endsWith("\n"))
+        {
+            line = line.substring(0, line.length() - 1);
+        }
         output.append((output.getText().isEmpty() ? "" : "\n") + line);
         output.setCaretPosition(output.getDocument().getLength());
     }

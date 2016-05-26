@@ -347,8 +347,9 @@ public class ControlWindow extends JDialog
 
         /* Help Menu Item Text */
         final String strHelpHelp = "Help";
+        final String strHelpDebug = "Debug Mode";
         final String strHelpAbout = "About";
-        final MenuComponent[] helpComponents = new MenuComponent[] { new MenuComponent(strHelpHelp, KeyEvent.VK_R, null), null, new MenuComponent(strHelpAbout, KeyEvent.VK_A, null) };
+        final MenuComponent[] helpComponents = new MenuComponent[] { new MenuComponent(strHelpHelp, KeyEvent.VK_R, null), new MenuComponent(strHelpDebug, KeyEvent.VK_D, null, true), null, new MenuComponent(strHelpAbout, KeyEvent.VK_A, null) };
 
         /* All menu components, with a placeholder for the Presets menu */
         final MenuComponent[][] allMenuComponents = new MenuComponent[][] { fileComponents, new MenuComponent[] {}, viewComponents, messageComponents, helpComponents };
@@ -415,6 +416,10 @@ public class ControlWindow extends JDialog
                 else if (strHelpHelp.equals(mi.getText()))
                 {
                     help.setVisible(true);
+                }
+                else if (strHelpDebug.equals(mi.getText()))
+                {
+                    toggleDebugTab();
                 }
                 else if (strHelpAbout.equals(mi.getText()))
                 {
@@ -926,6 +931,11 @@ public class ControlWindow extends JDialog
             }
         });
         aboutPane.setEditable(false);
+    }
+
+    private void toggleDebugTab()
+    {
+        controlTabs.toggleDebugTab();
     }
 
     private void showAboutPane()

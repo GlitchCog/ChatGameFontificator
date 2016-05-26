@@ -81,14 +81,15 @@ public class Sprite
      *            The number of characters that make up the width of the image grid
      * @param gridHeight
      *            The number of characters that make up the height of the image grid
-     * @throws IOException
+     * @throws Exception
      */
-    public Sprite(String filename, int gridWidth, int gridHeight) throws IOException
+    public Sprite(String filename, int gridWidth, int gridHeight) throws Exception
     {
         this(filename);
         logger.trace("Sprite grid specified: (" + gridWidth + "x" + gridHeight + ")");
         setGridDimensions(gridWidth, gridHeight);
         setupSwap();
+        addToColorCache(Color.WHITE);
     }
 
     /**
@@ -240,7 +241,7 @@ public class Sprite
         return new BufferedImage(cm, raster, cm.isAlphaPremultiplied(), null);
     }
 
-    public BufferedImage addToColorCache(Color drawColor)
+    private BufferedImage addToColorCache(Color drawColor)
     {
         for (short i = 0; i < 256; i++)
         {

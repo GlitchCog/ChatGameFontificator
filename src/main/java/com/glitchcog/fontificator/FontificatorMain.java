@@ -23,6 +23,8 @@ public class FontificatorMain
 {
     private static final Logger logger = Logger.getLogger(FontificatorMain.class);
 
+    public final static PatternLayout LOG_PATTERN_LAYOUT = new PatternLayout("[%p] %d{MM-dd-yyyy HH:mm:ss} %c %M - %m%n");
+
     /**
      * The main method for the program
      * 
@@ -33,7 +35,7 @@ public class FontificatorMain
     public static void main(String[] args)
     {
         // Configure the logger
-        BasicConfigurator.configure(new ConsoleAppender(new PatternLayout("[%p] %d{MM-dd-yyyy HH:mm:ss} %c %M - %m%n")));
+        BasicConfigurator.configure(new ConsoleAppender(LOG_PATTERN_LAYOUT));
         Logger.getRootLogger().setLevel(Level.INFO);
 
         try
