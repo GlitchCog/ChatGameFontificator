@@ -131,12 +131,25 @@ public class Sprite
             final String classPathUrlStr = filename.substring(ConfigFont.INTERNAL_FILE_PREFIX.length());
             URL url = getClass().getClassLoader().getResource(classPathUrlStr);
             logger.trace("Sprite URL: " + url);
+            // Assume that the preset images are all of the correct type (TYPE_4BYTE_ABGR)
             img = ImageIO.read(url);
         }
         else
         {
             File file = new File(filename);
-            img = ImageIO.read(file);
+            BufferedImage testImg = ImageIO.read(file);
+
+            if (testImg.getType() != BufferedImage.TYPE_4BYTE_ABGR)
+            {
+                // Convert
+                img = new BufferedImage(testImg.getWidth(), testImg.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+                img.getGraphics().drawImage(testImg, 0, 0, null);
+                img.getGraphics().dispose();
+            }
+            else
+            {
+                img = testImg;
+            }
         }
         if (img == null)
         {
@@ -163,7 +176,8 @@ public class Sprite
     }
 
     /**
-     * Sets the number of frames that make up the width of the image grid and calculates the pixel width of a frame accordingly
+     * Sets the number of frames that make up the width of the image grid and calculates the pixel width of a frame
+     * accordingly
      * 
      * @param gridWidth
      */
@@ -179,7 +193,8 @@ public class Sprite
     }
 
     /**
-     * Sets the number of frames that make up the height of the image grid and calculates the pixel height of a frame accordingly
+     * Sets the number of frames that make up the height of the image grid and calculates the pixel height of a frame
+     * accordingly
      * 
      * @param gridHeight
      */
