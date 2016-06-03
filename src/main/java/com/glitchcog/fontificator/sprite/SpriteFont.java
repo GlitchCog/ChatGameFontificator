@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.ImageObserver;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -410,7 +411,7 @@ public class SpriteFont
      */
     public Dimension getMessageDimensions(Message message, FontMetrics fontMetrics, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int lineWrapLength)
     {
-        return drawMessage(null, fontMetrics, message, null, null, messageConfig, emojiConfig, emojiManager, 0, 0, 0, 0, lineWrapLength);
+        return drawMessage(null, fontMetrics, message, null, null, messageConfig, emojiConfig, emojiManager, 0, 0, 0, 0, lineWrapLength, null);
     }
 
     /**
@@ -441,9 +442,11 @@ public class SpriteFont
      *            Only draw up to this edge
      * @param lineWrapLength
      *            How long to let the text go to the right before going to a new line
+     * @param emojiObserver
+     *            Used to update animated GIF BTTV emotes
      * @return The size of the bounding box of the drawn message
      */
-    public Dimension drawMessage(Graphics2D g2d, FontMetrics fontMetrics, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int topLimit, int botLimit, int lineWrapLength)
+    public Dimension drawMessage(Graphics2D g2d, FontMetrics fontMetrics, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int topLimit, int botLimit, int lineWrapLength, ImageObserver emojiObserver)
     {
         if (msg.isJoinType() && !messageConfig.showJoinMessages())
         {
@@ -522,7 +525,7 @@ public class SpriteFont
                 {
                     if (g2d != null && y >= topLimit && y < botLimit && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color);
+                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color, emojiObserver);
                     }
                     int charWidth = getCharacterWidth(fontMetrics, text[ci], emojiConfig);
                     x += charWidth;
@@ -542,7 +545,7 @@ public class SpriteFont
                     }
                     if (g2d != null && y >= topLimit && y < botLimit && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color);
+                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color, emojiObserver);
                     }
                     int charWidth = getCharacterWidth(fontMetrics, text[ci], emojiConfig);
                     x += charWidth;
@@ -570,7 +573,7 @@ public class SpriteFont
 
                     if (g2d != null && y >= topLimit && y < botLimit && ci < msg.getDrawCursor())
                     {
-                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color);
+                        drawCharacter(g2d, fontMetrics, text[ci], x, y, emojiConfig, color, emojiObserver);
                     }
                     x += charWidth;
                     width += charWidth;
@@ -581,7 +584,7 @@ public class SpriteFont
         return new Dimension(maxWidth, height);
     }
 
-    private void drawCharacter(Graphics2D g2d, FontMetrics fontMetrics, SpriteCharacterKey sck, int x, int y, ConfigEmoji emojiConfig, Color color)
+    private void drawCharacter(Graphics2D g2d, FontMetrics fontMetrics, SpriteCharacterKey sck, int x, int y, ConfigEmoji emojiConfig, Color color, ImageObserver emojiObserver)
     {
         final int drawX = x + config.getCharSpacing() / 2;
         int drawY = y;
@@ -628,7 +631,7 @@ public class SpriteFont
                     g2d.drawRect(drawX, drawY, eDim[0], eDim[1]);
                     break;
                 case UNKNOWN:
-                    drawCharacter(g2d, fontMetrics, new SpriteCharacterKey(config.getUnknownChar()), x, y, emojiConfig, color);
+                    drawCharacter(g2d, fontMetrics, new SpriteCharacterKey(config.getUnknownChar()), x, y, emojiConfig, color, emojiObserver);
                     break;
                 case SPACE:
                 case NOTHING:
@@ -638,7 +641,8 @@ public class SpriteFont
             }
             else
             {
-                g2d.drawImage(eImage, drawX, drawY, eDim[0], eDim[1], null);
+                // Draw the emoji image
+                g2d.drawImage(eImage, drawX, drawY, eDim[0], eDim[1], emojiObserver);
             }
         }
     }

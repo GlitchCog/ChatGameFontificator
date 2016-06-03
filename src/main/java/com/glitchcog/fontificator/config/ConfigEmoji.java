@@ -36,17 +36,20 @@ public class ConfigEmoji extends Config
     private Boolean badgesEnabled;
 
     /**
-     * Whether the emoji scale value is used to modify the size of the emoji relative to the line height, or the original emoji image size
+     * Whether the emoji scale value is used to modify the size of the emoji relative to the line height, or the
+     * original emoji image size
      */
     private Boolean emojiScaleToLine;
 
     /**
-     * Whether the badge scale value is used to modify the size of the badge relative to the line height, or the original badge image size
+     * Whether the badge scale value is used to modify the size of the badge relative to the line height, or the
+     * original badge image size
      */
     private Boolean badgeScaleToLine;
 
     /**
-     * This is the number of pixels to offset the badges vertically to accommodate the fact that sprite fonts don't have a baseline to determine where the vertical center of the text is appropriately
+     * This is the number of pixels to offset the badges vertically to accommodate the fact that sprite fonts don't have
+     * a baseline to determine where the vertical center of the text is appropriately
      */
     private Integer badgeHeightOffset;
 
@@ -115,6 +118,31 @@ public class ConfigEmoji extends Config
      */
     private Boolean ffzCached;
 
+    /**
+     * Whether BetterTTV emotes are enabled or not
+     */
+    private Boolean bttvEnabled;
+
+    /**
+     * Whether BetterTTV emotes are to be cached or not
+     */
+    private Boolean bttvCacheEnabled;
+
+    /**
+     * The loaded BetterTTV channel, or null if none is loaded
+     */
+    private String bttvLoadedChannel;
+
+    /**
+     * Whether the BetterTTV global emotes are loaded
+     */
+    private Boolean bttvGlobalLoaded;
+
+    /**
+     * Whether BetterTTV global and channel specific emotes have been cached
+     */
+    private Boolean bttvCached;
+
     public ConfigEmoji()
     {
         resetWorkCompleted();
@@ -135,6 +163,11 @@ public class ConfigEmoji extends Config
         twitchCacheEnabled = null;
         ffzEnabled = null;
         ffzCacheEnabled = null;
+        bttvEnabled = null;
+        bttvCacheEnabled = null;
+        bttvLoadedChannel = null;
+        bttvGlobalLoaded = null;
+        bttvCached = null;
     }
 
     public boolean isEmojiEnabled()
@@ -269,6 +302,22 @@ public class ConfigEmoji extends Config
         props.setProperty(FontificatorProperties.KEY_EMOJI_FFZ_CACHE, Boolean.toString(ffzCacheEnabled));
     }
 
+    public Boolean isBttvEnabled()
+    {
+        return bttvEnabled;
+    }
+
+    public Boolean isBttvCacheEnabled()
+    {
+        return bttvCacheEnabled;
+    }
+
+    public void setBttvCacheEnabled(Boolean bttvCacheEnabled)
+    {
+        this.bttvCacheEnabled = bttvCacheEnabled;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_BTTV_CACHE, Boolean.toString(bttvCacheEnabled));
+    }
+
     /**
      * Get whether the type of emoji is enabled and loaded
      * 
@@ -289,6 +338,10 @@ public class ConfigEmoji extends Config
                 return ffzEnabled != null && ffzEnabled && ffzLoadedChannel != null;
             case FRANKERFACEZ_GLOBAL:
                 return ffzEnabled != null && ffzEnabled && ffzGlobalLoaded != null && ffzGlobalLoaded;
+            case BETTER_TTV_CHANNEL:
+                return bttvEnabled != null && bttvEnabled && bttvLoadedChannel != null;
+            case BETTER_TTV_GLOBAL:
+                return bttvEnabled != null && bttvEnabled && bttvGlobalLoaded != null && bttvGlobalLoaded;
             case TWITCH_V2:
             case TWITCH_V3:
                 // Only V2 and V3. V1 doesn't use the normal EmojiTypeMap, so it doesn't need to be checked. They're
@@ -303,13 +356,12 @@ public class ConfigEmoji extends Config
         }
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String badgeHeightOffsetStr, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String badgeHeightOffsetStr, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool, String bttvBool, String bttvCacheBool)
     {
-        validateBooleanStrings(report, enabledBool, scaleEnabledBool, scaleBadgeEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool);
+        validateBooleanStrings(report, enabledBool, scaleEnabledBool, scaleBadgeEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool, bttvBool, bttvCacheBool);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_SCALE, scale, MIN_SCALE, MAX_SCALE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_BADGE_SCALE, scaleBadge, MIN_SCALE, MAX_SCALE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_BADGE_HEIGHT_OFFSET, badgeHeightOffsetStr, MIN_BADGE_OFFSET, MAX_BADGE_OFFSET, report);
-
         return report;
     }
 
@@ -340,8 +392,11 @@ public class ConfigEmoji extends Config
             final String ffzEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_FFZ_ENABLE);
             final String ffzCacheStr = props.getProperty(FontificatorProperties.KEY_EMOJI_FFZ_CACHE);
 
+            final String bttvEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BTTV_ENABLE);
+            final String bttvCacheStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BTTV_CACHE);
+
             // Check that the values are valid
-            validateStrings(report, enabledStr, scaleEnabledStr, scaleBadgeEnabledStr, badgeHeightOffsetStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr);
+            validateStrings(report, enabledStr, scaleEnabledStr, scaleBadgeEnabledStr, badgeHeightOffsetStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr, bttvEnabledStr, bttvCacheStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -358,6 +413,8 @@ public class ConfigEmoji extends Config
                 twitchCacheEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_TWITCH_CACHE, report);
                 ffzEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_FFZ_ENABLE, report);
                 ffzCacheEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_FFZ_CACHE, report);
+                bttvEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BTTV_ENABLE, report);
+                bttvCacheEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BTTV_CACHE, report);
             }
         }
 
@@ -375,6 +432,9 @@ public class ConfigEmoji extends Config
         result = prime * result + ((ffzEnabled == null) ? 0 : ffzEnabled.hashCode());
         result = prime * result + ((ffzLoadedChannel == null) ? 0 : ffzLoadedChannel.hashCode());
         result = prime * result + ((ffzGlobalLoaded == null) ? 0 : ffzGlobalLoaded.hashCode());
+        result = prime * result + ((bttvEnabled == null) ? 0 : bttvEnabled.hashCode());
+        result = prime * result + ((bttvLoadedChannel == null) ? 0 : bttvLoadedChannel.hashCode());
+        result = prime * result + ((bttvGlobalLoaded == null) ? 0 : bttvGlobalLoaded.hashCode());
         result = prime * result + ((emojiScale == null) ? 0 : emojiScale.hashCode());
         result = prime * result + ((emojiScaleToLine == null) ? 0 : emojiScaleToLine.hashCode());
         result = prime * result + ((badgeScale == null) ? 0 : badgeScale.hashCode());
@@ -458,6 +518,39 @@ public class ConfigEmoji extends Config
             }
         }
         else if (!ffzGlobalLoaded.equals(other.ffzGlobalLoaded))
+        {
+            return false;
+        }
+        if (bttvEnabled == null)
+        {
+            if (other.bttvEnabled != null)
+            {
+                return false;
+            }
+        }
+        else if (!bttvEnabled.equals(other.bttvEnabled))
+        {
+            return false;
+        }
+        if (bttvLoadedChannel == null)
+        {
+            if (other.bttvLoadedChannel != null)
+            {
+                return false;
+            }
+        }
+        else if (!bttvLoadedChannel.equals(other.bttvLoadedChannel))
+        {
+            return false;
+        }
+        if (bttvGlobalLoaded == null)
+        {
+            if (other.bttvGlobalLoaded != null)
+            {
+                return false;
+            }
+        }
+        else if (!bttvGlobalLoaded.equals(other.bttvGlobalLoaded))
         {
             return false;
         }
@@ -553,7 +646,8 @@ public class ConfigEmoji extends Config
     }
 
     /**
-     * Perform a deep copy of the emoji config, used to compare against the previous one used to generated the string of characters and emojis that are stored in a Message object
+     * Perform a deep copy of the emoji config, used to compare against the previous one used to generated the string of
+     * characters and emojis that are stored in a Message object
      * 
      * @param copy
      */
@@ -573,6 +667,11 @@ public class ConfigEmoji extends Config
         this.twitchBadgesLoadedChannel = copy.twitchBadgesLoadedChannel;
         this.ffzLoadedChannel = copy.ffzLoadedChannel;
         this.ffzGlobalLoaded = copy.ffzGlobalLoaded;
+        this.bttvEnabled = copy.bttvEnabled;
+        this.bttvCacheEnabled = copy.bttvCacheEnabled;
+        this.bttvLoadedChannel = copy.bttvLoadedChannel;
+        this.bttvGlobalLoaded = copy.bttvGlobalLoaded;
+        this.bttvCached = copy.bttvCached;
     }
 
     /**
@@ -697,6 +796,57 @@ public class ConfigEmoji extends Config
         this.ffzCached = ffzCached;
     }
 
+    public void setBttvEnabled(Boolean bttvEnabled)
+    {
+        this.bttvEnabled = bttvEnabled;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_BTTV_ENABLE, Boolean.toString(bttvEnabled));
+    }
+
+    public String getBttvLoadedChannel()
+    {
+        return bttvLoadedChannel;
+    }
+
+    public void setBttvLoadedChannel(String bttvLoadedChannel)
+    {
+        this.bttvLoadedChannel = bttvLoadedChannel;
+    }
+
+    public void setBttvGlobalLoaded(Boolean bttvGlobalLoaded)
+    {
+        this.bttvGlobalLoaded = bttvGlobalLoaded;
+    }
+
+    public boolean isBttvLoaded(String testChannel)
+    {
+        return bttvLoadedChannel != null && bttvLoadedChannel.equals(testChannel);
+    }
+
+    public void setBttfLoaded(String bttvLoadedChannel)
+    {
+        this.bttvLoadedChannel = bttvLoadedChannel;
+    }
+
+    public Boolean isBttvGlobalLoaded()
+    {
+        return bttvGlobalLoaded != null && bttvGlobalLoaded;
+    }
+
+    public void setBttfGlobalLoaded(Boolean bttvGlobalLoaded)
+    {
+        this.bttvGlobalLoaded = bttvGlobalLoaded;
+    }
+
+    public boolean isBttvCached()
+    {
+        return bttvCached != null && bttvCached;
+    }
+
+    public void setBttvCached(Boolean bttvCached)
+    {
+        this.bttvCached = bttvCached;
+    }
+
     /**
      * Mark work as being completed by setting the loaded and cached member variables of this emoji config
      * 
@@ -743,10 +893,29 @@ public class ConfigEmoji extends Config
                 this.ffzCached = true;
             }
         }
+        else if (emojiType.isBetterTtvEmote())
+        {
+            if (EmojiOperation.LOAD == emojiOp)
+            {
+                if (emojiType == EmojiType.BETTER_TTV_CHANNEL)
+                {
+                    this.bttvLoadedChannel = job.getChannel();
+                }
+                else if (emojiType == EmojiType.BETTER_TTV_GLOBAL)
+                {
+                    this.bttvGlobalLoaded = true;
+                }
+            }
+            else if (EmojiOperation.CACHE == emojiOp)
+            {
+                this.bttvCached = true;
+            }
+        }
     }
 
     /**
-     * Reset the flags indicating any completed work. This enables a reloading of everything. It does not clear out the previously loaded or cached data, just enables the system to reload or recache it.
+     * Reset the flags indicating any completed work. This enables a reloading of everything. It does not clear out the
+     * previously loaded or cached data, just enables the system to reload or recache it.
      */
     public void resetWorkCompleted()
     {
@@ -767,4 +936,5 @@ public class ConfigEmoji extends Config
     {
         return twitchBadgesLoadedChannel != null || isTwitchLoaded() || isTwitchCached() || ffzLoadedChannel != null || isFfzGlobalLoaded() || isFfzCached();
     }
+
 }

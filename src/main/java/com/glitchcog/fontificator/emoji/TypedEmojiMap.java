@@ -117,7 +117,7 @@ public class TypedEmojiMap
      * @param regex
      * @return fixed regex
      */
-    private static String fixRegularExpression(String regex)
+    private String fixRegularExpression(String regex)
     {
         // Remove redundant slashes
         regex = regex.replaceAll("\\\\\\\\", "\\\\");
@@ -128,6 +128,13 @@ public class TypedEmojiMap
         // Greater than and less than xml entities
         regex = regex.replaceAll("&lt;", "<");
         regex = regex.replaceAll("&gt;", ">");
+        // Needed for BTTV emotes like "(puke)"
+        if (type.isBetterTtvEmote())
+        {
+            regex = regex.replaceAll("\\(", "\\\\(");
+            regex = regex.replaceAll("\\)", "\\\\)");
+        }
+
         return regex;
     }
 

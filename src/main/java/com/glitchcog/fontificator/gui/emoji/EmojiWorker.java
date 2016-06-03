@@ -242,6 +242,15 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                     regexes.addAll(ffzGlobalRegexes);
                     ids = new ArrayList<Integer>(); // Unused for FFZ
                 }
+                else if (emojiType.isBetterTtvEmote())
+                {
+                    Collection<String> bttvChannelRegexes = manager.getEmojiByType(EmojiType.BETTER_TTV_CHANNEL).keySet();
+                    Collection<String> bttvGlobalRegexes = manager.getEmojiByType(EmojiType.BETTER_TTV_GLOBAL).keySet();
+                    regexes = new ArrayList<String>(bttvChannelRegexes.size() + bttvGlobalRegexes.size());
+                    regexes.addAll(bttvChannelRegexes);
+                    regexes.addAll(bttvGlobalRegexes);
+                    ids = new ArrayList<Integer>(); // Unused for BTTV
+                }
                 else
                 {
                     // Nothing to do
@@ -255,7 +264,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 List<LazyLoadEmoji[]> emojiToCache = new ArrayList<LazyLoadEmoji[]>();
                 for (String regex : regexes)
                 {
-                    LazyLoadEmoji[] emoji = manager.getEmoji(regex);
+                    LazyLoadEmoji[] emoji = manager.getEmoji(emojiType, regex, null);
                     emojiToCache.add(emoji);
                 }
                 for (Integer id : ids)

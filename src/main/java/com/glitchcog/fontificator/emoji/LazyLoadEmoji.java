@@ -41,6 +41,10 @@ public class LazyLoadEmoji
 
     private int height;
 
+    private boolean animated;
+
+    private boolean animatedGif;
+
     private static final int DEFAULT_EMOJI_SIZE = 24;
 
     private boolean firstLoadFailureReported;
@@ -71,21 +75,29 @@ public class LazyLoadEmoji
         {
             try
             {
-                BufferedImage imageFromTwitch = ImageIO.read(url);
+//              if (animatedGif)
+//              {
+//                  // Handle BTTV animated emotes by loading them differently
+//                  image = new ImageIcon(url).getImage();
+//              }
+//              else
+//              {
+                    BufferedImage imageFromTwitch = ImageIO.read(url);
 
-                // Hack to make image background transparent because Twitch emote V1 of sizes 2.0 and 3.0 sometimes are
-                // not of the correct type for transparency. Kappa (ID 25) is an example of a non transparent emoji in
-                // sizes 2.0 and 3.0. Seriously. Download a Kappa size 2.0 image from the V1 URL and open it in an
-                // editor. The background is solid, but when Twitch displays it in their chat, it displays transparent.
-                if (EmojiOpacityHandler.isCandidateForModification(type, imageFromTwitch.getType(), identifier))
-                {
-                    image = EmojiOpacityHandler.fixOpaqueEmote(identifier, imageFromTwitch);
-                }
-                // No hack required
-                else
-                {
-                    image = imageFromTwitch;
-                }
+                    // Hack to make image background transparent because Twitch emote V1 of sizes 2.0 and 3.0 sometimes are
+                    // not of the correct type for transparency. Kappa (ID 25) is an example of a non transparent emoji in
+                    // sizes 2.0 and 3.0. Seriously. Download a Kappa size 2.0 image from the V1 URL and open it in an
+                    // editor. The background is solid, but when Twitch displays it in their chat, it displays transparent.
+                    if (EmojiOpacityHandler.isCandidateForModification(type, imageFromTwitch.getType(), identifier))
+                    {
+                        image = EmojiOpacityHandler.fixOpaqueEmote(identifier, imageFromTwitch);
+                    }
+                    // No hack required
+                    else
+                    {
+                        image = imageFromTwitch;
+                    }
+//              }
             }
             catch (IOException e)
             {
@@ -155,5 +167,25 @@ public class LazyLoadEmoji
     public URL getUrl()
     {
         return url;
+    }
+
+    public boolean isAnimated()
+    {
+        return animated;
+    }
+
+    public void setAnimated(boolean animated)
+    {
+        this.animated = animated;
+    }
+
+    public boolean isAnimatedGif()
+    {
+        return animatedGif;
+    }
+
+    public void setAnimatedGif(boolean animatedGif)
+    {
+        this.animatedGif = animatedGif;
     }
 }

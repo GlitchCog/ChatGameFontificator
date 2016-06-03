@@ -83,32 +83,6 @@ public class EmojiManager
     }
 
     /**
-     * Get the emoji
-     * 
-     * @param testKey
-     * @return emoji or null if not found
-     */
-    public LazyLoadEmoji[] getEmoji(String testKey)
-    {
-        return getEmoji(testKey, null);
-    }
-
-    /**
-     * Get the emoji of any loaded type, where the testKey is the typed word indicating the emoji to display, if the
-     * configuration allows for that type of emoji
-     * 
-     * @param testKey
-     *            The word keying the emoji
-     * @param config
-     *            The emoji configuration
-     * @return emoji or null if not found or if configuration prohibits this emoji
-     */
-    public LazyLoadEmoji[] getEmoji(String testKey, ConfigEmoji config)
-    {
-        return getEmoji(EmojiType.values(), testKey, config);
-    }
-
-    /**
      * Get an emoji, of the given type, where the testKey is the typed word indicating the emoji to display, if the
      * configuration allows for that type of emoji
      * 
@@ -158,15 +132,6 @@ public class EmojiManager
         }
         return emoji;
     }
-
-    /**
-     * This has a hard-coded URL in it. It should probably be stored in EmojiApiLoader, but it is not.
-     * 
-     * @param emojiId
-     * @return the emoji that was added. (Note, this is different than the default return value of a map, which returns
-     *         the previous value or null if there was none.
-     * @throws MalformedURLException
-     */
 
     /**
      * @param emojiId

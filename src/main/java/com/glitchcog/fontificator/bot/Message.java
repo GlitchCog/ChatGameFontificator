@@ -547,12 +547,12 @@ public class Message
                 {
                     // As a known bug here, all manual messages will have access to all Twitch emotes, regardless of
                     // subscriber status
-                    emoji = emojiManager.getEmoji(words[w], emojiConfig);
+                    emoji = emojiManager.getEmoji(EmojiType.MANUAL_EMOJI_TYPES, words[w], emojiConfig);
                 }
                 // Only check 3rd party emotes
                 else
                 {
-                    emoji = emojiManager.getEmoji(new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL }, words[w], emojiConfig);
+                    emoji = emojiManager.getEmoji(EmojiType.THIRD_PARTY_EMOJI_TYPES, words[w], emojiConfig);
                 }
             }
 

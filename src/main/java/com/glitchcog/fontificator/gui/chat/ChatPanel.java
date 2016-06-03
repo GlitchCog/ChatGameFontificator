@@ -400,7 +400,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             Message msg = drawMessages.get(msgIndex);
             Color col = getUsernameColor(colorConfig, msg);
             // The call to drawMessage in SpriteFont will determine whether to draw each character based on whether it is located at a position appropriate to be drawn on
-            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, botLimit, lineWrapLength);
+            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, botLimit, lineWrapLength, this);
             y += dim.getHeight();
         }
     }
@@ -699,4 +699,5 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     {
         return emojiManager;
     }
+
 }

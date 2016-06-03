@@ -82,7 +82,8 @@ public class ControlPanelEmoji extends ControlPanelBase
     private LabeledSlider badgeScale;
 
     /**
-     * How much to offset the badge vertically, needed because the middle line of a font image is much lower than the middle line calculated from the font baseline to the top
+     * How much to offset the badge vertically, needed because the middle line of a font image is much lower than the
+     * middle line calculated from the font baseline to the top
      */
     private LabeledSlider badgeHeightOffset;
 
@@ -117,6 +118,16 @@ public class ControlPanelEmoji extends ControlPanelBase
     private JCheckBox cacheFrankerFaceZ;
 
     /**
+     * Whether to enable BetterTTV emotes
+     */
+    private JCheckBox enableBetterTtv;
+
+    /**
+     * Whether to cache global and channel specific BetterTTV emotes
+     */
+    private JCheckBox cacheBetterTtv;
+
+    /**
      * The emoji config object that bridges the UI to the properties file
      */
     private ConfigEmoji config;
@@ -137,7 +148,13 @@ public class ControlPanelEmoji extends ControlPanelBase
     private JPanel frankerPanel;
 
     /**
-     * A reference to the IRC bot to check whether the user is already connected when they check to load or cache an emote type
+     * Panel to house BetterTTV options
+     */
+    private JPanel betterPanel;
+
+    /**
+     * A reference to the IRC bot to check whether the user is already connected when they check to load or cache an
+     * emote type
      */
     private final ChatViewerBot bot;
 
@@ -178,6 +195,10 @@ public class ControlPanelEmoji extends ControlPanelBase
         enableFrankerFaceZ.setEnabled(all);
         cacheFrankerFaceZ.setEnabled(all && enableFrankerFaceZ.isSelected());
 
+        betterPanel.setEnabled(all);
+        enableBetterTtv.setEnabled(all);
+        cacheBetterTtv.setEnabled(all && enableBetterTtv.isSelected());
+
         progressPanel.handleButtonEnables();
     }
 
@@ -204,6 +225,9 @@ public class ControlPanelEmoji extends ControlPanelBase
 
         enableFrankerFaceZ = new JCheckBox("Enable FrankerFaceZ Emotes");
         cacheFrankerFaceZ = new JCheckBox("Cache FrankerFaceZ Emotes");
+
+        enableBetterTtv = new JCheckBox("Enable BetterTTV Emotes");
+        cacheBetterTtv = new JCheckBox("Cache BetterTTV Emotes");
 
         emojiScale.addChangeListener(new ChangeListener()
         {
@@ -262,6 +286,8 @@ public class ControlPanelEmoji extends ControlPanelBase
                     final boolean clickTwitchCache = clickAll || cacheTwitch.equals(source);
                     final boolean clickFfzLoad = clickAll || enableFrankerFaceZ.equals(source);
                     final boolean clickFfzCache = clickAll || cacheFrankerFaceZ.equals(source);
+                    final boolean clickBttvLoad = clickAll || enableBetterTtv.equals(source);
+                    final boolean clickBttvCache = clickAll || cacheBetterTtv.equals(source);
 
                     // Badges is independent of enableAll
                     final boolean clickBadges = !config.isTwitchBadgesLoaded(getConnectChannel()) && enableTwitchBadges.equals(source);
@@ -309,11 +335,44 @@ public class ControlPanelEmoji extends ControlPanelBase
                         }
                     }
 
+                    if (clickBttvLoad && !config.isBttvLoaded(getConnectChannel()))
+                    {
+                        EmojiJob jobA = new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.LOAD, getConnectChannel());
+                        EmojiJob jobB = new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD);
+
+                        if (enableAll.isSelected() && enableBetterTtv.isSelected())
+                        {
+                            jobsToRun.add(jobA);
+                            jobsToRun.add(jobB);
+                        }
+                        else
+                        {
+                            jobsToCancel.add(jobA);
+                            jobsToCancel.add(jobB);
+                        }
+                    }
+
                     if (clickFfzCache && !config.isFfzCached())
                     {
                         EmojiJob jobA = new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.CACHE);
                         EmojiJob jobB = new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.CACHE);
                         if (enableAll.isSelected() && cacheFrankerFaceZ.isSelected())
+                        {
+                            jobsToRun.add(jobA);
+                            jobsToRun.add(jobB);
+                        }
+                        else
+                        {
+                            jobsToCancel.add(jobA);
+                            jobsToCancel.add(jobB);
+                        }
+                    }
+
+                    if (clickBttvCache && !config.isBttvCached())
+                    {
+                        EmojiJob jobA = new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.CACHE);
+                        EmojiJob jobB = new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.CACHE);
+                        if (enableAll.isSelected() && cacheBetterTtv.isSelected())
                         {
                             jobsToRun.add(jobA);
                             jobsToRun.add(jobB);
@@ -356,6 +415,8 @@ public class ControlPanelEmoji extends ControlPanelBase
                 config.setTwitchCacheEnabled(cacheTwitch.isSelected());
                 config.setFfzEnabled(enableFrankerFaceZ.isSelected());
                 config.setFfzCacheEnabled(cacheFrankerFaceZ.isSelected());
+                config.setBttvEnabled(enableBetterTtv.isSelected());
+                config.setBttvCacheEnabled(cacheBetterTtv.isSelected());
                 config.setEmojiScaleToLine(emojiScaleToLineHeight.isSelected());
                 config.setBadgeScaleToLine(badgeScaleToLineHeight.isSelected());
                 resolveEnables();
@@ -372,6 +433,8 @@ public class ControlPanelEmoji extends ControlPanelBase
         cacheTwitch.addActionListener(cbal);
         enableFrankerFaceZ.addActionListener(cbal);
         cacheFrankerFaceZ.addActionListener(cbal);
+        enableBetterTtv.addActionListener(cbal);
+        cacheBetterTtv.addActionListener(cbal);
 
         JPanel allEnabledPanel = new JPanel(new GridBagLayout());
         GridBagConstraints allGbc = getGbc();
@@ -443,11 +506,19 @@ public class ControlPanelEmoji extends ControlPanelBase
         frankerPanel.add(cacheFrankerFaceZ, frankerGbc);
         frankerGbc.gridy++;
 
+        betterPanel = new JPanel(new GridBagLayout());
+        betterPanel.setBorder(BorderFactory.createTitledBorder(baseBorder, "BetterTTV Emotes"));
+        GridBagConstraints betterGbc = getGbc();
+        betterPanel.add(enableBetterTtv, betterGbc);
+        betterGbc.gridy++;
+        betterPanel.add(cacheBetterTtv, betterGbc);
+        betterGbc.gridy++;
+
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
         gbc.weighty = 0.0;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
 
         add(allEnabledPanel, gbc);
         gbc.gridy++;
@@ -459,14 +530,17 @@ public class ControlPanelEmoji extends ControlPanelBase
         gbc.gridx++;
 
         add(frankerPanel, gbc);
-        gbc.gridx = 0;
-        gbc.gridy++;
+        gbc.gridx++;
 
+        add(betterPanel, gbc);
+        gbc.gridx++;
+
+        gbc.gridx = 0;
         gbc.gridy++;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.weighty = 1.0;
         gbc.weightx = 1.0;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.BOTH;
         add(progressPanel, gbc);
         gbc.gridy++;
@@ -478,8 +552,9 @@ public class ControlPanelEmoji extends ControlPanelBase
     }
 
     /**
-     * Load emoji based on what's already happened and what is checked. This is called by the IRC control panel when a connection is first made to the IRC channel or by the manual load button on the progress panel at the bottom of the Emoji
-     * tab of the Control Window.
+     * Load emoji based on what's already happened and what is checked. This is called by the IRC control panel when a
+     * connection is first made to the IRC channel or by the manual load button on the progress panel at the bottom of
+     * the Emoji tab of the Control Window.
      */
     public void loadAndRunEmojiWork()
     {
@@ -501,12 +576,14 @@ public class ControlPanelEmoji extends ControlPanelBase
     }
 
     /**
-     * Parse through the selected UI options to determine what jobs need to be done. This will return an empty job list if any of the jobs specified by the UI require a channel and no channel is provided on the Connection tab. A popup will
-     * present this information to the user.
+     * Parse through the selected UI options to determine what jobs need to be done. This will return an empty job list
+     * if any of the jobs specified by the UI require a channel and no channel is provided on the Connection tab. A
+     * popup will present this information to the user.
      * 
      * @param onlyForCounting
-     *            Whether this collection is only for the purposes of knowing how many jobs are specified, for purposes of enabling or disabling buttons on the emoji progress panel. If it's only for counting, supress any popup errors and
-     *            continue on counting.
+     *            Whether this collection is only for the purposes of knowing how many jobs are specified, for purposes
+     *            of enabling or disabling buttons on the emoji progress panel. If it's only for counting, supress any
+     *            popup errors and continue on counting.
      * @return jobs
      */
     public Set<EmojiJob> collectJobs(boolean onlyForCounting)
@@ -519,6 +596,8 @@ public class ControlPanelEmoji extends ControlPanelBase
             final boolean workTwitchCache = !config.isTwitchCached() && cacheTwitch.isSelected();
             final boolean workFfzLoad = !config.isFfzLoaded(getConnectChannel()) && enableFrankerFaceZ.isSelected();
             final boolean workFfzCache = !config.isFfzCached() && cacheFrankerFaceZ.isSelected();
+            final boolean workBttvLoad = !config.isBttvLoaded(getConnectChannel()) && enableBetterTtv.isSelected();
+            final boolean workBttvCache = !config.isBttvCached() && cacheBetterTtv.isSelected();
 
             if (workTwitchLoad)
             {
@@ -553,6 +632,24 @@ public class ControlPanelEmoji extends ControlPanelBase
                 jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.CACHE));
                 jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.CACHE));
             }
+
+            if (workBttvLoad)
+            {
+                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.LOAD, getConnectChannel()));
+                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD));
+                if (!onlyForCounting && getConnectChannel() == null)
+                {
+                    ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load Emoji");
+                    jobs.clear();
+                    return jobs;
+                }
+            }
+
+            if (workBttvCache)
+            {
+                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.CACHE));
+                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.CACHE));
+            }
         }
 
         if (enableTwitchBadges.isSelected() && !config.isTwitchBadgesLoaded(getConnectChannel()))
@@ -570,7 +667,8 @@ public class ControlPanelEmoji extends ControlPanelBase
     }
 
     /**
-     * Queue the work of a specified operation (load or cache) on a specified type of emote (Twitch or FrankerFaceZ). Call runEmoteWork to run the loaded work in series.
+     * Queue the work of a specified operation (load or cache) on a specified type of emote (Twitch or FrankerFaceZ).
+     * Call runEmoteWork to run the loaded work in series.
      * 
      * @param types
      * @param ops
@@ -632,6 +730,8 @@ public class ControlPanelEmoji extends ControlPanelBase
         this.cacheTwitch.setSelected(config.isTwitchCacheEnabled());
         this.enableFrankerFaceZ.setSelected(config.isFfzEnabled());
         this.cacheFrankerFaceZ.setSelected(config.isFfzCacheEnabled());
+        this.enableBetterTtv.setSelected(config.isBttvEnabled());
+        this.cacheBetterTtv.setSelected(config.isBttvCacheEnabled());
 
         resolveEnables();
     }
@@ -656,6 +756,8 @@ public class ControlPanelEmoji extends ControlPanelBase
         config.setTwitchCacheEnabled(cacheTwitch.isSelected());
         config.setFfzEnabled(enableFrankerFaceZ.isSelected());
         config.setFfzCacheEnabled(cacheFrankerFaceZ.isSelected());
+        config.setBttvEnabled(enableBetterTtv.isSelected());
+        config.setBttvCacheEnabled(cacheBetterTtv.isSelected());
     }
 
 }

@@ -65,6 +65,16 @@ public class EmojiApiLoader
      */
     private static final String FRANKER_BASE_URL = "https://api.frankerfacez.com/v1/room/" + CHANNEL_NAME_REPLACE;
 
+    /**
+     * The URL for getting the global BetterTTV emotes from the API
+     */
+    private static final String BTTV_GLOBAL_URL = "https://api.betterttv.net/2/emotes";
+
+    /**
+     * The base URL for getting the BetterTTV emotes for whatever username is appended to the end from the API
+     */
+    private static final String BTTV_BASE_URL = "https://api.betterttv.net/2/channels/" + CHANNEL_NAME_REPLACE;
+
     private static final int BUFFER_SIZE = 512;
 
     private final char[] buffer;
@@ -151,6 +161,10 @@ public class EmojiApiLoader
             return FRANKER_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case FRANKERFACEZ_GLOBAL:
             return FRANKER_GLOBAL_URL;
+        case BETTER_TTV_CHANNEL:
+            return BTTV_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
+        case BETTER_TTV_GLOBAL:
+            return BTTV_GLOBAL_URL;
         case TWITCH_V2:
             return TWITCH_URL_V2_BASE.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case TWITCH_V3:
