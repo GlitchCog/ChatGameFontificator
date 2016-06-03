@@ -925,6 +925,9 @@ public class ConfigEmoji extends Config
         this.ffzLoadedChannel = null;
         this.ffzGlobalLoaded = false;
         this.ffzCached = null;
+        this.bttvLoadedChannel = null;
+        this.bttvGlobalLoaded = false;
+        this.bttvCached = null;
     }
 
     /**
@@ -934,7 +937,11 @@ public class ConfigEmoji extends Config
      */
     public boolean isAnyWorkDone()
     {
-        return twitchBadgesLoadedChannel != null || isTwitchLoaded() || isTwitchCached() || ffzLoadedChannel != null || isFfzGlobalLoaded() || isFfzCached();
+        // @formatter:off
+        return twitchBadgesLoadedChannel != null || isTwitchLoaded() || isTwitchCached() || 
+               ffzLoadedChannel != null || isFfzGlobalLoaded() || isFfzCached() || 
+               bttvLoadedChannel != null || isBttvGlobalLoaded() || isBttvCached();
+        // @formatter:on
     }
 
 }
