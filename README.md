@@ -1,5 +1,7 @@
 #Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
+###June 3 Update: <img src="https://cdn.betterttv.net/emote/566c9fde65dbbdab32ec053e/1x" alt="FeelsGoodMan"> BetterTTV Emote Support!
+
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
 It's a Java application archive, so you'll need the JRE to run it, but it's likely you already have that. If you don't, you can get it [here](https://java.com/en/download/). Install the JRE, and then you can run this program.
