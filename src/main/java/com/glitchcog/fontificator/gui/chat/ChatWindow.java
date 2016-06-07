@@ -89,6 +89,7 @@ public class ChatWindow extends JFrame
         setAlwaysOnTop(fProps.getChatConfig().isAlwaysOnTop());
 
         chatPanel.setConfig(fProps);
+        chatPanel.initExpirationTimer();
 
         addWindowListener(new WindowListener()
         {

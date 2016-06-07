@@ -26,6 +26,8 @@ public class Message
 {
     private static final Logger logger = Logger.getLogger(Message.class);
 
+    private static final long UNCOMPLETED_TIME = 0L;
+
     /**
      * A regex for checking for emoji keys in the text. Used in a String.split to divide the message into an array of
      * words and the spaces between them.
@@ -80,13 +82,6 @@ public class Message
     private int badgeCount;
 
     /**
-     * Whether the message is completely drawn or not. Because the fully displayed message can change, like if the
-     * option to show the time stamp is selected on the fly, once any configuration of the message is fully displayed,
-     * it should remain fully displayed, even though the draw cursor won't be at the end of the now longer message text
-     */
-    private boolean completelyDrawn;
-
-    /**
      * The String of the message put into text
      */
     private SpriteCharacterKey[] text;
@@ -118,6 +113,11 @@ public class Message
      * using ConfigEmoji.equals), then there's no need to re-parse it
      */
     private ConfigEmoji lastEmojiConfig;
+
+    /**
+     * The moment in time the message was completely drawn
+     */
+    private long completedTime;
 
     /**
      * Construct a message specifying the type, username and content, but set the time stamp to the current local time
@@ -160,6 +160,7 @@ public class Message
         this.lastMessageConfig = new ConfigMessage();
         this.lastEmojiConfig = new ConfigEmoji();
         this.privmsg = privmsg;
+        this.completedTime = UNCOMPLETED_TIME;
     }
 
     /**
@@ -222,7 +223,7 @@ public class Message
         // of past messages
         if (drawCursor >= getMessageLength(emojiManager, messageConfig, emojiConfig))
         {
-            completelyDrawn = true;
+            completedTime = System.currentTimeMillis();
         }
     }
 
@@ -246,17 +247,19 @@ public class Message
      */
     public float getDrawCursor()
     {
-        return completelyDrawn ? MAX_INT_AS_FLOAT : drawCursor;
+        return isCompletelyDrawn() ? MAX_INT_AS_FLOAT : drawCursor;
     }
 
     /**
-     * Get whether the message is completely drawn
+     * Get whether the message is completely drawn or not. Because the fully displayed message can change, like if the
+     * option to show the time stamp is selected on the fly, once any configuration of the message is fully displayed,
+     * it should remain fully displayed, even though the draw cursor won't be at the end of the now longer message text.
      * 
      * @return completelyDrawn
      */
     public boolean isCompletelyDrawn()
     {
-        return completelyDrawn;
+        return completedTime != 0;
     }
 
     /**
@@ -626,6 +629,14 @@ public class Message
         return privmsg;
     }
 
+    /**
+     * @return age of the message since it was completely drawn, or zero if it isn't yet completed in seconds
+     */
+    public long getAge(long currentTime)
+    {
+        return completedTime == UNCOMPLETED_TIME ? 0L : (currentTime - completedTime) / 1000L;
+    }
+
     private static String applyCasing(String str, MessageCasing casing)
     {
         if (casing == null)
@@ -644,4 +655,5 @@ public class Message
             return str;
         }
     }
+
 }

@@ -69,25 +69,29 @@ public class ControlPanelMessage extends ControlPanelBase
     private JCheckBox joinMessagesBox;
 
     /**
-     * Slider to indicate how fast the messages should be rolled out onto the chat display
-     */
-    private LabeledSlider messageSpeedSlider;
-
-    /**
      * Slider to specify the size of the message queue
      */
     private LabeledSlider queueSizeSlider;
 
     /**
+     * Slider to indicate how fast the messages should be rolled out onto the chat display
+     */
+    private LabeledSlider messageSpeedSlider;
+
+    /**
+     * Slider to indicate whether and how long messages take to expire
+     */
+    private LabeledSlider expirationTimeSlider;
+
+    /**
+     * Checkbox to indicate whether no border should be drawn when there are no visible messages to display in it
+     */
+    private JCheckBox hideEmptyBorder;
+
+    /**
      * The message config object that bridges the UI to the properties file
      */
     private ConfigMessage config;
-
-    /**
-     * Button to clear the chat from the display. It does not affect the IRC channel in any way, only the chat display
-     * of this program.
-     */
-    private JButton clearChatButton;
 
     /**
      * Dropdown menu to specify the choices for username capitalization
@@ -129,8 +133,8 @@ public class ControlPanelMessage extends ControlPanelBase
         timeFormatUpdateButton = new JButton("Update Time Format");
         queueSizeSlider = new LabeledSlider("Message Queue Size", "messages", ConfigMessage.MIN_QUEUE_SIZE, ConfigMessage.MAX_QUEUE_SIZE);
 
-        final String maxLabel = "MAX";
-        messageSpeedSlider = new LabeledSlider("Message Speed", "char/sec", ConfigMessage.MIN_MESSAGE_SPEED, ConfigMessage.MAX_MESSAGE_SPEED, maxLabel.length())
+        final String maxSpeedLabel = "MAX";
+        messageSpeedSlider = new LabeledSlider("Message Speed", "char/sec", ConfigMessage.MIN_MESSAGE_SPEED, ConfigMessage.MAX_MESSAGE_SPEED, maxSpeedLabel.length())
         {
             private static final long serialVersionUID = 1L;
 
@@ -139,7 +143,7 @@ public class ControlPanelMessage extends ControlPanelBase
             {
                 if (getValue() == slider.getMaximum())
                 {
-                    return maxLabel;
+                    return maxSpeedLabel;
                 }
                 else
                 {
@@ -147,6 +151,41 @@ public class ControlPanelMessage extends ControlPanelBase
                 }
             }
         };
+
+        final String minExpirationLabel = "NEVER";
+        expirationTimeSlider = new LabeledSlider("Hide Messages After ", "sec", ConfigMessage.MIN_MESSAGE_EXPIRATION, ConfigMessage.MAX_MESSAGE_EXPIRATION, minExpirationLabel.length())
+        {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected String getUnitLabelStr()
+            {
+                if (getValue() == slider.getMinimum())
+                {
+                    return padValue("", super.getUnitLabelStr().length());
+                }
+                else
+                {
+                    return super.getUnitLabelStr();
+                }
+            }
+
+            @Override
+            public String getValueString()
+            {
+                if (getValue() == slider.getMinimum())
+                {
+                    return minExpirationLabel;
+                }
+                else
+                {
+                    return super.getValueString();
+                }
+            }
+        };
+
+        hideEmptyBorder = new JCheckBox("Hide Border When No Messages Are Displayed");
+
         caseTypeDropdown = new JComboBox<UsernameCaseResolutionType>(UsernameCaseResolutionType.values());
         specifyCaseBox = new JCheckBox("Permit users to specify their own username case in posts");
         messageCasingDropdown = new JComboBox<MessageCasing>(MessageCasing.values());
@@ -223,6 +262,10 @@ public class ControlPanelMessage extends ControlPanelBase
                     config.setSpecifyCaseAllowed(specifyCaseBox.isSelected());
                     chatWindow.clearUsernameCases();
                 }
+                else if (hideEmptyBorder.equals(source))
+                {
+                    config.setHideEmptyBorder(hideEmptyBorder.isSelected());
+                }
                 chat.repaint();
             }
         };
@@ -231,6 +274,7 @@ public class ControlPanelMessage extends ControlPanelBase
         joinMessagesBox.addActionListener(boxListener);
         timestampsBox.addActionListener(boxListener);
         specifyCaseBox.addActionListener(boxListener);
+        hideEmptyBorder.addActionListener(boxListener);
 
         timeFormatUpdateButton.addActionListener(new ActionListener()
         {
@@ -268,30 +312,25 @@ public class ControlPanelMessage extends ControlPanelBase
                     {
                         config.setMessageSpeed(messageSpeedSlider.getValue(), chat.getMessageProgressor());
                     }
+                    else if (expirationTimeSlider.getSlider().equals(source))
+                    {
+                        config.setExpirationTime(expirationTimeSlider.getValue(), chat.getMessageExpirer());
+                        chat.repaint();
+                    }
                 }
             }
         };
 
         messageSpeedSlider.addChangeListener(cl);
+        expirationTimeSlider.addChangeListener(cl);
         queueSizeSlider.addChangeListener(cl);
-
-        clearChatButton = new JButton("Clear Chat");
-        clearChatButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                chat.clearChat();
-                chat.repaint();
-            }
-        });
 
         gbc.weightx = 0.0;
         gbc.weighty = 0.0;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.NONE;
 
-        JPanel topOptions = new JPanel(new GridLayout(2, 1));
+        JPanel topOptions = new JPanel(new GridBagLayout());
         topOptions.setBorder(new TitledBorder(baseBorder, "Message Format Options", TitledBorder.CENTER, TitledBorder.TOP));
 
         JPanel optionsA = new JPanel(new GridBagLayout());
@@ -317,12 +356,24 @@ public class ControlPanelMessage extends ControlPanelBase
         optionsA.add(timeFormatPanel, aGbc);
 
         GridBagConstraints bGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
+        optionsB.add(queueSizeSlider, bGbc);
+        bGbc.gridy++;
         optionsB.add(messageSpeedSlider, bGbc);
         bGbc.gridy++;
-        optionsB.add(queueSizeSlider, bGbc);
+        bGbc.fill = GridBagConstraints.HORIZONTAL;
+        optionsB.add(expirationTimeSlider, bGbc);
+        bGbc.gridy++;
+        bGbc.fill = GridBagConstraints.NONE;
+        optionsB.add(hideEmptyBorder, bGbc);
+        bGbc.gridy++;
 
-        topOptions.add(optionsA);
-        topOptions.add(optionsB);
+        GridBagConstraints topOpGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
+        topOpGbc.anchor = GridBagConstraints.SOUTH;
+        topOptions.add(optionsA, topOpGbc);
+        topOpGbc.gridy++;
+        topOpGbc.anchor = GridBagConstraints.NORTH;
+        topOptions.add(optionsB, topOpGbc);
+        topOpGbc.gridy++;
 
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -396,6 +447,8 @@ public class ControlPanelMessage extends ControlPanelBase
         joinMessagesBox.setSelected(config.showJoinMessages());
         queueSizeSlider.setValue(config.getQueueSize());
         messageSpeedSlider.setValue(config.getMessageSpeed());
+        expirationTimeSlider.setValue(config.getExpirationTime());
+        hideEmptyBorder.setSelected(config.isHideEmptyBorder());
         caseTypeDropdown.setSelectedItem(config.getCaseResolutionType());
         specifyCaseBox.setSelected(config.isSpecifyCaseAllowed());
         messageCasingDropdown.setSelectedItem(config.getMessageCasing());
@@ -405,7 +458,7 @@ public class ControlPanelMessage extends ControlPanelBase
     protected LoadConfigReport validateInput()
     {
         LoadConfigReport report = new LoadConfigReport();
-        config.validateStrings(report, timeFormatInput.getText(), Integer.toString(queueSizeSlider.getValue()), Integer.toString(messageSpeedSlider.getValue()));
+        config.validateStrings(report, timeFormatInput.getText(), Integer.toString(queueSizeSlider.getValue()), Integer.toString(messageSpeedSlider.getValue()), Integer.toString(expirationTimeSlider.getValue()));
         return report;
     }
 
@@ -419,6 +472,8 @@ public class ControlPanelMessage extends ControlPanelBase
         toggleEnableds();
         config.setQueueSize(queueSizeSlider.getValue());
         config.setMessageSpeed(messageSpeedSlider.getValue(), chat.getMessageProgressor());
+        config.setExpirationTime(expirationTimeSlider.getValue(), chat.getMessageExpirer());
+        config.setHideEmptyBorder(hideEmptyBorder.isSelected());
         config.setCaseResolutionType((UsernameCaseResolutionType) caseTypeDropdown.getSelectedItem());
         config.setSpecifyCaseAllowed(specifyCaseBox.isSelected());
         config.setMessageCasing((MessageCasing) messageCasingDropdown.getSelectedItem());

@@ -137,18 +137,22 @@ public class LabeledSlider extends JPanel
 
     protected void setUnitLabel()
     {
-        unitLabel.setText("<html><nobr><tt><b>" + padValue(getValueString()) + " " + unitLabelStr + "</b></tt></nobr></html>");
+        unitLabel.setText("<html><nobr><tt><b>" + padValue(getValueString()) + " " + getUnitLabelStr() + "</b></tt></nobr></html>");
     }
 
     private String padValue(String valStr)
     {
-        while (valStr.length() < maxValueDigits)
+        return padValue(valStr, maxValueDigits);
+    }
+
+    protected String padValue(String valStr, int length)
+    {
+        while (valStr.length() < length)
         {
             valStr = " " + valStr;
         }
         valStr = valStr.replaceAll(" ", "&nbsp;");
-        return valStr;
-    }
+        return valStr;    }
 
     public void addChangeListener(ChangeListener cl)
     {
@@ -173,5 +177,10 @@ public class LabeledSlider extends JPanel
     public void setValueTextColor(Color textColor)
     {
         unitLabel.setForeground(textColor);
+    }
+
+    protected String getUnitLabelStr()
+    {
+        return unitLabelStr;
     }
 }

@@ -29,6 +29,8 @@ import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.emoji.EmojiManager;
+import com.glitchcog.fontificator.gui.chat.clock.MessageExpirer;
+import com.glitchcog.fontificator.gui.chat.clock.MessageProgressor;
 import com.glitchcog.fontificator.gui.controls.panel.MessageCensorPanel;
 import com.glitchcog.fontificator.sprite.Sprite;
 import com.glitchcog.fontificator.sprite.SpriteFont;
@@ -57,6 +59,12 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * appropriate speed
      */
     private MessageProgressor messageProgressor;
+
+    /**
+     * Contains the timed task and a reference to this chat to be used to refresh periodically in case any messages have
+     * been expired
+     */
+    private MessageExpirer messageExpirer;
 
     /**
      * The sprite used to draw the border around the chat, to be displayed if the border scale is greater than zero
@@ -140,6 +148,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         emojiManager = new EmojiManager();
         messageProgressor = new MessageProgressor(this);
+        messageExpirer = new MessageExpirer(this);
     }
 
     /**
@@ -219,12 +228,33 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         // Draws the background color and the chroma key border
         drawBackground(g2d);
 
+        List<Message> drawMessages = new ArrayList<Message>();
+
+        // Make a copy of the actual cache that only includes the messages that are completely drawn and possibly the
+        // one message currently being drawn
+        long drawTime = System.currentTimeMillis();
+        for (Message msg : messages)
+        {
+            final boolean censored = censorConfig.isCensorshipEnabled() && msg.isCensored();
+            final boolean expired = messageConfig.isMessageExpirable() && msg.getAge(drawTime) > messageConfig.getExpirationTime();
+            if (!censored && !expired)
+            {
+                drawMessages.add(msg);
+            }
+            if (!msg.isCompletelyDrawn())
+            {
+                // No need to check any further messages because this is the one currently being rolled out
+                break;
+            }
+        }
+
         // This offset represents how far inward in the x and y directions the messages should be drawn
         Point offset = new Point();
 
         // If border scale is zero, just skip this. The drawBorder method won't draw a zero scale border, but if these
         // calculations are attempted with a zero scale it will throw a divide by zero exception
-        if (fontConfig.getBorderScale() > 0.0f)
+        // Also check if no messages are visible whether the border should be hidden
+        if (fontConfig.getBorderScale() > 0.0f && !(messageConfig.isHideEmptyBorder() && drawMessages.isEmpty()))
         {
             final int gridWidth = getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale());
             final int gridHeight = getHeight() / border.getSpriteDrawHeight(fontConfig.getBorderScale());
@@ -237,7 +267,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             drawBorder(g2d, gridWidth, gridHeight, offset, colorConfig.getBorderColor());
         }
 
-        drawChat(g2d, messages, offset);
+        drawChat(g2d, drawMessages, offset);
     }
 
     /**
@@ -295,24 +325,8 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * @param messages
      * @param offset
      */
-    private void drawChat(Graphics2D g2d, ConcurrentLinkedQueue<Message> messages, Point offset)
+    private void drawChat(Graphics2D g2d, List<Message> drawMessages, Point offset)
     {
-        List<Message> drawMessages = new ArrayList<Message>();
-
-        // Make a copy of the actual cache that only includes the messages that are completely drawn and possibly the
-        // one message currently being drawn
-        for (Message msg : messages)
-        {
-            if (!censorConfig.isCensorshipEnabled() || !msg.isCensored())
-            {
-                drawMessages.add(msg);
-                if (!msg.isCompletelyDrawn())
-                {
-                    break;
-                }
-            }
-        }
-
         final int lineWrapLength = (border == null || fontConfig.getBorderScale() <= 0.0f ? getWidth() : border.getSpriteDrawWidth(fontConfig.getBorderScale()) * (getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale()) - 2)) - fontConfig.getBorderInsetX() * 2;
         final int leftEdge = offset.x + (border == null || fontConfig.getBorderScale() <= 0.0f ? 0 : border.getSpriteDrawWidth(fontConfig.getBorderScale())) + fontConfig.getBorderInsetX();
 
@@ -528,7 +542,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             remCount--;
         }
 
-        messageProgressor.startMessageClock(messageConfig.getMessageDelay());
+        messageProgressor.startClock(messageConfig.getMessageDelay());
         if (censor.isVisible())
         {
             censor.updateManualTable();
@@ -683,6 +697,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         return messageProgressor;
     }
 
+    public MessageExpirer getMessageExpirer()
+    {
+        return messageExpirer;
+    }
+
     public void banUser(String bannedUser)
     {
         censor.addBan(bannedUser);
@@ -698,6 +717,14 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     public EmojiManager getEmojiManager()
     {
         return emojiManager;
+    }
+
+    public void initExpirationTimer()
+    {
+        if (messageConfig.isMessageExpirable())
+        {
+            messageExpirer.startClock();
+        }
     }
 
 }

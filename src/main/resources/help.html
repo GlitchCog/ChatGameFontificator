@@ -294,6 +294,12 @@ table {
             valid and different than the currently specified pattern.</td>
         </tr>
         <tr>
+          <td>Message Queue Size</td>
+          <td>This is the number of messages that are stored in the queue. It should be higher than the number of rows you can see on the screen to avoid any wasted empty space in the chat display, but smaller message queue sizes will use less space.
+            The queue size is changed when the mouse button on the slider is released, so if you drag it all the way down to 1, but take it back up to a more reasonable size before letting go, the messages in the queue will not be removed should another
+            message be added, causing the culling process to run. If the enable scrolling option is selected on the chat window tab, this message queue size will represent the farthest back you can scroll.</td>
+        </tr>
+        <tr>
           <td>Message Speed</td>
           <td>This is the speed with which the messages are added to the display, character by character. It is intended to mimic the way a message is displayed in a game text box, where characters are printed out in order one at a time. The value can
             be specified from 1 character per second up to 120 characters per second, with an additional option to display the messages as fast as possible, which is denoted MAX. It is possible for the message speed to be set too slow for a channel. If the
@@ -301,10 +307,15 @@ table {
             characters per second by taking the slider all the way to the right.</td>
         </tr>
         <tr>
-          <td>Message Queue Size</td>
-          <td>This is the number of messages that are stored in the queue. It should be higher than the number of rows you can see on the screen to avoid any wasted empty space in the chat display, but smaller message queue sizes will use less space.
-            The queue size is changed when the mouse button on the slider is released, so if you drag it all the way down to 1, but take it back up to a more reasonable size before letting go, the messages in the queue will not be removed should another
-            message be added, causing the culling process to run. If the enable scrolling option is selected on the chat window tab, this message queue size will represent the farthest back you can scroll.</td>
+          <td>Hide Messages After</td>
+          <td>This is the control for whether to hide messages after a certain amount of specified time in seconds. Setting this slider all the way to the left, which is denoted NEVER, means messages will never be hidden no matter how old they become.
+            In conjunction with the option to Hide Border When No Messages Are Displayed this option can be used to effectively disappear the chat if there are no current messages to display. The messages are not purged from the message queue, but are
+            simply not displayed. Messages will reappear as this value is adjusted to a duration smaller than their ages.</td>
+        </tr>
+        <tr>
+          <td>Hide Border When No Messages Are Displayed</td>
+          <td>If selected, this option will prevent the border from being drawn if there are no messages to display. There are no messages to display if no messages have yet been posted, the Clear Chat button was used to clear out any existing
+            messages, all messages are censored, or the messages have been expired using the Hide Messages After option.</td>
         </tr>
         <tr>
           <td>Default Method for Handling Username Casing</td>

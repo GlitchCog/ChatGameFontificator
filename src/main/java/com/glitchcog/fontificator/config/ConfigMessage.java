@@ -7,7 +7,8 @@ import java.util.Properties;
 
 import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
-import com.glitchcog.fontificator.gui.chat.MessageProgressor;
+import com.glitchcog.fontificator.gui.chat.clock.MessageExpirer;
+import com.glitchcog.fontificator.gui.chat.clock.MessageProgressor;
 
 /**
  * The configuration for how to display the messages
@@ -27,6 +28,9 @@ public class ConfigMessage extends Config
 
     public static final int MIN_MESSAGE_SPEED = 1;
     public static final int MAX_MESSAGE_SPEED = 121;
+
+    public static final int MIN_MESSAGE_EXPIRATION = 0;
+    public static final int MAX_MESSAGE_EXPIRATION = 720;
 
     private static final long MIN_MESSAGE_DELAY = 1L;
 
@@ -66,6 +70,16 @@ public class ConfigMessage extends Config
     private Integer messageSpeed;
 
     /**
+     * The age a message can reach prior to its expiration, or zero if message expiration is turned off
+     */
+    private Integer expirationTime;
+
+    /**
+     * Whether the border should be hidden if there are no messages to display
+     */
+    private Boolean hideEmptyBorder;
+
+    /**
      * The method for resolving the capitalization of usernames
      */
     private UsernameCaseResolutionType caseResolutionType;
@@ -90,6 +104,8 @@ public class ConfigMessage extends Config
         this.timeFormat = null;
         this.queueSize = null;
         this.messageSpeed = null;
+        this.expirationTime = null;
+        this.hideEmptyBorder = null;
         this.caseResolutionType = null;
         this.specifyCaseAllowed = null;
         this.messageCasing = null;
@@ -109,21 +125,22 @@ public class ConfigMessage extends Config
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String expirationTimeStr)
     {
         validateTimeFormat(report, timeFormatStr);
 
         validateIntegerWithLimitString(FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE, queueSizeStr, MIN_QUEUE_SIZE, MAX_QUEUE_SIZE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_MESSAGE_SPEED, messageSpeedStr, MIN_MESSAGE_SPEED, MAX_MESSAGE_SPEED, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME, expirationTimeStr, MIN_MESSAGE_EXPIRATION, MAX_MESSAGE_EXPIRATION, report);
 
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool, String msgCasingStr)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String expirationTimerStr, String hideEmptyBorderBool, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool, String msgCasingStr)
     {
-        validateStrings(report, timeFormatStr, queueSizeStr, messageSpeedStr);
+        validateStrings(report, timeFormatStr, queueSizeStr, messageSpeedStr, expirationTimerStr);
 
-        validateBooleanStrings(report, joinBool, userBool, timestampBool, specifyCaseBool);
+        validateBooleanStrings(report, joinBool, userBool, timestampBool, specifyCaseBool, hideEmptyBorderBool);
 
         if (!UsernameCaseResolutionType.contains(caseTypeStr))
         {
@@ -160,7 +177,9 @@ public class ConfigMessage extends Config
             final String timestampBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_TIMESTAMP);
             final String specifyCaseBool = props.getProperty(FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY);
             final String msgCaseStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_CASING);
-            validateStrings(report, tfString, quSizeStr, msgSpeedStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool, msgCaseStr);
+            final String expTimerStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME);
+            final String hideEmptyBorderStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BORDER);
+            validateStrings(report, tfString, quSizeStr, msgSpeedStr, expTimerStr, hideEmptyBorderStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool, msgCaseStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -171,6 +190,8 @@ public class ConfigMessage extends Config
                 this.timeFormat = tfString;
                 this.queueSize = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE, report);
                 this.messageSpeed = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_SPEED, report);
+                this.expirationTime = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME, report);
+                this.hideEmptyBorder = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BORDER, report);
                 this.caseResolutionType = UsernameCaseResolutionType.valueOf(caseTpStr);
                 this.specifyCaseAllowed = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY, report);
                 this.messageCasing = MessageCasing.valueOf(msgCaseStr);
@@ -285,6 +306,44 @@ public class ConfigMessage extends Config
         {
             progressor.refreshTimer(getMessageDelay());
         }
+    }
+
+    public Integer getExpirationTime()
+    {
+        return expirationTime;
+    }
+
+    public void setExpirationTime(Integer expirationTime, MessageExpirer expirer)
+    {
+        this.expirationTime = expirationTime;
+        props.setProperty(FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME, Integer.toString(expirationTime));
+        if (expirer != null)
+        {
+            if (expirationTime == MIN_MESSAGE_EXPIRATION)
+            {
+                expirer.cancelLatest();
+            }
+            else
+            {
+                expirer.startClock();
+            }
+        }
+    }
+
+    public boolean isMessageExpirable()
+    {
+        return expirationTime != null && expirationTime != 0;
+    }
+
+    public boolean isHideEmptyBorder()
+    {
+        return hideEmptyBorder;
+    }
+
+    public void setHideEmptyBorder(boolean hideEmptyBorder)
+    {
+        this.hideEmptyBorder = hideEmptyBorder;
+        props.setProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BORDER, Boolean.toString(hideEmptyBorder));
     }
 
     public UsernameCaseResolutionType getCaseResolutionType()
