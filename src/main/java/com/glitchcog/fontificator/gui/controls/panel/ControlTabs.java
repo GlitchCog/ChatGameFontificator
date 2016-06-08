@@ -107,9 +107,9 @@ public class ControlTabs extends JTabbedPane
         ircPanel = new ControlPanelIrc(fProps, chatWindow, emojiPanel, bot, logBox);
         logBox.setAuthCode(fProps.getIrcConfig().getAuthorization());
         chatPanel = new ControlPanelChat(fProps, chatWindow, ctrlWindow, logBox);
-        fontPanel = new ControlPanelFont(fProps, chatWindow, logBox);
-        messagePanel = new ControlPanelMessage(fProps, chatWindow, bot, logBox);
         colorPanel = new ControlPanelColor(fProps, chatWindow, logBox);
+        fontPanel = new ControlPanelFont(fProps, chatWindow, logBox, colorPanel);
+        messagePanel = new ControlPanelMessage(fProps, chatWindow, bot, logBox);
         debugPanel = new ControlPanelDebug(fProps, chatWindow);
 
         subpanels = new ControlPanelBase[6];

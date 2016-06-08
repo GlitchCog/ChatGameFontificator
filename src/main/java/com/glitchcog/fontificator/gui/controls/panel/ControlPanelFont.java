@@ -210,121 +210,122 @@ public class ControlPanelFont extends ControlPanelBase
 
         {
             put(CUSTOM_KEY, null);
-            put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png"));
-            put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png"));
-            put(new DropdownLabel("Castlevania", "Castlevania 2"), new DropdownBorder("cv2_border.png"));
-            put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownBorder("cv3_border.png"));
-            put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Name"), new DropdownBorder("csotn_name_border.png"));
-            put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Enemy"), new DropdownBorder("csotn_enemy_border.png"));
-            put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png"));
-            put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png"));
-            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png"));
-            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Hermit"), new DropdownBorder("cad_hermit_border.png"));
-            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Shop"), new DropdownBorder("cad_shop_border.png"));
-            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Suzie"), new DropdownBorder("cad_suzie_border.png"));
-            put(new DropdownLabel("Cyrstalis", "Crystalis"), new DropdownBorder("crystalis_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownBorder("dw1_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownBorder("dw2_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II (SFC)"), new DropdownBorder("dq1_2_sfc_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III"), new DropdownBorder("dw3_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III (GBC)"), new DropdownBorder("dw3gbc_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownBorder("dq3_sfc_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownBorder("dw4_border.png"));
-            put(new DropdownLabel("Dragon Warrior", "Dragon Quest VI (SFC)"), new DropdownBorder("dq6_border.png"));
-            put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownBorder("eb0_border.png"));
-            put(new DropdownLabel("EarthBound", "EarthBound Plain"), new DropdownBorder("eb_plain.png"));
-            put(new DropdownLabel("EarthBound", "EarthBound Mint"), new DropdownBorder("eb_mint.png"));
-            put(new DropdownLabel("EarthBound", "EarthBound Strawberry"), new DropdownBorder("eb_strawberry.png"));
-            put(new DropdownLabel("EarthBound", "EarthBound Banana"), new DropdownBorder("eb_banana.png"));
-            put(new DropdownLabel("EarthBound", "EarthBound Peanut"), new DropdownBorder("eb_peanut.png"));
-            put(new DropdownLabel("EarthBound", "Mother 3"), new DropdownBorder("m3_border.png"));
-            put(new DropdownLabel("Faxanadu", "Faxanadu"), new DropdownBorder("faxanadu_border.png"));
-            put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_border.png"));
-            put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownBorder("ff4_border.png"));
-            put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownBorder("ff6_border.png"));
-            put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownBorder("ff7_border.png"));
-            put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownBorder("freep_border.png"));
-            put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownBorder("gsun_border.png"));
-            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownBorder("hm_fmt_border.png"));
-            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Transparent"), new DropdownBorder("hm_fmt_t_border.png"));
-            put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownBorder("rcr_border.png"));
-            put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownBorder("lostvik_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Brick"), new DropdownBorder("smb1_brick_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Cloud"), new DropdownBorder("smb1_cloud_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Rock"), new DropdownBorder("smb1_rock_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Seabed"), new DropdownBorder("smb1_seabed_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Stone"), new DropdownBorder("smb1_stone_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Empty Block"), new DropdownBorder("smb1_used_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 2 Pause"), new DropdownBorder("smb2_pause_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 3 HUD"), new DropdownBorder("smb3_hud_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 3 Letter"), new DropdownBorder("smb3_letter_border.png"));
-            put(new DropdownLabel("Mario (NES)", "Dr. Mario"), new DropdownBorder("drmario_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Block"), new DropdownBorder("smw_block_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Bonus"), new DropdownBorder("smw_bonus_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Gold"), new DropdownBorder("smw_gold_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Ground"), new DropdownBorder("smw_ground_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Mesh"), new DropdownBorder("smw_mesh_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Pipe"), new DropdownBorder("smw_pipe_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Rock"), new DropdownBorder("smw_rock_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World Yoshi's House"), new DropdownBorder("smw_yoshi_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario World 2: Yoshi's Island"), new DropdownBorder("yi_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario RPG"), new DropdownBorder("smrpg_border.png"));
-            put(new DropdownLabel("Mario (SNES)", "Super Mario RPG Pipes"), new DropdownBorder("smrpg_pipe_border.png"));
-            put(new DropdownLabel("Mega Man", "Mega Man 9 Stage Select"), new DropdownBorder("mm9_stage_border.png"));
-            put(new DropdownLabel("Mega Man", "Mega Man 9 Menu"), new DropdownBorder("mm9_menu_border.png"));
-            put(new DropdownLabel("Mega Man", "Mega Man 9 Menu Popup"), new DropdownBorder("mm9_popup_border.png"));
-            put(new DropdownLabel("Mega Man", "Mega Man X"), new DropdownBorder("mmx_border.png"));
-            put(new DropdownLabel("Metroid", "Metroid"), new DropdownBorder("metroid_border.png"));
-            put(new DropdownLabel("Metroid", "Metroid II"), new DropdownBorder("metroid2_border.png"));
-            put(new DropdownLabel("Metroid", "Metroid Pipes"), new DropdownBorder("metroid_pipe_border.png"));
-            put(new DropdownLabel("Metroid", "Metroid Mother Brain Glass"), new DropdownBorder("metroid_glass_border.png"));
-            put(new DropdownLabel("Metroid", "Super Metroid Mother Inventory"), new DropdownBorder("smetroid_inventory_border.png"));
-            put(new DropdownLabel("Metroid", "Super Metroid Broken Glass"), new DropdownBorder("smetroid_glass_broke_border.png"));
-            put(new DropdownLabel("Metroid", "Super Metroid Glass"), new DropdownBorder("smetroid_glass_border.png"));
-            put(new DropdownLabel("Metroid", "Metroid Fusion"), new DropdownBorder("metroid_fusion_border.png"));
-            put(new DropdownLabel("Metroid", "Metroid Fusion Frame"), new DropdownBorder("metroid_fusion_frame_border.png"));
-            put(new DropdownLabel("Metroid", "Metroid Zero Mission"), new DropdownBorder("metroid_zm_border.png"));
-            put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownBorder("ps1_border.png"));
-            put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownBorder("ps2_border.png"));
-            put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownBorder("pkmnrb_border.png"));
-            put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png"));
-            put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownBorder("robotrek_border.png"));
-            put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownBorder("robotrek_battle_border.png"));
-            put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png"));
-            put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png"));
-            put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png"));
-            put(new DropdownLabel("Shovel Knight", "Shovel Knight"), new DropdownBorder("sk_border.png"));
-            put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownBorder("staroc_border.png"));
-            put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png"));
-            put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png"));
-            put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png"));
-            put(new DropdownLabel("Tales", "Tales of Symphonia C"), new DropdownBorder("tos_c_border.png"));
-            put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png"));
-            put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png"));
-            put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png"));
-            put(new DropdownLabel("Undertale", "Undertale"), new DropdownBorder("undertale_border.png"));
-            put(new DropdownLabel("Wario", "Wario Land 4"), new DropdownBorder("wl4_border.png"));
-            put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png"));
-            put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownBorder("willow_nes_border.png"));
-            put(new DropdownLabel("Ys", "Ys Dialog (FC)"), new DropdownBorder("ys1_fc_dialog_border.png"));
-            put(new DropdownLabel("Ys", "Ys Menu (FC)"), new DropdownBorder("ys1_fc_menu_border.png"));
-            put(new DropdownLabel("Ys", "Ys II Dialog (FC)"), new DropdownBorder("ys2_fc_dialog_border.png"));
-            put(new DropdownLabel("Ys", "Ys II HUD (FC)"), new DropdownBorder("ys2_fc_hud_border.png"));
-            put(new DropdownLabel("Ys", "Ys II Menu (FC)"), new DropdownBorder("ys2_fc_menu_border.png"));
-            put(new DropdownLabel("Ys", "Ys II Portrait (FC)"), new DropdownBorder("ys2_fc_portrait_border.png"));
-            put(new DropdownLabel("Ys", "Ys III Dialog (FC)"), new DropdownBorder("ys3_fc_dialog_border.png"));
-            put(new DropdownLabel("Ys", "Ys III HUD (FC)"), new DropdownBorder("ys3_fc_hud_border.png"));
-            put(new DropdownLabel("Ys", "Ys III (SNES)"), new DropdownBorder("ys3_snes_border.png"));
-            put(new DropdownLabel("Ys", "Ys III Frame (SNES)"), new DropdownBorder("ys3_snes_frame_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda Bush"), new DropdownBorder("loz_bush_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda Rock"), new DropdownBorder("loz_rock_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda Dungeon"), new DropdownBorder("loz_dungeon_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda Story"), new DropdownBorder("loz_story_border.png"));
-            put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownBorder("zelda2_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownBorder("lttp_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Room"), new DropdownBorder("loz_la_room_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Name"), new DropdownBorder("loz_la_name_border.png"));
-            put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownBorder("loz_ww_border.png"));
+            put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png", 0x208053));
+            put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png", 0x208053));
+            put(new DropdownLabel("Castlevania", "Castlevania 2"), new DropdownBorder("cv2_border.png", Color.WHITE));
+            put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownBorder("cv3_border.png", Color.WHITE));
+            put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Name"), new DropdownBorder("csotn_name_border.png", Color.WHITE));
+            put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Enemy"), new DropdownBorder("csotn_enemy_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png", 0xCEDBE8));
+            put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png", Color.WHITE));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png", Color.WHITE));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Hermit"), new DropdownBorder("cad_hermit_border.png", Color.WHITE));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Shop"), new DropdownBorder("cad_shop_border.png", 0x44009C));
+            put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Suzie"), new DropdownBorder("cad_suzie_border.png", Color.WHITE));
+            put(new DropdownLabel("Cyrstalis", "Crystalis"), new DropdownBorder("crystalis_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownBorder("dw1_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownBorder("dw2_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II (SFC)"), new DropdownBorder("dq1_2_sfc_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III"), new DropdownBorder("dw3_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III (GBC)"), new DropdownBorder("dw3gbc_border.png", Color.BLACK));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownBorder("dq3_sfc_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownBorder("dw4_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Quest VI (SFC)"), new DropdownBorder("dq6_border.png", Color.WHITE));
+            put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownBorder("eb0_border.png", Color.WHITE));
+            put(new DropdownLabel("EarthBound", "EarthBound Plain"), new DropdownBorder("eb_plain.png", Color.WHITE));
+            put(new DropdownLabel("EarthBound", "EarthBound Mint"), new DropdownBorder("eb_mint.png", Color.WHITE));
+            put(new DropdownLabel("EarthBound", "EarthBound Strawberry"), new DropdownBorder("eb_strawberry.png", Color.WHITE));
+            put(new DropdownLabel("EarthBound", "EarthBound Banana"), new DropdownBorder("eb_banana.png", Color.WHITE));
+            put(new DropdownLabel("EarthBound", "EarthBound Peanut"), new DropdownBorder("eb_peanut.png", Color.WHITE));
+            put(new DropdownLabel("EarthBound", "Mother 3"), new DropdownBorder("m3_border.png", Color.WHITE));
+            put(new DropdownLabel("Faxanadu", "Faxanadu"), new DropdownBorder("faxanadu_border.png", Color.WHITE));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_border.png", Color.WHITE));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownBorder("ff4_border.png", Color.WHITE));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownBorder("ff6_border.png", Color.WHITE));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownBorder("ff7_border.png", Color.WHITE));
+            put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownBorder("freep_border.png", Color.WHITE));
+            put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownBorder("gsun_border.png", Color.WHITE));
+            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownBorder("hm_fmt_border.png", Color.WHITE));
+            put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Transparent"), new DropdownBorder("hm_fmt_t_border.png", Color.WHITE));
+            put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownBorder("rcr_border.png", Color.WHITE));
+            put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownBorder("lostvik_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Brick"), new DropdownBorder("smb1_brick_border.png", 0x994E00));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Cloud"), new DropdownBorder("smb1_cloud_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Rock"), new DropdownBorder("smb1_rock_border.png", 0x994E00));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Seabed"), new DropdownBorder("smb1_seabed_border.png", 0x00A800));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Stone"), new DropdownBorder("smb1_stone_border.png", 0xBCBCBC));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Empty Block"), new DropdownBorder("smb1_used_border.png", 0xA06400));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 2 Pause"), new DropdownBorder("smb2_pause_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 3 HUD"), new DropdownBorder("smb3_hud_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (NES)", "Super Mario Bros. 3 Letter"), new DropdownBorder("smb3_letter_border.png", 0xFBA7C3));
+            put(new DropdownLabel("Mario (NES)", "Dr. Mario"), new DropdownBorder("drmario_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Block"), new DropdownBorder("smw_block_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Bonus"), new DropdownBorder("smw_bonus_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Gold"), new DropdownBorder("smw_gold_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Ground"), new DropdownBorder("smw_ground_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Mesh"), new DropdownBorder("smw_mesh_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Pipe"), new DropdownBorder("smw_pipe_border.png", 0x00F800));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Rock"), new DropdownBorder("smw_rock_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World Yoshi's House"), new DropdownBorder("smw_yoshi_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario World 2: Yoshi's Island"), new DropdownBorder("yi_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario RPG"), new DropdownBorder("smrpg_border.png", Color.WHITE));
+            put(new DropdownLabel("Mario (SNES)", "Super Mario RPG Pipes"), new DropdownBorder("smrpg_pipe_border.png", 0x31EF4A));
+            put(new DropdownLabel("Mega Man", "Mega Man 9 Stage Select"), new DropdownBorder("mm9_stage_border.png", Color.WHITE));
+            put(new DropdownLabel("Mega Man", "Mega Man 9 Menu"), new DropdownBorder("mm9_menu_border.png", Color.WHITE));
+            put(new DropdownLabel("Mega Man", "Mega Man 9 Menu Popup"), new DropdownBorder("mm9_popup_border.png", Color.WHITE));
+            put(new DropdownLabel("Mega Man", "Mega Man X"), new DropdownBorder("mmx_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Metroid"), new DropdownBorder("metroid_border.png", 0x4090C0));
+            put(new DropdownLabel("Metroid", "Metroid II"), new DropdownBorder("metroid2_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Metroid Pipes"), new DropdownBorder("metroid_pipe_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Metroid Mother Brain Glass"), new DropdownBorder("metroid_glass_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Super Metroid Mother Inventory"), new DropdownBorder("smetroid_inventory_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Super Metroid Broken Glass"), new DropdownBorder("smetroid_glass_broke_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Super Metroid Glass"), new DropdownBorder("smetroid_glass_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Metroid Fusion"), new DropdownBorder("metroid_fusion_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Metroid Fusion Frame"), new DropdownBorder("metroid_fusion_frame_border.png", Color.WHITE));
+            put(new DropdownLabel("Metroid", "Metroid Zero Mission"), new DropdownBorder("metroid_zm_border.png", Color.WHITE));
+            put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownBorder("ps1_border.png", Color.WHITE));
+            put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownBorder("ps2_border.png", Color.WHITE));
+            put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownBorder("pkmnrb_border.png", 0x171717));
+            put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png", 0x66CCFF));
+            put(new DropdownLabel("Pokemon", "Pokemon Ruby/Sapphire"), new DropdownBorder("pkmnrubysaph_border.png", Color.WHITE));
+            put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownBorder("robotrek_border.png", Color.WHITE));
+            put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownBorder("robotrek_battle_border.png", Color.WHITE));
+            put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png", Color.WHITE));
+            put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png", 0xCEDBE8));
+            put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png", Color.WHITE));
+            put(new DropdownLabel("Shovel Knight", "Shovel Knight"), new DropdownBorder("sk_border.png", Color.WHITE));
+            put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownBorder("staroc_border.png", Color.WHITE));
+            put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png", Color.WHITE));
+            put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png", Color.WHITE));
+            put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png", Color.WHITE));
+            put(new DropdownLabel("Tales", "Tales of Symphonia C"), new DropdownBorder("tos_c_border.png", Color.WHITE));
+            put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png", Color.WHITE));
+            put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png", Color.WHITE));
+            put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png", Color.WHITE));
+            put(new DropdownLabel("Undertale", "Undertale"), new DropdownBorder("undertale_border.png", Color.WHITE));
+            put(new DropdownLabel("Wario", "Wario Land 4"), new DropdownBorder("wl4_border.png", 0x58F8F8));
+            put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png", Color.WHITE));
+            put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownBorder("willow_nes_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys Dialog (FC)"), new DropdownBorder("ys1_fc_dialog_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys Menu (FC)"), new DropdownBorder("ys1_fc_menu_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys II Dialog (FC)"), new DropdownBorder("ys2_fc_dialog_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys II HUD (FC)"), new DropdownBorder("ys2_fc_hud_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys II Menu (FC)"), new DropdownBorder("ys2_fc_menu_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys II Portrait (FC)"), new DropdownBorder("ys2_fc_portrait_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys III Dialog (FC)"), new DropdownBorder("ys3_fc_dialog_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys III HUD (FC)"), new DropdownBorder("ys3_fc_hud_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys III (SNES)"), new DropdownBorder("ys3_snes_border.png", Color.WHITE));
+            put(new DropdownLabel("Ys", "Ys III Frame (SNES)"), new DropdownBorder("ys3_snes_frame_border.png", Color.WHITE));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda Bush"), new DropdownBorder("loz_bush_border.png", 0x48A810));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda Rock"), new DropdownBorder("loz_rock_border.png", 0xC84C0C));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda Dungeon"), new DropdownBorder("loz_dungeon_border.png", Color.WHITE));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda Story"), new DropdownBorder("loz_story_border.png", 0x80D010));
+            put(new DropdownLabel("Zelda", "Zelda II: The Adventures of Link"), new DropdownBorder("zelda2_border.png", Color.WHITE));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: A Link to the Past"), new DropdownBorder("lttp_border.png", Color.WHITE));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Room"), new DropdownBorder("loz_la_room_border.png", 0xBFC79F));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Name"), new DropdownBorder("loz_la_name_border.png", 0xBFC79F));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownBorder("loz_ww_border.png", Color.WHITE));
         }
     };
 
@@ -404,16 +405,22 @@ public class ControlPanelFont extends ControlPanelBase
 
     private ActionListener fontTypeListener;
 
+    private ControlPanelColor colorPanel;
+
     /**
      * Construct a font control panel
      * 
      * @param fProps
      * @param chatWindow
      * @param logBox
+     * @param colorPanel
+     *            Used to set the border color tint when the border is changed
      */
-    public ControlPanelFont(FontificatorProperties fProps, ChatWindow chatWindow, LogBox logBox)
+    public ControlPanelFont(FontificatorProperties fProps, ChatWindow chatWindow, LogBox logBox, ControlPanelColor colorPanel)
     {
         super("Font/Border", fProps, chatWindow, logBox);
+
+        this.colorPanel = colorPanel;
 
         fontTypeCheckbox.addActionListener(fontTypeListener);
 
@@ -528,7 +535,9 @@ public class ControlPanelFont extends ControlPanelBase
                 }
                 else
                 {
-                    borderFilenameInput.setText(PRESET_BORDER_FILE_MAP.get(key).getBorderFilename());
+                    DropdownBorder border = PRESET_BORDER_FILE_MAP.get(key);
+                    borderFilenameInput.setText(border.getBorderFilename());
+                    colorPanel.setBorderColor(border.getDefaultTint());
                 }
                 updateFontOrBorder(false);
             }

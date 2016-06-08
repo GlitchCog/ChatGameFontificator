@@ -263,4 +263,9 @@ public class ControlPanelColor extends ControlPanelBase
         palette.setBgColor(bgColorButton.getColor());
     }
 
+    public void setBorderColor(Color borderColor)
+    {
+        borderColorButton.setColor(borderColor);
+        config.setBorderColor(borderColor);
+    }
 }
