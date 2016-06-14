@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.emoji;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -49,12 +50,27 @@ public class LazyLoadEmoji
 
     private boolean firstLoadFailureReported;
 
+    /**
+     * Used for FFZ badges only
+     */
+    private final Color bgColor;
+
     public LazyLoadEmoji(String id, String url, EmojiType type) throws MalformedURLException
     {
-        this(id, url, DEFAULT_EMOJI_SIZE, DEFAULT_EMOJI_SIZE, type);
+        this(id, url, null, type);
+    }
+
+    public LazyLoadEmoji(String id, String url, Color bgColor, EmojiType type) throws MalformedURLException
+    {
+        this(id, url, DEFAULT_EMOJI_SIZE, DEFAULT_EMOJI_SIZE, bgColor, type);
     }
 
     public LazyLoadEmoji(String identifier, String url, int width, int height, EmojiType type) throws MalformedURLException
+    {
+        this(identifier, url, width, height, null, type);
+    }
+
+    public LazyLoadEmoji(String identifier, String url, int width, int height, Color bgColor, EmojiType type) throws MalformedURLException
     {
         this.identifier = identifier;
         this.url = new URL(url);
@@ -62,6 +78,7 @@ public class LazyLoadEmoji
         this.width = width;
         this.height = height;
         this.firstLoadFailureReported = false;
+        this.bgColor = bgColor;
     }
 
     /**
@@ -75,29 +92,29 @@ public class LazyLoadEmoji
         {
             try
             {
-//              if (animatedGif)
-//              {
-//                  // Handle BTTV animated emotes by loading them differently
-//                  image = new ImageIcon(url).getImage();
-//              }
-//              else
-//              {
-                    BufferedImage imageFromTwitch = ImageIO.read(url);
+                //              if (animatedGif)
+                //              {
+                //                  // Handle BTTV animated emotes by loading them differently
+                //                  image = new ImageIcon(url).getImage();
+                //              }
+                //              else
+                //              {
+                BufferedImage imageFromTwitch = ImageIO.read(url);
 
-                    // Hack to make image background transparent because Twitch emote V1 of sizes 2.0 and 3.0 sometimes are
-                    // not of the correct type for transparency. Kappa (ID 25) is an example of a non transparent emoji in
-                    // sizes 2.0 and 3.0. Seriously. Download a Kappa size 2.0 image from the V1 URL and open it in an
-                    // editor. The background is solid, but when Twitch displays it in their chat, it displays transparent.
-                    if (EmojiOpacityHandler.isCandidateForModification(type, imageFromTwitch.getType(), identifier))
-                    {
-                        image = EmojiOpacityHandler.fixOpaqueEmote(identifier, imageFromTwitch);
-                    }
-                    // No hack required
-                    else
-                    {
-                        image = imageFromTwitch;
-                    }
-//              }
+                // Hack to make image background transparent because Twitch emote V1 of sizes 2.0 and 3.0 sometimes are
+                // not of the correct type for transparency. Kappa (ID 25) is an example of a non transparent emoji in
+                // sizes 2.0 and 3.0. Seriously. Download a Kappa size 2.0 image from the V1 URL and open it in an
+                // editor. The background is solid, but when Twitch displays it in their chat, it displays transparent.
+                if (EmojiOpacityHandler.isCandidateForModification(type, imageFromTwitch.getType(), identifier))
+                {
+                    image = EmojiOpacityHandler.fixOpaqueEmote(identifier, imageFromTwitch);
+                }
+                // No hack required
+                else
+                {
+                    image = imageFromTwitch;
+                }
+                //              }
             }
             catch (IOException e)
             {
@@ -188,4 +205,20 @@ public class LazyLoadEmoji
     {
         this.animatedGif = animatedGif;
     }
+
+    /**
+     * Whether coloring is required, like for FrankerFaceZ emotes that are white and transparent
+     * 
+     * @return whether coloring is required
+     */
+    public boolean isColoringRequired()
+    {
+        return type == EmojiType.FRANKERFACEZ_BADGE || bgColor != null;
+    }
+
+    public Color getBgColor()
+    {
+        return bgColor;
+    }
+
 }

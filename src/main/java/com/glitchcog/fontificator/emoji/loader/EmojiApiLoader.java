@@ -39,13 +39,6 @@ public class EmojiApiLoader
     private static final String TWITCH_URL_V2_BASE = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/emoticons";
 
     /**
-     * Twitch gives a specific emote ID with each post, but identifies all its V3 emotes with a broader "set" ID, so
-     * this API links the narrow emote ID to a wider emote set ID. This is an ineffective way to map these data, but
-     * Twitch's V3 API demands it.
-     */
-    private static final String TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP = "https://api.twitch.tv/kraken/chat/emoticon_images";
-
-    /**
      * The URL for getting all Twitch emotes from V3 of the API
      */
     private static final String TWITCH_URL_V3 = "https://api.twitch.tv/kraken/chat/emoticons";
@@ -58,12 +51,17 @@ public class EmojiApiLoader
     /**
      * The URL for getting the global FrankerFaceZ emotes from the API
      */
-    private static final String FRANKER_GLOBAL_URL = "https://api.frankerfacez.com/v1/set/global";
+    private static final String FFZ_GLOBAL_URL = "https://api.frankerfacez.com/v1/set/global";
 
     /**
      * The base URL for getting the FrankerFaceZ emotes for whatever username is appended to the end from the API
      */
-    private static final String FRANKER_BASE_URL = "https://api.frankerfacez.com/v1/room/" + CHANNEL_NAME_REPLACE;
+    private static final String FFZ_BASE_URL = "https://api.frankerfacez.com/v1/room/" + CHANNEL_NAME_REPLACE;
+
+    /**
+     * The base URL for getting just the room data from the FrankerFaceZ API, without any emote data
+     */
+    private static final String FFZ_BASE_NO_EMOTES_URL = "https://api.frankerfacez.com/v1/_room/" + CHANNEL_NAME_REPLACE;
 
     /**
      * The URL for getting the global BetterTTV emotes from the API
@@ -137,20 +135,19 @@ public class EmojiApiLoader
         this.loadComplete = false;
     }
 
-    public void prepSetMapLoad()
+    public void prepLoad(String url)
     {
         this.loadComplete = false;
         this.jsonStringBuilder = new StringBuilder();
-        this.url = TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP;
+        this.url = url;
     }
 
     public void prepLoad(EmojiType emojiType, String channel)
     {
-        this.loadComplete = false;
-        this.jsonStringBuilder = new StringBuilder();
         // FrankerFaceZ API requires the channel name to be all lowercase, Twitch V2 is case agnostic
         channel = channel == null ? null : channel.toLowerCase();
-        this.url = getUrl(emojiType, channel);
+        String chanUrl = getUrl(emojiType, channel);
+        prepLoad(chanUrl);
     }
 
     private String getUrl(EmojiType emojiType, String channel)
@@ -158,9 +155,11 @@ public class EmojiApiLoader
         switch (emojiType)
         {
         case FRANKERFACEZ_CHANNEL:
-            return FRANKER_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
+            return FFZ_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case FRANKERFACEZ_GLOBAL:
-            return FRANKER_GLOBAL_URL;
+            return FFZ_GLOBAL_URL;
+        case FRANKERFACEZ_BADGE:
+            return FFZ_BASE_NO_EMOTES_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case BETTER_TTV_CHANNEL:
             return BTTV_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case BETTER_TTV_GLOBAL:

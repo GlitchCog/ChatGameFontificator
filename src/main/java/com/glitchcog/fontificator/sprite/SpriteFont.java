@@ -639,8 +639,14 @@ public class SpriteFont
                     break;
                 }
             }
-            else
+            else 
             {
+                // Draw a color square background for the emoji (for FrankerFaceZ badges)
+                if (sck.getEmoji().isColoringRequired())
+                {
+                    g2d.setColor(sck.getEmoji().getBgColor());
+                    g2d.fillRect(drawX, drawY, eDim[0] + 1, eDim[1] + 1);
+                }
                 // Draw the emoji image
                 g2d.drawImage(eImage, drawX, drawY, eDim[0], eDim[1], emojiObserver);
             }

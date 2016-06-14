@@ -2,7 +2,6 @@ package com.glitchcog.fontificator.emoji.loader;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +12,12 @@ import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiType;
+import com.glitchcog.fontificator.emoji.FfzBadgeType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.emoji.loader.betterttv.BttvEmote;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzEmote;
+import com.glitchcog.fontificator.emoji.loader.frankerfacez.Room;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchBadges;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV2;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV3;
@@ -30,7 +31,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * Parses emote JSON data for Twitch V2, V3, and FrankerFaceZ
+ * Parses emote JSON data for Twitch V2, V3, FrankerFaceZ, and BetterTTV
  * 
  * @author Matt Yanos
  */
@@ -71,6 +72,9 @@ public class EmojiParser
         case FRANKERFACEZ_GLOBAL:
             parseFrankerFaceZEmoteJson(emojiMap, jsonData, type == EmojiType.FRANKERFACEZ_GLOBAL);
             break;
+        case FRANKERFACEZ_BADGE:
+            parseFrankerFaceZBadges(manager, jsonData);
+            break;
         case TWITCH_V2:
             parseTwitchEmoteJsonV2(manager, jsonData, jsonMapData);
             break;
@@ -91,13 +95,12 @@ public class EmojiParser
     /**
      * Parse emotes loaded using Twitch's emote API version 2
      * 
-     * @param emoji
+     * @param manager
      * @param jsonData
-     * @return
+     * @param jsonMapData
      * @throws IOException
-     * @throws MalformedURLException
      */
-    private TypedEmojiMap parseTwitchEmoteJsonV2(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
+    private void parseTwitchEmoteJsonV2(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
     {
         TypedEmojiMap emoji = manager.getEmojiByType(EmojiType.TWITCH_V2);
         JsonElement emoteElement = new JsonParser().parse(jsonData).getAsJsonObject().get("emoticons");
@@ -119,21 +122,18 @@ public class EmojiParser
         }
 
         logBox.log(jsonEmoteObjects.length + " Twitch emote" + (jsonEmoteObjects.length == 1 ? "" : "s") + " loaded");
-
-        return emoji;
     }
 
     /**
      * Parses emotes loaded using Twitch's emote API version 3. It parses emotes into two different maps, one of all
      * emoji, and one that are accessible via set ID.
      * 
-     * @param setKeyedMaps
-     * @param emoji
+     * @param manager
      * @param jsonData
-     * @return
+     * @param jsonMapData
      * @throws IOException
      */
-    private TypedEmojiMap parseTwitchEmoteJsonV3(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
+    private void parseTwitchEmoteJsonV3(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
     {
         logger.trace(jsonData.substring(0, Math.min(jsonData.length(), 512)));
 
@@ -166,8 +166,6 @@ public class EmojiParser
         }
 
         logBox.log(jsonEmoteObjects.length + " Twitch emote" + (jsonEmoteObjects.length == 1 ? "" : "s") + " loaded (" + eMultiCount + " multi-image emote" + (eMultiCount == 1 ? "" : "s") + ")");
-
-        return emoji;
     }
 
     /**
@@ -216,7 +214,7 @@ public class EmojiParser
         return emoteId;
     }
 
-    private TypedEmojiMap parseTwitchBadges(TypedEmojiMap badgeMap, String jsonData) throws IOException
+    private void parseTwitchBadges(TypedEmojiMap badgeMap, String jsonData) throws IOException
     {
         JsonElement jsonElement = new JsonParser().parse(jsonData);
 
@@ -239,8 +237,36 @@ public class EmojiParser
         }
 
         logBox.log(badgeCount + " Twitch badge" + (badgeCount == 1 ? "" : "s") + " loaded");
+    }
 
-        return badgeMap;
+    private void parseFrankerFaceZBadges(EmojiManager manager, String jsonData) throws IOException
+    {
+        int badgeCount = 0;
+        for (FfzBadgeType ffzBadgeType : FfzBadgeType.values())
+        {
+            if (ffzBadgeType.getUrl() != null)
+            {
+                LazyLoadEmoji[] lle = new LazyLoadEmoji[] { new LazyLoadEmoji(ffzBadgeType.getKey(), ffzBadgeType.getUrl(), ffzBadgeType.getColor(), EmojiType.FRANKERFACEZ_BADGE) };
+                manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put(ffzBadgeType.getKey(), lle);
+                badgeCount++;
+            }
+        }
+
+        Gson gson = new Gson();
+        Type roomType = new TypeToken<Room>()
+        {
+        }.getType();
+        JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+        Room room = gson.fromJson(jsonObject.get("room"), roomType);
+        final boolean customFfzModBadgeExists = room != null && room.getModerator_badge() != null;
+        if (customFfzModBadgeExists)
+        {
+            LazyLoadEmoji[] modLle = new LazyLoadEmoji[] { new LazyLoadEmoji(FfzBadgeType.MODERATOR.getKey(), "https:" + room.getModerator_badge(), FfzBadgeType.MODERATOR.getColor(), EmojiType.FRANKERFACEZ_BADGE) };
+            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put(FfzBadgeType.MODERATOR.getKey(), modLle);
+            badgeCount++;
+        }
+
+        logBox.log(badgeCount + " FrankerFaceZ badge" + (badgeCount == 1 ? "" : "s") + " loaded" + (customFfzModBadgeExists ? ", including a custom moderator badge" : ""));
     }
 
     /**
@@ -250,10 +276,9 @@ public class EmojiParser
      * @param jsonData
      * @param isGlobal
      *            Whether the FFZ emotes to be loaded are the FFZ global emotes
-     * @return typedEmojiMap
      * @throws IOException
      */
-    private TypedEmojiMap parseFrankerFaceZEmoteJson(TypedEmojiMap emoji, String jsonData, boolean isGlobal) throws IOException
+    private void parseFrankerFaceZEmoteJson(TypedEmojiMap emoji, String jsonData, boolean isGlobal) throws IOException
     {
         JsonParser jp = new JsonParser();
 
@@ -267,12 +292,12 @@ public class EmojiParser
                 errorMessage += ": " + root.get("message");
             }
             logBox.log(errorMessage);
-            return emoji;
+            return;
         }
         else if (root.get("sets").isJsonNull() || (isGlobal && root.get("default_sets").isJsonNull()))
         {
             logBox.log("Unable to load FrankerFaceZ global emotes");
-            return emoji;
+            return;
         }
 
         List<String> setsToLoad;
@@ -332,8 +357,6 @@ public class EmojiParser
         }
         logBox.log(setNames.size() + " FrankerFaceZ set" + (setNames.size() == 1 ? "" : "s") + " found: {" + allSets + "}");
         logBox.log(frankerCount + " FrankerFaceZ emote" + (frankerCount == 1 ? "" : "s") + " loaded (" + eMultiCount + " multi-image emote" + (eMultiCount == 1 ? "" : "s") + ")");
-
-        return emoji;
     }
 
     /**
@@ -343,10 +366,9 @@ public class EmojiParser
      * @param jsonData
      * @param isGlobal
      *            Whether the BetterTTV emotes to be loaded are the BetterTTV global emotes
-     * @return typedEmojiMap
      * @throws IOException
      */
-    private TypedEmojiMap parseBetterTtvEmoteJson(TypedEmojiMap emoji, String jsonData, boolean isGlobal) throws IOException
+    private void parseBetterTtvEmoteJson(TypedEmojiMap emoji, String jsonData, boolean isGlobal) throws IOException
     {
         JsonParser jp = new JsonParser();
 
@@ -355,7 +377,7 @@ public class EmojiParser
         if (root.get("emotes").isJsonNull())
         {
             logBox.log("Unable to load Better TTV global emotes");
-            return emoji;
+            return;
         }
 
         Gson gson = new Gson();
@@ -378,8 +400,6 @@ public class EmojiParser
         }
 
         logBox.log(bttvCount + " Better TTV emote" + (bttvCount == 1 ? "" : "s") + " found");
-
-        return emoji;
     }
 
 }

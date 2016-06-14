@@ -14,7 +14,7 @@ public class Room
 
     private boolean isGroup;
 
-    private String moderatorBadge;
+    private String moderator_badge;
 
     private int set;
 
@@ -78,14 +78,14 @@ public class Room
         this.isGroup = isGroup;
     }
 
-    public String getModeratorBadge()
+    public String getModerator_badge()
     {
-        return moderatorBadge;
+        return moderator_badge;
     }
 
-    public void setModeratorBadge(String moderatorBadge)
+    public void setModerator_badge(String moderator_badge)
     {
-        this.moderatorBadge = moderatorBadge;
+        this.moderator_badge = moderator_badge;
     }
 
     public int getSet()

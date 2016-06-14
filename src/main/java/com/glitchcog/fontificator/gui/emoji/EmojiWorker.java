@@ -28,6 +28,18 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
 {
     private static final Logger logger = Logger.getLogger(EmojiWorker.class);
 
+    /**
+     * A text list of all the FFZ donors that get a badge to display
+     */
+    private static final String FFZ_URL_DONORS = "http://cdn.frankerfacez.com/script/donors.txt";
+
+    /**
+     * Twitch gives a specific emote ID with each post, but identifies all its V3 emotes with a broader "set" ID, so
+     * this API links the narrow emote ID to a wider emote set ID. This is an ineffective way to map these data, but
+     * Twitch's V3 API demands it.
+     */
+    private static final String TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP = "https://api.twitch.tv/kraken/chat/emoticon_images";
+
     // @formatter:off
 
     /**
@@ -167,52 +179,30 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
 
             if (EmojiOperation.LOAD == opType)
             {
-                // Load set map from Twitch API, if it's a Twitch emote being loaded
+                // Some custom loading required to get the set map from Twitch API, if it's Twitch V2/V3 emotes being loaded
                 String jsonSetMapData = null;
                 if (emojiType.isLoadSetMap())
                 {
-                    loader.prepSetMapLoad();
-                    loader.initLoad();
-                    while (!loader.isLoadComplete())
-                    {
-                        int percentComplete = loader.loadChunk();
-                        // Let the thread rest so the main thread can get the publish
-                        publish(new EmojiWorkerReport("Downloading " + emojiType.getDescription() + " Emote ID to Set ID map", percentComplete, false, false));
-                        if (terminateWork)
-                        {
-                            throw new EmojiCancelException();
-                        }
-                        Thread.sleep(1L);
-                    }
-                    jsonSetMapData = loader.getLoadedJson();
-                    loader.reset();
+                    loader.prepLoad(TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP);
+                    jsonSetMapData = runLoader(emojiType);
                 }
 
-                loader.prepLoad(emojiType, channel);
-                if (loader.initLoad())
+                // Some custom loading required for FFZ badges (donor list)
+                if (emojiType == EmojiType.FRANKERFACEZ_BADGE)
                 {
-                    while (!loader.isLoadComplete())
-                    {
-                        int percentComplete = loader.loadChunk();
-                        // Let the thread rest so the main thread can get the publish
-                        publish(new EmojiWorkerReport("Downloading " + emojiType.getDescription(), percentComplete, false, false));
-                        if (terminateWork)
-                        {
-                            throw new EmojiCancelException();
-                        }
-                        Thread.sleep(1L);
-                    }
-                    String jsonData = loader.getLoadedJson();
-                    loader.reset();
-                    if (terminateWork)
-                    {
-                        throw new EmojiCancelException();
-                    }
-                    publish(new EmojiWorkerReport("Parsing " + emojiType.getDescription() + " data...", 0, false, false));
-                    Thread.sleep(1L);
-                    parser.putJsonEmojiIntoManager(manager, emojiType, jsonData, jsonSetMapData);
+                    loader.prepLoad(FFZ_URL_DONORS);
+                    String doners = runLoader(emojiType);
+                    manager.setFfzDonerList(doners);
                 }
-                publish(new EmojiWorkerReport(emojiType.getDescription() + " loading complete", 100, false, false));
+
+                // The proper load for the emoji
+                loader.prepLoad(emojiType, channel);
+                String data = runLoader(emojiType);
+                if (data != null)
+                {
+                    parser.putJsonEmojiIntoManager(manager, emojiType, data, jsonSetMapData);
+                }
+
                 Thread.sleep(1L);
             }
             else if (EmojiOperation.CACHE == opType)
@@ -321,10 +311,53 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         }
         catch (Exception e)
         {
-            publish(new EmojiWorkerReport("Unknown error trying to " + job.getOp().getDescription() + " " + job.getType().getDescription() + (job.getChannel() != null ? " for channel " + job.getChannel() : ""), 100, true, false));
+            final String errorMsg = "Unknown error trying to " + job.getOp().getDescription() + " " + job.getType().getDescription() + (job.getChannel() != null ? " for channel " + job.getChannel() : "");
+            publish(new EmojiWorkerReport(errorMsg, 100, true, false));
             Thread.sleep(1L);
             return Integer.valueOf(3);
         }
+    }
+
+    /**
+     * Gives you back the data from a website, used to get JSON data for emoji, or for loading the FFZ donor list
+     * 
+     * @param emojiType
+     * @return
+     * @throws Exception
+     */
+    private String runLoader(EmojiType emojiType) throws Exception
+    {
+        String data = null;
+        if (loader.initLoad())
+        {
+            while (!loader.isLoadComplete())
+            {
+                int percentComplete = loader.loadChunk();
+                // Let the thread rest so the main thread can get the publish
+                publish(new EmojiWorkerReport("Downloading " + emojiType.getDescription(), percentComplete, false, false));
+                if (terminateWork)
+                {
+                    throw new EmojiCancelException();
+                }
+                Thread.sleep(1L);
+            }
+            data = loader.getLoadedJson();
+            loader.reset();
+            if (terminateWork)
+            {
+                throw new EmojiCancelException();
+            }
+            publish(new EmojiWorkerReport("Parsing " + emojiType.getDescription() + " data...", 0, false, false));
+        }
+        else
+        {
+            logger.debug("EmojiApiLoader run for " + emojiType.getDescription() + " without required call to prepLoad.");
+        }
+        publish(new EmojiWorkerReport(emojiType.getDescription() + " loading complete", 100, false, false));
+
+        loader.reset();
+
+        return data;
     }
 
     @Override

@@ -14,6 +14,7 @@ public enum EmojiType
     TWITCH_BADGE("Twitch Badge", EmojiGroup.TWITCH, true, false), 
     FRANKERFACEZ_CHANNEL("FrankerFaceZ Emotes", EmojiGroup.FFZ, false, false), 
     FRANKERFACEZ_GLOBAL("FrankerFaceZ Global Emotes", EmojiGroup.FFZ, false, false), 
+    FRANKERFACEZ_BADGE("FrankerFaceZ Badge", EmojiGroup.FFZ, true, false),
     FRANKERFACEZ_REPLACEMENT("FrankerFaceZ Replacement Emotes", EmojiGroup.FFZ, false, false), 
     BETTER_TTV_CHANNEL("Better Twitch TV Emotes", EmojiGroup.BTTV, false, false), 
     BETTER_TTV_GLOBAL("Better Twitch TV Global Emotes", EmojiGroup.BTTV, false, false); 
@@ -27,8 +28,16 @@ public enum EmojiType
 
     private final String description;
 
+    /**
+     * These are the types of emoji words to check against for manual messages.
+     */
     public static EmojiType[] MANUAL_EMOJI_TYPES = new EmojiType[] { EmojiType.TWITCH_V2, EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL };
 
+    /**
+     * These are the types of emoji words in messages are checked against to include. This is done to prevent things
+     * like badges from accidentally being included. For example, FFZ badges are included in their maps using keywords
+     * like "bot", which could easily be accidentally inserted into a message.
+     */
     public static EmojiType[] THIRD_PARTY_EMOJI_TYPES = new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL };
 
     private EmojiType(String description, EmojiGroup group, boolean badge, boolean loadSetMap)

@@ -13,6 +13,7 @@ import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.MessageCasing;
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiType;
+import com.glitchcog.fontificator.emoji.FfzBadgeType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.sprite.SpriteCharacterKey;
@@ -397,37 +398,68 @@ public class Message
 
         badgeCount = 0;
         // Add badges to be placed right before the username
-        if (emojiConfig.isBadgesEnabled())
+        if (emojiConfig.isAnyBadgesEnabled())
         {
-            // Bank to pull badges from
-            TypedEmojiMap badgeBank = emojiManager.getEmojiByType(EmojiType.TWITCH_BADGE);
+            // Bank to pull Twitch badges from
+            TypedEmojiMap twitchBadgeBank = emojiManager.getEmojiByType(EmojiType.TWITCH_BADGE);
+            // Bank to pull FrankerFaceZ badges from
+            TypedEmojiMap ffzBadgeBank = emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE);
 
-            // Get the badge for the type of user, if the usertype has a badge
+            boolean ffzBot = false;
+
+            if (emojiConfig.isFfzBadgesEnabled() && emojiManager.isFfzBot(username) && ffzBadgeBank.getEmoji(FfzBadgeType.BOT.getKey()) != null)
+            {
+                keyList.add(new SpriteCharacterKey(ffzBadgeBank.getEmoji(FfzBadgeType.BOT.getKey()), true));
+                badgeCount++;
+                ffzBot = true;
+            }
+
+            // Get the badge for the type of user, if the usertype has a badge (but not if it's an ffzBot)
             if (privmsg.getUserType() != null && privmsg.getUserType() != UserType.NONE)
             {
                 LazyLoadEmoji[] testBadge = null;
-                if ((testBadge = badgeBank.getEmoji(privmsg.getUserType().getKey())) != null)
+                if ((testBadge = twitchBadgeBank.getEmoji(privmsg.getUserType().getKey())) != null && !ffzBot)
                 {
-                    keyList.add(new SpriteCharacterKey(testBadge, true));
+                    // If it's a moderator badge, and FFZ is enabled, and FFZ custom moderator badge exists
+                    if (privmsg.getUserType().getKey().equals(UserType.MOD.getKey()) && emojiConfig.isFfzBadgesEnabled() && emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).getEmoji(FfzBadgeType.MODERATOR.getKey()) != null)
+                    {
+                        // Substitute custom FrankerFaceZ moderator badge
+                        keyList.add(new SpriteCharacterKey(emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).getEmoji(FfzBadgeType.MODERATOR.getKey()), true));
+                        badgeCount++;
+                    }
+                    else if (emojiConfig.isTwitchBadgesEnabled())
+                    {
+                        keyList.add(new SpriteCharacterKey(testBadge, true));
+                        badgeCount++;
+                    }
+                }
+            }
+
+            if (emojiConfig.isFfzBadgesEnabled() && emojiManager.isFfzSupporter(username) && ffzBadgeBank.getEmoji(FfzBadgeType.SUPPORTER.getKey()) != null)
+            {
+                keyList.add(new SpriteCharacterKey(ffzBadgeBank.getEmoji(FfzBadgeType.SUPPORTER.getKey()), true));
+                badgeCount++;
+            }
+
+            // Optional subscriber badge
+            if (emojiConfig.isTwitchBadgesEnabled())
+            {
+                final String subStr = "subscriber";
+                if (privmsg.isSubscriber() && twitchBadgeBank.getEmoji(subStr) != null)
+                {
+                    keyList.add(new SpriteCharacterKey(twitchBadgeBank.getEmoji(subStr), true));
                     badgeCount++;
                 }
             }
 
-            // Optional subscriber badge
-            final String subStr = "subscriber";
-            if (privmsg.isSubscriber() && badgeBank.getEmoji(subStr) != null)
+            // Optional turbo badge
+            final String turboStr = "turbo";
+            if (emojiConfig.isTwitchBadgesEnabled() && privmsg.isTurbo() && twitchBadgeBank.getEmoji(turboStr) != null)
             {
-                keyList.add(new SpriteCharacterKey(badgeBank.getEmoji(subStr), true));
+                keyList.add(new SpriteCharacterKey(twitchBadgeBank.getEmoji(turboStr), true));
                 badgeCount++;
             }
 
-            // Optional turbo badge
-            final String turboStr = "turbo";
-            if (privmsg.isTurbo() && badgeBank.getEmoji(turboStr) != null)
-            {
-                keyList.add(new SpriteCharacterKey(badgeBank.getEmoji(turboStr), true));
-                badgeCount++;
-            }
         }
 
         if (messageConfig.showUsernames())
@@ -445,7 +477,7 @@ public class Message
                 keyList.add(new SpriteCharacterKey(casedUsername.charAt(c)));
             }
         }
-        if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isBadgesEnabled() && badgeCount > 0))
+        if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isTwitchBadgesEnabled() && badgeCount > 0))
         {
             for (int c = 0; c < type.getContentBreaker().length(); c++)
             {

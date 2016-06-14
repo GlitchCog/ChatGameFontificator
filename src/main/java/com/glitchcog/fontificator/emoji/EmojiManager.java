@@ -1,8 +1,11 @@
 package com.glitchcog.fontificator.emoji;
 
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -59,10 +62,22 @@ public class EmojiManager
     private Map<String, LazyLoadEmoji[]> emojiById;
 
     /**
+     * Set of known bots taken from FFZ plugin Javascript on June 11, 2016, which they call "bttv_known_bots". If this
+     * gets out-of-date, it'll need to be updated, or some FFZ bot badges won't be placed.
+     */
+    private static final Set<String> FFZ_KNOWN_BOTS = new HashSet<String>(Arrays.asList(new String[] { "nightbot", "moobot", "sourbot", "xanbot", "manabot", "mtgbot", "ackbot", "baconrobot", "tardisbot", "deejbot", "valuebot", "stahpbot" }));
+
+    /**
+     * List of usernames that get a FrankerFaceZ donor badge
+     */
+    private Set<String> ffzDonors;
+
+    /**
      * Construct an emoji manager object, instantiates the map of maps keyed off of all the possible emoji types
      */
     public EmojiManager()
     {
+        ffzDonors = new HashSet<String>();
         preloadedEmoji = new HashMap<EmojiType, TypedEmojiMap>();
         for (EmojiType type : EmojiType.values())
         {
@@ -201,4 +216,34 @@ public class EmojiManager
         return "FfzRep" + Integer.toString(emojiId);
     }
 
+    public void setFfzDonerList(String userStr)
+    {
+        ffzDonors.clear();
+        if (userStr != null)
+        {
+            String[] users = userStr.split("\n");
+            for (int i = 0; i < users.length; i++)
+            {
+                if (users[i] != null)
+                {
+                    ffzDonors.add(users[i] == null ? null : users[i].trim().toLowerCase());
+                }
+            }
+        }
+    }
+
+    public boolean isFfzSupporter(String user)
+    {
+        return ffzDonors.contains(user == null ? null : user.toLowerCase());
+    }
+
+    public boolean isFfzBot(String user)
+    {
+        return FFZ_KNOWN_BOTS.contains(user == null ? null : user.toLowerCase());
+    }
+
+    public boolean isFfzDev(String user)
+    {
+        return false; // ???
+    }
 }
