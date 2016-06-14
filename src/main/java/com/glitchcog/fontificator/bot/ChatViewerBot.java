@@ -398,16 +398,16 @@ public class ChatViewerBot extends PircBot
             }
         }
         String userTypeStr = paramMap.get("user-type");
-        if (userTypeStr != null && !userTypeStr.trim().isEmpty())
-        {
-            // If the string value is something weird, the enum will just return NONE
-            privmsg.setUserType(UserType.getByKey(userTypeStr));
-        }
-        else if (displayName != null && !displayName.trim().isEmpty() && displayName.equalsIgnoreCase(this.controlPanel.getChannelNoHash()))
+        if (displayName != null && !displayName.trim().isEmpty() && displayName.equalsIgnoreCase(this.controlPanel.getChannelNoHash()))
         {
             // Set the broadcaster badge based on the display name matching the channel connected to, since Twitch
             // doesn't put this usertype into its IRC tags.
             privmsg.setUserType(UserType.BROADCASTER);
+        }
+        else if (userTypeStr != null && !userTypeStr.trim().isEmpty())
+        {
+            // If the string value is something weird, the enum will just return NONE
+            privmsg.setUserType(UserType.getByKey(userTypeStr));
         }
 
         // message prefix: <servername> | <nick> [ '!' <user> ] [ '@' <host> ]
