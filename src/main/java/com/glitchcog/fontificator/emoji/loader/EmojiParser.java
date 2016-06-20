@@ -73,7 +73,7 @@ public class EmojiParser
             parseFrankerFaceZEmoteJson(emojiMap, jsonData, type == EmojiType.FRANKERFACEZ_GLOBAL);
             break;
         case FRANKERFACEZ_BADGE:
-            parseFrankerFaceZBadges(manager, jsonData);
+            parseFrankerFaceZBadgesObsolete(manager, jsonData);
             break;
         case TWITCH_V2:
             parseTwitchEmoteJsonV2(manager, jsonData, jsonMapData);
@@ -83,6 +83,7 @@ public class EmojiParser
             break;
         case TWITCH_BADGE:
             parseTwitchBadges(emojiMap, jsonData);
+            break;
         case BETTER_TTV_CHANNEL:
         case BETTER_TTV_GLOBAL:
             parseBetterTtvEmoteJson(emojiMap, jsonData, type == EmojiType.BETTER_TTV_GLOBAL);
@@ -239,7 +240,14 @@ public class EmojiParser
         logBox.log(badgeCount + " Twitch badge" + (badgeCount == 1 ? "" : "s") + " loaded");
     }
 
-    private void parseFrankerFaceZBadges(EmojiManager manager, String jsonData) throws IOException
+    /**
+     * This uses the published FFZ badge API, but there are newer more correct ones
+     * 
+     * @param manager
+     * @param jsonData
+     * @throws IOException
+     */
+    private void parseFrankerFaceZBadgesObsolete(EmojiManager manager, String jsonData) throws IOException
     {
         int badgeCount = 0;
         for (FfzBadgeType ffzBadgeType : FfzBadgeType.values())
@@ -396,7 +404,7 @@ public class EmojiParser
             lle[0] = new LazyLoadEmoji(be.getCode(), urlTemplate.replace("{{id}}", be.getId()), isGlobal ? EmojiType.BETTER_TTV_GLOBAL : EmojiType.BETTER_TTV_CHANNEL);
             lle[0].setAnimatedGif("gif".equals(be.getImageType()));
             emoji.put(be.getCode(), lle);
-            bttvCount++; // Used to cache
+            bttvCount++;
         }
 
         logBox.log(bttvCount + " Better TTV emote" + (bttvCount == 1 ? "" : "s") + " found");

@@ -64,6 +64,11 @@ public class EmojiApiLoader
     private static final String FFZ_BASE_NO_EMOTES_URL = "https://api.frankerfacez.com/v1/_room/" + CHANNEL_NAME_REPLACE;
 
     /**
+     * FFZ API for all badges, or just supporters can be found at http://api.frankerfacez.com/v1/badge/supporter
+     */
+    private static final String FFZ_BADGES = "http://api.frankerfacez.com/v1/badges";
+
+    /**
      * The URL for getting the global BetterTTV emotes from the API
      */
     private static final String BTTV_GLOBAL_URL = "https://api.betterttv.net/2/emotes";
