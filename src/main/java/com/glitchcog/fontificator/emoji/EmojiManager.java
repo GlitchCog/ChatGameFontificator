@@ -1,9 +1,7 @@
 package com.glitchcog.fontificator.emoji;
 
 import java.net.MalformedURLException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -59,31 +57,25 @@ public class EmojiManager
      * V1 Twitch emotes loaded whenever a loaded on the fly via the emote ID on the IRC post tags' emote ID. These
      * aren't ever lazy loaded because they are only loaded on the fly when used.
      */
-    private Map<String, LazyLoadEmoji[]> emojiById;
+    private Map<String, LazyLoadEmoji> emojiById;
 
     /**
-     * Set of known bots taken from FFZ plugin Javascript on June 11, 2016, which they call "bttv_known_bots". If this
-     * gets out-of-date, it'll need to be updated, or some FFZ bot badges won't be placed.
+     * Map keyed off of FrankerFaceZ badge IDs that returns a set of users that have that badge
      */
-    private static final Set<String> FFZ_KNOWN_BOTS = new HashSet<String>(Arrays.asList(new String[] { "nightbot", "moobot", "sourbot", "xanbot", "manabot", "mtgbot", "ackbot", "baconrobot", "tardisbot", "deejbot", "valuebot", "stahpbot" }));
-
-    /**
-     * List of usernames that get a FrankerFaceZ donor badge
-     */
-    private Set<String> ffzDonors;
+    private Map<Integer, Set<String>> ffzBadgeUsers;
 
     /**
      * Construct an emoji manager object, instantiates the map of maps keyed off of all the possible emoji types
      */
     public EmojiManager()
     {
-        ffzDonors = new HashSet<String>();
+        ffzBadgeUsers = new HashMap<Integer, Set<String>>();
         preloadedEmoji = new HashMap<EmojiType, TypedEmojiMap>();
         for (EmojiType type : EmojiType.values())
         {
             preloadedEmoji.put(type, new TypedEmojiMap(type));
         }
-        emojiById = new HashMap<String, LazyLoadEmoji[]>();
+        emojiById = new HashMap<String, LazyLoadEmoji>();
     }
 
     /**
@@ -109,7 +101,7 @@ public class EmojiManager
      *            The emoji configuration
      * @return emoji or null if not found
      */
-    public LazyLoadEmoji[] getEmoji(EmojiType type, String testKey, ConfigEmoji config)
+    public LazyLoadEmoji getEmoji(EmojiType type, String testKey, ConfigEmoji config)
     {
         return getEmoji(new EmojiType[] { type }, testKey, config);
     }
@@ -126,9 +118,9 @@ public class EmojiManager
      *            The emoji configuration
      * @return emoji or null if it's not found
      */
-    public LazyLoadEmoji[] getEmoji(EmojiType[] types, String testKey, ConfigEmoji config)
+    public LazyLoadEmoji getEmoji(EmojiType[] types, String testKey, ConfigEmoji config)
     {
-        LazyLoadEmoji[] emoji = null;
+        LazyLoadEmoji emoji = null;
         // If config is null, then just assume we want it. Used when caching.
         for (EmojiType type : types)
         {
@@ -155,12 +147,11 @@ public class EmojiManager
      * @return
      * @throws MalformedURLException
      */
-    public LazyLoadEmoji[] putEmojiById(Integer emojiId, String word, ConfigEmoji emojiConfig) throws MalformedURLException
+    public LazyLoadEmoji putEmojiById(Integer emojiId, String word, ConfigEmoji emojiConfig) throws MalformedURLException
     {
         logger.trace("Loading unmapped emote from emote ID " + emojiId);
         final String emoteUrl = EmojiApiLoader.getTwitchEmoteV1Url(emojiId);
-        LazyLoadEmoji[] emoji = new LazyLoadEmoji[1]; // Assume they're all just one frame
-        emoji[0] = new LazyLoadEmoji(word, emoteUrl, EmojiType.TWITCH_V1);
+        LazyLoadEmoji emoji = new LazyLoadEmoji(word, emoteUrl, EmojiType.TWITCH_V1);
         emojiById.put(Integer.toString(emojiId), emoji);
         return emoji;
     }
@@ -174,19 +165,18 @@ public class EmojiManager
      * @param emojiConfig
      * @return
      */
-    public LazyLoadEmoji[] getEmojiById(Integer emojiId, String word, ConfigEmoji emojiConfig)
+    public LazyLoadEmoji getEmojiById(Integer emojiId, String word, ConfigEmoji emojiConfig)
     {
         if (emojiConfig != null && emojiConfig.isTwitchEnabled() && emojiConfig.isFfzEnabled() && FFZ_REPLACEMENT_EMOTE_URLS.keySet().contains(emojiId))
         {
             TypedEmojiMap tem = preloadedEmoji.get(EmojiType.FRANKERFACEZ_REPLACEMENT);
-            LazyLoadEmoji[] emoji = tem.getEmoji(getFfzReplacementKey(emojiId), emojiConfig);
+            LazyLoadEmoji emoji = tem.getEmoji(getFfzReplacementKey(emojiId), emojiConfig);
             if (emoji == null)
             {
                 try
                 {
                     logger.trace("Loading replacement FFZ emote for " + word);
-                    emoji = new LazyLoadEmoji[1];
-                    emoji[0] = new LazyLoadEmoji(word, FFZ_REPLACEMENT_EMOTE_URLS.get(emojiId), EmojiType.FRANKERFACEZ_REPLACEMENT);
+                    emoji = new LazyLoadEmoji(word, FFZ_REPLACEMENT_EMOTE_URLS.get(emojiId), EmojiType.FRANKERFACEZ_REPLACEMENT);
                     tem.put(getFfzReplacementKey(emojiId), emoji);
                     return emoji;
                 }
@@ -201,7 +191,7 @@ public class EmojiManager
                 return emoji;
             }
         }
-        else if (emojiConfig.isTwitchEnabled())
+        else if (emojiConfig != null && emojiConfig.isTwitchEnabled())
         {
             return emojiById.get(Integer.toString(emojiId));
         }
@@ -216,34 +206,13 @@ public class EmojiManager
         return "FfzRep" + Integer.toString(emojiId);
     }
 
-    public void setFfzDonerList(String userStr)
+    public void setFfzBadgeUsers(Map<Integer, Set<String>> ffzBadgeUsers)
     {
-        ffzDonors.clear();
-        if (userStr != null)
-        {
-            String[] users = userStr.split("\n");
-            for (int i = 0; i < users.length; i++)
-            {
-                if (users[i] != null)
-                {
-                    ffzDonors.add(users[i] == null ? null : users[i].trim().toLowerCase());
-                }
-            }
-        }
+        this.ffzBadgeUsers = ffzBadgeUsers;
     }
 
-    public boolean isFfzSupporter(String user)
+    public Map<Integer, Set<String>> getFfzBadgeUsers()
     {
-        return ffzDonors.contains(user == null ? null : user.toLowerCase());
-    }
-
-    public boolean isFfzBot(String user)
-    {
-        return FFZ_KNOWN_BOTS.contains(user == null ? null : user.toLowerCase());
-    }
-
-    public boolean isFfzDev(String user)
-    {
-        return false; // ???
+        return ffzBadgeUsers;
     }
 }

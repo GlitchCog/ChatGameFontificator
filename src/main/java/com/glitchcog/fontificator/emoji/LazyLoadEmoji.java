@@ -17,6 +17,9 @@ import org.apache.log4j.Logger;
  * For emoji with multiple images, they will have multiple instances of this LazyLoadEmoji object in the emoji<String,
  * LazyLoadEmoji[]> map in EmojiManager.
  * 
+ * This object acts as part of an array because Twitch V2 and V3 emoji seem to indicate they'll use multiple instances
+ * of emoji as frames of animation. This is as of yet unused. Third party emoji BetterTTV already use animated GIFs.
+ * 
  * @author Matt Yanos
  */
 public class LazyLoadEmoji
@@ -27,6 +30,11 @@ public class LazyLoadEmoji
      * The word or regex that identifies this emoji
      */
     private final String identifier;
+
+    /**
+     * Whether this emoji is meant to replace another emoji (like a FrankerFaceZ bot or moderator badge)
+     */
+    private final String replaces;
 
     private final EmojiType type;
 
@@ -57,12 +65,12 @@ public class LazyLoadEmoji
 
     public LazyLoadEmoji(String id, String url, EmojiType type) throws MalformedURLException
     {
-        this(id, url, null, type);
+        this(id, null, url, null, type);
     }
 
-    public LazyLoadEmoji(String id, String url, Color bgColor, EmojiType type) throws MalformedURLException
+    public LazyLoadEmoji(String id, String replaces, String url, Color bgColor, EmojiType type) throws MalformedURLException
     {
-        this(id, url, DEFAULT_EMOJI_SIZE, DEFAULT_EMOJI_SIZE, bgColor, type);
+        this(id, replaces, url, DEFAULT_EMOJI_SIZE, DEFAULT_EMOJI_SIZE, bgColor, type);
     }
 
     public LazyLoadEmoji(String identifier, String url, int width, int height, EmojiType type) throws MalformedURLException
@@ -72,7 +80,13 @@ public class LazyLoadEmoji
 
     public LazyLoadEmoji(String identifier, String url, int width, int height, Color bgColor, EmojiType type) throws MalformedURLException
     {
+        this(identifier, null, url, width, height, bgColor, type);
+    }
+
+    public LazyLoadEmoji(String identifier, String replaces, String url, int width, int height, Color bgColor, EmojiType type) throws MalformedURLException
+    {
         this.identifier = identifier;
+        this.replaces = replaces;
         this.url = new URL(url);
         this.type = type;
         this.width = width;
@@ -221,4 +235,13 @@ public class LazyLoadEmoji
         return bgColor;
     }
 
+    public boolean isReplacement()
+    {
+        return replaces != null;
+    }
+
+    public String getReplaces()
+    {
+        return replaces;
+    }
 }

@@ -59,11 +59,6 @@ public class EmojiApiLoader
     private static final String FFZ_BASE_URL = "https://api.frankerfacez.com/v1/room/" + CHANNEL_NAME_REPLACE;
 
     /**
-     * The base URL for getting just the room data from the FrankerFaceZ API, without any emote data
-     */
-    private static final String FFZ_BASE_NO_EMOTES_URL = "https://api.frankerfacez.com/v1/_room/" + CHANNEL_NAME_REPLACE;
-
-    /**
      * FFZ API for all badges, or just supporters can be found at http://api.frankerfacez.com/v1/badge/supporter
      */
     private static final String FFZ_BADGES = "http://api.frankerfacez.com/v1/badges";
@@ -164,7 +159,7 @@ public class EmojiApiLoader
         case FRANKERFACEZ_GLOBAL:
             return FFZ_GLOBAL_URL;
         case FRANKERFACEZ_BADGE:
-            return FFZ_BASE_NO_EMOTES_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
+            return FFZ_BADGES;
         case BETTER_TTV_CHANNEL:
             return BTTV_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case BETTER_TTV_GLOBAL:

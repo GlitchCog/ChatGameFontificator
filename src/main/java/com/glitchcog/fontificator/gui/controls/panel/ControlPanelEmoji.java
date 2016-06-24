@@ -423,7 +423,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     cancelEmojiWork(jobsToCancel);
 
-                    if (!jobsToRun.isEmpty())
+                    if (!jobsToRun.isEmpty() && !progressPanel.isCurrentlyRunning())
                     {
                         runEmojiWork();
                     }
@@ -589,7 +589,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         boolean atLeastOneBadgeSelected = enableTwitchBadges.isSelected() || enableFfzBadges.isSelected();
         if (enableAll.isSelected() || atLeastOneBadgeSelected)
         {
-            Set<EmojiJob> jobs = collectJobs(false);
+            Set<EmojiJob> jobs = collectJobs();
 
             if (jobs.isEmpty())
             {
@@ -604,18 +604,59 @@ public class ControlPanelEmoji extends ControlPanelBase
         progressPanel.handleButtonEnables();
     }
 
+    public int countJobs()
+    {
+        int count = 0;
+        if (config == null)
+        {
+            return count;
+        }
+
+        final String channel = getConnectChannel();
+
+        if (enableAll.isSelected())
+        {
+            final boolean workTwitchLoad = !config.isTwitchLoaded() && enableTwitch.isSelected();
+            final boolean workTwitchCache = !config.isTwitchCached() && cacheTwitch.isSelected();
+            final boolean workFfzLoad = !config.isFfzLoaded(channel) && enableFrankerFaceZ.isSelected();
+            final boolean workFfzGlobalLoad = !config.isFfzGlobalLoaded() && enableFrankerFaceZ.isSelected();
+            final boolean workFfzCache = !config.isFfzCached() && cacheFrankerFaceZ.isSelected();
+            final boolean workBttvLoad = !config.isBttvLoaded(channel) && enableBetterTtv.isSelected();
+            final boolean workBttvGlobalLoad = !config.isBttvGlobalLoaded() && enableBetterTtv.isSelected();
+            final boolean workBttvCache = !config.isBttvCached() && cacheBetterTtv.isSelected();
+
+            count += countBooleans(workTwitchLoad, workTwitchCache, workFfzLoad, workFfzGlobalLoad, workFfzCache, workBttvLoad, workBttvGlobalLoad, workBttvCache);
+        }
+
+        final boolean workTwitchBadges = enableTwitchBadges.isSelected() && !config.isTwitchBadgesLoaded(channel);
+        final boolean workFfzBadges = enableFfzBadges.isSelected() && !config.isFfzBadgesLoaded(channel);
+
+        count += countBooleans(workTwitchBadges, workFfzBadges);
+
+        return count;
+    }
+
+    private static int countBooleans(boolean... bools)
+    {
+        int count = 0;
+        for (int i = 0; i < bools.length; i++)
+        {
+            if (bools[i])
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     /**
      * Parse through the selected UI options to determine what jobs need to be done. This will return an empty job list
      * if any of the jobs specified by the UI require a channel and no channel is provided on the Connection tab. A
      * popup will present this information to the user.
      * 
-     * @param onlyForCounting
-     *            Whether this collection is only for the purposes of knowing how many jobs are specified, for purposes
-     *            of enabling or disabling buttons on the emoji progress panel. If it's only for counting, suppress any
-     *            popup errors and continue on counting.
      * @return jobs
      */
-    public Set<EmojiJob> collectJobs(boolean onlyForCounting)
+    public Set<EmojiJob> collectJobs()
     {
         Set<EmojiJob> jobs = new HashSet<EmojiJob>();
 
@@ -631,14 +672,16 @@ public class ControlPanelEmoji extends ControlPanelBase
             final boolean workTwitchLoad = !config.isTwitchLoaded() && enableTwitch.isSelected();
             final boolean workTwitchCache = !config.isTwitchCached() && cacheTwitch.isSelected();
             final boolean workFfzLoad = !config.isFfzLoaded(channel) && enableFrankerFaceZ.isSelected();
+            final boolean workFfzGlobalLoad = !config.isFfzGlobalLoaded() && enableFrankerFaceZ.isSelected();
             final boolean workFfzCache = !config.isFfzCached() && cacheFrankerFaceZ.isSelected();
             final boolean workBttvLoad = !config.isBttvLoaded(channel) && enableBetterTtv.isSelected();
+            final boolean workBttvGlobalLoad = !config.isBttvGlobalLoaded() && enableBetterTtv.isSelected();
             final boolean workBttvCache = !config.isBttvCached() && cacheBetterTtv.isSelected();
 
             if (workTwitchLoad)
             {
                 jobs.add(new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, channel));
-                if (!onlyForCounting && channel == null)
+                if (channel == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
                     jobs.clear();
@@ -654,13 +697,17 @@ public class ControlPanelEmoji extends ControlPanelBase
             if (workFfzLoad)
             {
                 jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.LOAD, channel));
-                jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.LOAD));
-                if (!onlyForCounting && channel == null)
+                if (channel == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
                     jobs.clear();
                     return jobs;
                 }
+            }
+
+            if (workFfzGlobalLoad)
+            {
+                jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.LOAD));
             }
 
             if (workFfzCache)
@@ -672,13 +719,17 @@ public class ControlPanelEmoji extends ControlPanelBase
             if (workBttvLoad)
             {
                 jobs.add(new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.LOAD, channel));
-                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD));
-                if (!onlyForCounting && channel == null)
+                if (channel == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
                     jobs.clear();
                     return jobs;
                 }
+            }
+
+            if (workBttvGlobalLoad)
+            {
+                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD));
             }
 
             if (workBttvCache)
@@ -694,7 +745,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         if (workTwitchBadges)
         {
             jobs.add(new EmojiJob(EmojiType.TWITCH_BADGE, EmojiOperation.LOAD, channel));
-            if (!onlyForCounting && channel == null)
+            if (channel == null)
             {
                 ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load badges");
                 jobs.clear();
@@ -705,7 +756,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         if (workFfzBadges)
         {
             jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_BADGE, EmojiOperation.LOAD, channel));
-            if (!onlyForCounting && channel == null)
+            if (channel == null)
             {
                 ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load badges");
                 jobs.clear();

@@ -24,15 +24,26 @@ public class TypedEmojiMap
 {
     private final EmojiType type;
 
-    private Map<String, LazyLoadEmoji[]> normalMap;
+    private Map<String, LazyLoadEmoji> normalMap;
 
-    private Map<String, LazyLoadEmoji[]> regexMap;
+    private Map<String, LazyLoadEmoji> regexMap;
 
     public TypedEmojiMap(EmojiType type)
     {
         this.type = type;
-        normalMap = new HashMap<String, LazyLoadEmoji[]>();
-        regexMap = new HashMap<String, LazyLoadEmoji[]>();
+        normalMap = new HashMap<String, LazyLoadEmoji>();
+        regexMap = new HashMap<String, LazyLoadEmoji>();
+    }
+
+    /**
+     * Get the emoji (for FrankerFaceZ emotes that have an Integer ID)
+     * 
+     * @param testKey
+     * @return emoji or null if not found
+     */
+    public LazyLoadEmoji getEmoji(Integer testKey)
+    {
+        return getEmoji(testKey == null ? null : Integer.toString(testKey));
     }
 
     /**
@@ -41,7 +52,7 @@ public class TypedEmojiMap
      * @param testKey
      * @return emoji or null if not found
      */
-    public LazyLoadEmoji[] getEmoji(String testKey)
+    public LazyLoadEmoji getEmoji(String testKey)
     {
         return getEmoji(testKey, null);
     }
@@ -54,14 +65,14 @@ public class TypedEmojiMap
      * @param config
      * @return emoji or null if not found or if configuration prohibits this emoji
      */
-    public LazyLoadEmoji[] getEmoji(String testKey, ConfigEmoji config)
+    public LazyLoadEmoji getEmoji(String testKey, ConfigEmoji config)
     {
         if (config != null && !config.isTypeEnabledAndLoaded(type))
         {
             return null;
         }
 
-        LazyLoadEmoji[] emoji = normalMap.get(testKey);
+        LazyLoadEmoji emoji = normalMap.get(testKey);
 
         if (emoji == null)
         {
@@ -78,7 +89,7 @@ public class TypedEmojiMap
         return emoji;
     }
 
-    public LazyLoadEmoji[] put(String key, LazyLoadEmoji[] value)
+    public LazyLoadEmoji put(String key, LazyLoadEmoji value)
     {
         if (isRegularExpression(key))
         {
@@ -138,12 +149,12 @@ public class TypedEmojiMap
         return regex;
     }
 
-    public Map<String, LazyLoadEmoji[]> getNormalMap()
+    public Map<String, LazyLoadEmoji> getNormalMap()
     {
         return normalMap;
     }
 
-    public Map<String, LazyLoadEmoji[]> getRegexMap()
+    public Map<String, LazyLoadEmoji> getRegexMap()
     {
         return regexMap;
     }

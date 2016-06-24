@@ -10,12 +10,15 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+import com.glitchcog.fontificator.bot.UserType;
+import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiType;
-import com.glitchcog.fontificator.emoji.FfzBadgeType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.emoji.loader.betterttv.BttvEmote;
+import com.glitchcog.fontificator.emoji.loader.frankerfacez.Badge;
+import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzBadgesAndUsers;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzEmote;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.Room;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchBadges;
@@ -73,7 +76,7 @@ public class EmojiParser
             parseFrankerFaceZEmoteJson(emojiMap, jsonData, type == EmojiType.FRANKERFACEZ_GLOBAL);
             break;
         case FRANKERFACEZ_BADGE:
-            parseFrankerFaceZBadgesObsolete(manager, jsonData);
+            parseFrankerFaceZBadges(manager, jsonData);
             break;
         case TWITCH_V2:
             parseTwitchEmoteJsonV2(manager, jsonData, jsonMapData);
@@ -115,10 +118,9 @@ public class EmojiParser
         for (TwitchEmoteV2 e : jsonEmoteObjects)
         {
             // For Twitch emotes V2, there are no multi-image emotes, I think, based on the JSON structure
-            LazyLoadEmoji[] lle = new LazyLoadEmoji[1];
-            lle[0] = new LazyLoadEmoji(e.getRegex(), e.getUrl(), e.getWidth(), e.getHeight(), EmojiType.TWITCH_V2);
-            lle[0].setSubscriber(e.isSubscriber_only());
-            lle[0].setState(e.getState());
+            LazyLoadEmoji lle = new LazyLoadEmoji(e.getRegex(), e.getUrl(), e.getWidth(), e.getHeight(), EmojiType.TWITCH_V2);
+            lle.setSubscriber(e.isSubscriber_only());
+            lle.setState(e.getState());
             emoji.put(e.getRegex(), lle);
         }
 
@@ -153,11 +155,7 @@ public class EmojiParser
 
         for (TwitchEmoteV3 e : jsonEmoteObjects)
         {
-            LazyLoadEmoji[] lle = new LazyLoadEmoji[e.getImages().length];
-            for (int i = 0; i < e.getImages().length; i++)
-            {
-                lle[i] = new LazyLoadEmoji(e.getRegex(), e.getImages()[i].getUrl(), e.getImages()[i].getWidth(), e.getImages()[i].getHeight(), EmojiType.TWITCH_V3);
-            }
+            LazyLoadEmoji lle = new LazyLoadEmoji(e.getRegex(), e.getImages()[0].getUrl(), e.getImages()[0].getWidth(), e.getImages()[0].getHeight(), EmojiType.TWITCH_V3);
             if (e.getImages().length > 1)
             {
                 eMultiCount++;
@@ -232,7 +230,7 @@ public class EmojiParser
             if (badge.getValue() != null && badge.getValue().getImage() != null)
             {
                 badgeCount++;
-                LazyLoadEmoji[] llBadge = new LazyLoadEmoji[] { new LazyLoadEmoji(badge.getKey(), badge.getValue().getImage(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, EmojiType.TWITCH_BADGE) };
+                LazyLoadEmoji llBadge = new LazyLoadEmoji(badge.getKey(), badge.getValue().getImage(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, EmojiType.TWITCH_BADGE);
                 badgeMap.put(badge.getKey(), llBadge);
             }
         }
@@ -240,41 +238,49 @@ public class EmojiParser
         logBox.log(badgeCount + " Twitch badge" + (badgeCount == 1 ? "" : "s") + " loaded");
     }
 
+    private void parseFrankerFaceZBadges(EmojiManager manager, String jsonData) throws IOException
+    {
+        JsonElement ffzBadgesAndUsersElement = new JsonParser().parse(jsonData);
+
+        Gson gson = new Gson();
+
+        Type emoteType = new TypeToken<FfzBadgesAndUsers>()
+        {
+        }.getType();
+        FfzBadgesAndUsers badgesAndUsers = gson.fromJson(ffzBadgesAndUsersElement, emoteType);
+
+        for (Badge b : badgesAndUsers.getBadges())
+        {
+            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put("" + b.getId(), new LazyLoadEmoji(b.getName(), "moderator".equals(b.getReplaces()) ? UserType.MOD.getKey() : b.getReplaces(), "http:" + b.getImage(), b.getColorParsed(), EmojiType.FRANKERFACEZ_BADGE));
+        }
+
+        manager.setFfzBadgeUsers(badgesAndUsers.getUsers());
+    }
+
     /**
-     * This uses the published FFZ badge API, but there are newer more correct ones
+     * Parse the FrankerFaceZ room data for the optional moderator badge
      * 
      * @param manager
      * @param jsonData
      * @throws IOException
      */
-    private void parseFrankerFaceZBadgesObsolete(EmojiManager manager, String jsonData) throws IOException
+    public void parseFrankerFaceZModBadge(EmojiManager manager, String jsonData) throws IOException
     {
-        int badgeCount = 0;
-        for (FfzBadgeType ffzBadgeType : FfzBadgeType.values())
-        {
-            if (ffzBadgeType.getUrl() != null)
-            {
-                LazyLoadEmoji[] lle = new LazyLoadEmoji[] { new LazyLoadEmoji(ffzBadgeType.getKey(), ffzBadgeType.getUrl(), ffzBadgeType.getColor(), EmojiType.FRANKERFACEZ_BADGE) };
-                manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put(ffzBadgeType.getKey(), lle);
-                badgeCount++;
-            }
-        }
-
         Gson gson = new Gson();
+
         Type roomType = new TypeToken<Room>()
         {
         }.getType();
         JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
         Room room = gson.fromJson(jsonObject.get("room"), roomType);
+
         final boolean customFfzModBadgeExists = room != null && room.getModerator_badge() != null;
         if (customFfzModBadgeExists)
         {
-            LazyLoadEmoji[] modLle = new LazyLoadEmoji[] { new LazyLoadEmoji(FfzBadgeType.MODERATOR.getKey(), "https:" + room.getModerator_badge(), FfzBadgeType.MODERATOR.getColor(), EmojiType.FRANKERFACEZ_BADGE) };
-            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put(FfzBadgeType.MODERATOR.getKey(), modLle);
-            badgeCount++;
+            LazyLoadEmoji modLle = new LazyLoadEmoji(UserType.MOD.getKey(), UserType.MOD.getKey(), "https:" + room.getModerator_badge(), ConfigEmoji.MOD_BADGE_COLOR, EmojiType.FRANKERFACEZ_BADGE);
+            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put(UserType.MOD.getKey(), modLle);
+            logBox.log("Loaded the custom FrankerFaceZ moderator badge");
         }
-
-        logBox.log(badgeCount + " FrankerFaceZ badge" + (badgeCount == 1 ? "" : "s") + " loaded" + (customFfzModBadgeExists ? ", including a custom moderator badge" : ""));
     }
 
     /**
@@ -343,18 +349,18 @@ public class EmojiParser
             FfzEmote[] jsonEmoteObjects = gson.fromJson(emoteElement, emoteType);
             for (FfzEmote e : jsonEmoteObjects)
             {
-                LazyLoadEmoji[] lle = new LazyLoadEmoji[e.getUrls().size()];
-                int i = 0;
+                LazyLoadEmoji lle = null;
                 for (String key : e.getUrls().keySet())
                 {
-                    lle[i++] = new LazyLoadEmoji(e.getName(), "http:" + e.getUrls().get(key), e.getWidth(), e.getHeight(), isGlobal ? EmojiType.FRANKERFACEZ_GLOBAL : EmojiType.FRANKERFACEZ_CHANNEL);
+                    lle = new LazyLoadEmoji(e.getName(), "http:" + e.getUrls().get(key), e.getWidth(), e.getHeight(), isGlobal ? EmojiType.FRANKERFACEZ_GLOBAL : EmojiType.FRANKERFACEZ_CHANNEL);
+                    break;
                 }
                 if (e.getUrls().size() > 1)
                 {
                     eMultiCount++;
                 }
                 emoji.put(e.getName(), lle);
-                frankerCount++; // Used to cache just the FrankerFaceZ emotes
+                frankerCount++;
             }
         }
 
@@ -400,9 +406,8 @@ public class EmojiParser
         int bttvCount = 0;
         for (BttvEmote be : bttvEmotes)
         {
-            LazyLoadEmoji[] lle = new LazyLoadEmoji[1];
-            lle[0] = new LazyLoadEmoji(be.getCode(), urlTemplate.replace("{{id}}", be.getId()), isGlobal ? EmojiType.BETTER_TTV_GLOBAL : EmojiType.BETTER_TTV_CHANNEL);
-            lle[0].setAnimatedGif("gif".equals(be.getImageType()));
+            LazyLoadEmoji lle = new LazyLoadEmoji(be.getCode(), urlTemplate.replace("{{id}}", be.getId()), isGlobal ? EmojiType.BETTER_TTV_GLOBAL : EmojiType.BETTER_TTV_CHANNEL);
+            lle.setAnimatedGif("gif".equals(be.getImageType()));
             emoji.put(be.getCode(), lle);
             bttvCount++;
         }

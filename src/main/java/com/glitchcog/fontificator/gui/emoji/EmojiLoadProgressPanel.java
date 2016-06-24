@@ -23,8 +23,10 @@ import com.glitchcog.fontificator.gui.controls.panel.ControlPanelEmoji;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 
 /**
- * A panel to display progress for loading and caching emoji that sits on the bottom of the Emoji tab of the Control Window. It also contains a cancel button to stop jobs currently being worked and a manual reload button for canceling
- * everything and starting all loads from scratch. This panel contains methods for adding and removing work to and from the worker queue as well.
+ * A panel to display progress for loading and caching emoji that sits on the bottom of the Emoji tab of the Control
+ * Window. It also contains a cancel button to stop jobs currently being worked and a manual reload button for canceling
+ * everything and starting all loads from scratch. This panel contains methods for adding and removing work to and from
+ * the worker queue as well.
  * 
  * @author Matt Yanos
  */
@@ -55,7 +57,8 @@ public class EmojiLoadProgressPanel extends JPanel
     private JButton cancelButton;
 
     /**
-     * Button for loading and caching everything. This is intended as a catch-all for any trouble encountered while loading or caching emotes or badges.
+     * Button for loading and caching everything. This is intended as a catch-all for any trouble encountered while
+     * loading or caching emotes or badges.
      */
     private JButton manualButton;
 
@@ -141,6 +144,8 @@ public class EmojiLoadProgressPanel extends JPanel
                 }
                 else if (resetButton.equals(source))
                 {
+                    workerTaskListLoad.clear();
+                    workerTaskListCache.clear();
                     emojiConfig.resetWorkCompleted();
                     log("Reset all loaded and or cached emoji");
                     chat.repaint();
@@ -191,16 +196,22 @@ public class EmojiLoadProgressPanel extends JPanel
         add(workPanel, gbc);
     }
 
+    synchronized public boolean isCurrentlyRunning()
+    {
+        return currentWorker != null;
+    }
+
     synchronized public void handleButtonEnables()
     {
-        cancelButton.setEnabled(currentWorker != null);
+        cancelButton.setEnabled(isCurrentlyRunning());
         resetButton.setEnabled(emojiConfig != null && emojiConfig.isAnyWorkDone());
-        manualButton.setEnabled(!emojiControlPanel.collectJobs(true).isEmpty() && currentWorker == null && workerTaskListLoad.isEmpty() && workerTaskListCache.isEmpty());
+        final int remainingJobs = emojiControlPanel.countJobs();
+        manualButton.setEnabled(remainingJobs > 0 && currentWorker == null && workerTaskListLoad.isEmpty() && workerTaskListCache.isEmpty());
 
         // @formatter:off
         logger.trace("Cancel: " + cancelButton.isEnabled() + " b/c currWork " + (currentWorker == null ? "is null" : "is NOT null") + 
         "; Reset: " + resetButton.isEnabled() + " b/c " + (emojiConfig != null && emojiConfig.isAnyWorkDone() ? "some work is done" : "no work has been done") + 
-        "; Manual: " + manualButton.isEnabled() + " b/c there are " + emojiControlPanel.collectJobs(true).size() + " jobs left undone and " + 
+        "; Manual: " + manualButton.isEnabled() + " b/c there " + (remainingJobs == 1 ? "is" : "are") + " " + remainingJobs + " job" + (remainingJobs == 1 ? "" : "s") + " left undone and " + 
         (currentWorker == null && workerTaskListLoad.isEmpty() && workerTaskListCache.isEmpty() ? "nothing" : "something") + " is currently running or is queued");
         // @formatter:on
     }
@@ -344,7 +355,8 @@ public class EmojiLoadProgressPanel extends JPanel
     }
 
     /**
-     * Take any worker containing a job that matches the specified job off the queue of workers to be executed. Also cancels the currently running worker if it matches.
+     * Take any worker containing a job that matches the specified job off the queue of workers to be executed. Also
+     * cancels the currently running worker if it matches.
      * 
      * @param job
      */

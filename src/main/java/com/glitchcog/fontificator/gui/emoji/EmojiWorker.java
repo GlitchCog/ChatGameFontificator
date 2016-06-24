@@ -29,16 +29,16 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
     private static final Logger logger = Logger.getLogger(EmojiWorker.class);
 
     /**
-     * A text list of all the FFZ donors that get a badge to display
-     */
-    private static final String FFZ_URL_DONORS = "http://cdn.frankerfacez.com/script/donors.txt";
-
-    /**
      * Twitch gives a specific emote ID with each post, but identifies all its V3 emotes with a broader "set" ID, so
      * this API links the narrow emote ID to a wider emote set ID. This is an ineffective way to map these data, but
      * Twitch's V3 API demands it.
      */
     private static final String TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP = "https://api.twitch.tv/kraken/chat/emoticon_images";
+
+    /**
+     * The base URL for getting just the room data from the FrankerFaceZ API, without any emote data
+     */
+    private static final String FFZ_BASE_NO_EMOTES_URL = "https://api.frankerfacez.com/v1/_room/";
 
     // @formatter:off
 
@@ -187,20 +187,20 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                     jsonSetMapData = runLoader(emojiType);
                 }
 
-                // Some custom loading required for FFZ badges (donor list)
-                if (emojiType == EmojiType.FRANKERFACEZ_BADGE)
-                {
-                    loader.prepLoad(FFZ_URL_DONORS);
-                    String doners = runLoader(emojiType);
-                    manager.setFfzDonerList(doners);
-                }
-
                 // The proper load for the emoji
                 loader.prepLoad(emojiType, channel);
                 String data = runLoader(emojiType);
                 if (data != null)
                 {
                     parser.putJsonEmojiIntoManager(manager, emojiType, data, jsonSetMapData);
+                }
+
+                // Some custom loading required for custom FFZ moderator badges
+                if (emojiType == EmojiType.FRANKERFACEZ_BADGE)
+                {
+                    loader.prepLoad(FFZ_BASE_NO_EMOTES_URL + channel);
+                    String ffzRoomJson = runLoader(emojiType);
+                    parser.parseFrankerFaceZModBadge(manager, ffzRoomJson);
                 }
 
                 Thread.sleep(1L);
@@ -251,24 +251,23 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 publish(new EmojiWorkerReport("Caching " + emojiType.getDescription(), 0, false, false));
                 Thread.sleep(1L);
                 int count = 0;
-                List<LazyLoadEmoji[]> emojiToCache = new ArrayList<LazyLoadEmoji[]>();
+                List<LazyLoadEmoji> emojiToCache = new ArrayList<LazyLoadEmoji>();
                 for (String regex : regexes)
                 {
-                    LazyLoadEmoji[] emoji = manager.getEmoji(emojiType, regex, null);
+                    LazyLoadEmoji emoji = manager.getEmoji(emojiType, regex, null);
                     emojiToCache.add(emoji);
                 }
                 for (Integer id : ids)
                 {
-                    LazyLoadEmoji[] emoji = manager.getEmojiById(id, null, null);
+                    LazyLoadEmoji emoji = manager.getEmojiById(id, null, null);
                     emojiToCache.add(emoji);
                 }
 
-                for (LazyLoadEmoji[] emoji : emojiToCache)
+                for (LazyLoadEmoji emoji : emojiToCache)
                 {
-                    // Null check here in the for loop test for safety
-                    for (int e = 0; emoji != null && e < emoji.length; e++)
+                    if (emoji != null)
                     {
-                        emoji[e].getImage();
+                        emoji.getImage();
                     }
                     count++;
                     // This is safe from divide by zero exceptions, because we won't be here if emojiToCache is empty
@@ -311,6 +310,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             final String errorMsg = "Unknown error trying to " + job.getOp().getDescription() + " " + job.getType().getDescription() + (job.getChannel() != null ? " for channel " + job.getChannel() : "");
             publish(new EmojiWorkerReport(errorMsg, 100, true, false));
             Thread.sleep(1L);

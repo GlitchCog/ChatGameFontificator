@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.config;
 
+import java.awt.Color;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -24,6 +25,11 @@ public class ConfigEmoji extends Config
 
     public static final int MIN_BADGE_OFFSET = -32;
     public static final int MAX_BADGE_OFFSET = 64;
+
+    /**
+     * The green of moderator badges, used for FrankerFaceZ badge coloration
+     */
+    public static final Color MOD_BADGE_COLOR = new Color(0x34AE0A);
 
     /**
      * Whether all emoji are enabled or not
@@ -183,7 +189,7 @@ public class ConfigEmoji extends Config
 
     public boolean isEmojiEnabled()
     {
-        return emojiEnabled;
+        return emojiEnabled != null && emojiEnabled;
     }
 
     public void setEmojiEnabled(Boolean emojiEnabled)
@@ -194,7 +200,7 @@ public class ConfigEmoji extends Config
 
     public boolean isTwitchBadgesEnabled()
     {
-        return twitchBadgesEnabled;
+        return twitchBadgesEnabled != null && twitchBadgesEnabled;
     }
 
     public void setTwitchBadgesEnabled(Boolean twitchBadgesEnabled)
@@ -205,7 +211,7 @@ public class ConfigEmoji extends Config
 
     public boolean isFfzBadgesEnabled()
     {
-        return ffzBadgesEnabled;
+        return ffzBadgesEnabled != null && ffzBadgesEnabled;
     }
 
     public void setFfzBadgesEnabled(Boolean ffzBadgesEnabled)
@@ -226,7 +232,7 @@ public class ConfigEmoji extends Config
 
     public boolean isEmojiScaleToLine()
     {
-        return emojiScaleToLine;
+        return emojiScaleToLine != null && emojiScaleToLine;
     }
 
     public void setEmojiScaleToLine(Boolean emojiScaleToLine)
@@ -237,7 +243,7 @@ public class ConfigEmoji extends Config
 
     public boolean isBadgeScaleToLine()
     {
-        return badgeScaleToLine;
+        return badgeScaleToLine != null && badgeScaleToLine;
     }
 
     public void setBadgeScaleToLine(Boolean badgeScaleToLine)
@@ -292,7 +298,7 @@ public class ConfigEmoji extends Config
 
     public boolean isTwitchEnabled()
     {
-        return twitchEnabled;
+        return twitchEnabled != null && twitchEnabled;
     }
 
     public void setTwitchEnabled(Boolean twitchEnabled)
@@ -303,7 +309,7 @@ public class ConfigEmoji extends Config
 
     public boolean isTwitchCacheEnabled()
     {
-        return twitchCacheEnabled;
+        return twitchCacheEnabled != null && twitchCacheEnabled;
     }
 
     public void setTwitchCacheEnabled(Boolean twitchCacheEnabled)
@@ -314,7 +320,7 @@ public class ConfigEmoji extends Config
 
     public boolean isFfzEnabled()
     {
-        return ffzEnabled;
+        return ffzEnabled != null && ffzEnabled;
     }
 
     public void setFfzEnabled(Boolean ffzEnabled)
@@ -325,7 +331,7 @@ public class ConfigEmoji extends Config
 
     public boolean isFfzCacheEnabled()
     {
-        return ffzCacheEnabled;
+        return ffzCacheEnabled != null && ffzCacheEnabled;
     }
 
     public void setFfzCacheEnabled(Boolean ffzCacheEnabled)
@@ -336,12 +342,12 @@ public class ConfigEmoji extends Config
 
     public Boolean isBttvEnabled()
     {
-        return bttvEnabled;
+        return bttvEnabled != null && bttvEnabled;
     }
 
     public Boolean isBttvCacheEnabled()
     {
-        return bttvCacheEnabled;
+        return bttvCacheEnabled != null && bttvCacheEnabled;
     }
 
     public void setBttvCacheEnabled(Boolean bttvCacheEnabled)
@@ -932,7 +938,15 @@ public class ConfigEmoji extends Config
         final EmojiType emojiType = job.getType();
         final EmojiOperation emojiOp = job.getOp();
 
-        if (emojiType.isTwitchEmote())
+        if (EmojiType.TWITCH_BADGE.equals(emojiType))
+        {
+            this.twitchBadgesLoadedChannel = job.getChannel();
+        }
+        else if (EmojiType.FRANKERFACEZ_BADGE.equals(emojiType))
+        {
+            this.ffzBadgesLoadedChannel = job.getChannel();
+        }
+        else if (emojiType.isTwitchEmote()) // This would also include TWITCH_BADGE, but it's already checked above
         {
             if (EmojiOperation.LOAD == emojiOp)
             {
@@ -942,14 +956,6 @@ public class ConfigEmoji extends Config
             {
                 this.twitchCached = true;
             }
-        }
-        else if (EmojiType.TWITCH_BADGE.equals(emojiType))
-        {
-            this.twitchBadgesLoadedChannel = job.getChannel();
-        }
-        else if (EmojiType.FRANKERFACEZ_BADGE.equals(emojiType))
-        {
-            this.ffzBadgesLoadedChannel = job.getChannel();
         }
         else if (emojiType.isFrankerFaceZEmote())
         {

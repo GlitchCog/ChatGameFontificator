@@ -36,7 +36,7 @@ public class SpriteFont
     /**
      * The number of pixels between each individual badge and between badges and the username;
      */
-    public static final int BADGE_MINIMUM_SPACING_PIXELS = 2;
+    public static final int BADGE_MINIMUM_SPACING_PIXELS = 3;
 
     protected SpriteCache sprites;
 
@@ -172,7 +172,7 @@ public class SpriteFont
             // Emoji
             int[] eDim = getEmojiDimensions(c.getEmoji(), emojiConfig);
             final int charSpacing = (int) (config.getCharSpacing() * config.getFontScale());
-            final int extraSpacing = (c.getEmoji().getType().isBadge() ? Math.max(charSpacing, BADGE_MINIMUM_SPACING_PIXELS) : charSpacing);
+            final int extraSpacing = (c.getEmoji().getType().isBadge() ? Math.max(charSpacing, (int) (BADGE_MINIMUM_SPACING_PIXELS * config.getFontScale())) : charSpacing);
             return eDim[0] + extraSpacing;
         }
 
@@ -639,12 +639,12 @@ public class SpriteFont
                     break;
                 }
             }
-            else 
+            else
             {
                 // Draw a color square background for the emoji (for FrankerFaceZ badges)
                 if (sck.getEmoji().isColoringRequired())
                 {
-                    g2d.setColor(sck.getEmoji().getBgColor());
+                    g2d.setColor(sck.getEmojiBgColor());
                     g2d.fillRect(drawX, drawY, eDim[0] + 1, eDim[1] + 1);
                 }
                 // Draw the emoji image

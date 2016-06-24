@@ -1,5 +1,7 @@
 package com.glitchcog.fontificator.sprite;
 
+import java.awt.Color;
+
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 
 /**
@@ -22,7 +24,13 @@ public class SpriteCharacterKey
     /**
      * The emoji this character represents
      */
-    private LazyLoadEmoji[] emoji;
+    private LazyLoadEmoji emoji;
+
+    /**
+     * Background color override for emoji, for handling variable FFZ badge colors (bot is default gray, but changes to
+     * green if the bot is also a moderator)
+     */
+    private Color emojiBgColorOverride;
 
     /**
      * Whether the emoji set is a badge image
@@ -44,7 +52,7 @@ public class SpriteCharacterKey
      * 
      * @param emoji
      */
-    public SpriteCharacterKey(LazyLoadEmoji[] emoji, boolean badge)
+    public SpriteCharacterKey(LazyLoadEmoji emoji, boolean badge)
     {
         this((char) 127, emoji, badge);
     }
@@ -57,7 +65,7 @@ public class SpriteCharacterKey
      * @param badge
      *            Only used for emoji
      */
-    private SpriteCharacterKey(char character, LazyLoadEmoji[] emoji, boolean badge)
+    private SpriteCharacterKey(char character, LazyLoadEmoji emoji, boolean badge)
     {
         this.character = character;
         this.extended = !SpriteFont.NORMAL_ASCII_KEY.contains(Character.toString(this.character));
@@ -82,9 +90,7 @@ public class SpriteCharacterKey
      */
     public LazyLoadEmoji getEmoji()
     {
-        // Sometimes multiple frames represent frames of animation, other times it's the subscriber versions of globals
-        // For now, just return the first emoji
-        return emoji[0];
+        return emoji;
     }
 
     /**
@@ -130,4 +136,20 @@ public class SpriteCharacterKey
     {
         return extended;
     }
+
+    public Color getEmojiBgColor()
+    {
+        if (emojiBgColorOverride != null)
+        {
+            return emojiBgColorOverride;
+        }
+
+        return emoji == null ? null : emoji.getBgColor();
+    }
+
+    public void setEmojiBgColorOverride(Color emojiColorOverride)
+    {
+        this.emojiBgColorOverride = emojiColorOverride;
+    }
+
 }

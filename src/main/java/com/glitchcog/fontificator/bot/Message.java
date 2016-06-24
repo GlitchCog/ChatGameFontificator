@@ -3,8 +3,10 @@ package com.glitchcog.fontificator.bot;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +15,6 @@ import com.glitchcog.fontificator.config.ConfigMessage;
 import com.glitchcog.fontificator.config.MessageCasing;
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiType;
-import com.glitchcog.fontificator.emoji.FfzBadgeType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
 import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.sprite.SpriteCharacterKey;
@@ -77,10 +78,11 @@ public class Message
     private final MessageType type;
 
     /**
-     * The number of badges to draw, to keep track of the position of the username, which is used for coloring. This
-     * value is calculated when the text is parsed into SpriteCharacterKeys and will be zero if badges are switched off.
+     * The badges to draw, the size of which is used to keep track of the position of the username, which is used for
+     * coloring. This value is calculated when the text is parsed into SpriteCharacterKeys and will be null if all
+     * badges are switched off.
      */
-    private int badgeCount;
+    private Map<String, LazyLoadEmoji> badges;
 
     /**
      * The String of the message put into text
@@ -319,7 +321,7 @@ public class Message
      */
     public int getIndexUsername(ConfigMessage messageConfig)
     {
-        int index = badgeCount;
+        int index = badges.size();
         if (messageConfig.showTimestamps())
         {
             index += getIndexTimestamp(messageConfig);
@@ -396,49 +398,60 @@ public class Message
             }
         }
 
-        badgeCount = 0;
         // Add badges to be placed right before the username
         if (emojiConfig.isAnyBadgesEnabled())
         {
+            // LinkedHashMap to preserve original insert order
+            badges = new LinkedHashMap<String, LazyLoadEmoji>();
+
+            final boolean userIsModerator = privmsg.getUserType() == UserType.MOD;
+
             // Bank to pull Twitch badges from
             TypedEmojiMap twitchBadgeBank = emojiManager.getEmojiByType(EmojiType.TWITCH_BADGE);
             // Bank to pull FrankerFaceZ badges from
             TypedEmojiMap ffzBadgeBank = emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE);
 
-            boolean ffzBot = false;
-
-            if (emojiConfig.isFfzBadgesEnabled() && emojiManager.isFfzBot(username) && ffzBadgeBank.getEmoji(FfzBadgeType.BOT.getKey()) != null)
-            {
-                keyList.add(new SpriteCharacterKey(ffzBadgeBank.getEmoji(FfzBadgeType.BOT.getKey()), true));
-                badgeCount++;
-                ffzBot = true;
-            }
-
             // Get the badge for the type of user, if the usertype has a badge (but not if it's an ffzBot)
             if (privmsg.getUserType() != null && privmsg.getUserType() != UserType.NONE)
             {
-                LazyLoadEmoji[] testBadge = null;
-                if ((testBadge = twitchBadgeBank.getEmoji(privmsg.getUserType().getKey())) != null && !ffzBot)
+                LazyLoadEmoji testBadge;
+                // FFZ badges are enabled, the user is a moderator, and the custom FFZ moderator badge exists
+                if (emojiConfig.isFfzBadgesEnabled() && userIsModerator && ffzBadgeBank.getEmoji(UserType.MOD.getKey()) != null)
                 {
-                    // If it's a moderator badge, and FFZ is enabled, and FFZ custom moderator badge exists
-                    if (privmsg.getUserType().getKey().equals(UserType.MOD.getKey()) && emojiConfig.isFfzBadgesEnabled() && emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).getEmoji(FfzBadgeType.MODERATOR.getKey()) != null)
-                    {
-                        // Substitute custom FrankerFaceZ moderator badge
-                        keyList.add(new SpriteCharacterKey(emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).getEmoji(FfzBadgeType.MODERATOR.getKey()), true));
-                        badgeCount++;
-                    }
-                    else if (emojiConfig.isTwitchBadgesEnabled())
-                    {
-                        keyList.add(new SpriteCharacterKey(testBadge, true));
-                        badgeCount++;
-                    }
+                    badges.put(UserType.MOD.getKey(), ffzBadgeBank.getEmoji(UserType.MOD.getKey()));
+                }
+                else if (emojiConfig.isTwitchBadgesEnabled() && (testBadge = twitchBadgeBank.getEmoji(privmsg.getUserType().getKey())) != null)
+                {
+                    badges.put(privmsg.getUserType().getKey(), testBadge);
                 }
             }
 
-            if (emojiConfig.isFfzBadgesEnabled() && emojiManager.isFfzSupporter(username) && ffzBadgeBank.getEmoji(FfzBadgeType.SUPPORTER.getKey()) != null)
+            LazyLoadEmoji replacementBadge = null;
+
+            if (emojiConfig.isFfzBadgesEnabled())
             {
-                keyList.add(new SpriteCharacterKey(ffzBadgeBank.getEmoji(FfzBadgeType.SUPPORTER.getKey()), true));
-                badgeCount++;
+                Map<Integer, Set<String>> ffzBadgeUsers = emojiManager.getFfzBadgeUsers();
+                for (Integer ffzBadgeType : ffzBadgeUsers.keySet())
+                {
+                    final String ffzBadgeKey = ffzBadgeType == null ? null : Integer.toString(ffzBadgeType);
+                    Set<String> users = ffzBadgeUsers.get(ffzBadgeType);
+                    if (users.contains(username.toLowerCase()))
+                    {
+                        LazyLoadEmoji ffzBadge = ffzBadgeBank.getEmoji(ffzBadgeType);
+                        if (ffzBadge.isReplacement() && badges.containsKey(ffzBadge.getReplaces()))
+                        {
+                            badges.put(ffzBadge.getReplaces(), ffzBadge);
+                            if (userIsModerator && true)
+                            {
+                                replacementBadge = ffzBadge;
+                            }
+                        }
+                        else
+                        {
+                            badges.put(ffzBadgeKey, ffzBadge);
+                        }
+                    }
+                }
             }
 
             // Optional subscriber badge
@@ -447,8 +460,7 @@ public class Message
                 final String subStr = "subscriber";
                 if (privmsg.isSubscriber() && twitchBadgeBank.getEmoji(subStr) != null)
                 {
-                    keyList.add(new SpriteCharacterKey(twitchBadgeBank.getEmoji(subStr), true));
-                    badgeCount++;
+                    badges.put(subStr, twitchBadgeBank.getEmoji(subStr));
                 }
             }
 
@@ -456,10 +468,19 @@ public class Message
             final String turboStr = "turbo";
             if (emojiConfig.isTwitchBadgesEnabled() && privmsg.isTurbo() && twitchBadgeBank.getEmoji(turboStr) != null)
             {
-                keyList.add(new SpriteCharacterKey(twitchBadgeBank.getEmoji(turboStr), true));
-                badgeCount++;
+                badges.put(turboStr, twitchBadgeBank.getEmoji(turboStr));
             }
 
+            // Add each badges map item onto the sprite character key list
+            for (LazyLoadEmoji lle : badges.values())
+            {
+                SpriteCharacterKey sck = new SpriteCharacterKey(lle, true);
+                if (userIsModerator && lle == replacementBadge)
+                {
+                    sck.setEmojiBgColorOverride(ConfigEmoji.MOD_BADGE_COLOR);
+                }
+                keyList.add(sck);
+            }
         }
 
         if (messageConfig.showUsernames())
@@ -477,7 +498,7 @@ public class Message
                 keyList.add(new SpriteCharacterKey(casedUsername.charAt(c)));
             }
         }
-        if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isTwitchBadgesEnabled() && badgeCount > 0))
+        if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isAnyBadgesEnabled() && badges != null && !badges.isEmpty()))
         {
             for (int c = 0; c < type.getContentBreaker().length(); c++)
             {
@@ -552,7 +573,7 @@ public class Message
 
         int charIndex = 0;
 
-        LazyLoadEmoji[] emoji = null;
+        LazyLoadEmoji emoji = null;
         for (int w = 0; w < words.length; w++)
         {
             EmoteAndIndices eai = emotes.get(charIndex);
