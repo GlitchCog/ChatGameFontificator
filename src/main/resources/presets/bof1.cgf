@@ -1,0 +1,19 @@
+colorBackground=102131
+colorBorder=E7E7E7
+colorForeground=E7E7E7
+colorHighlight=FFFF33
+colorPalette=92B1B1,F7D6B5,48CDDE,FC68A6,74C5C1,6ECD9E,F4FF64
+fontBorderFile=preset\://borders/bof1_border.png
+fontBorderInsetX=4
+fontBorderInsetY=6
+fontBorderScale=2
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/bof1_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=5
+fontScale=2
+fontType=FIXED_WIDTH
+group=Breath of Fire
+name=Breath of Fire

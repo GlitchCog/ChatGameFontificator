@@ -454,6 +454,9 @@ public class ControlWindow extends JDialog
             menuBar.add(menus[i]);
         }
 
+        /* Presets Breath of Fire */
+        final String[] strBof1 = new String[] { "Breath of Fire", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "bof1.cgf" };
+        final String[] strBof2 = new String[] { "Breath of Fire 2", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "bof2.cgf" };
         /* Presets Chrono */
         final String[] strChrono = new String[] { "Chrono Trigger", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ct.cgf" };
         final String[] strChronoCross = new String[] { "Chrono Cross", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "cc.cgf" };
@@ -531,6 +534,7 @@ public class ControlWindow extends JDialog
         // @formatter:off
         final String[][] allPresets = new String[][]
         {
+            strBof1, strBof2, 
             strChrono, strChronoCross, 
             strDw1, strDw2, strDq1_2, strDw3, strDw3Gbc, strDq3, strDw4, 
             strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
@@ -564,6 +568,7 @@ public class ControlWindow extends JDialog
 
         // Put all the presets into this map to convert them into the submenu items
         final Map<String, String[]> presetMapSubmenuToItem = new LinkedHashMap<String, String[]>();
+        presetMapSubmenuToItem.put("Breath of Fire", new String[] { strBof1[0], strBof2[0] });
         presetMapSubmenuToItem.put("Chrono", new String[] { strChrono[0], strChronoCross[0] });
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDq1_2[0], strDw3[0], strDw3Gbc[0], strDq3[0], strDw4[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });

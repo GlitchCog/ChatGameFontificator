@@ -71,6 +71,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("7th Dragon", "7th Dragon Name"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("7th Saga", "7th Saga Battle"), new DropdownFont("7saga_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Breath of Fire", "Breath of Fire"), new DropdownFont("bof1_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Breath of Fire", "Breath of Fire 2"), new DropdownFont("bof2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Castlevania", "Castlevania 2 Title"), new DropdownFont("cv2_title_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownFont("cv3_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night"), new DropdownFont("csotn_font.png", FontType.FIXED_WIDTH));
@@ -212,6 +214,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(CUSTOM_KEY, null);
             put(new DropdownLabel("7th Dragon", "7th Dragon (Left)"), new DropdownBorder("7d_left_border.png", 0x208053));
             put(new DropdownLabel("7th Dragon", "7th Dragon (Right)"), new DropdownBorder("7d_right_border.png", 0x208053));
+            put(new DropdownLabel("Breath of Fire", "Breath of Fire"), new DropdownBorder("bof1_border.png", 0xE7E7E7));
+            put(new DropdownLabel("Breath of Fire", "Breath of Fire 2"), new DropdownBorder("bof2_border.png", 0xD6C6E7));
             put(new DropdownLabel("Castlevania", "Castlevania 2"), new DropdownBorder("cv2_border.png", Color.WHITE));
             put(new DropdownLabel("Castlevania", "Castlevania 3"), new DropdownBorder("cv3_border.png", Color.WHITE));
             put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Name"), new DropdownBorder("csotn_name_border.png", Color.WHITE));
