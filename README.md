@@ -141,6 +141,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - 7th Saga Battle
   - Bahamut Lagoon
   - Bart vs. the Space Mutants
+  - Breath of Fire
+  - Breath of Fire II
   - Castlevania II: Simon's Quest
   - Castlevania III: Dracula's Curse
   - Castlevania: Symphony of the Night
