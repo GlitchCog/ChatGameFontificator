@@ -98,8 +98,6 @@ Yes, just change the host on the Connection tab to a different server. Twitch-sp
 
 * Are there any known bugs?
 
-Yes there are. Here is a list of them with some additional information:
-
   - When anti-aliasing is turned on, it leaves little flecks all over the chat window. Anti-aliasing is applied to the whole sheet of characters and components of the border, so if there are pixels from a character adjacent to another cell of the grid, the anti-aliasing bleeds a little over into that next cell. This bug affects any fonts that don't have at least a single pixel buffer of space around their letters. Unfortunately, if anti-aliasing is applied to each character individually as the image is drawn, the program runs very slowly. One possible solution would be to cache these individually anti-aliased characters, but that might be a little messy to implement. I won't resort to that until I've attempted to fix it some other way, perhaps drawing each layer (background, border, and text) aliased separately, and then applying the anti-aliasing to the combination of just those three images.
 
   - A message consisting of a single period will not show up in the chat program. I'm not sure why this happens. The message appears to never be received by the program. It might be on Twitch's end, or in the PircBot IRC library this program uses.
@@ -108,7 +106,7 @@ Yes there are. Here is a list of them with some additional information:
 
   - In some rare unknown circumstance (possibly related to changing the rate at which messages are drawn?) the framerate can drop, making the message roll-out look choppy. Typically restarting will fix this.
 
-  - Messages from massively popular streams like GamesDoneQuick don't show up in the chat window. I suspect Twitch uses a different protocol for massively populated streams, but I'm not sure. GamesDoneQuick is the only channel I've seen this happen with. 
+  - Messages from massively popular streams like GamesDoneQuick don't show up in the chat window. I suspect Twitch uses a different protocol for massively populated streams, but I'm not sure. GamesDoneQuick is the only channel I've seen this happen with.
 
 * How do I use a custom font?
 
