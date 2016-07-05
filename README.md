@@ -204,6 +204,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Metroid Fusion Outline
   - Metroid Zero Mission
   - Metroid Zero Mission Outline
+  - Ogre Battle: The March of the Black Queen
   - Phantasy Star
   - Phantasy Star 2
   - Pokemon Red/Blue
