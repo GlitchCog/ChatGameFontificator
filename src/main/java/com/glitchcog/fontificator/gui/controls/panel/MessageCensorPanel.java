@@ -118,6 +118,7 @@ public class MessageCensorPanel extends ControlPanelBase
             {
                 updateConfig();
                 chat.repaint();
+                chat.initMessageRollout();
             }
         };
 
@@ -218,6 +219,7 @@ public class MessageCensorPanel extends ControlPanelBase
             checkCensor(msg);
         }
         messageList.revalidateTable();
+        chat.initMessageRollout();
         chat.repaint();
     }
 

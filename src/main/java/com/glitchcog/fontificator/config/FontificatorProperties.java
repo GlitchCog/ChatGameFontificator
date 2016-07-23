@@ -132,11 +132,12 @@ public class FontificatorProperties extends Properties
     public static final String KEY_MESSAGE_SPEED = "messageSpeed";
     public static final String KEY_MESSAGE_EXPIRATION_TIME = "messageExpirationTime";
     public static final String KEY_MESSAGE_HIDE_EMPTY_BORDER = "messageHideEmptyBorder";
+    public static final String KEY_MESSAGE_HIDE_EMPTY_BACKGROUND = "messageHideEmptyBackground";
     public static final String KEY_MESSAGE_CASE_TYPE = "messageUserCase";
     public static final String KEY_MESSAGE_CASE_SPECIFY = "messageUserCaseSpecify";
     public static final String KEY_MESSAGE_CASING = "messageCasing";
 
-    public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_EXPIRATION_TIME, KEY_MESSAGE_HIDE_EMPTY_BORDER, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY, KEY_MESSAGE_CASING };
+    public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_EXPIRATION_TIME, KEY_MESSAGE_HIDE_EMPTY_BORDER, KEY_MESSAGE_HIDE_EMPTY_BACKGROUND, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY, KEY_MESSAGE_CASING };
 
     public static final String KEY_EMOJI_ENABLED = "emojiEnabled";
     public static final String KEY_EMOJI_TWITCH_BADGES = "badgesEnabled";
@@ -629,6 +630,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_MESSAGE_SPEED, Integer.toString((int) (ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)), override);
         setPropertyOverride(KEY_MESSAGE_EXPIRATION_TIME, Integer.toString(0), override);
         setPropertyOverride(KEY_MESSAGE_HIDE_EMPTY_BORDER, falseString, override);
+        setPropertyOverride(KEY_MESSAGE_HIDE_EMPTY_BACKGROUND, falseString, override);
         setPropertyOverride(KEY_MESSAGE_CASE_TYPE, UsernameCaseResolutionType.NONE.name(), override);
         setPropertyOverride(KEY_MESSAGE_CASE_SPECIFY, falseString, override);
         setPropertyOverride(KEY_MESSAGE_CASING, MessageCasing.MIXED_CASE.name(), override);

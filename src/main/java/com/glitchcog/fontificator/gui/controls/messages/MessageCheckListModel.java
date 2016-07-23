@@ -95,6 +95,7 @@ public class MessageCheckListModel extends DefaultTableModel
             msg.setManualCensorship(true);
             list.revalidateTable();
             chat.repaint();
+            chat.initMessageRollout();
         }
     }
 

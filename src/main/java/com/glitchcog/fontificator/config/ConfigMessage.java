@@ -80,6 +80,11 @@ public class ConfigMessage extends Config
     private Boolean hideEmptyBorder;
 
     /**
+     * Whether the background should be hidden if there are no messages to display
+     */
+    private Boolean hideEmptyBackground;
+
+    /**
      * The method for resolving the capitalization of usernames
      */
     private UsernameCaseResolutionType caseResolutionType;
@@ -106,6 +111,7 @@ public class ConfigMessage extends Config
         this.messageSpeed = null;
         this.expirationTime = null;
         this.hideEmptyBorder = null;
+        this.hideEmptyBackground = null;
         this.caseResolutionType = null;
         this.specifyCaseAllowed = null;
         this.messageCasing = null;
@@ -136,11 +142,11 @@ public class ConfigMessage extends Config
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String expirationTimerStr, String hideEmptyBorderBool, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool, String msgCasingStr)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String expirationTimerStr, String hideEmptyBorderBool, String hideEmptyBgBool, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool, String msgCasingStr)
     {
         validateStrings(report, timeFormatStr, queueSizeStr, messageSpeedStr, expirationTimerStr);
 
-        validateBooleanStrings(report, joinBool, userBool, timestampBool, specifyCaseBool, hideEmptyBorderBool);
+        validateBooleanStrings(report, joinBool, userBool, timestampBool, specifyCaseBool, hideEmptyBorderBool, hideEmptyBgBool);
 
         if (!UsernameCaseResolutionType.contains(caseTypeStr))
         {
@@ -179,7 +185,8 @@ public class ConfigMessage extends Config
             final String msgCaseStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_CASING);
             final String expTimerStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME);
             final String hideEmptyBorderStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BORDER);
-            validateStrings(report, tfString, quSizeStr, msgSpeedStr, expTimerStr, hideEmptyBorderStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool, msgCaseStr);
+            final String hideEmptyBgStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BACKGROUND);
+            validateStrings(report, tfString, quSizeStr, msgSpeedStr, expTimerStr, hideEmptyBorderStr, hideEmptyBgStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool, msgCaseStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -192,6 +199,7 @@ public class ConfigMessage extends Config
                 this.messageSpeed = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_SPEED, report);
                 this.expirationTime = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME, report);
                 this.hideEmptyBorder = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BORDER, report);
+                this.hideEmptyBackground = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BACKGROUND, report);
                 this.caseResolutionType = UsernameCaseResolutionType.valueOf(caseTpStr);
                 this.specifyCaseAllowed = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_CASE_SPECIFY, report);
                 this.messageCasing = MessageCasing.valueOf(msgCaseStr);
@@ -344,6 +352,17 @@ public class ConfigMessage extends Config
     {
         this.hideEmptyBorder = hideEmptyBorder;
         props.setProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BORDER, Boolean.toString(hideEmptyBorder));
+    }
+
+    public boolean isHideEmptyBackground()
+    {
+        return hideEmptyBackground;
+    }
+
+    public void setHideEmptyBackground(boolean hideEmptyBackground)
+    {
+        this.hideEmptyBackground = hideEmptyBackground;
+        props.setProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BACKGROUND, Boolean.toString(hideEmptyBackground));
     }
 
     public UsernameCaseResolutionType getCaseResolutionType()

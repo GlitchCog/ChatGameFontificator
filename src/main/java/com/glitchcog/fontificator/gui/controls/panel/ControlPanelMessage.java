@@ -89,6 +89,11 @@ public class ControlPanelMessage extends ControlPanelBase
     private JCheckBox hideEmptyBorder;
 
     /**
+     * Checkbox to indicate whether no background should be drawn when there are no visible messages to display on it
+     */
+    private JCheckBox hideEmptyBackground;
+
+    /**
      * The message config object that bridges the UI to the properties file
      */
     private ConfigMessage config;
@@ -184,7 +189,9 @@ public class ControlPanelMessage extends ControlPanelBase
             }
         };
 
-        hideEmptyBorder = new JCheckBox("Hide Border When No Messages Are Displayed");
+        JLabel hideLabel = new JLabel("When No Messages Are Displayed: ");
+        hideEmptyBorder = new JCheckBox("Hide Border");
+        hideEmptyBackground = new JCheckBox("Hide Background");
 
         caseTypeDropdown = new JComboBox<UsernameCaseResolutionType>(UsernameCaseResolutionType.values());
         specifyCaseBox = new JCheckBox("Permit users to specify their own username case in posts");
@@ -266,6 +273,10 @@ public class ControlPanelMessage extends ControlPanelBase
                 {
                     config.setHideEmptyBorder(hideEmptyBorder.isSelected());
                 }
+                else if (hideEmptyBackground.equals(source))
+                {
+                    config.setHideEmptyBackground(hideEmptyBackground.isSelected());
+                }
                 chat.repaint();
             }
         };
@@ -275,6 +286,7 @@ public class ControlPanelMessage extends ControlPanelBase
         timestampsBox.addActionListener(boxListener);
         specifyCaseBox.addActionListener(boxListener);
         hideEmptyBorder.addActionListener(boxListener);
+        hideEmptyBackground.addActionListener(boxListener);
 
         timeFormatUpdateButton.addActionListener(new ActionListener()
         {
@@ -356,6 +368,7 @@ public class ControlPanelMessage extends ControlPanelBase
         optionsA.add(timeFormatPanel, aGbc);
 
         GridBagConstraints bGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
+        bGbc.gridwidth = 3;
         optionsB.add(queueSizeSlider, bGbc);
         bGbc.gridy++;
         optionsB.add(messageSpeedSlider, bGbc);
@@ -364,8 +377,21 @@ public class ControlPanelMessage extends ControlPanelBase
         optionsB.add(expirationTimeSlider, bGbc);
         bGbc.gridy++;
         bGbc.fill = GridBagConstraints.NONE;
+        bGbc.weightx = 0.333;
+        bGbc.gridwidth = 1;
+        bGbc.anchor = GridBagConstraints.EAST;
+        optionsB.add(hideLabel, bGbc);
+        bGbc.gridx++;
+        bGbc.anchor = GridBagConstraints.CENTER;
         optionsB.add(hideEmptyBorder, bGbc);
+        bGbc.gridx++;
+        bGbc.anchor = GridBagConstraints.WEST;
+        optionsB.add(hideEmptyBackground, bGbc);
+        bGbc.gridx = 0;
+        bGbc.gridwidth = 3;
         bGbc.gridy++;
+        bGbc.anchor = GridBagConstraints.CENTER;
+        bGbc.weightx = 1.0;
 
         GridBagConstraints topOpGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
         topOpGbc.anchor = GridBagConstraints.SOUTH;
@@ -449,6 +475,7 @@ public class ControlPanelMessage extends ControlPanelBase
         messageSpeedSlider.setValue(config.getMessageSpeed());
         expirationTimeSlider.setValue(config.getExpirationTime());
         hideEmptyBorder.setSelected(config.isHideEmptyBorder());
+        hideEmptyBackground.setSelected(config.isHideEmptyBackground());
         caseTypeDropdown.setSelectedItem(config.getCaseResolutionType());
         specifyCaseBox.setSelected(config.isSpecifyCaseAllowed());
         messageCasingDropdown.setSelectedItem(config.getMessageCasing());
@@ -474,6 +501,7 @@ public class ControlPanelMessage extends ControlPanelBase
         config.setMessageSpeed(messageSpeedSlider.getValue(), chat.getMessageProgressor());
         config.setExpirationTime(expirationTimeSlider.getValue(), chat.getMessageExpirer());
         config.setHideEmptyBorder(hideEmptyBorder.isSelected());
+        config.setHideEmptyBackground(hideEmptyBackground.isSelected());
         config.setCaseResolutionType((UsernameCaseResolutionType) caseTypeDropdown.getSelectedItem());
         config.setSpecifyCaseAllowed(specifyCaseBox.isSelected());
         config.setMessageCasing((MessageCasing) messageCasingDropdown.getSelectedItem());

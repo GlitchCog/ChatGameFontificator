@@ -225,9 +225,6 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         logger.trace("Calulated font size: " + fontSize);
 
-        // Draws the background color and the chroma key border
-        drawBackground(g2d);
-
         List<Message> drawMessages = new ArrayList<Message>();
 
         // Make a copy of the actual cache that only includes the messages that are completely drawn and possibly the
@@ -241,11 +238,18 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             {
                 drawMessages.add(msg);
             }
-            if (!msg.isCompletelyDrawn())
-            {
-                // No need to check any further messages because this is the one currently being rolled out
-                break;
-            }
+        }
+
+        // Draws the background color and the chroma key border
+        if (messageConfig.isHideEmptyBackground() && drawMessages.isEmpty())
+        {
+            // If the messages are empty and the background should be hidden, draw the chroma color regardless of whether it's enabled
+            g2d.setColor(colorConfig.getChromaColor());
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+        }
+        else
+        {
+            drawBackgroundAndChroma(g2d);
         }
 
         // This offset represents how far inward in the x and y directions the messages should be drawn
@@ -300,7 +304,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * 
      * @param g2d
      */
-    private void drawBackground(Graphics2D g2d)
+    private void drawBackgroundAndChroma(Graphics2D g2d)
     {
         if (chatConfig.isChromaEnabled())
         {
@@ -542,7 +546,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             remCount--;
         }
 
-        messageProgressor.startClock(messageConfig.getMessageDelay());
+        initMessageRollout();
         if (censor.isVisible())
         {
             censor.updateManualTable();
@@ -725,6 +729,16 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         {
             messageExpirer.startClock();
         }
+    }
+
+    /**
+     * Attempt to restart the message rollout, called whenever some messages might be reintroduced to the drawMessage
+     * after the message rollout is completed, by being uncensored for example. This call relies on the fact that the
+     * messageProgression will halt again if all the messages are complete already.
+     */
+    public void initMessageRollout()
+    {
+        messageProgressor.startClock(messageConfig.getMessageDelay());
     }
 
 }
