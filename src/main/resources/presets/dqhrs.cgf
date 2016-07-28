@@ -1,0 +1,20 @@
+colorBackground=FFFFFF
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=FFFF66
+colorPalette=66FFFF,3366FF,33FFFF,CCFFFF,CC99FF,FF99CC
+fontBorderFile=preset\://borders/dqhrs_border.png
+fontBorderInsetX=0
+fontBorderInsetY=-3
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/dqhrs_dialog_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=0
+fontScale=2.0
+fontSpaceWidth=40
+fontType=VARIABLE_WIDTH
+group=Dragon Warrior
+name=Dragon Quest Heroes\: Rocket Slime

@@ -468,6 +468,7 @@ public class ControlWindow extends JDialog
         final String[] strDw3Gbc = new String[] { "Dragon Warrior III (GBC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dw3gbc.cgf" };
         final String[] strDq3 = new String[] { "Dragon Quest III (SFC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dq3_sfc.cgf" };
         final String[] strDw4 = new String[] { "Dragon Warrior IV", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dw4.cgf" };
+        final String[] strDqhrs = new String[] { "Dragon Quest Heroes: Rocket Slime", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dqhrs.cgf" };
         /* Presets Earthbound */
         final String[] strEb0 = new String[] { "Earthbound Zero", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb0.cgf" };
         final String[] strEbPlain = new String[] { "Earthbound Plain", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_plain.cgf" };
@@ -536,7 +537,7 @@ public class ControlWindow extends JDialog
         {
             strBof1, strBof2, 
             strChrono, strChronoCross, 
-            strDw1, strDw2, strDq1_2, strDw3, strDw3Gbc, strDq3, strDw4, 
+            strDw1, strDw2, strDq1_2, strDw3, strDw3Gbc, strDq3, strDw4, strDqhrs, 
             strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
             strFinalFantasy1, strFinalFantasy4, strFinalFantasy6, strFinalFantasy7,  
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strMarioWorld, strYoshisIsland, strMarioRpg, 
@@ -570,7 +571,7 @@ public class ControlWindow extends JDialog
         final Map<String, String[]> presetMapSubmenuToItem = new LinkedHashMap<String, String[]>();
         presetMapSubmenuToItem.put("Breath of Fire", new String[] { strBof1[0], strBof2[0] });
         presetMapSubmenuToItem.put("Chrono", new String[] { strChrono[0], strChronoCross[0] });
-        presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDq1_2[0], strDw3[0], strDw3Gbc[0], strDq3[0], strDw4[0] });
+        presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDq1_2[0], strDw3[0], strDw3Gbc[0], strDq3[0], strDw4[0], strDqhrs[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
         presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy4[0], strFinalFantasy6[0], strFinalFantasy7[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario1Underworld[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0], strMarioRpg[0] });
