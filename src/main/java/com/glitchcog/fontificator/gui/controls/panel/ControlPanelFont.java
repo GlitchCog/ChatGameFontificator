@@ -145,6 +145,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownFont("ps2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Princess Tomato", "Princess Tomato in the Salad Kingdom"), new DropdownFont("ptsk_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownFont("robotrek_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownFont("robotrek_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownFont("rygar_nes_font.png", FontType.FIXED_WIDTH));
@@ -297,6 +298,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownBorder("pkmnrb_border.png", 0x171717));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png", 0x66CCFF));
             put(new DropdownLabel("Pokemon", "Pokemon Ruby/Sapphire"), new DropdownBorder("pkmnrubysaph_border.png", Color.WHITE));
+            put(new DropdownLabel("Princess Tomato", "Princess Tomato in the Salad Kingdom"), new DropdownBorder("ptsk_border.png", Color.WHITE));
             put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownBorder("robotrek_border.png", Color.WHITE));
             put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownBorder("robotrek_battle_border.png", Color.WHITE));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png", Color.WHITE));

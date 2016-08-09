@@ -208,6 +208,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Phantasy Star 2
   - Pokemon Red/Blue
   - Pokemon Fire Red/Leaf Green
+  - Princess Tomato in the Salad Kingdom
   - River City Ransom
   - Robotrek
   - Robotrek (Battle)
