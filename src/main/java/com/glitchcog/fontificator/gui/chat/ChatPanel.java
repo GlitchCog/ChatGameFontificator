@@ -238,6 +238,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             {
                 drawMessages.add(msg);
             }
+            if (!censored && !expired && !msg.isCompletelyDrawn())
+            {
+                // No need to check any further messages because this is the one currently being rolled out
+                break;
+            }
         }
 
         // Draws the background color and the chroma key border
