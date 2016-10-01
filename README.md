@@ -220,6 +220,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Solstice
   - Sonic Team
   - Star Ocean
+  - Stardew Valley
   - Suikoden
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
