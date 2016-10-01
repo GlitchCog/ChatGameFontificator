@@ -156,6 +156,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sega System"), new DropdownFont("sega_sys_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sonic Team"), new DropdownFont("sonic_team_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Stardew Valley", "Stardew Valley"), new DropdownFont("sdv_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownFont("staroc_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownFont("suiko_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Phantasia HUD (SFC, Mixed Case)"), new DropdownFont("tophan_hud_sfc_mixedcase_font.png", FontType.FIXED_WIDTH));
@@ -305,6 +306,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png", 0xCEDBE8));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png", Color.WHITE));
             put(new DropdownLabel("Shovel Knight", "Shovel Knight"), new DropdownBorder("sk_border.png", Color.WHITE));
+            put(new DropdownLabel("Stardew Valley", "Stardew Valley Dialog"), new DropdownBorder("sdv_dialog_border.png", Color.WHITE));
+            put(new DropdownLabel("Stardew Valley", "Stardew Valley Portrait"), new DropdownBorder("sdv_portrait_border.png", Color.WHITE));
+            put(new DropdownLabel("Stardew Valley", "Stardew Valley Scroll"), new DropdownBorder("sdv_scroll_border.png", Color.WHITE));
             put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownBorder("staroc_border.png", Color.WHITE));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png", Color.WHITE));

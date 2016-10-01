@@ -648,6 +648,11 @@ public class Message
 
     public void setCensored(boolean censored)
     {
+        if (censored)
+        {
+            drawCursor = Integer.MAX_VALUE;
+            completedTime = System.currentTimeMillis();
+        }
         this.censored = censored;
     }
 
