@@ -397,6 +397,8 @@ public class ChatViewerBot extends PircBot
                 log("Error parsing subscriber value \"" + turboStr + "\" in Twitch header");
             }
         }
+        privmsg.setPrime(paramMap.get("badges") != null && paramMap.get("badges").contains("premium"));
+
         String userTypeStr = paramMap.get("user-type");
         if (displayName != null && !displayName.trim().isEmpty() && displayName.equalsIgnoreCase(this.controlPanel.getChannelNoHash()))
         {

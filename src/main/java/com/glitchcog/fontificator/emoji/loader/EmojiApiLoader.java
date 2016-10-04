@@ -23,6 +23,8 @@ public class EmojiApiLoader
 
     private static final String CHANNEL_NAME_REPLACE = "%CHANNEL_NAME%";
 
+    public static final String OAUTH_REPLACE = "%OAUTH%";
+
     public static final String EMOTE_ID_REPLACE = "%EMOTE_ID%";
 
     public static final String EMOTE_SIZE_REPLACE = "%EMOTE_SIZE%";
@@ -36,7 +38,7 @@ public class EmojiApiLoader
     /**
      * The base URL for getting the channel specific Twitch emotes from V2 of the API
      */
-    private static final String TWITCH_URL_V2_BASE = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/emoticons";
+    private static final String TWITCH_URL_V2_BASE = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/emoticons" + OAUTH_REPLACE;
 
     /**
      * The URL for getting all Twitch emotes from V3 of the API
@@ -46,7 +48,7 @@ public class EmojiApiLoader
     /**
      * The base URL for getting the channel specific Twitch badges from the API
      */
-    private static final String TWITCH_URL_BADGES = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/badges";
+    private static final String TWITCH_URL_BADGES = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/badges" + OAUTH_REPLACE;
 
     /**
      * The URL for getting the global FrankerFaceZ emotes from the API
@@ -142,16 +144,22 @@ public class EmojiApiLoader
         this.url = url;
     }
 
-    public void prepLoad(EmojiType emojiType, String channel)
+    public void prepLoad(EmojiType emojiType, String channel, String oauth)
     {
         // FrankerFaceZ API requires the channel name to be all lowercase, Twitch V2 is case agnostic
         channel = channel == null ? null : channel.toLowerCase();
-        String chanUrl = getUrl(emojiType, channel);
+        String chanUrl = getUrl(emojiType, channel, oauth);
         prepLoad(chanUrl);
     }
 
-    private String getUrl(EmojiType emojiType, String channel)
+    private String getUrl(EmojiType emojiType, String channel, String oauth)
     {
+        final String oauthLabel = "oauth:";
+        if (oauth.contains(oauthLabel))
+        {
+            oauth = oauth.substring(oauthLabel.length());
+        }
+        oauth = "?oauth_token=" + oauth;
         switch (emojiType)
         {
         case FRANKERFACEZ_CHANNEL:
@@ -165,11 +173,11 @@ public class EmojiApiLoader
         case BETTER_TTV_GLOBAL:
             return BTTV_GLOBAL_URL;
         case TWITCH_V2:
-            return TWITCH_URL_V2_BASE.replaceAll(CHANNEL_NAME_REPLACE, channel);
+            return TWITCH_URL_V2_BASE.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
         case TWITCH_V3:
             return TWITCH_URL_V3;
         case TWITCH_BADGE:
-            return TWITCH_URL_BADGES.replaceAll(CHANNEL_NAME_REPLACE, channel);
+            return TWITCH_URL_BADGES.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
         default:
             return null;
         }

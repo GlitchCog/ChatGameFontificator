@@ -299,9 +299,11 @@ public class ControlPanelEmoji extends ControlPanelBase
                     final boolean clickTwitchBadges = !config.isTwitchBadgesLoaded(getConnectChannel()) && enableTwitchBadges.equals(source);
                     final boolean clickFfzBadges = !config.isFfzBadgesLoaded(getConnectChannel()) && enableFfzBadges.equals(source);
 
+                    final String oauth = fProps.getProperty(FontificatorProperties.KEY_IRC_AUTH);
+
                     if (clickTwitchLoad && !config.isTwitchLoaded())
                     {
-                        EmojiJob job = new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, getConnectChannel());
+                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, getConnectChannel());
                         if (enableAll.isSelected() && enableTwitch.isSelected())
                         {
                             jobsToRun.add(job);
@@ -314,7 +316,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickTwitchCache && !config.isTwitchCached())
                     {
-                        EmojiJob job = new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.CACHE);
+                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE);
                         if (enableAll.isSelected() && cacheTwitch.isSelected())
                         {
                             jobsToRun.add(job);
@@ -327,8 +329,8 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickFfzLoad && !config.isFfzLoaded(getConnectChannel()))
                     {
-                        EmojiJob jobA = new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.LOAD, getConnectChannel());
-                        EmojiJob jobB = new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.LOAD);
+                        EmojiJob jobA = new EmojiJob(oauth, EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.LOAD, getConnectChannel());
+                        EmojiJob jobB = new EmojiJob(oauth, EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.LOAD);
 
                         if (enableAll.isSelected() && enableFrankerFaceZ.isSelected())
                         {
@@ -344,8 +346,8 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickBttvLoad && !config.isBttvLoaded(getConnectChannel()))
                     {
-                        EmojiJob jobA = new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.LOAD, getConnectChannel());
-                        EmojiJob jobB = new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD);
+                        EmojiJob jobA = new EmojiJob(oauth, EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.LOAD, getConnectChannel());
+                        EmojiJob jobB = new EmojiJob(oauth, EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD);
 
                         if (enableAll.isSelected() && enableBetterTtv.isSelected())
                         {
@@ -361,8 +363,8 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickFfzCache && !config.isFfzCached())
                     {
-                        EmojiJob jobA = new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.CACHE);
-                        EmojiJob jobB = new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.CACHE);
+                        EmojiJob jobA = new EmojiJob(oauth, EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.CACHE);
+                        EmojiJob jobB = new EmojiJob(oauth, EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.CACHE);
                         if (enableAll.isSelected() && cacheFrankerFaceZ.isSelected())
                         {
                             jobsToRun.add(jobA);
@@ -377,8 +379,8 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickBttvCache && !config.isBttvCached())
                     {
-                        EmojiJob jobA = new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.CACHE);
-                        EmojiJob jobB = new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.CACHE);
+                        EmojiJob jobA = new EmojiJob(oauth, EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.CACHE);
+                        EmojiJob jobB = new EmojiJob(oauth, EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.CACHE);
                         if (enableAll.isSelected() && cacheBetterTtv.isSelected())
                         {
                             jobsToRun.add(jobA);
@@ -393,7 +395,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickTwitchBadges && !config.isTwitchBadgesLoaded(getConnectChannel()))
                     {
-                        EmojiJob job = new EmojiJob(EmojiType.TWITCH_BADGE, EmojiOperation.LOAD, getConnectChannel());
+                        EmojiJob job = new EmojiJob(oauth, EmojiType.TWITCH_BADGE, EmojiOperation.LOAD, getConnectChannel());
                         // No check for enable all here, because badges are independent of the emoji enableAll toggle
                         if (enableTwitchBadges.isSelected())
                         {
@@ -407,7 +409,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     if (clickFfzBadges && !config.isFfzBadgesLoaded(getConnectChannel()))
                     {
-                        EmojiJob job = new EmojiJob(EmojiType.FRANKERFACEZ_BADGE, EmojiOperation.LOAD, getConnectChannel());
+                        EmojiJob job = new EmojiJob(oauth, EmojiType.FRANKERFACEZ_BADGE, EmojiOperation.LOAD, getConnectChannel());
                         // No check for enable all here, because badges are independent of the emoji enableAll toggle
                         if (enableFfzBadges.isSelected())
                         {
@@ -666,6 +668,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         }
 
         final String channel = getConnectChannel();
+        final String oauth = fProps.getProperty(FontificatorProperties.KEY_IRC_AUTH);
 
         if (enableAll.isSelected())
         {
@@ -680,7 +683,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
             if (workTwitchLoad)
             {
-                jobs.add(new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, channel));
+                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, channel));
                 if (channel == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
@@ -691,12 +694,12 @@ public class ControlPanelEmoji extends ControlPanelBase
 
             if (workTwitchCache)
             {
-                jobs.add(new EmojiJob(TWITCH_EMOTE_VERSION, EmojiOperation.CACHE));
+                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE));
             }
 
             if (workFfzLoad)
             {
-                jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.LOAD, channel));
+                jobs.add(new EmojiJob(oauth, EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.LOAD, channel));
                 if (channel == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
@@ -707,18 +710,18 @@ public class ControlPanelEmoji extends ControlPanelBase
 
             if (workFfzGlobalLoad)
             {
-                jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.LOAD));
+                jobs.add(new EmojiJob(oauth, EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.LOAD));
             }
 
             if (workFfzCache)
             {
-                jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.CACHE));
-                jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.CACHE));
+                jobs.add(new EmojiJob(oauth, EmojiType.FRANKERFACEZ_CHANNEL, EmojiOperation.CACHE));
+                jobs.add(new EmojiJob(oauth, EmojiType.FRANKERFACEZ_GLOBAL, EmojiOperation.CACHE));
             }
 
             if (workBttvLoad)
             {
-                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.LOAD, channel));
+                jobs.add(new EmojiJob(oauth, EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.LOAD, channel));
                 if (channel == null)
                 {
                     ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
@@ -729,13 +732,13 @@ public class ControlPanelEmoji extends ControlPanelBase
 
             if (workBttvGlobalLoad)
             {
-                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD));
+                jobs.add(new EmojiJob(oauth, EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.LOAD));
             }
 
             if (workBttvCache)
             {
-                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.CACHE));
-                jobs.add(new EmojiJob(EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.CACHE));
+                jobs.add(new EmojiJob(oauth, EmojiType.BETTER_TTV_CHANNEL, EmojiOperation.CACHE));
+                jobs.add(new EmojiJob(oauth, EmojiType.BETTER_TTV_GLOBAL, EmojiOperation.CACHE));
             }
         }
 
@@ -744,7 +747,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
         if (workTwitchBadges)
         {
-            jobs.add(new EmojiJob(EmojiType.TWITCH_BADGE, EmojiOperation.LOAD, channel));
+            jobs.add(new EmojiJob(oauth, EmojiType.TWITCH_BADGE, EmojiOperation.LOAD, channel));
             if (channel == null)
             {
                 ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load badges");
@@ -755,7 +758,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
         if (workFfzBadges)
         {
-            jobs.add(new EmojiJob(EmojiType.FRANKERFACEZ_BADGE, EmojiOperation.LOAD, channel));
+            jobs.add(new EmojiJob(oauth, EmojiType.FRANKERFACEZ_BADGE, EmojiOperation.LOAD, channel));
             if (channel == null)
             {
                 ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load badges");

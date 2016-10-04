@@ -11,21 +11,29 @@ public class EmojiJob
 
     private final EmojiOperation op;
 
+    private final String oauth;
+
     /**
      * Can be null if no channel is required
      */
     private final String channel;
 
-    public EmojiJob(EmojiType type, EmojiOperation op)
+    public EmojiJob(String oauth, EmojiType type, EmojiOperation op)
     {
-        this(type, op, null);
+        this(oauth, type, op, null);
     }
 
-    public EmojiJob(EmojiType type, EmojiOperation op, String channel)
+    public EmojiJob(String oauth, EmojiType type, EmojiOperation op, String channel)
     {
         this.type = type;
         this.op = op;
+        this.oauth = oauth;
         this.channel = channel;
+    }
+
+    public String getOauth()
+    {
+        return oauth;
     }
 
     public EmojiType getType()

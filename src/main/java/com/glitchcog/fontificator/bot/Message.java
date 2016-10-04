@@ -471,6 +471,12 @@ public class Message
                 badges.put(turboStr, twitchBadgeBank.getEmoji(turboStr));
             }
 
+            final String primeStr = "prime";
+            if (emojiConfig.isTwitchBadgesEnabled() && privmsg.isPrime() && twitchBadgeBank.getEmoji(primeStr) != null)
+            {
+                badges.put(primeStr, twitchBadgeBank.getEmoji(primeStr));
+            }
+
             // Add each badges map item onto the sprite character key list
             for (LazyLoadEmoji lle : badges.values())
             {

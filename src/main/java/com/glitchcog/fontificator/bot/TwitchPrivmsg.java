@@ -43,6 +43,11 @@ public class TwitchPrivmsg
     private boolean turbo;
 
     /**
+     * Whether the user has a Twitch prime badge
+     */
+    private boolean prime;
+
+    /**
      * The type of the user, for example channel moderator
      */
     private UserType userType;
@@ -75,6 +80,7 @@ public class TwitchPrivmsg
         color = null;
         emotes = new HashMap<Integer, EmoteAndIndices>();
         turbo = false;
+        prime = false;
         subscriber = false;
         userType = UserType.NONE;
     }
@@ -204,6 +210,26 @@ public class TwitchPrivmsg
     public void setTurbo(boolean turbo)
     {
         this.turbo = turbo;
+    }
+
+    /**
+     * Get whether the user has a Twitch prime badge
+     * 
+     * @return prime
+     */
+    public boolean isPrime()
+    {
+        return prime;
+    }
+
+    /**
+     * Set whether the user has a Twitch prime badge
+     * 
+     * @param prime
+     */
+    public void setPrime(boolean prime)
+    {
+        this.prime = prime;
     }
 
     /**

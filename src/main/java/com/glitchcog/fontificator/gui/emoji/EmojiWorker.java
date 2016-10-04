@@ -15,6 +15,7 @@ import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiOperation;
 import com.glitchcog.fontificator.emoji.EmojiType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
+import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.emoji.loader.EmojiApiLoader;
 import com.glitchcog.fontificator.emoji.loader.EmojiParser;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
@@ -34,6 +35,11 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
      * Twitch's V3 API demands it.
      */
     private static final String TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP = "https://api.twitch.tv/kraken/chat/emoticon_images";
+
+    /**
+     * Hard-coded URL for the Twitch prime (premium) badge, because it is not added to the channel badge API as of 2016-10-04
+     */
+    private static final String TWITCH_BADGE_PRIME = "https://static-cdn.jtvnw.net/badges/v1/a1dd5073-19c3-4911-8cb4-c464a7bc1510/1";
 
     /**
      * The base URL for getting just the room data from the FrankerFaceZ API, without any emote data
@@ -176,6 +182,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
             final EmojiOperation opType = job.getOp();
             final EmojiType emojiType = job.getType();
             final String channel = job.getChannel();
+            final String oauth = job.getOauth();
 
             if (EmojiOperation.LOAD == opType)
             {
@@ -188,7 +195,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 }
 
                 // The proper load for the emoji
-                loader.prepLoad(emojiType, channel);
+                loader.prepLoad(emojiType, channel, oauth);
                 String data = runLoader(emojiType);
                 if (data != null)
                 {
@@ -201,6 +208,13 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                     loader.prepLoad(FFZ_BASE_NO_EMOTES_URL + channel);
                     String ffzRoomJson = runLoader(emojiType);
                     parser.parseFrankerFaceZModBadge(manager, ffzRoomJson);
+                }
+
+                // Some custom loading required for the Twitch Prime badge
+                if (emojiType == EmojiType.TWITCH_BADGE)
+                {
+                    TypedEmojiMap tbMap = manager.getEmojiByType(EmojiType.TWITCH_BADGE);
+                    tbMap.put("prime", new LazyLoadEmoji("prime", TWITCH_BADGE_PRIME, EmojiType.TWITCH_BADGE));
                 }
 
                 Thread.sleep(1L);
