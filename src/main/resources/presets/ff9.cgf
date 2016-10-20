@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=CECECE
+colorHighlight=FFFF33
+colorPalette=92B1B1,F7D6B5,0D9300,48CDDE,FC68A6,74C5C1,6ECD9E,F4FF64
+fontBorderFile=preset\://borders/ff9_border.png
+fontBorderInsetX=8
+fontBorderInsetY=0
+fontBorderScale=2.0
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/ff9_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=4
+fontScale=2.0
+fontSpaceWidth=32
+fontType=VARIABLE_WIDTH
+group=Final Fantasy
+name=Final Fantasy IX

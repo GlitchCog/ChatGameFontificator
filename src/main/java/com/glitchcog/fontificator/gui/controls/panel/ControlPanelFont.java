@@ -104,6 +104,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownFont("ff6_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI (Battle)"), new DropdownFont("ff6_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownFont("ff7_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy IX"), new DropdownFont("ff9_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy Tactics Advance (Dialog)"), new DropdownFont("ffta_dialog_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy Tactics Advance (Menu)"), new DropdownFont("ffta_menu_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownFont("freep_font.png", FontType.FIXED_WIDTH));
@@ -252,6 +253,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownBorder("ff4_border.png", Color.WHITE));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownBorder("ff6_border.png", Color.WHITE));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownBorder("ff7_border.png", Color.WHITE));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy IX"), new DropdownBorder("ff9_border.png", Color.WHITE));
             put(new DropdownLabel("Freedom Planet", "Freedom Planet"), new DropdownBorder("freep_border.png", Color.WHITE));
             put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownBorder("gsun_border.png", Color.WHITE));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownBorder("hm_fmt_border.png", Color.WHITE));
