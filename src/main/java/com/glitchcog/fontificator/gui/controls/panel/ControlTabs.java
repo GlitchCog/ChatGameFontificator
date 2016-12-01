@@ -110,7 +110,7 @@ public class ControlTabs extends JTabbedPane
         colorPanel = new ControlPanelColor(fProps, chatWindow, logBox);
         fontPanel = new ControlPanelFont(fProps, chatWindow, logBox, colorPanel);
         messagePanel = new ControlPanelMessage(fProps, chatWindow, bot, logBox);
-        debugPanel = new ControlPanelDebug(fProps, chatWindow);
+        debugPanel = new ControlPanelDebug(fProps, chatWindow, ctrlWindow);
 
         subpanels = new ControlPanelBase[6];
 
@@ -210,5 +210,10 @@ public class ControlTabs extends JTabbedPane
     private void addControlTab(ControlPanelBase cpTab)
     {
         addTab(cpTab.getLabel(), cpTab);
+    }
+
+    public ControlPanelDebug getDebugTab()
+    {
+        return debugPanel;
     }
 }

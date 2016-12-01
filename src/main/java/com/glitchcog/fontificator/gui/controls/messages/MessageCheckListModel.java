@@ -91,7 +91,7 @@ public class MessageCheckListModel extends DefaultTableModel
         {
             Message[] messages = getMessages();
             Message msg = messages[messages.length - rowIndex - 1];
-            msg.setCensored((Boolean)(aValue == null ? false : aValue));
+            msg.setCensored((Boolean)(aValue == null ? false : aValue), chat.isCensorshipEnabled());
             msg.setManualCensorship(true);
             list.revalidateTable();
             chat.repaint();

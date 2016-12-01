@@ -240,7 +240,7 @@ public class MessageCensorPanel extends ControlPanelBase
         if (userBlacklist.contains(msg.getUsername()))
         {
             msg.setCensoredReason("USER BLACKLIST");
-            msg.setCensored(true);
+            msg.setCensored(true, chat.isCensorshipEnabled());
             return;
         }
         // Check message contents for banned words
@@ -248,7 +248,7 @@ public class MessageCensorPanel extends ControlPanelBase
         if (banned != null)
         {
             msg.setCensoredReason("BANNED WORD: \"" + banned + "\"");
-            msg.setCensored(true);
+            msg.setCensored(true, enableCensorshipBox.isSelected());
             return;
         }
 
@@ -259,14 +259,14 @@ public class MessageCensorPanel extends ControlPanelBase
             // If all URLs are censored, then censor the message
             if (censorAllUrlsBox.isSelected())
             {
-                msg.setCensored(true);
+                msg.setCensored(true, enableCensorshipBox.isSelected());
                 msg.setCensoredReason("URL");
                 return;
             }
             // If only the first URLs are censored, then check the user post count to censor
             else if (msg.getUserPostCount() < 2 && censorFirstPostUrlsBox.isSelected())
             {
-                msg.setCensored(true);
+                msg.setCensored(true, enableCensorshipBox.isSelected());
                 msg.setCensoredReason("1ST POST URL");
                 return;
             }
@@ -275,7 +275,7 @@ public class MessageCensorPanel extends ControlPanelBase
         final float percentUnknownChars = 100 * getPercentUnknownChars(msg.getContent());
         if (censorUnknownCharsBox.isSelected() && percentUnknownChars > 0.0f && percentUnknownChars >= unknownCharSlider.getValue())
         {
-            msg.setCensored(true);
+            msg.setCensored(true, enableCensorshipBox.isSelected());
             msg.setCensoredReason("UNKNOWN CHARACTERS");
             return;
         }

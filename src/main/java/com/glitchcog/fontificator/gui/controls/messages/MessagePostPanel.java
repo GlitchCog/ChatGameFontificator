@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,7 +18,6 @@ import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.LabeledInput;
 import com.glitchcog.fontificator.gui.controls.ControlWindow;
 import com.glitchcog.fontificator.gui.controls.panel.ControlPanelBase;
-import com.glitchcog.fontificator.sprite.SpriteFont;
 
 /**
  * Panel for manually posting messages to the chat window
@@ -44,54 +42,9 @@ public class MessagePostPanel extends JPanel
 
     private ControlWindow ctrlWindow;
 
-    private int modCount;
-
-    private Random rnd;
-
-    // @formatter:off
-    private String[] TEST_USERNAMES = new String[] { "Mario", "Luigi", "Peach", "Toad", "Bowser", "Shyguy", "Yoshi", "Birdo", "Goomba", "Koopa", 
-                                                     "Link", "Zelda", "Impa", "Shiek", "Navi", "Tingle", 
-                                                     "Ryu", "Chun-Li", "Ken", "Blanka", "Guile", "Sagat", "Vega", "Zangief", "Balrog", "Dhalsim", 
-                                                     "Samus", "Ridley", "Kraid", "Simon", "Alucard", "Kirby", "Chell", "GLaDOS", 
-                                                     "Bulbasaur", "Squirtle", "Charmander", "Pikachu", "Zubat", "Caterpie", "Jigglypuff", "Psyduck", "Meowth", "Mewtwo", "Snorlax", "Magikarp", 
-                                                     "Ness", "Paula", "Jeff", "Poo", "Lucas", "Claus", "Flint", "Hinawa", 
-                                                     "Chrono", "Marle", "Lucca", "Robo", "Magus", "Frog", "Ayla", "Lavos", "Schala", "Serge", "Lynx", "Kid", "Harle", 
-                                                     "Alena", "Talloon", "Ragnar", "Brey", "Cristo", "Maya", "Nara", "Maribel", "Kiefer", "Gabo", "Melvin", "Aira", 
-                                                     "Terra", "Locke", "Celes", "Edgar", "Sabin", "Kefka", "Cloud", "Tifa", "Aerith", "Barret", "Sephiroth" };
-
-    private String[] TEST_MESSAGES = new String[] { "You presumptuous little twit. I'll have you for lunch!", 
-                                                    "Thank you Mario! But our princess is in another castle!", 
-                                                    "It's dangerous to go alone. Take this.", 
-                                                    "It's a secret to everybody.", 
-                                                    "I feel asleep!!", 
-                                                    "Let us make a jourey to the cave of monsters!", 
-                                                    "A winner is you!", 
-                                                    "Let's play money making game.", 
-                                                    "A Slime draws near! Command?", 
-                                                    "I am error.", 
-                                                    "Hey, listen!", 
-                                                    "Bagu is my name. Show my note to river man.", 
-                                                    "What a horrible night to have a curse.", 
-                                                    "All your base are belong to us.", 
-                                                    "The morning sun has vanquished the horrible night.", 
-                                                    "Get a silk bag from the graveyard duck to live longer.", 
-                                                    "Someone set us up the bomb.", 
-                                                    "Are you a bad enough dude to rescue the president?", 
-                                                    "That's the second biggest monkey head I've ever seen!", 
-                                                    "Now you're thinking with portals.", 
-                                                    "Would you kindly?", 
-                                                    "The cake is a lie.", 
-                                                    "We've both said a lot of things that you're going to regret.", 
-                                                    "It's like my Rattata is in the top percentage of rattatas.", 
-                                                    "You have died of dysentery."
-                                                   };
-    // @formatter:on
-
     public MessagePostPanel(ControlWindow ctrlWindow)
     {
         this.ctrlWindow = ctrlWindow;
-        this.modCount = 0;
-        rnd = new Random();
         build();
     }
 
@@ -133,24 +86,7 @@ public class MessagePostPanel extends JPanel
                 }
                 else if (clearButton.equals(source))
                 {
-                    if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK)
-                    {
-                        if (modCount > 0)
-                        {
-                            usernameInput.setText(TEST_USERNAMES[rnd.nextInt(TEST_USERNAMES.length)]);
-                            textInput.setText(TEST_MESSAGES[rnd.nextInt(TEST_MESSAGES.length)]);
-                        }
-                        else
-                        {
-                            usernameInput.setText("Test");
-                            textInput.setText(SpriteFont.NORMAL_ASCII_KEY);
-                        }
-                        modCount++;
-                    }
-                    else
-                    {
-                        reset();
-                    }
+                    reset();
                 }
             }
         };
@@ -189,7 +125,6 @@ public class MessagePostPanel extends JPanel
     {
         usernameInput.setText("");
         textInput.setText("");
-        modCount = 0;
     }
 
     public void submit()

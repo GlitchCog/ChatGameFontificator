@@ -92,6 +92,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownFont("dq3_sfc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownFont("dw4_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest Heroes: Rocket Slime Dialog"), new DropdownFont("dqhrs_dialog_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownFont("eb0_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound Zero Bold"), new DropdownFont("eb0_bold_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound"), new DropdownFont("eb_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound Mr. Saturn"), new DropdownFont("eb_saturn_font.png", FontType.VARIABLE_WIDTH));

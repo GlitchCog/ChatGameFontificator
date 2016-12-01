@@ -61,6 +61,7 @@ import com.glitchcog.fontificator.gui.chat.ChatPanel;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.MenuComponent;
 import com.glitchcog.fontificator.gui.controls.messages.MessageDialog;
+import com.glitchcog.fontificator.gui.controls.panel.ControlPanelDebug;
 import com.glitchcog.fontificator.gui.controls.panel.ControlPanelFont;
 import com.glitchcog.fontificator.gui.controls.panel.ControlTabs;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
@@ -959,6 +960,11 @@ public class ControlWindow extends JDialog
     public void loadAfterInit()
     {
         controlTabs.setChatWindowPosition();
+    }
+
+    public ControlPanelDebug getDebugPanel()
+    {
+        return controlTabs.getDebugTab();
     }
 
 }

@@ -51,7 +51,7 @@ public class MessageProgressor extends MessageClock
 
                 for (int i = 0; i < messageArray.length; i++)
                 {
-                    if (messageArray[i].isCompletelyDrawn() || messageArray[i].isCensored())
+                    if (messageArray[i].isCompletelyDrawn() || (messageArray[i].isCensored() && chat.isCensorshipEnabled()))
                     {
                         continue;
                     }

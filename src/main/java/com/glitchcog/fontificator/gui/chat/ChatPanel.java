@@ -31,6 +31,7 @@ import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.gui.chat.clock.MessageExpirer;
 import com.glitchcog.fontificator.gui.chat.clock.MessageProgressor;
+import com.glitchcog.fontificator.gui.controls.panel.ControlPanelDebug;
 import com.glitchcog.fontificator.gui.controls.panel.MessageCensorPanel;
 import com.glitchcog.fontificator.sprite.Sprite;
 import com.glitchcog.fontificator.sprite.SpriteFont;
@@ -115,6 +116,12 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     private ConfigCensor censorConfig;
 
     /**
+     * The control panel for the debug options. They aren't saved, so a reference to the control panel itself is
+     * sufficient
+     */
+    private ControlPanelDebug debugSettings;
+
+    /**
      * The font used to draw the chat messages
      */
     private SpriteFont font;
@@ -190,6 +197,17 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         // This indicates that the chat panel is ready to be drawn
         loaded = true;
+    }
+
+    /**
+     * Set the Control Panel for debugging on this chat panel
+     * 
+     * @param debugSettings
+     *            The control panel for debug settings
+     */
+    public void setDebugSettings(ControlPanelDebug debugSettings)
+    {
+        this.debugSettings = debugSettings;
     }
 
     public void setMessageCensor(MessageCensorPanel censor)
@@ -273,10 +291,10 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
             offset = new Point(leftOffset, topOffset);
 
-            drawBorder(g2d, gridWidth, gridHeight, offset, colorConfig.getBorderColor());
+            drawBorder(g2d, gridWidth, gridHeight, offset, colorConfig.getBorderColor(), debugSettings.isDrawBorderGrid(), debugSettings.getBorderGridColor());
         }
 
-        drawChat(g2d, drawMessages, offset);
+        drawChat(g2d, drawMessages, offset, debugSettings.isDrawTextGrid(), debugSettings.getTextGridColor());
     }
 
     /**
@@ -334,7 +352,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * @param messages
      * @param offset
      */
-    private void drawChat(Graphics2D g2d, List<Message> drawMessages, Point offset)
+    private void drawChat(Graphics2D g2d, List<Message> drawMessages, Point offset, boolean debug, Color debugColor)
     {
         final int lineWrapLength = (border == null || fontConfig.getBorderScale() <= 0.0f ? getWidth() : border.getSpriteDrawWidth(fontConfig.getBorderScale()) * (getWidth() / border.getSpriteDrawWidth(fontConfig.getBorderScale()) - 2)) - fontConfig.getBorderInsetX() * 2;
         final int leftEdge = offset.x + (border == null || fontConfig.getBorderScale() <= 0.0f ? 0 : border.getSpriteDrawWidth(fontConfig.getBorderScale())) + fontConfig.getBorderInsetX();
@@ -423,7 +441,7 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             Message msg = drawMessages.get(msgIndex);
             Color col = getUsernameColor(colorConfig, msg);
             // The call to drawMessage in SpriteFont will determine whether to draw each character based on whether it is located at a position appropriate to be drawn on
-            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, botLimit, lineWrapLength, this);
+            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, botLimit, lineWrapLength, debug, debugColor, this);
             y += dim.getHeight();
         }
     }
@@ -455,13 +473,18 @@ public class ChatPanel extends JPanel implements MouseWheelListener
      * @param offset
      * @param color
      */
-    private void drawBorder(Graphics2D g2d, int gridWidth, int gridHeight, Point offset, Color color)
+    private void drawBorder(Graphics2D g2d, int gridWidth, int gridHeight, Point offset, Color color, boolean debug, Color debugColor)
     {
         final float scale = fontConfig.getBorderScale();
 
         if (scale <= 0.0f)
         {
             return;
+        }
+
+        if (debug)
+        {
+            g2d.setColor(debugColor);
         }
 
         for (int r = 0; r < gridHeight; r++)
@@ -519,6 +542,10 @@ public class ChatPanel extends JPanel implements MouseWheelListener
                     {
                         border.draw(g2d, pixelX, pixelY, 4, scale, color);
                     }
+                }
+                if (debug)
+                {
+                    g2d.drawRect(pixelX, pixelY, (int) (border.getSpriteWidth() * scale), (int) (border.getSpriteHeight() * scale));
                 }
             }
         }
@@ -744,6 +771,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
     public void initMessageRollout()
     {
         messageProgressor.startClock(messageConfig.getMessageDelay());
+    }
+
+    public boolean isCensorshipEnabled()
+    {
+        return censorConfig.isCensorshipEnabled();
     }
 
 }

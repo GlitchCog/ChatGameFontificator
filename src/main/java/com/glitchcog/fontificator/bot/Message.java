@@ -652,9 +652,11 @@ public class Message
         return censored;
     }
 
-    public void setCensored(boolean censored)
+    public void setCensored(boolean censored, boolean isCensorshipEnabled)
     {
-        if (censored)
+        // Only end the draw cursor if the message is both censored AND if censorship is actually enabled, 
+        // otherwise the message will insta-draw because it would be censored if censorship were enabled
+        if (censored && isCensorshipEnabled)
         {
             drawCursor = Integer.MAX_VALUE;
             completedTime = System.currentTimeMillis();

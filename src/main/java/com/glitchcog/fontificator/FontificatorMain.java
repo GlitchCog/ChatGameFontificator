@@ -86,6 +86,9 @@ public class FontificatorMain
         // list to be redrawn when a message is posted
         chatWindow.getChatPanel().setMessageCensor(controlWindow.getMessageDialog().getCensorPanel());
 
+        // Give the debug tab to the chat panel, since it doesn't have a shared reference to a config object for the settings
+        chatWindow.getChatPanel().setDebugSettings(controlWindow.getDebugPanel());
+
         // Finally, display the chat and control windows now that everything has been constructed and connected
         chatWindow.setVisible(true);
         try
