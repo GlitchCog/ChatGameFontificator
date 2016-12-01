@@ -172,6 +172,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Final Fantasy VI
   - Final Fantasy VI (Battle)
   - Final Fantasy VII
+  - Final Fantasy IX
   - Final Fantasy Tactics Advance (Dialog)
   - Final Fantasy Tactics Advance (Menu)
   - Freedom Planet
