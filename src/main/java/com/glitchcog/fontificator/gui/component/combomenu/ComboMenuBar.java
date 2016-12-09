@@ -206,6 +206,7 @@ public class ComboMenuBar extends JMenuBar
         for (JMenu menu : menus)
         {
             boolean atLeastOneHit = false;
+            boolean matchesMenu = menu.getText().toLowerCase().contains(filterText.toLowerCase().trim());
             for (int i = 0; i < menu.getItemCount(); i++)
             {
                 GameFontMenuItem item = (GameFontMenuItem) menu.getItem(i);
@@ -213,7 +214,7 @@ public class ComboMenuBar extends JMenuBar
                 final boolean matchesGenre = item.isMatchingFilterGenre(filterText);
                 final boolean matchesSystem = item.isMatchingFilterSystem(filterText);
 
-                boolean hit = matchesGame || matchesGenre || matchesSystem;
+                boolean hit = matchesMenu || matchesGame || matchesGenre || matchesSystem;
 
                 item.setVisible(hit);
                 if (hit)
