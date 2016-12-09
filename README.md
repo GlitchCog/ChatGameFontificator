@@ -68,7 +68,7 @@ Sometimes not much. Dragon Warrior, for example, just changed a couple letters s
 
 * Where did you get these font and border images?
 
-I don't own the copyright to the fonts or border art contained in this program, nor do I have permission to use them from the copyright holder. I ripped some out of ROM images of the games, took screenshots of name-entry screens, searched all over the Internet for elusive screenshots that happened to display dialog containing some rare character I was still missing, and found some others searching through sprite rip websites.
+I don't own the copyright to the fonts or border art contained in this program, nor do I have permission to use them from the copyright holders. I ripped some out of ROM images of the games, took screenshots of name-entry screens, searched all over the Internet for elusive screenshots that happened to display dialog containing some rare character I was still missing, and found some others searching through sprite rip websites.
 
 * I can't connect. What's wrong?
 
@@ -146,10 +146,12 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Castlevania II: Simon's Quest
   - Castlevania III: Dracula's Curse
   - Castlevania: Symphony of the Night
+  - Chip 'n Dale Rescue Rangers
   - Chrono Cross
   - Chrono Trigger
   - Clash at Demonhead
   - Crystalis
+  - DuckTales (NES)
   - Donkey Kong Country
   - Dr. Mario
   - Dragon Warrior
@@ -227,6 +229,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Suikoden
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
+  - TaleSpin (NES)
   - Tetris (GB)
   - Tetris (NES)
   - Undertale

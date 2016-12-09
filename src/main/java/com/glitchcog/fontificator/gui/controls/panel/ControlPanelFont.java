@@ -80,6 +80,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownFont("cc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownFont("cad_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Crystalis", "Crystalis"), new DropdownFont("crystalis_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Disney Capcom", "Chip 'n Dale Rescue Rangers"), new DropdownFont("cndrr_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Disney Capcom", "DuckTales"), new DropdownFont("ducktales_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Disney Capcom", "TaleSpin"), new DropdownFont("talespin_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Donkey Kong", "Donkey Kong Country"), new DropdownFont("dkc_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Donkey Kong", "Donkey Kong Country Banana"), new DropdownFont("dkc_banana_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Donkey Kong", "Donkey Kong Country KONG"), new DropdownFont("dkc_kong_font.png", FontType.FIXED_WIDTH));
@@ -233,6 +236,10 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Shop"), new DropdownBorder("cad_shop_border.png", 0x44009C));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Suzie"), new DropdownBorder("cad_suzie_border.png", Color.WHITE));
             put(new DropdownLabel("Cyrstalis", "Crystalis"), new DropdownBorder("crystalis_border.png", Color.WHITE));
+            put(new DropdownLabel("Disney Capcom", "Chip 'n Dale Rescue Rangers Zone Clear"), new DropdownBorder("cndrr_zone_border.png", Color.WHITE));
+            put(new DropdownLabel("Disney Capcom", "DuckTales HUD"), new DropdownBorder("ducktales_hud_border.png", Color.WHITE));
+            put(new DropdownLabel("Disney Capcom", "DuckTales Land Select"), new DropdownBorder("ducktales_land_border.png", Color.WHITE));
+            put(new DropdownLabel("Disney Capcom", "TaleSpin"), new DropdownBorder("talespin_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownBorder("dw1_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownBorder("dw2_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II (SFC)"), new DropdownBorder("dq1_2_sfc_border.png", Color.WHITE));
