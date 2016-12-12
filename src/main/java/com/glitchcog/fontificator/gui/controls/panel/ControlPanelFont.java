@@ -185,6 +185,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening"), new DropdownFont("loz_la_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: Ocarina of Time"), new DropdownFont("loz_oot_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownFont("loz_ww_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: The Minish Cap"), new DropdownFont("minish_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zero Wing", "Zero Wing"), new DropdownFont("zw_font.png", FontType.FIXED_WIDTH));
         }
     };
@@ -350,6 +351,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Room"), new DropdownBorder("loz_la_room_border.png", 0xBFC79F));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: Link's Awakening Name"), new DropdownBorder("loz_la_name_border.png", 0xBFC79F));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownBorder("loz_ww_border.png", Color.WHITE));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: The Minish Cap Dialog"), new DropdownBorder("minish_dialog_border.png", Color.WHITE));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: The Minish Cap Select"), new DropdownBorder("minish_select_border.png", Color.WHITE));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: The Minish Cap Stone"), new DropdownBorder("minish_stone_border.png", 0xE0D8D8));
         }
     };
 

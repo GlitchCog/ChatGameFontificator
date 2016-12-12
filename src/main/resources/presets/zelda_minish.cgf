@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=999999
+colorPalette=48F818,F85030,48E0F8,E858A0,A850C8,F8F800
+fontBorderFile=preset\://borders/minish_dialog_border.png
+fontBorderInsetY=0
+fontBorderInsetX=0
+fontBorderScale=2.0
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/minish_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=0
+fontScale=2.0
+fontSpaceWidth=20
+fontType=VARIABLE_WIDTH
+group=Zelda
+name=The Legend of Zelda: The Minish Cap

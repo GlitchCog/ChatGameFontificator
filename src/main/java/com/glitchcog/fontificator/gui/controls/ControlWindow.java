@@ -519,6 +519,7 @@ public class ControlWindow extends JDialog
         final String[] strLozLa = new String[] { "The Legend of Zelda: Link's Awakening", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda_la.cgf" };
         final String[] strZelda3 = new String[] { "The Legend of Zelda: A Link to the Past", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda3.cgf" };
         final String[] strZeldaWw = new String[] { "The Legend of Zelda: The Wind Waker", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda_ww.cgf" };
+        final String[] strZeldaMinish = new String[] { "The Legend of Zelda: The Minish Cap", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda_minish.cgf" };
         /* Ungrouped Presets */
         final String[] strClash = new String[] { "Clash at Demonhead", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "cad.cgf" };
         final String[] strCrystalis = new String[] { "Crystalis", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "crystalis.cgf" };
@@ -548,7 +549,7 @@ public class ControlWindow extends JDialog
             strPhanStar1, strPhanStar2, 
             strPkmnRb, strPkmnFrlg, 
             strYs1fc, strYs3fc, strYs3snes, 
-            strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw,  
+            strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw, strZeldaMinish,  
             strClash, strCrystalis, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strRiverCityRansom, strRygarNes, strSecretOfEvermore, strShantae, strShovel, strStardew, strSuikoden, strTalesOfSymphonia, strWarioLand4
         };
         // @formatter:on
@@ -582,7 +583,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] });
         presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
         presetMapSubmenuToItem.put("Ys", new String[] { strYs1fc[0], strYs3fc[0], strYs3snes[0] });
-        presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0] });
+        presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0], strZeldaMinish[0] });
         presetMapSubmenuToItem.put(null, new String[] { strClash[0], strCrystalis[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strRiverCityRansom[0], strRygarNes[0], strSecretOfEvermore[0], strShantae[0], strShovel[0], strStardew[0], strSuikoden[0], strTalesOfSymphonia[0], strWarioLand4[0] });
 
         for (String submenuKey : presetMapSubmenuToItem.keySet())
