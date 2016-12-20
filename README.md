@@ -164,6 +164,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Dragon Quest III (SFC)
   - Dragon Warrior IV
   - Dragon Quest Heroes: Rocket Slime
+  - EarthBound Zero
   - EarthBound Zero Bold
   - EarthBound
   - EarthBound Mr. Saturn
@@ -233,6 +234,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
   - TaleSpin (NES)
+  - Terranigma
   - Tetris (GB)
   - Tetris (NES)
   - Undertale

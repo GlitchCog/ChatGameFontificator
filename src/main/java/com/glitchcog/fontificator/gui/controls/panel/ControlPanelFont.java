@@ -152,9 +152,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Princess Tomato", "Princess Tomato in the Salad Kingdom"), new DropdownFont("ptsk_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Quintet", "Terranigma"), new DropdownFont("terranigma_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Quintet", "Robotrek"), new DropdownFont("robotrek_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Quintet", "Robotrek (Battle)"), new DropdownFont("robotrek_battle_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Quintet", "Terranigma"), new DropdownFont("terranigma_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownFont("rygar_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
