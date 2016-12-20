@@ -146,6 +146,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Castlevania II: Simon's Quest
   - Castlevania III: Dracula's Curse
   - Castlevania: Symphony of the Night
+  - Cave Story Plus
   - Chip 'n Dale Rescue Rangers
   - Chrono Cross
   - Chrono Trigger
@@ -169,6 +170,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Mother 3
   - Faxanadu
   - Final Fantasy
+  - Final Fantasy II
   - Final Fantasy Dawn of Souls
   - Final Fantasy IV
   - Final Fantasy VI
@@ -182,6 +184,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Golden Sun
   - Golden Sun (Battle)
   - Harvest Moon: Friends of Mineral Town
+  - Kero Blaster
   - The Lost Vikings
   - Super Mario Bros.
   - Super Mario Bros. 2

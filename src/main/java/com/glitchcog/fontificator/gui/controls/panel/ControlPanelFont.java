@@ -103,6 +103,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Faxanadu", "Faxanadu Dialog"), new DropdownFont("faxanadu_dialog_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Faxanadu", "Faxanadu HUD"), new DropdownFont("faxanadu_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownFont("ff1_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy II"), new DropdownFont("ff2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy Dawn of Souls"), new DropdownFont("ffdos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownFont("ff4_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownFont("ff6_font.png", FontType.VARIABLE_WIDTH));
@@ -151,8 +152,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownFont("pkmnfrlg_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Princess Tomato", "Princess Tomato in the Salad Kingdom"), new DropdownFont("ptsk_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownFont("robotrek_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownFont("robotrek_battle_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Quintet", "Terranigma"), new DropdownFont("terranigma_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Quintet", "Robotrek"), new DropdownFont("robotrek_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Quintet", "Robotrek (Battle)"), new DropdownFont("robotrek_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownFont("rygar_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
@@ -163,6 +165,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Sonic", "Sonic Team"), new DropdownFont("sonic_team_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Stardew Valley", "Stardew Valley"), new DropdownFont("sdv_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownFont("staroc_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Studio Pixel", "Cave Story+"), new DropdownFont("cavestoryplus_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Studio Pixel", "Kero Blaster"), new DropdownFont("keroblast_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownFont("suiko_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Phantasia HUD (SFC, Mixed Case)"), new DropdownFont("tophan_hud_sfc_mixedcase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Phantasia HUD (SFC, Upper Case)"), new DropdownFont("tophan_hud_sfc_uppercase_font.png", FontType.FIXED_WIDTH));
