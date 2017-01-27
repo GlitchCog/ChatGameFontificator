@@ -19,6 +19,8 @@ import com.glitchcog.fontificator.emoji.TypedEmojiMap;
 import com.glitchcog.fontificator.emoji.loader.EmojiApiLoader;
 import com.glitchcog.fontificator.emoji.loader.EmojiParser;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
+import com.glitchcog.fontificator.gui.emoji.exception.EmojiCancelException;
+import com.glitchcog.fontificator.gui.emoji.exception.EmojiHaltException;
 
 /**
  * Loads and caches emoji in a SwingWorker thread
@@ -37,7 +39,8 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
     private static final String TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP = "https://api.twitch.tv/kraken/chat/emoticon_images";
 
     /**
-     * Hard-coded URL for the Twitch prime (premium) badge, because it is not added to the channel badge API as of 2016-10-04
+     * Hard-coded URL for the Twitch prime (premium) badge, because it is not added to the channel badge API as of
+     * 2016-10-04
      */
     private static final String TWITCH_BADGE_PRIME = "https://static-cdn.jtvnw.net/badges/v1/a1dd5073-19c3-4911-8cb4-c464a7bc1510/1";
 
@@ -138,6 +141,8 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
 
     private boolean terminateWork;
 
+    private boolean silentlyTerminateWork;
+
     private EmojiLoadProgressPanel progressPanel;
 
     private final EmojiWorkerReport initialReport;
@@ -156,6 +161,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
     public EmojiWorker(EmojiManager manager, EmojiLoadProgressPanel progressPanel, EmojiJob job, LogBox logBox, EmojiWorkerReport initialReport)
     {
         this.terminateWork = false;
+        this.silentlyTerminateWork = false;
 
         this.manager = manager;
         this.progressPanel = progressPanel;
@@ -302,6 +308,20 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
 
             return Integer.valueOf(0);
         }
+        catch (EmojiHaltException e)
+        {
+            // Don't let it get caught by the generic Exception, send it on up instead
+            publish(new EmojiWorkerReport(job.toString() + " halted", 100, false, false));
+            try
+            {
+                Thread.sleep(1L);
+            }
+            catch (Exception sleepException)
+            {
+                logger.debug("Couldn't sleep for halt", sleepException);
+            }
+            throw e;
+        }
         catch (EmojiCancelException e)
         {
             // Don't let it get caught by the generic Exception, send it on up instead
@@ -312,7 +332,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
             }
             catch (Exception sleepException)
             {
-                logger.debug("Couldn't sleep", sleepException);
+                logger.debug("Couldn't sleep for cancel", sleepException);
             }
             throw e;
         }
@@ -353,6 +373,10 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 {
                     throw new EmojiCancelException();
                 }
+                else if (silentlyTerminateWork)
+                {
+                    throw new EmojiHaltException();
+                }
                 Thread.sleep(1L);
             }
             data = loader.getLoadedJson();
@@ -361,6 +385,11 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
             {
                 throw new EmojiCancelException();
             }
+            else if (silentlyTerminateWork)
+            {
+                throw new EmojiHaltException();
+            }
+
             publish(new EmojiWorkerReport("Parsing " + emojiType.getDescription() + " data...", 0, false, false));
         }
         else
@@ -385,15 +414,14 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         }
     }
 
-    @Override
-    protected void done()
+    public void cancel()
     {
         terminateWork = true;
     }
 
-    public void cancel()
+    public void haltCurrentJob()
     {
-        terminateWork = true;
+        silentlyTerminateWork = true;
     }
 
     public EmojiWorkerReport getInitialReport()

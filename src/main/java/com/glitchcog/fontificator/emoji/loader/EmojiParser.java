@@ -78,12 +78,12 @@ public class EmojiParser
         case FRANKERFACEZ_BADGE:
             parseFrankerFaceZBadges(manager, jsonData);
             break;
-        case TWITCH_V2:
-            parseTwitchEmoteJsonV2(manager, jsonData, jsonMapData);
-            break;
-        case TWITCH_V3:
-            parseTwitchEmoteJsonV3(manager, jsonData, jsonMapData);
-            break;
+        // case TWITCH_V2:
+        //     parseTwitchEmoteJsonV2(manager, jsonData, jsonMapData);
+        //     break;
+        // case TWITCH_V3:
+        //     parseTwitchEmoteJsonV3(manager, jsonData, jsonMapData);
+        //     break;
         case TWITCH_BADGE:
             parseTwitchBadges(emojiMap, jsonData);
             break;
@@ -99,11 +99,14 @@ public class EmojiParser
     /**
      * Parse emotes loaded using Twitch's emote API version 2
      * 
+     * Twitch V2 API retired on February 14, 2017
+     * 
      * @param manager
      * @param jsonData
      * @param jsonMapData
      * @throws IOException
      */
+    @Deprecated
     private void parseTwitchEmoteJsonV2(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
     {
         TypedEmojiMap emoji = manager.getEmojiByType(EmojiType.TWITCH_V2);
@@ -131,11 +134,14 @@ public class EmojiParser
      * Parses emotes loaded using Twitch's emote API version 3. It parses emotes into two different maps, one of all
      * emoji, and one that are accessible via set ID.
      * 
+     * Twitch V3 API retired on February 14, 2017
+     * 
      * @param manager
      * @param jsonData
      * @param jsonMapData
      * @throws IOException
      */
+    @Deprecated
     private void parseTwitchEmoteJsonV3(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
     {
         logger.trace(jsonData.substring(0, Math.min(jsonData.length(), 512)));

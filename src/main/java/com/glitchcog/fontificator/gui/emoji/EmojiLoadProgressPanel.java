@@ -367,7 +367,7 @@ public class EmojiLoadProgressPanel extends JPanel
             if (jobMatch(job, currentWorker))
             {
                 logger.trace("Canceling " + job.toString());
-                currentWorker.cancel();
+                currentWorker.haltCurrentJob();
             }
         }
 
@@ -377,8 +377,8 @@ public class EmojiLoadProgressPanel extends JPanel
             if (jobMatch(job, worker))
             {
                 logger.trace("Canceling " + job.toString());
-                worker.cancel();
-                // Is this safe?
+                worker.haltCurrentJob();
+                // Is this thread safe?
                 workerTaskListLoad.remove(worker);
             }
         }

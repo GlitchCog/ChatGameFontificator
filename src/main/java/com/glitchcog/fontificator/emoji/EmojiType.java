@@ -8,9 +8,19 @@ package com.glitchcog.fontificator.emoji;
 public enum EmojiType
 {
     // @formatter:off
-    TWITCH_V1("Twitch Emotes V1", EmojiGroup.TWITCH, false, false), 
-    TWITCH_V2("Twitch Emotes V2", EmojiGroup.TWITCH, false, false), 
-    TWITCH_V3("Twitch Emotes V3", EmojiGroup.TWITCH, false, true), 
+    TWITCH_V1("Twitch Emotes from Chat V1", EmojiGroup.TWITCH, false, false),
+
+    /**
+     * Twitch V2 API retired on February 14, 2017
+     */
+    @Deprecated 
+    TWITCH_V2("Twitch Emotes V2", EmojiGroup.TWITCH, false, false),
+    /**
+     * Twitch V3 API retired on February 14, 2017
+     */
+    @Deprecated 
+    TWITCH_V3("Twitch Emotes V3", EmojiGroup.TWITCH, false, true),
+ 
     TWITCH_BADGE("Twitch Badge", EmojiGroup.TWITCH, true, false), 
     FRANKERFACEZ_CHANNEL("FrankerFaceZ Emotes", EmojiGroup.FFZ, false, false), 
     FRANKERFACEZ_GLOBAL("FrankerFaceZ Global Emotes", EmojiGroup.FFZ, false, false), 

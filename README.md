@@ -139,6 +139,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
 
   - 7th Dragon Name
   - 7th Saga Battle
+  - Animal Crossing
   - Bahamut Lagoon
   - Bart vs. the Space Mutants
   - Breath of Fire

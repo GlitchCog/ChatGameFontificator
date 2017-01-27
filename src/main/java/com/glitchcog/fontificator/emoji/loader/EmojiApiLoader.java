@@ -38,11 +38,13 @@ public class EmojiApiLoader
     /**
      * The base URL for getting the channel specific Twitch emotes from V2 of the API
      */
+    @Deprecated
     private static final String TWITCH_URL_V2_BASE = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/emoticons" + OAUTH_REPLACE;
 
     /**
      * The URL for getting all Twitch emotes from V3 of the API
      */
+    @Deprecated
     private static final String TWITCH_URL_V3 = "https://api.twitch.tv/kraken/chat/emoticons";
 
     /**
@@ -172,10 +174,10 @@ public class EmojiApiLoader
             return BTTV_BASE_URL.replaceAll(CHANNEL_NAME_REPLACE, channel);
         case BETTER_TTV_GLOBAL:
             return BTTV_GLOBAL_URL;
-        case TWITCH_V2:
-            return TWITCH_URL_V2_BASE.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
-        case TWITCH_V3:
-            return TWITCH_URL_V3;
+        // case TWITCH_V2:
+        //     return TWITCH_URL_V2_BASE.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
+        // case TWITCH_V3:
+        //     return TWITCH_URL_V3;
         case TWITCH_BADGE:
             return TWITCH_URL_BADGES.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
         default:

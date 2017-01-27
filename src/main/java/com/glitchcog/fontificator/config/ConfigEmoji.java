@@ -9,7 +9,6 @@ import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
 import com.glitchcog.fontificator.emoji.EmojiJob;
 import com.glitchcog.fontificator.emoji.EmojiOperation;
 import com.glitchcog.fontificator.emoji.EmojiType;
-import com.glitchcog.fontificator.gui.controls.panel.ControlPanelEmoji;
 
 /**
  * The configuration for the Emoji and Badges
@@ -382,11 +381,10 @@ public class ConfigEmoji extends Config
                 return bttvEnabled != null && bttvEnabled && bttvLoadedChannel != null;
             case BETTER_TTV_GLOBAL:
                 return bttvEnabled != null && bttvEnabled && bttvGlobalLoaded != null && bttvGlobalLoaded;
-            case TWITCH_V2:
-            case TWITCH_V3:
-                // Only V2 and V3. V1 doesn't use the normal EmojiTypeMap, so it doesn't need to be checked. They're
-                // loaded on the fly.
-                return ControlPanelEmoji.TWITCH_EMOTE_VERSION.equals(type) && twitchEnabled != null && twitchEnabled && twitchLoaded != null && twitchLoaded;
+            // case TWITCH_V2:
+            // case TWITCH_V3:
+            //     // Only V2 and V3. Chat V1 doesn't use the normal EmojiTypeMap, so it doesn't need to be checked. They're loaded on the fly.
+            //     return ControlPanelEmoji.TWITCH_EMOTE_VERSION.equals(type) && twitchEnabled != null && twitchEnabled && twitchLoaded != null && twitchLoaded;
             case TWITCH_BADGE:
                 return twitchBadgesEnabled != null && twitchBadgesEnabled && twitchBadgesLoadedChannel != null;
             default:

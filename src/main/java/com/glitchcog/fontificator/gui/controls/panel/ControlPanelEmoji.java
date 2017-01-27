@@ -43,7 +43,11 @@ public class ControlPanelEmoji extends ControlPanelBase
 
     /**
      * This is the version of the Twitch emote API to use. Using V2 just for global Twitch emotes for manual messages.
+     * 
+     * Twitch no longer offers an API for global emotes, so this feature can no longer be used to include emotes in
+     * manual messages when disconnected
      */
+    @Deprecated
     public static final EmojiType TWITCH_EMOTE_VERSION = EmojiType.TWITCH_V2;
 
     /**
@@ -288,8 +292,8 @@ public class ControlPanelEmoji extends ControlPanelBase
                     Set<EmojiJob> jobsToCancel = new HashSet<EmojiJob>();
 
                     final boolean clickAll = enableAll.equals(source);
-                    final boolean clickTwitchLoad = clickAll || enableTwitch.equals(source);
-                    final boolean clickTwitchCache = clickAll || cacheTwitch.equals(source);
+//                    final boolean clickTwitchLoad = clickAll || enableTwitch.equals(source);
+//                    final boolean clickTwitchCache = clickAll || cacheTwitch.equals(source);
                     final boolean clickFfzLoad = clickAll || enableFrankerFaceZ.equals(source);
                     final boolean clickFfzCache = clickAll || cacheFrankerFaceZ.equals(source);
                     final boolean clickBttvLoad = clickAll || enableBetterTtv.equals(source);
@@ -301,31 +305,31 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                     final String oauth = fProps.getProperty(FontificatorProperties.KEY_IRC_AUTH);
 
-                    if (clickTwitchLoad && !config.isTwitchLoaded())
-                    {
-                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, getConnectChannel());
-                        if (enableAll.isSelected() && enableTwitch.isSelected())
-                        {
-                            jobsToRun.add(job);
-                        }
-                        else
-                        {
-                            jobsToCancel.add(job);
-                        }
-                    }
+//                    if (clickTwitchLoad && !config.isTwitchLoaded())
+//                    {
+//                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, getConnectChannel());
+//                        if (enableAll.isSelected() && enableTwitch.isSelected())
+//                        {
+//                            jobsToRun.add(job);
+//                        }
+//                        else
+//                        {
+//                            jobsToCancel.add(job);
+//                        }
+//                    }
 
-                    if (clickTwitchCache && !config.isTwitchCached())
-                    {
-                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE);
-                        if (enableAll.isSelected() && cacheTwitch.isSelected())
-                        {
-                            jobsToRun.add(job);
-                        }
-                        else
-                        {
-                            jobsToCancel.add(job);
-                        }
-                    }
+//                    if (clickTwitchCache && !config.isTwitchCached())
+//                    {
+//                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE);
+//                        if (enableAll.isSelected() && cacheTwitch.isSelected())
+//                        {
+//                            jobsToRun.add(job);
+//                        }
+//                        else
+//                        {
+//                            jobsToCancel.add(job);
+//                        }
+//                    }
 
                     if (clickFfzLoad && !config.isFfzLoaded(getConnectChannel()))
                     {
@@ -672,8 +676,8 @@ public class ControlPanelEmoji extends ControlPanelBase
 
         if (enableAll.isSelected())
         {
-            final boolean workTwitchLoad = !config.isTwitchLoaded() && enableTwitch.isSelected();
-            final boolean workTwitchCache = !config.isTwitchCached() && cacheTwitch.isSelected();
+//            final boolean workTwitchLoad = !config.isTwitchLoaded() && enableTwitch.isSelected();
+//            final boolean workTwitchCache = !config.isTwitchCached() && cacheTwitch.isSelected();
             final boolean workFfzLoad = !config.isFfzLoaded(channel) && enableFrankerFaceZ.isSelected();
             final boolean workFfzGlobalLoad = !config.isFfzGlobalLoaded() && enableFrankerFaceZ.isSelected();
             final boolean workFfzCache = !config.isFfzCached() && cacheFrankerFaceZ.isSelected();
@@ -681,21 +685,21 @@ public class ControlPanelEmoji extends ControlPanelBase
             final boolean workBttvGlobalLoad = !config.isBttvGlobalLoaded() && enableBetterTtv.isSelected();
             final boolean workBttvCache = !config.isBttvCached() && cacheBetterTtv.isSelected();
 
-            if (workTwitchLoad)
-            {
-                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, channel));
-                if (channel == null)
-                {
-                    ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
-                    jobs.clear();
-                    return jobs;
-                }
-            }
+//            if (workTwitchLoad)
+//            {
+//                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, channel));
+//                if (channel == null)
+//                {
+//                    ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
+//                    jobs.clear();
+//                    return jobs;
+//                }
+//            }
 
-            if (workTwitchCache)
-            {
-                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE));
-            }
+//            if (workTwitchCache)
+//            {
+//                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE));
+//            }
 
             if (workFfzLoad)
             {
