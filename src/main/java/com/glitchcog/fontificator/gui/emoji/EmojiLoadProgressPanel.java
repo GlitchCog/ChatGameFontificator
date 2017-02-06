@@ -247,7 +247,7 @@ public class EmojiLoadProgressPanel extends JPanel
 
             if (currentWorker != null)
             {
-                currentWorker.cancel();
+                currentWorker.haltCurrentJob();
             }
             currentWorker = null;
             initiateNextWork();
@@ -275,10 +275,6 @@ public class EmojiLoadProgressPanel extends JPanel
      */
     synchronized private void reset()
     {
-        if (currentWorker != null)
-        {
-            currentWorker.cancel();
-        }
         cancelButton.setEnabled(false);
         blankAllValues();
         workerTaskListLoad.clear();

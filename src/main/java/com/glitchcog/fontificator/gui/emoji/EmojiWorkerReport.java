@@ -27,12 +27,23 @@ public class EmojiWorkerReport
      */
     private final boolean canceled;
 
-    public EmojiWorkerReport(String message, int percentComplete, boolean error, boolean canceled)
+    /**
+     * Indicates the work has been halted
+     */
+    private final boolean halted;
+
+    public EmojiWorkerReport(String message, int percentComplete)
+    {
+        this(message, percentComplete, false, false, false);
+    }
+
+    public EmojiWorkerReport(String message, int percentComplete, boolean error, boolean canceled, boolean halted)
     {
         this.message = message;
         this.percentComplete = percentComplete;
         this.error = error;
         this.canceled = canceled;
+        this.halted = halted;
     }
 
     /**
@@ -83,5 +94,16 @@ public class EmojiWorkerReport
     public boolean isCanceled()
     {
         return canceled;
+    }
+
+    public boolean isHalted()
+    {
+        return halted;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "EmojiWorkerReport: " + message + " " + getPercentText();
     }
 }

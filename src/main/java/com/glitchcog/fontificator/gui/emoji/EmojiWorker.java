@@ -268,7 +268,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                     ids = new ArrayList<Integer>();
                 }
 
-                publish(new EmojiWorkerReport("Caching " + emojiType.getDescription(), 0, false, false));
+                publish(new EmojiWorkerReport("Caching " + emojiType.getDescription(), 0));
                 Thread.sleep(1L);
                 int count = 0;
                 List<LazyLoadEmoji> emojiToCache = new ArrayList<LazyLoadEmoji>();
@@ -292,7 +292,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                     count++;
                     // This is safe from divide by zero exceptions, because we won't be here if emojiToCache is empty
                     int percentComplete = (int) (100.0f * count / emojiToCache.size());
-                    publish(new EmojiWorkerReport("Caching " + emojiType.getDescription(), percentComplete, false, false));
+                    publish(new EmojiWorkerReport("Caching " + emojiType.getDescription(), percentComplete));
 
                     if (terminateWork)
                     {
@@ -302,7 +302,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                     Thread.sleep(1L);
                 }
 
-                publish(new EmojiWorkerReport(emojiType.getDescription() + " caching complete", 100, false, false));
+                publish(new EmojiWorkerReport(emojiType.getDescription() + " caching complete", 100));
                 Thread.sleep(1L);
             }
 
@@ -311,7 +311,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         catch (EmojiHaltException e)
         {
             // Don't let it get caught by the generic Exception, send it on up instead
-            publish(new EmojiWorkerReport(job.toString() + " halted", 100, false, false));
+            publish(new EmojiWorkerReport(job.toString() + " halted", 100, false, false, true));
             try
             {
                 Thread.sleep(1L);
@@ -325,7 +325,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         catch (EmojiCancelException e)
         {
             // Don't let it get caught by the generic Exception, send it on up instead
-            publish(new EmojiWorkerReport(job.toString() + " canceled", 100, false, true));
+            publish(new EmojiWorkerReport(job.toString() + " canceled", 100, false, true, false));
             try
             {
                 Thread.sleep(1L);
@@ -338,7 +338,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         }
         catch (FileNotFoundException e)
         {
-            publish(new EmojiWorkerReport("URL not found trying to " + job.toString(), 100, true, false));
+            publish(new EmojiWorkerReport("URL not found trying to " + job.toString(), 100, true, false, true));
             Thread.sleep(1L);
             return Integer.valueOf(2);
         }
@@ -346,7 +346,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
         {
             e.printStackTrace();
             final String errorMsg = "Unknown error trying to " + job.getOp().getDescription() + " " + job.getType().getDescription() + (job.getChannel() != null ? " for channel " + job.getChannel() : "");
-            publish(new EmojiWorkerReport(errorMsg, 100, true, false));
+            publish(new EmojiWorkerReport(errorMsg, 100, true, false, true));
             Thread.sleep(1L);
             return Integer.valueOf(3);
         }
@@ -368,7 +368,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
             {
                 int percentComplete = loader.loadChunk();
                 // Let the thread rest so the main thread can get the publish
-                publish(new EmojiWorkerReport("Downloading " + emojiType.getDescription(), percentComplete, false, false));
+                publish(new EmojiWorkerReport("Downloading " + emojiType.getDescription(), percentComplete));
                 if (terminateWork)
                 {
                     throw new EmojiCancelException();
@@ -390,13 +390,13 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 throw new EmojiHaltException();
             }
 
-            publish(new EmojiWorkerReport("Parsing " + emojiType.getDescription() + " data...", 0, false, false));
+            publish(new EmojiWorkerReport("Parsing " + emojiType.getDescription() + " data...", 0));
         }
         else
         {
             logger.debug("EmojiApiLoader run for " + emojiType.getDescription() + " without required call to prepLoad.");
         }
-        publish(new EmojiWorkerReport(emojiType.getDescription() + " loading complete", 100, false, false));
+        publish(new EmojiWorkerReport(emojiType.getDescription() + " loading complete", 100));
 
         loader.reset();
 
@@ -422,6 +422,11 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
     public void haltCurrentJob()
     {
         silentlyTerminateWork = true;
+    }
+
+    public boolean isWorkTerminatedAlready()
+    {
+        return terminateWork || silentlyTerminateWork;
     }
 
     public EmojiWorkerReport getInitialReport()

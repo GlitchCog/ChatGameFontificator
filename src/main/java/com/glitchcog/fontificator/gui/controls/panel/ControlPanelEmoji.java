@@ -785,7 +785,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     {
         for (EmojiJob job : jobs)
         {
-            EmojiWorkerReport initialReport = new EmojiWorkerReport(job.toString(), 0, false, false);
+            EmojiWorkerReport initialReport = new EmojiWorkerReport(job.toString(), 0);
 
             // A SwingWorkers can only be run once because... reasons. So each call to do work must be on a freshly
             // instantiated worker object.

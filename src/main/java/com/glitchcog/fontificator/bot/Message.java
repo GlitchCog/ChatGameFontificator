@@ -321,7 +321,7 @@ public class Message
      */
     public int getIndexUsername(ConfigMessage messageConfig)
     {
-        int index = badges.size();
+        int index = badges == null ? 0 : badges.size();
         if (messageConfig.showTimestamps())
         {
             index += getIndexTimestamp(messageConfig);
