@@ -32,6 +32,7 @@ import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.gui.chat.clock.MessageExpirer;
 import com.glitchcog.fontificator.gui.chat.clock.MessageProgressor;
 import com.glitchcog.fontificator.gui.controls.panel.ControlPanelDebug;
+import com.glitchcog.fontificator.gui.controls.panel.ControlPanelFont;
 import com.glitchcog.fontificator.gui.controls.panel.MessageCensorPanel;
 import com.glitchcog.fontificator.sprite.Sprite;
 import com.glitchcog.fontificator.sprite.SpriteFont;
@@ -778,4 +779,13 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         return censorConfig.isCensorshipEnabled();
     }
 
+    public String getFontGameName()
+    {
+        return ControlPanelFont.getFontGameName(fontConfig.getFontFilename());
+    }
+
+    public String getBorderGameName()
+    {
+        return ControlPanelFont.getBorderGameName(fontConfig.getBorderFilename());
+    }
 }

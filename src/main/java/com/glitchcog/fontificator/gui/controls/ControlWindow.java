@@ -702,55 +702,51 @@ public class ControlWindow extends JDialog
      *            the extension of the type of file being saved, or null if there is no default extension
      * @return file or null if selection is canceled
      */
-    private File getTargetSaveFile(JFileChooser chooser, String extension)
+    public static File getTargetSaveFile(JFileChooser chooser, String extension)
     {
-        final boolean configReadyToSave = controlTabs.refreshConfigFromUi();
-        if (configReadyToSave)
+        int overwrite = JOptionPane.YES_OPTION;
+        // Do while overwrite is no, so it loops back around to try again if someone says they don't want to
+        // overwrite an existing file, but if they select cancel it just breaks out of the loop
+        do
         {
-            int overwrite = JOptionPane.YES_OPTION;
-            // Do while overwrite is no, so it loops back around to try again if someone says they don't want to
-            // overwrite an existing file, but if they select cancel it just breaks out of the loop
-            do
+            int result = chooser.showSaveDialog(me);
+
+            // Default to yes, so it writes even if there's no existing file
+            overwrite = JOptionPane.YES_OPTION;
+
+            if (result == JFileChooser.APPROVE_OPTION)
             {
-                int result = chooser.showSaveDialog(me);
+                File saveFile = chooser.getSelectedFile();
 
-                // Default to yes, so it writes even if there's no existing file
-                overwrite = JOptionPane.YES_OPTION;
-
-                if (result == JFileChooser.APPROVE_OPTION)
+                if (chooser.getFileFilter() instanceof FileNameExtensionFilter)
                 {
-                    File saveFile = chooser.getSelectedFile();
-
-                    if (chooser.getFileFilter() instanceof FileNameExtensionFilter)
+                    String[] exts = ((FileNameExtensionFilter) (chooser.getFileFilter())).getExtensions();
+                    boolean endsInExt = false;
+                    for (String ext : exts)
                     {
-                        String[] exts = ((FileNameExtensionFilter) (chooser.getFileFilter())).getExtensions();
-                        boolean endsInExt = false;
-                        for (String ext : exts)
+                        if (saveFile.getName().toLowerCase().endsWith(ext.toLowerCase()))
                         {
-                            if (saveFile.getName().toLowerCase().endsWith(ext.toLowerCase()))
-                            {
-                                endsInExt = true;
-                                break;
-                            }
-                        }
-                        if (extension != null && !endsInExt)
-                        {
-                            saveFile = new File(saveFile.getPath() + "." + extension);
+                            endsInExt = true;
+                            break;
                         }
                     }
-
-                    if (saveFile.exists())
+                    if (extension != null && !endsInExt)
                     {
-                        overwrite = JOptionPane.showConfirmDialog(me, "File " + saveFile.getName() + " already exists. Overwrite?", "Overwrite?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    }
-
-                    if (overwrite == JOptionPane.YES_OPTION)
-                    {
-                        return saveFile;
+                        saveFile = new File(saveFile.getPath() + "." + extension);
                     }
                 }
-            } while (overwrite == JOptionPane.NO_OPTION);
-        }
+
+                if (saveFile.exists())
+                {
+                    overwrite = JOptionPane.showConfirmDialog(me, "File " + saveFile.getName() + " already exists. Overwrite?", "Overwrite?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                }
+
+                if (overwrite == JOptionPane.YES_OPTION)
+                {
+                    return saveFile;
+                }
+            }
+        } while (overwrite == JOptionPane.NO_OPTION);
         return null;
     }
 
@@ -761,7 +757,12 @@ public class ControlWindow extends JDialog
      */
     public boolean saveConfig()
     {
-        File saveFile = getTargetSaveFile(configSaver, DEFAULT_CONFIG_FILE_EXTENSION);
+        final boolean configReadyToSave = controlTabs.refreshConfigFromUi();
+        File saveFile = null;
+        if (configReadyToSave)
+        {
+            saveFile = getTargetSaveFile(configSaver, DEFAULT_CONFIG_FILE_EXTENSION);
+        }
         if (saveFile != null)
         {
             try
