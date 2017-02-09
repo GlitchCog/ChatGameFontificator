@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
@@ -52,6 +56,8 @@ public class CollagePanel extends JPanel
 
     private JTextField imageLabelInput;
 
+    private JTextArea headerTextInput;
+
     private JButton saveButton;
 
     private JButton resetButton;
@@ -68,6 +74,12 @@ public class CollagePanel extends JPanel
 
     private static final String TEXT_BORDER = "%BORDERNAME%";
 
+    private static final String DEFAULT_HEADER_TEXT = "Chat Game Fontificator ~ github.com/GlitchCog/ChatGameFontificator ~ [FREE & OPEN SOURCE]";
+
+    private final Color drawBlockColor = Color.DARK_GRAY;
+
+    private final Color drawTextColor = Color.WHITE;
+
     public CollagePanel(ChatPanel chat)
     {
         this.chat = chat;
@@ -83,10 +95,13 @@ public class CollagePanel extends JPanel
 
     private void build()
     {
-        addCaptureButton = new JButton("Add Screenshot");
-        remCaptureButton = new JButton("Undo Screenshot");
-        transparencyBox = new JCheckBox("Transparency");
+        addCaptureButton = new JButton("+Screenshot");
+        remCaptureButton = new JButton("Undo");
+        transparencyBox = new JCheckBox("Image Transparency");
         imageLabelInput = new JTextField(TEXT_FONT, 12);
+        headerTextInput = new JTextArea(DEFAULT_HEADER_TEXT);
+        headerTextInput.setLineWrap(true);
+        headerTextInput.setWrapStyleWord(true);
         saveButton = new JButton("Save Collage");
         resetButton = new JButton("Reset");
 
@@ -146,7 +161,10 @@ public class CollagePanel extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 BufferedImage collageImage = generateCollageImage();
-                saveToFile(collageImage);
+                if (collageImage != null)
+                {
+                    saveToFile(collageImage);
+                }
             }
         });
 
@@ -162,21 +180,60 @@ public class CollagePanel extends JPanel
 
         setBorder(new TitledBorder(ControlPanelBase.getBaseBorder(), "Collage Generator", TitledBorder.CENTER, TitledBorder.TOP));
 
-        setLayout(new GridLayout(1, 2));
+        setLayout(new GridLayout(1, 3));
 
-        JPanel left = new JPanel(new GridLayout(5, 1));
-        left.add(addCaptureButton);
-        JPanel optionsPanel = new JPanel();
-        optionsPanel.add(new JLabel("Label:"));
-        optionsPanel.add(imageLabelInput);
-        optionsPanel.add(transparencyBox);
-        left.add(optionsPanel);
-        left.add(remCaptureButton);
-        left.add(saveButton);
-        left.add(resetButton);
+        JPanel left = new JPanel(new GridBagLayout());
+        GridBagConstraints lgbc = ControlPanelBase.getGbc();
+        lgbc.weighty = 0.0;
+        JPanel right = new JPanel(new GridBagLayout());
+        GridBagConstraints rgbc = ControlPanelBase.getGbc();
+        rgbc.weighty = 0.0;
+
+        JPanel addRemPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints addRemGbc = ControlPanelBase.getGbc();
+        addRemPanel.add(addCaptureButton, addRemGbc);
+        addRemGbc.gridx++;
+        addRemPanel.add(remCaptureButton, addRemGbc);
+        addRemGbc.gridx++;
+
+        JPanel labelPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints labelGbc = ControlPanelBase.getGbc();
+        labelPanel.add(new JLabel("Label:"), labelGbc);
+        labelGbc.gridx++;
+        labelGbc.fill = GridBagConstraints.BOTH;
+        labelGbc.weightx = 1.0;
+        labelPanel.add(imageLabelInput, labelGbc);
+        labelGbc.gridx++;
+
+        lgbc.fill = GridBagConstraints.HORIZONTAL;
+        lgbc.anchor = GridBagConstraints.CENTER;
+        lgbc.weightx = 1.0;
+        left.add(addRemPanel, lgbc);
+        lgbc.gridy++;
+        left.add(labelPanel, lgbc);
+        lgbc.gridy++;
+        left.add(transparencyBox, lgbc);
+        lgbc.gridy++;
+        left.add(resetButton, lgbc);
+        lgbc.gridy++;
+        lgbc.weighty = 1.0;
+        lgbc.fill = GridBagConstraints.BOTH;
+        left.add(new JPanel());
+
+        rgbc.fill = GridBagConstraints.HORIZONTAL;
+        rgbc.weightx = 1.0;
+        right.add(saveButton, rgbc);
+        rgbc.gridy++;
+        right.add(new JLabel("Header text:"), rgbc);
+        rgbc.gridy++;
+        rgbc.weighty = 1.0;
+        rgbc.fill = GridBagConstraints.BOTH;
+        right.add(new JScrollPane(headerTextInput, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), rgbc);
+        rgbc.gridy++;
 
         add(left);
         add(previewPanel);
+        add(right);
     }
 
     private void refreshPreviewImage()
@@ -201,9 +258,11 @@ public class CollagePanel extends JPanel
         {
             try
             {
-                chatGraphics.setColor(Color.WHITE);
+                chatGraphics.setColor(drawBlockColor);
+                chatGraphics.fillRect(1, chat.getHeight(), width - 2, labelHeight - 1);
+                chatGraphics.setColor(drawTextColor);
                 chatGraphics.setFont(font);
-                chatGraphics.drawString(imageText, 3, height - 8);
+                chatGraphics.drawString(imageText, 6, height - 8);
             }
             catch (Exception e)
             {
@@ -231,6 +290,7 @@ public class CollagePanel extends JPanel
 
         // TODO: Implement a 2D bin packing algorithm here
 
+        final int headerHeight = headerTextInput.getText().isEmpty() ? 0 : 24;
         int maxWidth = 0;
         int maxHeight = 0;
         for (BufferedImage bi : images)
@@ -241,16 +301,29 @@ public class CollagePanel extends JPanel
         int gridWidth = (int) Math.ceil(Math.sqrt(images.size()));
         int gridHeight = (int) Math.ceil(images.size() / (double) gridWidth);
 
-        BufferedImage collageImage = new BufferedImage(maxWidth * gridWidth, maxHeight * gridHeight, transparencyBox.isSelected() ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB);
-        Graphics collageGraphics = collageImage.getGraphics();
+        BufferedImage collageImage = new BufferedImage(maxWidth * gridWidth, maxHeight * gridHeight + headerHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D collageGraphics = (Graphics2D) collageImage.getGraphics();
+
+        collageGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        collageGraphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
         int x, y, offsetX, offsetY;
         for (int i = 0; i < images.size(); i++)
         {
             x = i % gridWidth;
             y = i / gridWidth;
             offsetX = (maxWidth - images.get(i).getWidth()) / 2;
-            offsetY = (maxHeight - images.get(i).getHeight()) / 2;
+            offsetY = (maxHeight - images.get(i).getHeight()) / 2 + headerHeight;
             collageGraphics.drawImage(images.get(i), x * maxWidth + offsetX, y * maxHeight + offsetY, null);
+        }
+
+        // Draw header
+        if (!headerTextInput.getText().isEmpty())
+        {
+            collageGraphics.setColor(drawBlockColor);
+            collageGraphics.fillRect(0, 0, collageImage.getWidth(), headerHeight);
+            collageGraphics.setColor(drawTextColor);
+            collageGraphics.drawString(headerTextInput.getText(), 3, 16);
         }
 
         return collageImage;
@@ -259,7 +332,7 @@ public class CollagePanel extends JPanel
     private boolean saveToFile(BufferedImage collageImage)
     {
         File saveFile = ControlWindow.getTargetSaveFile(collageChooser, "png");
-        if (saveFile != null)
+        if (saveFile != null && collageImage != null)
         {
             try
             {
