@@ -1,9 +1,9 @@
-colorBackground=24188C
+colorBackground=000000
 colorBorder=FFFFFF
 colorForeground=FCFCFC
 colorHighlight=FFFF99
 colorPalette=FF3900,039BDF,FFBD00,F7D6B5,AD7B00,0D9300,48CDDE
-fontBorderFile=preset\://borders/ff1_border.png
+fontBorderFile=preset\://borders/ff1_filled_border.png
 fontBorderInsetX=16
 fontBorderInsetY=16
 fontBorderScale=2

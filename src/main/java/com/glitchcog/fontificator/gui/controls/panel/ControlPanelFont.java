@@ -264,7 +264,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("EarthBound", "EarthBound Peanut"), new DropdownBorder("eb_peanut.png", Color.WHITE));
             put(new DropdownLabel("EarthBound", "Mother 3"), new DropdownBorder("m3_border.png", Color.WHITE));
             put(new DropdownLabel("Faxanadu", "Faxanadu"), new DropdownBorder("faxanadu_border.png", Color.WHITE));
-            put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_border.png", Color.WHITE));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownBorder("ff1_filled_border.png", Color.WHITE));
+            put(new DropdownLabel("Final Fantasy", "Final Fantasy Frame"), new DropdownBorder("ff1_border.png", Color.WHITE));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy IV"), new DropdownBorder("ff4_border.png", Color.WHITE));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VI"), new DropdownBorder("ff6_border.png", Color.WHITE));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy VII"), new DropdownBorder("ff7_border.png", Color.WHITE));
