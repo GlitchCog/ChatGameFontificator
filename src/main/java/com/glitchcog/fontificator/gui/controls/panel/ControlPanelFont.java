@@ -119,6 +119,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Golden Sun", "Golden Sun (Battle)"), new DropdownFont("gsun_battle_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownFont("hm_fmt_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Inverted"), new DropdownFont("hm_fmt_i_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Holy Diver", "Holy Diver"), new DropdownFont("holy_diver_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownFont("rcr_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownFont("lostvik_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros."), new DropdownFont("smb1_font.png", FontType.FIXED_WIDTH));
