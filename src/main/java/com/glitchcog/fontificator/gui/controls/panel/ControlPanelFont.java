@@ -180,6 +180,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Wario", "Wario Land 4 (Light)"), new DropdownFont("wl4_light_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownFont("wildarms_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownFont("willow_nes_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Wonder Boy", "Wonder Boy In Monster World"), new DropdownFont("wbmw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ys", "Ys (NES)"), new DropdownFont("ys1_fc_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ys", "Ys III (NES)"), new DropdownFont("ys3_fc_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ys", "Ys III (SNES)"), new DropdownFont("ys3_snes_font.png", FontType.FIXED_WIDTH));
@@ -339,6 +340,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Wario", "Wario Land 4"), new DropdownBorder("wl4_border.png", 0x58F8F8));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png", Color.WHITE));
             put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownBorder("willow_nes_border.png", Color.WHITE));
+            put(new DropdownLabel("Wonder Boy", "Wonder Boy In Monster World"), new DropdownBorder("wbmw_border.png", 0xE7E3E7));
             put(new DropdownLabel("Ys", "Ys Dialog (FC)"), new DropdownBorder("ys1_fc_dialog_border.png", Color.WHITE));
             put(new DropdownLabel("Ys", "Ys Menu (FC)"), new DropdownBorder("ys1_fc_menu_border.png", Color.WHITE));
             put(new DropdownLabel("Ys", "Ys II Dialog (FC)"), new DropdownBorder("ys2_fc_dialog_border.png", Color.WHITE));

@@ -244,6 +244,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Wario Land 4 (Light)
   - Wild Arms
   - Willow (NES)
+  - Wonder Boy In Monster World
   - Ys (FC)
   - Ys III (FC)
   - Ys III (SNES)
