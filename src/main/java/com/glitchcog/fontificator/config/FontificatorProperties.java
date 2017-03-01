@@ -140,6 +140,7 @@ public class FontificatorProperties extends Properties
     public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_EXPIRATION_TIME, KEY_MESSAGE_HIDE_EMPTY_BORDER, KEY_MESSAGE_HIDE_EMPTY_BACKGROUND, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY, KEY_MESSAGE_CASING };
 
     public static final String KEY_EMOJI_ENABLED = "emojiEnabled";
+    public static final String KEY_EMOJI_ANIMATION = "emojiAnimationEnabled";
     public static final String KEY_EMOJI_TWITCH_BADGES = "badgesEnabled";
     public static final String KEY_EMOJI_FFZ_BADGES = "badgesFfzEnabled";
     public static final String KEY_EMOJI_SCALE_TO_LINE = "emojiScaleToLine";
@@ -155,7 +156,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_EMOJI_BTTV_ENABLE = "emojiBttvEnabled";
     public static final String KEY_EMOJI_BTTV_CACHE = "emojiBttvCached";
 
-    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_TWITCH_BADGES, KEY_EMOJI_FFZ_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_BADGE_HEIGHT_OFFSET, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE, KEY_EMOJI_BTTV_ENABLE, KEY_EMOJI_BTTV_CACHE };
+    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_ANIMATION, KEY_EMOJI_TWITCH_BADGES, KEY_EMOJI_FFZ_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_BADGE_HEIGHT_OFFSET, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE, KEY_EMOJI_BTTV_ENABLE, KEY_EMOJI_BTTV_CACHE };
 
     public static final String KEY_CENSOR_ENABLED = "censorEnabled";
     public static final String KEY_CENSOR_URL = "censorUrl";
@@ -636,6 +637,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_MESSAGE_CASING, MessageCasing.MIXED_CASE.name(), override);
 
         setPropertyOverride(KEY_EMOJI_ENABLED, trueString, override);
+        setPropertyOverride(KEY_EMOJI_ANIMATION, falseString, override);
         setPropertyOverride(KEY_EMOJI_TWITCH_BADGES, trueString, override);
         setPropertyOverride(KEY_EMOJI_FFZ_BADGES, falseString, override);
         setPropertyOverride(KEY_EMOJI_SCALE_TO_LINE, trueString, override);

@@ -287,7 +287,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 {
                     if (emoji != null)
                     {
-                        emoji.getImage();
+                        emoji.cacheImage();
                     }
                     count++;
                     // This is safe from divide by zero exceptions, because we won't be here if emojiToCache is empty

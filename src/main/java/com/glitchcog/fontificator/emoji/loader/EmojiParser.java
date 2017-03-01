@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.bot.UserType;
 import com.glitchcog.fontificator.config.ConfigEmoji;
+import com.glitchcog.fontificator.emoji.AnimatedGifUtil;
 import com.glitchcog.fontificator.emoji.EmojiManager;
 import com.glitchcog.fontificator.emoji.EmojiType;
 import com.glitchcog.fontificator.emoji.LazyLoadEmoji;
@@ -413,7 +414,7 @@ public class EmojiParser
         for (BttvEmote be : bttvEmotes)
         {
             LazyLoadEmoji lle = new LazyLoadEmoji(be.getCode(), urlTemplate.replace("{{id}}", be.getId()), isGlobal ? EmojiType.BETTER_TTV_GLOBAL : EmojiType.BETTER_TTV_CHANNEL);
-            lle.setAnimatedGif("gif".equals(be.getImageType()));
+            lle.setAnimatedGif(AnimatedGifUtil.GIF_EXTENSION.equals(be.getImageType()));
             emoji.put(be.getCode(), lle);
             bttvCount++;
         }

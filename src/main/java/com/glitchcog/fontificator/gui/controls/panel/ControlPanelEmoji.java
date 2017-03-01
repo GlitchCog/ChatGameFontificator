@@ -61,6 +61,11 @@ public class ControlPanelEmoji extends ControlPanelBase
     private JCheckBox enableAll;
 
     /**
+     * Whether to display animation in emoji
+     */
+    private JCheckBox enableAnimation;
+
+    /**
      * Whether to display Twitch user badges
      */
     private JCheckBox enableTwitchBadges;
@@ -215,6 +220,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     protected void build()
     {
         enableAll = new JCheckBox("Enable Emoji");
+        enableAnimation = new JCheckBox("Enable Animation");
         enableTwitchBadges = new JCheckBox("Enable Twitch Badges");
         enableFfzBadges = new JCheckBox("Enable FrankerFaceZ Badges");
 
@@ -292,8 +298,6 @@ public class ControlPanelEmoji extends ControlPanelBase
                     Set<EmojiJob> jobsToCancel = new HashSet<EmojiJob>();
 
                     final boolean clickAll = enableAll.equals(source);
-//                    final boolean clickTwitchLoad = clickAll || enableTwitch.equals(source);
-//                    final boolean clickTwitchCache = clickAll || cacheTwitch.equals(source);
                     final boolean clickFfzLoad = clickAll || enableFrankerFaceZ.equals(source);
                     final boolean clickFfzCache = clickAll || cacheFrankerFaceZ.equals(source);
                     final boolean clickBttvLoad = clickAll || enableBetterTtv.equals(source);
@@ -304,32 +308,6 @@ public class ControlPanelEmoji extends ControlPanelBase
                     final boolean clickFfzBadges = !config.isFfzBadgesLoaded(getConnectChannel()) && enableFfzBadges.equals(source);
 
                     final String oauth = fProps.getProperty(FontificatorProperties.KEY_IRC_AUTH);
-
-//                    if (clickTwitchLoad && !config.isTwitchLoaded())
-//                    {
-//                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, getConnectChannel());
-//                        if (enableAll.isSelected() && enableTwitch.isSelected())
-//                        {
-//                            jobsToRun.add(job);
-//                        }
-//                        else
-//                        {
-//                            jobsToCancel.add(job);
-//                        }
-//                    }
-
-//                    if (clickTwitchCache && !config.isTwitchCached())
-//                    {
-//                        EmojiJob job = new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE);
-//                        if (enableAll.isSelected() && cacheTwitch.isSelected())
-//                        {
-//                            jobsToRun.add(job);
-//                        }
-//                        else
-//                        {
-//                            jobsToCancel.add(job);
-//                        }
-//                    }
 
                     if (clickFfzLoad && !config.isFfzLoaded(getConnectChannel()))
                     {
@@ -437,6 +415,7 @@ public class ControlPanelEmoji extends ControlPanelBase
 
                 // These are only the checkboxes handled in fillConfigFromInput()
                 config.setEmojiEnabled(enableAll.isSelected());
+                config.setAnimationEnabled(enableAnimation.isSelected());
                 config.setTwitchBadgesEnabled(enableTwitchBadges.isSelected());
                 config.setFfzBadgesEnabled(enableFfzBadges.isSelected());
                 config.setTwitchEnabled(enableTwitch.isSelected());
@@ -454,6 +433,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         };
 
         enableAll.addActionListener(cbal);
+        enableAnimation.addActionListener(cbal);
         enableTwitchBadges.addActionListener(cbal);
         enableFfzBadges.addActionListener(cbal);
         emojiScaleToLineHeight.addActionListener(cbal);
@@ -465,19 +445,22 @@ public class ControlPanelEmoji extends ControlPanelBase
         enableBetterTtv.addActionListener(cbal);
         cacheBetterTtv.addActionListener(cbal);
 
+        // Top row containing emoji toggle, animation, and badge toggles
         JPanel allEnabledPanel = new JPanel(new GridBagLayout());
         GridBagConstraints allGbc = getGbc();
-        allGbc.anchor = GridBagConstraints.CENTER;
+        allGbc.weighty = 1.0;
         allGbc.fill = GridBagConstraints.NONE;
-        allGbc.weightx = 0.333;
+        allGbc.anchor = GridBagConstraints.WEST;
+        allGbc.weightx = 0.25;
         allEnabledPanel.add(enableAll, allGbc);
         allGbc.gridx++;
+        allEnabledPanel.add(enableAnimation, allGbc);
+        allGbc.gridx++;
+        allGbc.anchor = GridBagConstraints.EAST;
         allEnabledPanel.add(enableTwitchBadges, allGbc);
         allGbc.gridx++;
         allEnabledPanel.add(enableFfzBadges, allGbc);
         allGbc.gridx++;
-        allGbc.gridwidth = 2;
-        allGbc.gridy++;
 
         scaleAndDisplayPanel = new JPanel(new GridBagLayout());
         scaleAndDisplayPanel.setBorder(baseBorder);
@@ -676,30 +659,12 @@ public class ControlPanelEmoji extends ControlPanelBase
 
         if (enableAll.isSelected())
         {
-//            final boolean workTwitchLoad = !config.isTwitchLoaded() && enableTwitch.isSelected();
-//            final boolean workTwitchCache = !config.isTwitchCached() && cacheTwitch.isSelected();
             final boolean workFfzLoad = !config.isFfzLoaded(channel) && enableFrankerFaceZ.isSelected();
             final boolean workFfzGlobalLoad = !config.isFfzGlobalLoaded() && enableFrankerFaceZ.isSelected();
             final boolean workFfzCache = !config.isFfzCached() && cacheFrankerFaceZ.isSelected();
             final boolean workBttvLoad = !config.isBttvLoaded(channel) && enableBetterTtv.isSelected();
             final boolean workBttvGlobalLoad = !config.isBttvGlobalLoaded() && enableBetterTtv.isSelected();
             final boolean workBttvCache = !config.isBttvCached() && cacheBetterTtv.isSelected();
-
-//            if (workTwitchLoad)
-//            {
-//                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.LOAD, channel));
-//                if (channel == null)
-//                {
-//                    ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load emoji");
-//                    jobs.clear();
-//                    return jobs;
-//                }
-//            }
-
-//            if (workTwitchCache)
-//            {
-//                jobs.add(new EmojiJob(oauth, TWITCH_EMOTE_VERSION, EmojiOperation.CACHE));
-//            }
 
             if (workFfzLoad)
             {
@@ -828,6 +793,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     protected void fillInputFromConfig()
     {
         this.enableAll.setSelected(config.isEmojiEnabled());
+        this.enableAnimation.setSelected(config.isAnimationEnabled());
         this.enableTwitchBadges.setSelected(config.isTwitchBadgesEnabled());
         this.enableFfzBadges.setSelected(config.isFfzBadgesEnabled());
         this.emojiScaleToLineHeight.setSelected(config.isEmojiScaleToLine());
@@ -855,6 +821,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     protected void fillConfigFromInput() throws Exception
     {
         config.setEmojiEnabled(enableAll.isSelected());
+        config.setAnimationEnabled(enableAnimation.isSelected());
         config.setTwitchBadgesEnabled(enableTwitchBadges.isSelected());
         config.setFfzBadgesEnabled(enableFfzBadges.isSelected());
         config.setEmojiScaleToLine(emojiScaleToLineHeight.isSelected());

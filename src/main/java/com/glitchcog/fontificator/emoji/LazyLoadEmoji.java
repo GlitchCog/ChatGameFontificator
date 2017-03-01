@@ -1,6 +1,7 @@
 package com.glitchcog.fontificator.emoji;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -39,6 +40,8 @@ public class LazyLoadEmoji
     private final EmojiType type;
 
     private Image image;
+
+    private Image animatedGifImage;
 
     private URL url;
 
@@ -95,24 +98,23 @@ public class LazyLoadEmoji
         this.bgColor = bgColor;
     }
 
+    public void cacheImage()
+    {
+        getImage(isAnimatedGif());
+    }
+
     /**
      * Lazy-loaded image
      * 
      * @return image
      */
-    public Image getImage()
+    public Image getImage(boolean animated)
     {
+        // Lazy load the still image whether or not the emoji is animated
         if (image == null)
         {
             try
             {
-                //              if (animatedGif)
-                //              {
-                //                  // Handle BTTV animated emotes by loading them differently
-                //                  image = new ImageIcon(url).getImage();
-                //              }
-                //              else
-                //              {
                 BufferedImage imageFromTwitch = ImageIO.read(url);
 
                 // Hack to make image background transparent because Twitch emote V1 of sizes 2.0 and 3.0 sometimes are
@@ -128,7 +130,13 @@ public class LazyLoadEmoji
                 {
                     image = imageFromTwitch;
                 }
-                //              }
+
+                if (image != null)
+                {
+                    this.width = this.image.getWidth(null);
+                    this.height = this.image.getHeight(null);
+                }
+
             }
             catch (IOException e)
             {
@@ -141,13 +149,25 @@ public class LazyLoadEmoji
             }
         }
 
-        if (image != null)
+        // Only lazy load the animated GIF image if the image is an animatedGif type
+        if (animatedGif && animatedGifImage == null)
         {
-            this.width = this.image.getWidth(null);
-            this.height = this.image.getHeight(null);
+            // BTTV emote (ditto) gets special care
+            if ("(ditto)".equals(identifier))
+            {
+                Dimension dim = new Dimension();
+                animatedGifImage = AnimatedGifUtil.loadDittoAnimatedGif(url, dim);
+                this.width = (int) dim.getWidth();
+                this.height = (int) dim.getHeight();
+            }
+            else
+            {
+                animatedGifImage = AnimatedGifUtil.loadAnimatedGif(url);
+            }
         }
 
-        return image;
+        // Return the animated GIF image only if animated is requested AND this emoji is an animated GIF
+        return animated && animatedGif ? animatedGifImage : image;
     }
 
     public boolean isSubscriber()
@@ -244,4 +264,5 @@ public class LazyLoadEmoji
     {
         return replaces;
     }
+
 }

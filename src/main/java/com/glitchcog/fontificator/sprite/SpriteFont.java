@@ -76,7 +76,7 @@ public class SpriteFont
      */
     private int[] getEmojiDimensions(LazyLoadEmoji emoji, ConfigEmoji emojiConfig)
     {
-        Image img = emoji.getImage();
+        Image img = emoji.getImage(emojiConfig.isAnimationEnabled());
 
         int iw;
         int ih;
@@ -105,8 +105,8 @@ public class SpriteFont
         }
         else
         {
-            iw = img.getWidth(null);
-            ih = img.getHeight(null);
+            iw = emoji.getWidth();
+            ih = emoji.getHeight();
         }
 
         float h;
@@ -610,7 +610,7 @@ public class SpriteFont
                 if (debug)
                 {
                     g2d.setColor(debugColor);
-                    g2d.drawRect(drawX, drawY, (int)(bounds.width * config.getFontScale()), (int)(bounds.height * config.getFontScale()));
+                    g2d.drawRect(drawX, drawY, (int) (bounds.width * config.getFontScale()), (int) (bounds.height * config.getFontScale()));
                 }
             }
             // The character is invalid, and drawing the unknown char is not selected, so draw the extended characters
@@ -626,7 +626,7 @@ public class SpriteFont
             // yOffset is to center the emoji on the line
             int yOffset = (int) (sprites.getSprite(config).getSpriteDrawHeight(config.getFontScale()) / 2 - config.getBaselineOffset() * config.getFontScale()) - (sck.isBadge() ? emojiConfig.getBadgeHeightOffset() : 0);
             drawY += yOffset - eDim[1] / 2;
-            Image eImage = sck.getEmoji().getImage();
+            Image eImage = sck.getEmoji().getImage(emojiConfig.isAnimationEnabled());
             if (eImage == null)
             {
                 // If the image is null, then it's not loaded, so do the backup display strategy

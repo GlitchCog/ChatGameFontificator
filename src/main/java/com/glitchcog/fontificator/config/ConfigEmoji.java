@@ -36,6 +36,11 @@ public class ConfigEmoji extends Config
     private Boolean emojiEnabled;
 
     /**
+     * Whether emoji that have animations should display animated
+     */
+    private Boolean animationEnabled;
+
+    /**
      * Whether Twitch badges are enabled or not
      */
     private Boolean twitchBadgesEnabled;
@@ -167,6 +172,7 @@ public class ConfigEmoji extends Config
     public void reset()
     {
         emojiEnabled = null;
+        animationEnabled = null;
         twitchBadgesEnabled = null;
         ffzBadgesEnabled = null;
         emojiScaleToLine = null;
@@ -195,6 +201,17 @@ public class ConfigEmoji extends Config
     {
         this.emojiEnabled = emojiEnabled;
         props.setProperty(FontificatorProperties.KEY_EMOJI_ENABLED, Boolean.toString(emojiEnabled));
+    }
+
+    public boolean isAnimationEnabled()
+    {
+        return animationEnabled != null && animationEnabled;
+    }
+
+    public void setAnimationEnabled(Boolean animationEnabled)
+    {
+        this.animationEnabled = animationEnabled;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_ANIMATION, Boolean.toString(animationEnabled));
     }
 
     public boolean isTwitchBadgesEnabled()
@@ -394,9 +411,9 @@ public class ConfigEmoji extends Config
         }
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String badgeTwitchBool, String badgeFfzBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String badgeHeightOffsetStr, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool, String bttvBool, String bttvCacheBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String aniBool, String badgeTwitchBool, String badgeFfzBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String badgeHeightOffsetStr, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool, String bttvBool, String bttvCacheBool)
     {
-        validateBooleanStrings(report, enabledBool, badgeTwitchBool, badgeFfzBool, scaleEnabledBool, scaleBadgeEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool, bttvBool, bttvCacheBool);
+        validateBooleanStrings(report, enabledBool, aniBool, badgeTwitchBool, badgeFfzBool, scaleEnabledBool, scaleBadgeEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool, bttvBool, bttvCacheBool);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_SCALE, scale, MIN_SCALE, MAX_SCALE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_BADGE_SCALE, scaleBadge, MIN_SCALE, MAX_SCALE, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_BADGE_HEIGHT_OFFSET, badgeHeightOffsetStr, MIN_BADGE_OFFSET, MAX_BADGE_OFFSET, report);
@@ -416,6 +433,7 @@ public class ConfigEmoji extends Config
         if (report.isErrorFree())
         {
             final String enabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_ENABLED);
+            final String aniStr = props.getProperty(FontificatorProperties.KEY_EMOJI_ANIMATION);
 
             final String twitchBadgeStr = props.getProperty(FontificatorProperties.KEY_EMOJI_TWITCH_BADGES);
             final String ffzBadgeStr = props.getProperty(FontificatorProperties.KEY_EMOJI_FFZ_BADGES);
@@ -437,12 +455,13 @@ public class ConfigEmoji extends Config
             final String bttvCacheStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BTTV_CACHE);
 
             // Check that the values are valid
-            validateStrings(report, enabledStr, twitchBadgeStr, ffzBadgeStr, scaleEnabledStr, scaleBadgeEnabledStr, badgeHeightOffsetStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr, bttvEnabledStr, bttvCacheStr);
+            validateStrings(report, enabledStr, aniStr, twitchBadgeStr, ffzBadgeStr, scaleEnabledStr, scaleBadgeEnabledStr, badgeHeightOffsetStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr, bttvEnabledStr, bttvCacheStr);
 
             // Fill the values
             if (report.isErrorFree())
             {
                 emojiEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_ENABLED, report);
+                animationEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_ANIMATION, report);
                 twitchBadgesEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_TWITCH_BADGES, report);
                 ffzBadgesEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_FFZ_BADGES, report);
                 emojiScaleToLine = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_SCALE_TO_LINE, report);
@@ -470,6 +489,7 @@ public class ConfigEmoji extends Config
         int result = 1;
         result = prime * result + ((displayStrategy == null) ? 0 : displayStrategy.hashCode());
         result = prime * result + ((emojiEnabled == null) ? 0 : emojiEnabled.hashCode());
+        result = prime * result + ((animationEnabled == null) ? 0 : animationEnabled.hashCode());
         result = prime * result + ((twitchBadgesEnabled == null) ? 0 : twitchBadgesEnabled.hashCode());
         result = prime * result + ((ffzBadgesEnabled == null) ? 0 : ffzBadgesEnabled.hashCode());
         result = prime * result + ((ffzEnabled == null) ? 0 : ffzEnabled.hashCode());
