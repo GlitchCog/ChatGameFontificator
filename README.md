@@ -2,7 +2,7 @@
 
 ###October 4 Update: Twitch was feeling insecure and locked down its APIs! Re-download the latest Fontificator JAR to fix it!
 (This change to the Twitch API happened sometime in late September, 2016. Some Twitch badges and emotes may not work in old versions of Fontificator after that date.)
-####June 3 Update: <img src="https://cdn.betterttv.net/emote/566c9fde65dbbdab32ec053e/1x" alt="FeelsGoodMan"> BetterTTV Emote Support!
+####June 3 Update: BetterTTV Emote Support!
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
