@@ -186,6 +186,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Golden Sun
   - Golden Sun (Battle)
   - Harvest Moon: Friends of Mineral Town
+  - Harvest Moon: The Tale of Two Towns
   - Holy Diver
   - Kero Blaster
   - The Lost Vikings

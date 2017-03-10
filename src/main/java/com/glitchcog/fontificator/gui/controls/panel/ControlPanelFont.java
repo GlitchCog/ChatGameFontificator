@@ -119,6 +119,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Golden Sun", "Golden Sun (Battle)"), new DropdownFont("gsun_battle_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownFont("hm_fmt_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Inverted"), new DropdownFont("hm_fmt_i_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Harvest Moon", "The Tale of Two Towns"), new DropdownFont("hm_ttott_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Harvest Moon", "The Tale of Two Towns Name"), new DropdownFont("hm_ttott_name_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Holy Diver", "Holy Diver"), new DropdownFont("holy_diver_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownFont("rcr_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownFont("lostvik_font.png", FontType.FIXED_WIDTH));
@@ -275,6 +277,10 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Golden Sun", "Golden Sun"), new DropdownBorder("gsun_border.png", Color.WHITE));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town"), new DropdownBorder("hm_fmt_border.png", Color.WHITE));
             put(new DropdownLabel("Harvest Moon", "Friends of Mineral Town Transparent"), new DropdownBorder("hm_fmt_t_border.png", Color.WHITE));
+            put(new DropdownLabel("Harvest Moon", "The Tale of Two Towns"), new DropdownBorder("hm_ttott_border.png", Color.WHITE));
+            put(new DropdownLabel("Harvest Moon", "The Tale of Two Towns Blue"), new DropdownBorder("hm_ttott_blue_border.png", Color.WHITE));
+            put(new DropdownLabel("Harvest Moon", "The Tale of Two Towns Green"), new DropdownBorder("hm_ttott_green_border.png", Color.WHITE));
+            put(new DropdownLabel("Harvest Moon", "The Tale of Two Towns Yellow"), new DropdownBorder("hm_ttott_yellow_border.png", Color.WHITE));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownBorder("rcr_border.png", Color.WHITE));
             put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownBorder("lostvik_border.png", Color.WHITE));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Brick"), new DropdownBorder("smb1_brick_border.png", 0x994E00));
@@ -319,8 +325,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Pokemon", "Pokemon Fire Red/Leaf Green"), new DropdownBorder("pkmnfrlg_border.png", 0x66CCFF));
             put(new DropdownLabel("Pokemon", "Pokemon Ruby/Sapphire"), new DropdownBorder("pkmnrubysaph_border.png", Color.WHITE));
             put(new DropdownLabel("Princess Tomato", "Princess Tomato in the Salad Kingdom"), new DropdownBorder("ptsk_border.png", Color.WHITE));
-            put(new DropdownLabel("Robotrek", "Robotrek"), new DropdownBorder("robotrek_border.png", Color.WHITE));
-            put(new DropdownLabel("Robotrek", "Robotrek (Battle)"), new DropdownBorder("robotrek_battle_border.png", Color.WHITE));
+            put(new DropdownLabel("Quintet", "Robotrek"), new DropdownBorder("robotrek_border.png", Color.WHITE));
+            put(new DropdownLabel("Quintet", "Robotrek (Battle)"), new DropdownBorder("robotrek_battle_border.png", Color.WHITE));
+            put(new DropdownLabel("Quintet", "Terranigma.png"), new DropdownBorder("terranigma_border.png", Color.WHITE));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png", Color.WHITE));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png", 0xCEDBE8));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png", Color.WHITE));
