@@ -327,7 +327,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Princess Tomato", "Princess Tomato in the Salad Kingdom"), new DropdownBorder("ptsk_border.png", Color.WHITE));
             put(new DropdownLabel("Quintet", "Robotrek"), new DropdownBorder("robotrek_border.png", Color.WHITE));
             put(new DropdownLabel("Quintet", "Robotrek (Battle)"), new DropdownBorder("robotrek_battle_border.png", Color.WHITE));
-            put(new DropdownLabel("Quintet", "Terranigma.png"), new DropdownBorder("terranigma_border.png", Color.WHITE));
+            put(new DropdownLabel("Quintet", "Terranigma"), new DropdownBorder("terranigma_border.png", Color.WHITE));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png", Color.WHITE));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png", 0xCEDBE8));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png", Color.WHITE));
