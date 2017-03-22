@@ -1,8 +1,8 @@
-#Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
+# Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
-###October 4 Update: Twitch was feeling insecure and locked down its APIs! Re-download the latest Fontificator JAR to fix it!
+### October 4 Update: Twitch was feeling insecure and locked down its APIs! Re-download the latest Fontificator JAR to fix it!
 (This change to the Twitch API happened sometime in late September, 2016. Some Twitch badges and emotes may not work in old versions of Fontificator after that date.)
-####June 3 Update: BetterTTV Emote Support!
+#### June 3 Update: BetterTTV Emote Support!
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
