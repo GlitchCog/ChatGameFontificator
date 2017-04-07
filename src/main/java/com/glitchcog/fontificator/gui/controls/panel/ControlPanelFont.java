@@ -101,8 +101,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("EarthBound", "EarthBound"), new DropdownFont("eb_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound Mr. Saturn"), new DropdownFont("eb_saturn_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("EarthBound", "Mother 3"), new DropdownFont("m3_font.png", FontType.VARIABLE_WIDTH));
-            put(new DropdownLabel("Faxanadu", "Faxanadu Dialog"), new DropdownFont("faxanadu_dialog_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Faxanadu", "Faxanadu HUD"), new DropdownFont("faxanadu_hud_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Faxanadu", "Faxanadu (PRG1) Dialog"), new DropdownFont("faxanadu_dialog_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Faxanadu", "Faxanadu (PRG0) Dialog and HUD"), new DropdownFont("faxanadu_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy"), new DropdownFont("ff1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy II"), new DropdownFont("ff2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Final Fantasy", "Final Fantasy Dawn of Souls"), new DropdownFont("ffdos_font.png", FontType.VARIABLE_WIDTH));
