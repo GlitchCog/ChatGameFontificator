@@ -48,6 +48,11 @@ public class Message
     private boolean censored;
 
     /**
+     * Whether a censored message was purged from the chat
+     */
+    private boolean purged;
+
+    /**
      * The reason for the censorship
      */
     private String censoredReason;
@@ -664,9 +669,14 @@ public class Message
         this.censored = censored;
     }
 
+    public void setPurged(boolean purged)
+    {
+        this.purged = purged;
+    }
+
     public void resetCensorship(boolean overrideManual)
     {
-        if (!manualCensorship || overrideManual)
+        if (!purged && (!manualCensorship || overrideManual))
         {
             manualCensorship = false;
             censored = false;

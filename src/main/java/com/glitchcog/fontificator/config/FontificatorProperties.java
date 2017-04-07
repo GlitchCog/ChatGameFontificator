@@ -159,6 +159,7 @@ public class FontificatorProperties extends Properties
     public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_ANIMATION, KEY_EMOJI_TWITCH_BADGES, KEY_EMOJI_FFZ_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_BADGE_HEIGHT_OFFSET, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE, KEY_EMOJI_BTTV_ENABLE, KEY_EMOJI_BTTV_CACHE };
 
     public static final String KEY_CENSOR_ENABLED = "censorEnabled";
+    public static final String KEY_CENSOR_PURGE_ON_TWITCH_BAN = "censorPurgeOnTwitchBan";
     public static final String KEY_CENSOR_URL = "censorUrl";
     public static final String KEY_CENSOR_FIRST_URL = "censorFirstUrl";
     public static final String KEY_CENSOR_UNKNOWN_CHARS = "censorUnknownChars";
@@ -167,7 +168,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_CENSOR_BLACK = "censorBlacklist";
     public static final String KEY_CENSOR_BANNED = "censorBannedWords";
 
-    public static final String[] CENSOR_KEYS = new String[] { KEY_CENSOR_ENABLED, KEY_CENSOR_URL, KEY_CENSOR_FIRST_URL, KEY_CENSOR_UNKNOWN_CHARS, KEY_CENSOR_UNKNOWN_CHARS_PERCENT, KEY_CENSOR_WHITE, KEY_CENSOR_BLACK, KEY_CENSOR_BANNED };
+    public static final String[] CENSOR_KEYS = new String[] { KEY_CENSOR_ENABLED, KEY_CENSOR_PURGE_ON_TWITCH_BAN, KEY_CENSOR_URL, KEY_CENSOR_FIRST_URL, KEY_CENSOR_UNKNOWN_CHARS, KEY_CENSOR_UNKNOWN_CHARS_PERCENT, KEY_CENSOR_WHITE, KEY_CENSOR_BLACK, KEY_CENSOR_BANNED };
 
     public static final String[][] ALL_KEYS_EXCEPT_CHAT_WINDOW_POSITION = new String[][] { IRC_KEYS, FONT_KEYS, CHAT_KEYS_EXCEPT_WINDOW_POSITION, COLOR_KEYS, MESSAGE_KEYS, EMOJI_KEYS, CENSOR_KEYS };
 
@@ -654,6 +655,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_EMOJI_BTTV_CACHE, falseString, override);
 
         setPropertyOverride(KEY_CENSOR_ENABLED, trueString, override);
+        setPropertyOverride(KEY_CENSOR_PURGE_ON_TWITCH_BAN, trueString, override);
         setPropertyOverride(KEY_CENSOR_URL, falseString, override);
         setPropertyOverride(KEY_CENSOR_FIRST_URL, falseString, override);
         setPropertyOverride(KEY_CENSOR_UNKNOWN_CHARS, falseString, override);

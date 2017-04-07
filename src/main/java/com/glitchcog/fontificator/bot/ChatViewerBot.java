@@ -84,6 +84,11 @@ public class ChatViewerBot extends PircBot
     private Map<String, String> usernameCases;
 
     /**
+     * A map of username values keyed off of IDs, used to identify who was banned when the ban message comes in carrying only the user ID
+     */
+    private Map<String, String> usernameIds;
+
+    /**
      * Map of Pvivmsg objects keyed off of a lowercase username. These user states contain the information prepended to each message a user sends to the chat. The user states also contain the post count.
      */
     private Map<String, TwitchPrivmsg> privmsgs;
@@ -94,6 +99,7 @@ public class ChatViewerBot extends PircBot
     public ChatViewerBot()
     {
         this.usernameCases = new HashMap<String, String>();
+        this.usernameIds = new HashMap<String, String>();
         this.privmsgs = new HashMap<String, TwitchPrivmsg>();
 
         final String encoding = "UTF-8";
@@ -174,6 +180,8 @@ public class ChatViewerBot extends PircBot
         sendRawLine("CAP REQ :twitch.tv/membership");
         // Enables USERSTATE, GLOBALUSERSTATE, ROOMSTATE, HOSTTARGET, NOTICE and CLEARCHAT raw commands.
         sendRawLine("CAP REQ :twitch.tv/tags");
+        // Enables TIMEOUTS and BANS
+        sendRawLine("CAP REQ :twitch.tv/commands");
     }
 
     /**
@@ -220,59 +228,107 @@ public class ChatViewerBot extends PircBot
         sendMessageToChat(MessageType.ACTION, action, privmsg);
     }
 
+    private static final String TWITCH_CAP_MESSAGE = ":tmi.twitch.tv CAP * ACK :twitch.tv/";
+
+    private static final String PING_MESSAGE = "PING ";
+
     /**
      * When the bot registers for Twitch-specific capabilities, the message will be prepended with subscriber, emote, and other information. This will prevent the onMessage method from being fired because PircBot no longer recognizes the
      * message. It will instead trigger this onUnknown method.
      */
     @Override
-    protected void onUnknown(String response)
+    protected void handleLine(String response)
     {
-        if (":tmi.twitch.tv CAP * ACK :twitch.tv/membership".equals(response) || ":tmi.twitch.tv CAP * ACK :twitch.tv/tags".equals(response))
+        if (response == null)
         {
             return;
         }
-
-        try
+        else if (response.startsWith(TWITCH_CAP_MESSAGE))
         {
-            TwitchPrivmsg privmsg = parseRawTwitchMessage(response);
-            String message = response.substring(response.indexOf(POST_SEPARATOR, response.indexOf(POST_SEPARATOR) + POST_SEPARATOR.length()) + POST_SEPARATOR.length());
-            if (message.startsWith(CTCP_INDICATOR))
+            return;
+        }
+        else if (response.startsWith(PING_MESSAGE))
+        {
+            sendRawLine("PONG " + response.substring(PING_MESSAGE.length()));
+        }
+        else if (response.startsWith("@"))
+        {
+            if (response.startsWith("@ban"))
             {
-                // Remove leading character
-                message = message.substring(CTCP_INDICATOR.length());
-                if (message.endsWith(CTCP_INDICATOR))
+                try
                 {
-                    // Remove terminating character
-                    message = message.substring(0, message.length() - 1);
-                }
-                final String commandSplit = " ";
-                if (message.contains(commandSplit))
-                {
-                    final String command = message.substring(0, message.indexOf(commandSplit));
-                    // Take the command off the message
-                    message = message.substring(message.indexOf(commandSplit) + commandSplit.length());
-                    if ("ACTION".equals(command))
+                    int firstBreak = response.indexOf(POST_SEPARATOR);
+                    int secondBreak = response.indexOf(POST_SEPARATOR, firstBreak + POST_SEPARATOR.length());
+
+                    Map<String, String> params = parseMessageParams(response, firstBreak, secondBreak);
+                    String bannedUserId = params.get("target-user-id");
+                    String bannedUsername = usernameIds.get(bannedUserId);
+                    String bannedReason = params.get("ban-reason");
+                    if (bannedReason == null || bannedReason.trim().isEmpty())
                     {
-                        sendMessageToChat(MessageType.ACTION, message, privmsg);
+                        bannedReason = "TWITCH PURGE";
                     }
-                    else
+                    String banDuration = params.get("ban-duration");
+                    if (banDuration != null && banDuration.trim().isEmpty())
                     {
-                        log("Unknown CTCP command: " + command);
+                        banDuration = null;
                     }
+                    chat.purgeMessagesForUser(bannedUsername, bannedReason + (banDuration == null ? "" : " FOR " + banDuration + " ms"));
                 }
-                else
+                catch (Exception e)
                 {
-                    log("CTCP message missing command type: " + message);
+                    log("Unparsable ban: " + response);
                 }
             }
             else
             {
-                sendMessageToChat(MessageType.NORMAL, message, privmsg);
+                try
+                {
+                    TwitchPrivmsg privmsg = parseRawTwitchMessage(response);
+                    String message = response.substring(response.indexOf(POST_SEPARATOR, response.indexOf(POST_SEPARATOR) + POST_SEPARATOR.length()) + POST_SEPARATOR.length());
+                    if (message.startsWith(CTCP_INDICATOR))
+                    {
+                        // Remove leading character
+                        message = message.substring(CTCP_INDICATOR.length());
+                        if (message.endsWith(CTCP_INDICATOR))
+                        {
+                            // Remove terminating character
+                            message = message.substring(0, message.length() - 1);
+                        }
+                        final String commandSplit = " ";
+                        if (message.contains(commandSplit))
+                        {
+                            final String command = message.substring(0, message.indexOf(commandSplit));
+                            // Take the command off the message
+                            message = message.substring(message.indexOf(commandSplit) + commandSplit.length());
+                            if ("ACTION".equals(command))
+                            {
+                                sendMessageToChat(MessageType.ACTION, message, privmsg);
+                            }
+                            else
+                            {
+                                log("Unknown CTCP command: " + command);
+                            }
+                        }
+                        else
+                        {
+                            log("CTCP message missing command type: " + message);
+                        }
+                    }
+                    else
+                    {
+                        sendMessageToChat(MessageType.NORMAL, message, privmsg);
+                    }
+                }
+                catch (Exception e)
+                {
+                    log("Unparsable message: " + response);
+                }
             }
         }
-        catch (Exception e)
+        else
         {
-            log("Unparsable: " + response);
+            log("Unknown implemented message type: " + response);
         }
     }
 
@@ -301,28 +357,12 @@ public class ChatViewerBot extends PircBot
      */
     private TwitchPrivmsg parseRawTwitchMessage(String rawMessage)
     {
+        TwitchPrivmsg privmsg = new TwitchPrivmsg();
+
         int firstBreak = rawMessage.indexOf(POST_SEPARATOR);
         int secondBreak = rawMessage.indexOf(POST_SEPARATOR, firstBreak + POST_SEPARATOR.length());
 
-        // Custom Twitch message parameters:
-        final int startIndex = rawMessage.length() > 1 && rawMessage.charAt(0) == '@' ? 1 : 0;
-        String[] params = rawMessage.substring(startIndex, firstBreak).split(";");
-        Map<String, String> paramMap = new HashMap<String, String>();
-        final String paramSplitter = "=";
-
-        TwitchPrivmsg privmsg = new TwitchPrivmsg();
-
-        for (int i = 0; i < params.length; i++)
-        {
-            String[] paramHalves = params[i].split(paramSplitter);
-            final String key = paramHalves[0];
-            String value = "";
-            for (int v = 1; v < paramHalves.length; v++)
-            {
-                value += paramHalves[v] + (v > 1 ? paramSplitter : "");
-            }
-            paramMap.put(key, value);
-        }
+        Map<String, String> paramMap = parseMessageParams(rawMessage, firstBreak, secondBreak);
 
         String colorStr = paramMap.get("color");
         if (colorStr != null && !colorStr.trim().isEmpty())
@@ -342,6 +382,11 @@ public class ChatViewerBot extends PircBot
         if (displayName != null && !displayName.trim().isEmpty())
         {
             privmsg.setDisplayName(displayName);
+            String userIdStr = paramMap.get("user-id");
+            if (userIdStr != null)
+            {
+                usernameIds.put(userIdStr, displayName.toLowerCase());
+            }
         }
         String emotesStr = paramMap.get("emotes");
         if (emotesStr != null && !emotesStr.trim().isEmpty())
@@ -421,6 +466,29 @@ public class ChatViewerBot extends PircBot
         }
 
         return privmsg;
+    }
+
+    private Map<String, String> parseMessageParams(String rawMessage, int firstBreak, int secondBreak)
+    {
+        // Custom Twitch message parameters:
+        final int startIndex = rawMessage.length() > 1 && rawMessage.charAt(0) == '@' ? 1 : 0;
+        String[] params = rawMessage.substring(startIndex, firstBreak).split(";");
+        Map<String, String> paramMap = new HashMap<String, String>();
+        final String paramSplitter = "=";
+
+        for (int i = 0; i < params.length; i++)
+        {
+            String[] paramHalves = params[i].split(paramSplitter);
+            final String key = paramHalves[0];
+            String value = "";
+            for (int v = 1; v < paramHalves.length; v++)
+            {
+                value += paramHalves[v] + (v > 1 ? paramSplitter : "");
+            }
+            paramMap.put(key, value);
+        }
+
+        return paramMap;
     }
 
     /**

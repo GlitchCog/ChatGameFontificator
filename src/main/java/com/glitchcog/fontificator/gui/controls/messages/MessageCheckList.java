@@ -30,12 +30,26 @@ public class MessageCheckList extends JPanel
 
     private TableModel model;
 
+    private JButton undoPurge;
+
     private JButton undoManualCensorship;
 
     public MessageCheckList(ChatPanel chat, final MessageCensorPanel censorPanel)
     {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = ControlPanelBase.getGbc();
+
+        undoPurge = new JButton("Undo Purge");
+        undoPurge.setToolTipText("Adds purged messages from a Twitch ban or timeout back into chat");
+
+        undoPurge.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                censorPanel.undoPurge();
+            }
+        });
 
         undoManualCensorship = new JButton("Reapply Rules");
         undoManualCensorship.setToolTipText("Undoes any manual censoring or uncensoring done with the checkboxes");
@@ -62,11 +76,13 @@ public class MessageCheckList extends JPanel
         gbc.gridx++;
         gbc.weightx = 0.0;
         add(undoManualCensorship, gbc);
+        gbc.gridx++;
+        add(undoPurge, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
 
         gbc.weightx = 1.0;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER;

@@ -16,6 +16,8 @@ public class ConfigCensor extends Config
 
     private Boolean censorshipEnabled;
 
+    private Boolean purgeOnTwitchBan;
+
     private Boolean censorAllUrls;
 
     private Boolean censorFirstUrls;
@@ -34,6 +36,7 @@ public class ConfigCensor extends Config
     public void reset()
     {
         censorshipEnabled = null;
+        purgeOnTwitchBan = null;
         censorAllUrls = null;
         censorFirstUrls = null;
         censorUnknownChars = null;
@@ -42,9 +45,9 @@ public class ConfigCensor extends Config
         userBlacklist = null;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledStr, String urlStr, String firstUrlStr, String unknownCharStr, String unknownCharPctStr)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledStr, String twitchPurgeStr, String urlStr, String firstUrlStr, String unknownCharStr, String unknownCharPctStr)
     {
-        validateBooleanStrings(report, enabledStr, urlStr, firstUrlStr);
+        validateBooleanStrings(report, enabledStr, twitchPurgeStr, urlStr, firstUrlStr);
         validateIntegerWithLimitString(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS_PERCENT, unknownCharPctStr, MIN_UNKNOWN_CHAR_PCT, MAX_UNKNOWN_CHAR_PCT, report);
         return report;
     }
@@ -59,6 +62,7 @@ public class ConfigCensor extends Config
         if (report.isErrorFree())
         {
             final String enabledStr = props.getProperty(FontificatorProperties.KEY_CENSOR_ENABLED);
+            final String twitchPurgeStr = props.getProperty(FontificatorProperties.KEY_CENSOR_PURGE_ON_TWITCH_BAN);
             final String urlStr = props.getProperty(FontificatorProperties.KEY_CENSOR_URL);
             final String firstUrlStr = props.getProperty(FontificatorProperties.KEY_CENSOR_FIRST_URL);
             final String unknownCharStr = props.getProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS);
@@ -68,12 +72,13 @@ public class ConfigCensor extends Config
             final String bannedStr = props.containsKey(FontificatorProperties.KEY_CENSOR_BANNED) ? props.getProperty(FontificatorProperties.KEY_CENSOR_BANNED) : "";
 
             // Check that the values are valid
-            validateStrings(report, enabledStr, urlStr, firstUrlStr, unknownCharStr, unknownCharPctStr);
+            validateStrings(report, enabledStr, twitchPurgeStr, urlStr, firstUrlStr, unknownCharStr, unknownCharPctStr);
 
             // Fill the values
             if (report.isErrorFree())
             {
                 censorshipEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_ENABLED, report);
+                purgeOnTwitchBan = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_PURGE_ON_TWITCH_BAN, report);
                 censorAllUrls = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_URL, report);
                 censorFirstUrls = evaluateBooleanString(props, FontificatorProperties.KEY_CENSOR_FIRST_URL, report);
 
@@ -94,9 +99,24 @@ public class ConfigCensor extends Config
         return censorshipEnabled;
     }
 
+    /**
+     * The work of setting these setter values on the properties is done by the MessageCensorPanel.updateConfig() method
+     * 
+     * @param censorshipEnabled
+     */
     public void setCensorshipEnabled(Boolean censorshipEnabled)
     {
         this.censorshipEnabled = censorshipEnabled;
+    }
+
+    public boolean isPurgeOnTwitchBan()
+    {
+        return purgeOnTwitchBan;
+    }
+
+    public void setPurgeOnTwitchBan(Boolean purgeOnTwitchBan)
+    {
+        this.purgeOnTwitchBan = purgeOnTwitchBan;
     }
 
     public boolean isCensorAllUrls()

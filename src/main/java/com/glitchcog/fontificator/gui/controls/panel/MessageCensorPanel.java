@@ -38,6 +38,8 @@ public class MessageCensorPanel extends ControlPanelBase
 
     private JCheckBox enableCensorshipBox;
 
+    private JCheckBox purgeOnTwitchBanBox;
+
     private JCheckBox censorAllUrlsBox;
 
     private JCheckBox censorFirstPostUrlsBox;
@@ -81,6 +83,7 @@ public class MessageCensorPanel extends ControlPanelBase
         GridBagConstraints gbc = ControlPanelBase.getGbc();
 
         enableCensorshipBox = new JCheckBox("Enable message censoring");
+        purgeOnTwitchBanBox = new JCheckBox("Purge messages on Twitch ban/timeout");
         censorAllUrlsBox = new JCheckBox("Censor all messages containing URLs");
         censorFirstPostUrlsBox = new JCheckBox("Censor messages containing URLs in a user's initial post");
         censorUnknownCharsBox = new JCheckBox("Censor messages containing a specified percentage of extended characters:");
@@ -123,6 +126,7 @@ public class MessageCensorPanel extends ControlPanelBase
         };
 
         enableCensorshipBox.addActionListener(bl);
+        purgeOnTwitchBanBox.addActionListener(bl);
         censorAllUrlsBox.addActionListener(bl);
         censorFirstPostUrlsBox.addActionListener(bl);
         censorUnknownCharsBox.addActionListener(bl);
@@ -145,6 +149,8 @@ public class MessageCensorPanel extends ControlPanelBase
         add(new JLabel("Censorship rules affect the visualization only; they don't influence the visibility of IRC posts."), gbc);
         gbc.gridy++;
         add(enableCensorshipBox, gbc);
+        gbc.gridy++;
+        add(purgeOnTwitchBanBox, gbc);
         gbc.gridy++;
         add(censorAllUrlsBox, gbc);
         gbc.gridy++;
@@ -206,6 +212,45 @@ public class MessageCensorPanel extends ControlPanelBase
         recheckCensorship();
     }
 
+    /**
+     * Used to purge messages from chat whenever a user is timed-out or banned by a Twitch moderator
+     * 
+     * @param username
+     * @param reason
+     */
+    public void purgeMessagesForUser(final String username, String reason)
+    {
+        if (!config.isCensorshipEnabled() || !config.isPurgeOnTwitchBan() || username == null)
+        {
+            return;
+        }
+        else if (reason == null)
+        {
+            reason = "TWITCH PURGE";
+        }
+
+        for (Message msg : chat.getMessages())
+        {
+            if (msg.getUsername() != null && username.toLowerCase().equals(msg.getUsername().toLowerCase()))
+            {
+                msg.setCensoredReason(reason);
+                msg.setCensored(true, config.isCensorshipEnabled());
+                msg.setPurged(true);
+            }
+        }
+        refreshListAndMessages();
+    }
+
+    public void undoPurge()
+    {
+        for (Message msg : chat.getMessages())
+        {
+            msg.setPurged(false);
+            msg.resetCensorship(false);
+        }
+        refreshListAndMessages();
+    }
+
     public void recheckCensorship()
     {
         recheckCensorship(false);
@@ -218,6 +263,11 @@ public class MessageCensorPanel extends ControlPanelBase
             msg.resetCensorship(overrideManual);
             checkCensor(msg);
         }
+        refreshListAndMessages();
+    }
+
+    private void refreshListAndMessages()
+    {
         messageList.revalidateTable();
         chat.initMessageRollout();
         chat.repaint();
@@ -315,6 +365,7 @@ public class MessageCensorPanel extends ControlPanelBase
     private void toggleEnableds()
     {
         final boolean all = enableCensorshipBox.isSelected();
+        purgeOnTwitchBanBox.setEnabled(all);
         censorAllUrlsBox.setEnabled(all);
         censorFirstPostUrlsBox.setEnabled(all && !censorAllUrlsBox.isSelected());
         censorUnknownCharsBox.setEnabled(all);
@@ -335,6 +386,7 @@ public class MessageCensorPanel extends ControlPanelBase
     protected void fillInputFromConfig()
     {
         enableCensorshipBox.setSelected(config.isCensorshipEnabled());
+        purgeOnTwitchBanBox.setSelected(config.isPurgeOnTwitchBan());
         censorAllUrlsBox.setSelected(config.isCensorAllUrls());
         censorFirstPostUrlsBox.setSelected(config.isCensorFirstUrls());
         censorUnknownCharsBox.setSelected(config.isCensorUnknownChars());
@@ -359,6 +411,7 @@ public class MessageCensorPanel extends ControlPanelBase
     protected void fillConfigFromInput() throws Exception
     {
         config.setCensorshipEnabled(enableCensorshipBox.isSelected());
+        config.setPurgeOnTwitchBan(purgeOnTwitchBanBox.isSelected());
         config.setCensorAllUrls(censorAllUrlsBox.isSelected());
         config.setCensorFirstUrls(censorFirstPostUrlsBox.isSelected());
         config.setCensorUnknownChars(censorUnknownCharsBox.isSelected());
@@ -369,12 +422,16 @@ public class MessageCensorPanel extends ControlPanelBase
         toggleEnableds();
     }
 
+    /**
+     * Usually this is handled by the Config object's setters, but for censorship it is done here
+     */
     public void updateConfig()
     {
         try
         {
             fillConfigFromInput();
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_ENABLED, Boolean.toString(config.isCensorshipEnabled()));
+            fProps.setProperty(FontificatorProperties.KEY_CENSOR_PURGE_ON_TWITCH_BAN, Boolean.toString(config.isPurgeOnTwitchBan()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_URL, Boolean.toString(config.isCensorAllUrls()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_FIRST_URL, Boolean.toString(config.isCensorFirstUrls()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS, Boolean.toString(config.isCensorUnknownChars()));
@@ -388,4 +445,5 @@ public class MessageCensorPanel extends ControlPanelBase
             logger.error("Unable to update config from censorship UI input", e);
         }
     }
+
 }

@@ -779,6 +779,17 @@ public class ChatPanel extends JPanel implements MouseWheelListener
         return censorConfig.isCensorshipEnabled();
     }
 
+    /**
+     * Used to purge messages from chat whenever a user is timed-out or banned by a Twitch moderator
+     * 
+     * @param username
+     * @param reason
+     */
+    public void purgeMessagesForUser(final String username, final String reason)
+    {
+        censor.purgeMessagesForUser(username, reason);
+    }
+
     public String getFontGameName()
     {
         return ControlPanelFont.getFontGameName(fontConfig.getFontFilename());

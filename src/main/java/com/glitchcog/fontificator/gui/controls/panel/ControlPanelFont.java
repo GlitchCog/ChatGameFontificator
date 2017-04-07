@@ -346,7 +346,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Undertale", "Undertale"), new DropdownBorder("undertale_border.png", Color.WHITE));
             put(new DropdownLabel("Wario", "Wario Land 4"), new DropdownBorder("wl4_border.png", 0x58F8F8));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png", Color.WHITE));
-            put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownBorder("willow_nes_border.png", Color.WHITE));
+            put(new DropdownLabel("Willow", "Willow (NES)"), new DropdownBorder("willow_nes_border.png", 0xFC9838));
             put(new DropdownLabel("Wonder Boy", "Wonder Boy In Monster World"), new DropdownBorder("wbmw_border.png", 0xE7E3E7));
             put(new DropdownLabel("Ys", "Ys Dialog (FC)"), new DropdownBorder("ys1_fc_dialog_border.png", Color.WHITE));
             put(new DropdownLabel("Ys", "Ys Menu (FC)"), new DropdownBorder("ys1_fc_menu_border.png", Color.WHITE));
