@@ -2,9 +2,6 @@
 
 ### April 06 Update: Bans and purges and timeouts, oh my! The Fontificator can now remove messages in tandem with the Twitch chat, enabled by default in the "Message Management" popup in the Messages menu.
 
-#### October 4 Update: Twitch was feeling insecure and locked down its APIs! Re-download the latest Fontificator JAR to fix it!
-(This change to the Twitch API happened sometime in late September, 2016. Some Twitch badges and emotes may not work in old versions of Fontificator after that date.)
-
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
 It's a Java application archive, so you'll need the JRE to run it, but it's likely you already have that. If you don't, you can get it [here](https://java.com/en/download/). Install the JRE, and then you can run this program.
