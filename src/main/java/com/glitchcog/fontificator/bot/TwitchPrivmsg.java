@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A TwitchPrivmsg model to house the data that comes in the header of a Twitch IRC message
+ * A TwitchPrivmsg model to house the data that comes in the header of a Twitch IRC message. Could also be a whisper
+ * message, which is specified by the messageClassification member variable.
  * 
  * @author Matt Yanos
  */
@@ -51,6 +52,11 @@ public class TwitchPrivmsg
      * The type of the user, for example channel moderator
      */
     private UserType userType;
+
+    /**
+     * The class of message, for example PRIVMSG or WHISPER
+     */
+    private String messageClassification;
 
     /**
      * Default constructor that sets default values for everything but displayName
@@ -250,6 +256,27 @@ public class TwitchPrivmsg
     public void setUserType(UserType userType)
     {
         this.userType = userType;
+    }
+
+    /**
+     * Set the messageClassification
+     * 
+     * @param messageClassification
+     */
+    public void setMessageClassification(String messageClassification)
+    {
+        this.messageClassification = messageClassification;
+    }
+
+    /**
+     * Get whether the message is a PRIVMSG to be displayed in chat, and specifically not a WHISPER message which should
+     * not be shown
+     * 
+     * @return whether the message should be displayed in chat
+     */
+    public boolean isDisplayMessage()
+    {
+        return "PRIVMSG".equalsIgnoreCase(messageClassification);
     }
 
 }

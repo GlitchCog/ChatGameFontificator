@@ -315,7 +315,7 @@ public class ChatViewerBot extends PircBot
                             log("CTCP message missing command type: " + message);
                         }
                     }
-                    else
+                    else if (privmsg.isDisplayMessage())
                     {
                         sendMessageToChat(MessageType.NORMAL, message, privmsg);
                     }
@@ -363,6 +363,19 @@ public class ChatViewerBot extends PircBot
         int secondBreak = rawMessage.indexOf(POST_SEPARATOR, firstBreak + POST_SEPARATOR.length());
 
         Map<String, String> paramMap = parseMessageParams(rawMessage, firstBreak, secondBreak);
+
+        String messageClassification = null;
+        try
+        {
+            String mc = rawMessage.substring(firstBreak, secondBreak).trim();
+            messageClassification = mc.split(" ")[1].trim();
+        }
+        catch (Exception e)
+        {
+            logger.debug("Unable to determine message classification for " + rawMessage, e);
+            messageClassification = null;
+        }
+        privmsg.setMessageClassification(messageClassification);
 
         String colorStr = paramMap.get("color");
         if (colorStr != null && !colorStr.trim().isEmpty())
