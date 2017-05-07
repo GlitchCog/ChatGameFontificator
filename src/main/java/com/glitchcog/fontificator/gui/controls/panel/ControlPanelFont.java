@@ -162,6 +162,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownFont("rygar_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Shining", "Shining Force Dialog"), new DropdownFont("shining_force_dialog_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Shining", "Shining Force Menu"), new DropdownFont("shining_force_menu_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Shovel Knight", "Shovel Knight"), new DropdownFont("sk_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Simpsons", "Bart vs. the Space Mutants"), new DropdownFont("bart_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Solstice", "Solstice"), new DropdownFont("sol_font.png", FontType.FIXED_WIDTH));
@@ -331,6 +333,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownBorder("rygar_nes_border.png", Color.WHITE));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownBorder("soe_border.png", 0xCEDBE8));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownBorder("shantae_border.png", Color.WHITE));
+            put(new DropdownLabel("Shining", "Shining Force"), new DropdownBorder("shining_force_border.png", Color.WHITE));
             put(new DropdownLabel("Shovel Knight", "Shovel Knight"), new DropdownBorder("sk_border.png", Color.WHITE));
             put(new DropdownLabel("Stardew Valley", "Stardew Valley Dialog"), new DropdownBorder("sdv_dialog_border.png", Color.WHITE));
             put(new DropdownLabel("Stardew Valley", "Stardew Valley Portrait"), new DropdownBorder("sdv_portrait_border.png", Color.WHITE));

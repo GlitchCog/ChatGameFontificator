@@ -214,6 +214,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Secret of Evermore
   - Sega System
   - Shantae
+  - Shining Force
   - Shovel Knight
   - Solstice
   - Sonic Team
