@@ -483,7 +483,6 @@ public class FontificatorProperties extends Properties
             try
             {
                 final String decryptedValue = textEncryptor.decrypt(encryptedValue);
-                System.err.println(decryptedValue);
                 setProperty(key, decryptedValue);
             }
             catch (Exception e)
