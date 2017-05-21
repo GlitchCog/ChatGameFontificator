@@ -152,9 +152,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
      * 
      * @param manager
      * @param progressPanel
-     * @param channel
-     * @param emojiType
-     * @param opType
+     * @param job
      * @param logBox
      * @param initialReport
      */

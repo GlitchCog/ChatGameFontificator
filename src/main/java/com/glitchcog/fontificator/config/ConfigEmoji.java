@@ -812,7 +812,7 @@ public class ConfigEmoji extends Config
     /**
      * Set whether the Twitch badges have been loaded
      * 
-     * @param twitchLoadedChannel
+     * @param twitchBadgesLoadedChannel
      *            from which the Twitch emotes are loaded
      */
     public void setTwitchBadgesLoaded(String twitchBadgesLoadedChannel)
@@ -823,7 +823,7 @@ public class ConfigEmoji extends Config
     /**
      * Set whether the FrankerFaceZ badges have been loaded
      * 
-     * @param ffzLoadedChannel
+     * @param ffzBadgesLoadedChannel
      *            from which the FrankerFaceZ emotes are loaded
      */
     public void setFfzBadgesLoaded(String ffzBadgesLoadedChannel)
