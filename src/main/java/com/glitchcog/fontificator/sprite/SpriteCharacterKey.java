@@ -14,7 +14,7 @@ public class SpriteCharacterKey
     /**
      * The character this represents
      */
-    private char character;
+    private int codepoint;
 
     /**
      * Whether the character falls outside of the inclusive ASCII range 32-127
@@ -47,6 +47,11 @@ public class SpriteCharacterKey
         this(character, null, false);
     }
 
+    public SpriteCharacterKey(int codepoint)
+    {
+        this(codepoint, null, false);
+    }
+
     /**
      * Construct as an emoji
      * 
@@ -54,33 +59,47 @@ public class SpriteCharacterKey
      */
     public SpriteCharacterKey(LazyLoadEmoji emoji, boolean badge)
     {
-        this((char) 127, emoji, badge);
+        this(127, emoji, badge);
     }
 
     /**
      * Private constructor to ensure that one or the other parameter is marked as unused
      * 
-     * @param character
+     * @param codepoint
      * @param emoji
      * @param badge
      *            Only used for emoji
      */
-    private SpriteCharacterKey(char character, LazyLoadEmoji emoji, boolean badge)
+    private SpriteCharacterKey(int codepoint, LazyLoadEmoji emoji, boolean badge)
     {
-        this.character = character;
-        this.extended = !SpriteFont.NORMAL_ASCII_KEY.contains(Character.toString(this.character));
+        this.codepoint = codepoint;
+        /* not-great: Take code point and toss surrogate pair, if present, to check if in ascii set */
+        this.extended = !SpriteFont.NORMAL_ASCII_KEY.contains(Character.toString(Character.toChars(this.codepoint)[0]));
         this.emoji = emoji;
         this.badge = badge;
     }
 
     /**
-     * Get the character, assuming this represents a character
+     * Get the character as a char, assuming this represents a character instead of emoji
      * 
      * @return char
      */
     public char getChar()
     {
-        return character;
+        // Not a pretty compromise.  Basically get the broken half a code point when trying to getChar() something that
+        // isn't in the BMP.  This is mostly OK.
+        // Ideally this would throw an exception if !Character.isBmpCodePoint(this.codepoint)
+        return Character.toChars(this.codepoint)[0];
+    }
+
+    /**
+     * Get the character as a codepoint, assuming this represents a character instead of emoji
+     *
+     * @return int
+     */
+    public int getCodepoint()
+    {
+        return this.codepoint;
     }
 
     /**
@@ -94,7 +113,7 @@ public class SpriteCharacterKey
     }
 
     /**
-     * Whether this sprite character is a char, not an emoji
+     * Whether this sprite character is a character, not an emoji
      * 
      * @return isChar
      */
@@ -104,7 +123,7 @@ public class SpriteCharacterKey
     }
 
     /**
-     * Whether this sprite character is an emoji, not a char
+     * Whether this sprite character is an emoji, not a character
      * 
      * @return isNotChar
      */
@@ -114,7 +133,7 @@ public class SpriteCharacterKey
     }
 
     /**
-     * Whether this sprite character is a badge emoji, not a char
+     * Whether this sprite character is a badge emoji, not a character
      * 
      * @return
      */
@@ -126,7 +145,7 @@ public class SpriteCharacterKey
     @Override
     public String toString()
     {
-        return isEmoji() ? "[E]" : Character.toString(getChar());
+        return isEmoji() ? "[E]" : new String(Character.toChars(this.codepoint));
     }
 
     /**

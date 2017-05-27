@@ -582,12 +582,12 @@ public class Message
 
         String[] words = content.split(SPACE_BOUNDARY_REGEX);
 
-        int charIndex = 0;
+        int codeIndex = 0;
 
         LazyLoadEmoji emoji = null;
         for (int w = 0; w < words.length; w++)
         {
-            EmoteAndIndices eai = emotes.get(charIndex);
+            EmoteAndIndices eai = emotes.get(codeIndex);
             if (eai != null && emojiConfig.isTwitchEnabled())
             {
                 // This catches subscriber emotes and any non-global emotes
@@ -627,9 +627,11 @@ public class Message
             {
                 String casedWord = applyCasing(words[w], casing);
                 // Done checking for all sorts of emoji types, so it's just a word. Set the characters.
-                for (int c = 0; c < casedWord.length(); c++)
+                for (int i = 0; i < casedWord.length(); )
                 {
-                    keyList.add(new SpriteCharacterKey(casedWord.charAt(c)));
+                    final int codepoint = casedWord.codePointAt(i);
+                    keyList.add(new SpriteCharacterKey(codepoint));
+                    i += Character.charCount(codepoint);
                 }
             }
             else
@@ -637,8 +639,9 @@ public class Message
                 keyList.add(new SpriteCharacterKey(emoji, false));
             }
 
-            // Increment the charIndex by the current word's length
-            charIndex += words[w].length();
+            // Increment the codeIndex by the current word's code point count
+            // Emoji indexes are in code points, but java is counting in fixed 16-bit units
+            codeIndex += words[w].codePointCount(0, words[w].length());
         }
     }
 
