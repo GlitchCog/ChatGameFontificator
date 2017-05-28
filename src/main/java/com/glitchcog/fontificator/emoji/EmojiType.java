@@ -8,20 +8,21 @@ package com.glitchcog.fontificator.emoji;
 public enum EmojiType
 {
     // @formatter:off
-    TWITCH_V1("Twitch Emotes from Chat V1", EmojiGroup.TWITCH, false, false),
+    TWITCH_V1("Twitch Emotes from Chat V1", EmojiGroup.TWITCH, false, false, true),
 
     /**
      * Twitch V2 API retired on February 14, 2017
      */
     @Deprecated 
-    TWITCH_V2("Twitch Emotes V2", EmojiGroup.TWITCH, false, false),
+    TWITCH_V2("Twitch Emotes V2", EmojiGroup.TWITCH, false, false, true),
     /**
      * Twitch V3 API retired on February 14, 2017
      */
     @Deprecated 
-    TWITCH_V3("Twitch Emotes V3", EmojiGroup.TWITCH, false, true),
+    TWITCH_V3("Twitch Emotes V3", EmojiGroup.TWITCH, false, true, true),
  
-    TWITCH_BADGE("Twitch Badge", EmojiGroup.TWITCH, true, false), 
+    TWITCH_BADGE("Twitch Badge", EmojiGroup.TWITCH, true, false),
+    TWITCH_BADGE_GLOBAL("Twitch Global Badge", EmojiGroup.TWITCH, true, false),
     FRANKERFACEZ_CHANNEL("FrankerFaceZ Emotes", EmojiGroup.FFZ, false, false), 
     FRANKERFACEZ_GLOBAL("FrankerFaceZ Global Emotes", EmojiGroup.FFZ, false, false), 
     FRANKERFACEZ_BADGE("FrankerFaceZ Badge", EmojiGroup.FFZ, true, false),
@@ -38,6 +39,8 @@ public enum EmojiType
 
     private final String description;
 
+    private final boolean canRegEx;
+
     /**
      * These are the types of emoji words to check against for manual messages.
      */
@@ -52,10 +55,16 @@ public enum EmojiType
 
     private EmojiType(String description, EmojiGroup group, boolean badge, boolean loadSetMap)
     {
+        this(description, group, badge, loadSetMap, false);
+    }
+
+    private EmojiType(String description, EmojiGroup group, boolean badge, boolean loadSetMap, boolean canRegEx)
+    {
         this.group = group;
         this.description = description;
         this.badge = badge;
         this.loadSetMap = loadSetMap;
+        this.canRegEx = canRegEx;
     }
 
     public boolean isTwitchEmote()
@@ -86,5 +95,10 @@ public enum EmojiType
     public String getDescription()
     {
         return description;
+    }
+
+    public boolean canRegEx()
+    {
+        return canRegEx;
     }
 }

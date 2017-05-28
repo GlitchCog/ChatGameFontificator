@@ -1,7 +1,9 @@
 package com.glitchcog.fontificator.bot;
 
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -32,6 +34,11 @@ public class TwitchPrivmsg
      * The list of emotes
      */
     private Map<Integer, EmoteAndIndices> emotes;
+
+    /**
+     * The list of badges
+     */
+    private ArrayList<String> badges;
 
     /**
      * Whether the user has a Twitch subscription to the channel to which the message is posted
@@ -85,6 +92,7 @@ public class TwitchPrivmsg
         postCount = 0;
         color = null;
         emotes = new HashMap<Integer, EmoteAndIndices>();
+        badges = new ArrayList<String>();
         turbo = false;
         prime = false;
         subscriber = false;
@@ -171,11 +179,19 @@ public class TwitchPrivmsg
     /**
      * Add to the list of emotes
      * 
-     * @param emoteSets
+     * @param emoteSet
      */
     public void addEmote(EmoteAndIndices emoteSet)
     {
         emotes.put(emoteSet.getBegin(), emoteSet);
+    }
+
+    public ArrayList<String> getBadges() {
+        return badges;
+    }
+
+    public void addBadges(String newbadges[]) {
+        this.badges.addAll( Arrays.asList(newbadges) );
     }
 
     /**

@@ -409,22 +409,20 @@ public class Message
             final boolean userIsModerator = privmsg.getUserType() == UserType.MOD;
 
             // Bank to pull Twitch badges from
-            TypedEmojiMap twitchBadgeBank = emojiManager.getEmojiByType(EmojiType.TWITCH_BADGE);
+            TypedEmojiMap twitchLocalBadgeBank = emojiManager.getEmojiByType(EmojiType.TWITCH_BADGE);
+            TypedEmojiMap twitchBadgeBank = emojiManager.getEmojiByType(EmojiType.TWITCH_BADGE_GLOBAL);
+
             // Bank to pull FrankerFaceZ badges from
             TypedEmojiMap ffzBadgeBank = emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE);
 
             // Get the badge for the type of user, if the usertype has a badge (but not if it's an ffzBot)
             if (privmsg.getUserType() != null && privmsg.getUserType() != UserType.NONE)
             {
-                LazyLoadEmoji testBadge;
+                //LazyLoadEmoji testBadge;
                 // FFZ badges are enabled, the user is a moderator, and the custom FFZ moderator badge exists
                 if (emojiConfig.isFfzBadgesEnabled() && userIsModerator && ffzBadgeBank.getEmoji(UserType.MOD.getKey()) != null)
                 {
-                    badges.put(UserType.MOD.getKey(), ffzBadgeBank.getEmoji(UserType.MOD.getKey()));
-                }
-                else if (emojiConfig.isTwitchBadgesEnabled() && (testBadge = twitchBadgeBank.getEmoji(privmsg.getUserType().getKey())) != null)
-                {
-                    badges.put(privmsg.getUserType().getKey(), testBadge);
+                    badges.put(UserType.MOD.getBadge(), ffzBadgeBank.getEmoji(UserType.MOD.getKey()));
                 }
             }
 
@@ -443,7 +441,7 @@ public class Message
                         if (ffzBadge.isReplacement() && badges.containsKey(ffzBadge.getReplaces()))
                         {
                             badges.put(ffzBadge.getReplaces(), ffzBadge);
-                            if (userIsModerator && true)
+                            if (userIsModerator)
                             {
                                 replacementBadge = ffzBadge;
                             }
@@ -456,27 +454,27 @@ public class Message
                 }
             }
 
-            // Optional subscriber badge
-            if (emojiConfig.isTwitchBadgesEnabled())
-            {
-                final String subStr = "subscriber";
-                if (privmsg.isSubscriber() && twitchBadgeBank.getEmoji(subStr) != null)
-                {
-                    badges.put(subStr, twitchBadgeBank.getEmoji(subStr));
+            if (emojiConfig.isTwitchBadgesEnabled()) {
+                for(String badgestr : privmsg.getBadges()) {
+                    LazyLoadEmoji globalbadge = twitchBadgeBank.getEmoji(badgestr);
+                    LazyLoadEmoji localbadge = twitchLocalBadgeBank.getEmoji(badgestr);
+                    LazyLoadEmoji target_badge = null;
+
+                    if( localbadge != null ) {
+                        target_badge = localbadge;
+                    } else if( globalbadge != null ) {
+                        target_badge = globalbadge;
+                    }
+
+                    if( target_badge != null ) {
+                        // Handle the special case of an FFZ badge replacing a twitch badge.
+                        // Note that the twitch badge's key might be moderator/0 or moderator/1, but the FFZ badge
+                        // with identifier "moderator" overrides them
+                        if( replacementBadge == null || !target_badge.getPrimaryidentifier().equals(replacementBadge.getPrimaryidentifier()) ) {
+                            badges.put(badgestr, target_badge);
+                        }
+                    }
                 }
-            }
-
-            // Optional turbo badge
-            final String turboStr = "turbo";
-            if (emojiConfig.isTwitchBadgesEnabled() && privmsg.isTurbo() && twitchBadgeBank.getEmoji(turboStr) != null)
-            {
-                badges.put(turboStr, twitchBadgeBank.getEmoji(turboStr));
-            }
-
-            final String primeStr = "prime";
-            if (emojiConfig.isTwitchBadgesEnabled() && privmsg.isPrime() && twitchBadgeBank.getEmoji(primeStr) != null)
-            {
-                badges.put(primeStr, twitchBadgeBank.getEmoji(primeStr));
             }
 
             // Add each badges map item onto the sprite character key list

@@ -389,6 +389,20 @@ public class ControlPanelEmoji extends ControlPanelBase
                         }
                     }
 
+                    if (clickTwitchBadges && !config.isTwitchBadgesLoaded(getConnectChannel()))
+                    {
+                        EmojiJob job = new EmojiJob(oauth, EmojiType.TWITCH_BADGE_GLOBAL, EmojiOperation.LOAD, getConnectChannel());
+                        // No check for enable all here, because badges are independent of the emoji enableAll toggle
+                        if (enableTwitchBadges.isSelected())
+                        {
+                            jobsToRun.add(job);
+                        }
+                        else
+                        {
+                            jobsToCancel.add(job);
+                        }
+                    }
+
                     if (clickFfzBadges && !config.isFfzBadgesLoaded(getConnectChannel()))
                     {
                         EmojiJob job = new EmojiJob(oauth, EmojiType.FRANKERFACEZ_BADGE, EmojiOperation.LOAD, getConnectChannel());
@@ -720,6 +734,14 @@ public class ControlPanelEmoji extends ControlPanelBase
             if (channel == null)
             {
                 ChatWindow.popup.handleProblem("Please specify a channel on the Connection tab to load badges");
+                jobs.clear();
+                return jobs;
+            }
+            jobs.add(new EmojiJob(oauth, EmojiType.TWITCH_BADGE_GLOBAL, EmojiOperation.LOAD, channel, null)); /* TODO: Need ID somehow */
+            if (channel == null)
+            {
+                /* TODO: Error message not good enough */
+                ChatWindow.popup.handleProblem("Please specify a channel ID on the Connection tab to load badges");
                 jobs.clear();
                 return jobs;
             }

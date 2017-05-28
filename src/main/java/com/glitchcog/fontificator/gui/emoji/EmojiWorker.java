@@ -187,6 +187,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
             final EmojiType emojiType = job.getType();
             final String channel = job.getChannel();
             final String oauth = job.getOauth();
+            final String channel_id = job.getChannelId();
 
             if (EmojiOperation.LOAD == opType)
             {
@@ -199,7 +200,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 }
 
                 // The proper load for the emoji
-                loader.prepLoad(emojiType, channel, oauth);
+                loader.prepLoad(emojiType, channel, oauth, channel_id);
                 String data = runLoader(emojiType);
                 if (data != null)
                 {
@@ -218,7 +219,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 if (emojiType == EmojiType.TWITCH_BADGE)
                 {
                     TypedEmojiMap tbMap = manager.getEmojiByType(EmojiType.TWITCH_BADGE);
-                    tbMap.put("prime", new LazyLoadEmoji("prime", TWITCH_BADGE_PRIME, EmojiType.TWITCH_BADGE));
+                    //tbMap.put("prime", new LazyLoadEmoji("prime", TWITCH_BADGE_PRIME, EmojiType.TWITCH_BADGE));
                 }
 
                 Thread.sleep(1L);

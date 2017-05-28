@@ -109,6 +109,11 @@ public class ConfigEmoji extends Config
     private String twitchBadgesLoadedChannel;
 
     /**
+     * The loaded Twitch badges channel, or null if none is loaded
+     */
+    private String twitchBadgesLoadedGlobal;
+
+    /**
      * The loaded FrankerFaceZ badges channel, or null if none is loaded
      */
     private String ffzBadgesLoadedChannel;
@@ -404,6 +409,8 @@ public class ConfigEmoji extends Config
             //     return ControlPanelEmoji.TWITCH_EMOTE_VERSION.equals(type) && twitchEnabled != null && twitchEnabled && twitchLoaded != null && twitchLoaded;
             case TWITCH_BADGE:
                 return twitchBadgesEnabled != null && twitchBadgesEnabled && twitchBadgesLoadedChannel != null;
+            case TWITCH_BADGE_GLOBAL:
+                    return twitchBadgesEnabled != null && twitchBadgesEnabled && twitchBadgesLoadedGlobal != null;
             default:
                 // If it doesn't have a coded EmojiType, then we don't know it
                 return false;
@@ -506,6 +513,7 @@ public class ConfigEmoji extends Config
         result = prime * result + ((twitchEnabled == null) ? 0 : twitchEnabled.hashCode());
         result = prime * result + ((twitchLoaded == null) ? 0 : twitchLoaded.hashCode());
         result = prime * result + ((twitchBadgesLoadedChannel == null) ? 0 : twitchBadgesLoadedChannel.hashCode());
+        result = prime * result + ((twitchBadgesLoadedGlobal == null) ? 0 : twitchBadgesLoadedGlobal.hashCode());
         return result;
     }
 
@@ -712,7 +720,18 @@ public class ConfigEmoji extends Config
                 return false;
             }
         }
+        if (twitchBadgesLoadedGlobal == null)
+        {
+            if (other.twitchBadgesLoadedGlobal != null)
+            {
+                return false;
+            }
+        }
         else if (!twitchBadgesLoadedChannel.equals(other.twitchBadgesLoadedChannel))
+        {
+            return false;
+        }
+        else if (!twitchBadgesLoadedGlobal.equals(other.twitchBadgesLoadedGlobal))
         {
             return false;
         }
@@ -740,6 +759,7 @@ public class ConfigEmoji extends Config
         this.ffzEnabled = copy.ffzEnabled;
         this.twitchLoaded = copy.twitchLoaded;
         this.twitchBadgesLoadedChannel = copy.twitchBadgesLoadedChannel;
+        this.twitchBadgesLoadedChannel = copy.twitchBadgesLoadedGlobal;
         this.ffzLoadedChannel = copy.ffzLoadedChannel;
         this.ffzGlobalLoaded = copy.ffzGlobalLoaded;
         this.bttvEnabled = copy.bttvEnabled;
@@ -810,14 +830,25 @@ public class ConfigEmoji extends Config
     }
 
     /**
-     * Set whether the Twitch badges have been loaded
+     * Set whether the Twitch channel badges have been loaded
      * 
      * @param twitchBadgesLoadedChannel
-     *            from which the Twitch emotes are loaded
+     *            from which the Twitch channel badges are loaded
      */
-    public void setTwitchBadgesLoaded(String twitchBadgesLoadedChannel)
+    public void setTwitchBadgesLoadedChannel(String twitchBadgesLoadedChannel)
     {
         this.twitchBadgesLoadedChannel = twitchBadgesLoadedChannel;
+    }
+
+    /**
+     * Set whether the Twitch global badges have been loaded
+     *
+     * @param twitchBadgesLoadedGlobal
+     *            from which the Twitch global badges are loaded
+     */
+    public void setTwitchBadgesLoadedGlobal(String twitchBadgesLoadedGlobal)
+    {
+        this.twitchBadgesLoadedGlobal = twitchBadgesLoadedGlobal;
     }
 
     /**
@@ -960,6 +991,10 @@ public class ConfigEmoji extends Config
         {
             this.twitchBadgesLoadedChannel = job.getChannel();
         }
+        else if (EmojiType.TWITCH_BADGE_GLOBAL.equals(emojiType))
+        {
+            this.twitchBadgesLoadedGlobal = job.getChannel();
+        }
         else if (EmojiType.FRANKERFACEZ_BADGE.equals(emojiType))
         {
             this.ffzBadgesLoadedChannel = job.getChannel();
@@ -1022,6 +1057,7 @@ public class ConfigEmoji extends Config
         this.twitchLoaded = false;
         this.twitchCached = false;
         this.twitchBadgesLoadedChannel = null;
+        this.twitchBadgesLoadedGlobal = null;
         this.ffzBadgesLoadedChannel = null;
         this.ffzLoadedChannel = null;
         this.ffzGlobalLoaded = false;
@@ -1039,7 +1075,7 @@ public class ConfigEmoji extends Config
     public boolean isAnyWorkDone()
     {
         // @formatter:off
-        return twitchBadgesLoadedChannel != null || isTwitchLoaded() || isTwitchCached() || 
+        return twitchBadgesLoadedChannel != null || twitchBadgesLoadedGlobal != null || isTwitchLoaded() || isTwitchCached() ||
                ffzBadgesLoadedChannel != null || ffzLoadedChannel != null || isFfzGlobalLoaded() || isFfzCached() || 
                bttvLoadedChannel != null || isBttvGlobalLoaded() || isBttvCached();
         // @formatter:on

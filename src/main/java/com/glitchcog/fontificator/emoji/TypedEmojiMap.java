@@ -24,15 +24,12 @@ public class TypedEmojiMap
 {
     private final EmojiType type;
 
-    private Map<String, LazyLoadEmoji> normalMap;
-
-    private Map<String, LazyLoadEmoji> regexMap;
+    private Map<String, LazyLoadEmoji> map;
 
     public TypedEmojiMap(EmojiType type)
     {
         this.type = type;
-        normalMap = new HashMap<String, LazyLoadEmoji>();
-        regexMap = new HashMap<String, LazyLoadEmoji>();
+        map = new HashMap<String, LazyLoadEmoji>();
     }
 
     /**
@@ -72,18 +69,21 @@ public class TypedEmojiMap
             return null;
         }
 
-        LazyLoadEmoji emoji = normalMap.get(testKey);
-
-        if (emoji == null)
+        LazyLoadEmoji emoji = null;
+        if (type.canRegEx())
         {
-            for (String regex : regexMap.keySet())
+            for (String regex : map.keySet())
             {
                 if (testKey.matches(regex))
                 {
-                    emoji = regexMap.get(regex);
+                    emoji = map.get(regex);
                     break;
                 }
             }
+        }
+        else
+        {
+            emoji = map.get(testKey);
         }
 
         return emoji;
@@ -91,72 +91,18 @@ public class TypedEmojiMap
 
     public LazyLoadEmoji put(String key, LazyLoadEmoji value)
     {
-        if (isRegularExpression(key))
-        {
-            key = fixRegularExpression(key);
-            return regexMap.put(key, value);
-        }
-        else
-        {
-            return normalMap.put(key, value);
-        }
+        return map.put(key, value);
     }
 
     public Collection<String> keySet()
     {
-        Set<String> keys = new HashSet<String>(normalMap.keySet().size() + regexMap.keySet().size());
-        keys.addAll(normalMap.keySet());
-        keys.addAll(regexMap.keySet());
+        Set<String> keys = new HashSet<String>(map.keySet().size());
+        keys.addAll(map.keySet());
         return keys;
     }
 
-    /**
-     * Determine whether the specified key is a regular expression or just a word, based on whether it is comprised
-     * entirely of alpha numeric characters indicating it's just a word
-     * 
-     * @param key
-     * @return is a regular expression
-     */
-    private static boolean isRegularExpression(String key)
+    public Map<String, LazyLoadEmoji> getMap()
     {
-        return !key.matches("^[a-zA-Z0-9_]*$");
+        return map;
     }
-
-    /**
-     * Remove extraneous escape characters and decode xml entities. This may need to be tinkered with.
-     * 
-     * @param regex
-     * @return fixed regex
-     */
-    private String fixRegularExpression(String regex)
-    {
-        // Remove redundant slashes
-        regex = regex.replaceAll("\\\\\\\\", "\\\\");
-        // Un-escape semicolons
-        regex = regex.replaceAll("\\\\;", ";");
-        regex = regex.replaceAll("\\\\:", ":");
-        regex = regex.replaceAll("\\\\&", "&");
-        // Greater than and less than xml entities
-        regex = regex.replaceAll("&lt;", "<");
-        regex = regex.replaceAll("&gt;", ">");
-        // Needed for BTTV emotes like "(puke)"
-        if (type.isBetterTtvEmote())
-        {
-            regex = regex.replaceAll("\\(", "\\\\(");
-            regex = regex.replaceAll("\\)", "\\\\)");
-        }
-
-        return regex;
-    }
-
-    public Map<String, LazyLoadEmoji> getNormalMap()
-    {
-        return normalMap;
-    }
-
-    public Map<String, LazyLoadEmoji> getRegexMap()
-    {
-        return regexMap;
-    }
-
 }

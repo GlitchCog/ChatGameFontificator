@@ -18,17 +18,26 @@ public class EmojiJob
      */
     private final String channel;
 
+    /**
+     * Can be null if no channel ID is required
+     */
+    private final String channel_id;
+
     public EmojiJob(String oauth, EmojiType type, EmojiOperation op)
     {
-        this(oauth, type, op, null);
+        this(oauth, type, op, null, null);
     }
-
     public EmojiJob(String oauth, EmojiType type, EmojiOperation op, String channel)
+    {
+        this(oauth, type, op, channel, null);
+    }
+    public EmojiJob(String oauth, EmojiType type, EmojiOperation op, String channel, String channel_id)
     {
         this.type = type;
         this.op = op;
         this.oauth = oauth;
         this.channel = channel;
+        this.channel_id = channel_id;
     }
 
     public String getOauth()
@@ -51,12 +60,18 @@ public class EmojiJob
         return channel;
     }
 
+    public String getChannelId()
+    {
+        return channel_id;
+    }
+
     @Override
     public int hashCode()
     {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((channel == null) ? 0 : channel.hashCode());
+        result = prime * result + ((channel_id == null) ? 0 : channel_id.hashCode());
         result = prime * result + ((op == null) ? 0 : op.hashCode());
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
@@ -78,6 +93,13 @@ public class EmojiJob
                 return false;
         }
         else if (!channel.equals(other.channel))
+            return false;
+        if (channel_id == null)
+        {
+            if (other.channel_id != null)
+                return false;
+        }
+        else if (!channel_id.equals(other.channel_id))
             return false;
         if (op != other.op)
             return false;

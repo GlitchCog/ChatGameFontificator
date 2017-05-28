@@ -462,16 +462,13 @@ public class ChatViewerBot extends PircBot
                 log("Error parsing subscriber value \"" + turboStr + "\" in Twitch header");
             }
         }
-        privmsg.setPrime(paramMap.get("badges") != null && paramMap.get("badges").contains("premium"));
 
-        String userTypeStr = paramMap.get("user-type");
-        if (displayName != null && !displayName.trim().isEmpty() && displayName.equalsIgnoreCase(this.controlPanel.getChannelNoHash()))
+        if( paramMap.get("badges") != null )
         {
-            // Set the broadcaster badge based on the display name matching the channel connected to, since Twitch
-            // doesn't put this usertype into its IRC tags.
-            privmsg.setUserType(UserType.BROADCASTER);
+            privmsg.addBadges( paramMap.get("badges").split(",") );
         }
-        else if (userTypeStr != null && !userTypeStr.trim().isEmpty())
+        String userTypeStr = paramMap.get("user-type");
+        if (userTypeStr != null && !userTypeStr.trim().isEmpty())
         {
             // If the string value is something weird, the enum will just return NONE
             privmsg.setUserType(UserType.getByKey(userTypeStr));
