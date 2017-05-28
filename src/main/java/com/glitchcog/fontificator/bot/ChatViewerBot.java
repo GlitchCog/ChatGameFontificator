@@ -64,6 +64,11 @@ public class ChatViewerBot extends PircBot
     private static final String USERNAME_LOOKUP_BASE_URL = "https://api.twitch.tv/kraken/users/";
 
     /**
+     * Indicates that the disconnect is to be expected, do not attempt to reconnect
+     */
+    private boolean disconnectExpected;
+
+    /**
      * Reference to the chat panel to add messages as they're posted
      */
     private ChatPanel chat;
@@ -89,7 +94,7 @@ public class ChatViewerBot extends PircBot
     private Map<String, String> usernameIds;
 
     /**
-     * Map of Pvivmsg objects keyed off of a lowercase username. These user states contain the information prepended to each message a user sends to the chat. The user states also contain the post count.
+     * Map of Privmsg objects keyed off of a lowercase username. These user states contain the information prepended to each message a user sends to the chat. The user states also contain the post count.
      */
     private Map<String, TwitchPrivmsg> privmsgs;
 
@@ -170,6 +175,8 @@ public class ChatViewerBot extends PircBot
     @Override
     protected void onConnect()
     {
+        disconnectExpected = false;
+
         logger.info("Connected");
         controlPanel.toggleConnect(true);
 
@@ -718,6 +725,33 @@ public class ChatViewerBot extends PircBot
     {
         logger.info("Disconnected");
         controlPanel.toggleConnect(false);
+
+        // Attempt to reconnect if this is an unexpected disconnect and auto reconnect is enabled
+        while (!disconnectExpected && controlPanel.isAutoReconnect() && !isConnected())
+        {
+            try
+            {
+                logger.info("Attempting to reconnect");
+                reconnect();
+                logger.info("Attempting to rejoin channel");
+                controlPanel.joinChannel();
+            }
+            catch (Exception e)
+            {
+                logger.error("Error reconnecting", e);
+            }
+
+            try
+            {
+                Thread.sleep(250L);
+            }
+            catch (Exception e)
+            {
+                logger.trace("Reconnect attempt sleep exception");
+            }
+        }
+
+        disconnectExpected = false;
     }
 
     /**
@@ -738,5 +772,10 @@ public class ChatViewerBot extends PircBot
     public void setMessageConfig(ConfigMessage messageConfig)
     {
         this.messageConfig = messageConfig;
+    }
+
+    public void setDisconnectExpected(boolean disconnectExpected)
+    {
+        this.disconnectExpected = disconnectExpected;
     }
 }

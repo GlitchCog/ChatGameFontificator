@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -59,6 +60,8 @@ public class ControlPanelIrc extends ControlPanelBase
 
     private JButton clearChatButton;
 
+    private JCheckBox autoReconnectBox;
+
     private ConfigIrc config;
 
     /**
@@ -104,8 +107,18 @@ public class ControlPanelIrc extends ControlPanelBase
         bot.reset();
         bot.connect(host, port, auth);
 
-        // Force lowercase channel names for twitch.tv
+        joinChannel();
+    }
+
+    /**
+     * Join the specified channel for after a connection is made
+     */
+    public void joinChannel()
+    {
+        final String host = config.getHost();
         String connectChannel = config.getChannel();
+
+        // Force lowercase channel names for twitch.tv
         if ("irc.twitch.tv".equals(host))
         {
             connectChannel = connectChannel.toLowerCase();
@@ -233,6 +246,7 @@ public class ControlPanelIrc extends ControlPanelBase
 
                 if (bot.isConnected())
                 {
+                    bot.setDisconnectExpected(true);
                     bot.disconnect();
                 }
                 else
@@ -255,7 +269,7 @@ public class ControlPanelIrc extends ControlPanelBase
                     }
                     catch (NumberFormatException ex)
                     {
-                        ChatWindow.popup.handleProblem("Invalid login information", ex);
+                        ChatWindow.popup.handleProblem("Invalid login port value", ex);
                     }
                     catch (NickAlreadyInUseException ex)
                     {
@@ -286,6 +300,16 @@ public class ControlPanelIrc extends ControlPanelBase
             {
                 chat.clearChat();
                 chat.repaint();
+            }
+        });
+
+        autoReconnectBox = new JCheckBox("Automatically attempt to reconnect if connection is lost");
+        autoReconnectBox.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                config.setAutoReconnect(autoReconnectBox.isSelected());
             }
         });
 
@@ -337,6 +361,7 @@ public class ControlPanelIrc extends ControlPanelBase
         gbc.gridy++;
         everything.add(botRow, gbc);
         gbc.gridy++;
+        everything.add(autoReconnectBox, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -382,6 +407,8 @@ public class ControlPanelIrc extends ControlPanelBase
 
         hostInput.setText(config.getHost());
         portInput.setText(config.getPort());
+
+        autoReconnectBox.setSelected(config.isAutoReconnect());
     }
 
     @Override
@@ -400,6 +427,8 @@ public class ControlPanelIrc extends ControlPanelBase
 
         config.setHost(hostInput.getText());
         config.setPort(portInput.getText());
+
+        config.setAutoReconnect(autoReconnectBox.isSelected());
     }
 
     public void log(String line)
@@ -417,5 +446,10 @@ public class ControlPanelIrc extends ControlPanelBase
     public String getChannelNoHash()
     {
         return config.getChannelNoHash();
+    }
+
+    public boolean isAutoReconnect()
+    {
+        return autoReconnectBox.isSelected();
     }
 }

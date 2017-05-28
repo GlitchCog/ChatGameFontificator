@@ -21,6 +21,8 @@ public class ConfigIrc extends Config
 
     private String channel;
 
+    private Boolean autoReconnect;
+
     @Override
     public void reset()
     {
@@ -29,6 +31,7 @@ public class ConfigIrc extends Config
         port = null;
         authorization = null;
         channel = null;
+        setAutoReconnect(null);
     }
 
     @Override
@@ -70,6 +73,8 @@ public class ConfigIrc extends Config
         {
             this.port = propPort;
         }
+
+        setAutoReconnect(!Boolean.FALSE.toString().equalsIgnoreCase(props.getProperty(FontificatorProperties.KEY_IRC_AUTO_RECONNECT)));
 
         return report;
     }
@@ -140,6 +145,20 @@ public class ConfigIrc extends Config
     {
         this.channel = channel;
         props.setProperty(FontificatorProperties.KEY_IRC_CHAN, channel);
+    }
+
+    public Boolean isAutoReconnect()
+    {
+        return autoReconnect;
+    }
+
+    public void setAutoReconnect(Boolean autoReconnect)
+    {
+        this.autoReconnect = autoReconnect;
+        if (autoReconnect != null)
+        {
+            props.setProperty(FontificatorProperties.KEY_IRC_AUTO_RECONNECT, Boolean.toString(autoReconnect));
+        }
     }
 
 }

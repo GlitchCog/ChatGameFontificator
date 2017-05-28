@@ -63,8 +63,9 @@ public class FontificatorProperties extends Properties
     public static final String KEY_IRC_PORT = "ircPort";
     public static final String KEY_IRC_AUTH = "ircAuth";
     public static final String KEY_IRC_CHAN = "ircChannel";
+    public static final String KEY_IRC_AUTO_RECONNECT = "ircAutoReconnect";
 
-    public static final String[] IRC_KEYS = new String[] { KEY_IRC_USER, KEY_IRC_HOST, KEY_IRC_PORT, KEY_IRC_AUTH, KEY_IRC_CHAN };
+    public static final String[] IRC_KEYS = new String[] { KEY_IRC_USER, KEY_IRC_HOST, KEY_IRC_PORT, KEY_IRC_AUTH, KEY_IRC_CHAN, KEY_IRC_AUTO_RECONNECT };
 
     public static final String KEY_FONT_FILE_BORDER = "fontBorderFile";
     public static final String KEY_FONT_FILE_FONT = "fontFile";
@@ -575,6 +576,7 @@ public class FontificatorProperties extends Properties
 
         setPropertyOverride(KEY_IRC_HOST, "irc.twitch.tv", override);
         setPropertyOverride(KEY_IRC_PORT, Integer.toString(6667), override);
+        setPropertyOverride(KEY_IRC_AUTO_RECONNECT, trueString, override);
 
         setPropertyOverride(KEY_FONT_FILE_BORDER, ConfigFont.INTERNAL_FILE_PREFIX + "borders/dw3_border.png", override);
         setPropertyOverride(KEY_FONT_FILE_FONT, ConfigFont.INTERNAL_FILE_PREFIX + "fonts/dw3_font.png", override);
