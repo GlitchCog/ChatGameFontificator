@@ -128,8 +128,6 @@ public class SpriteFont
         return new int[] { (int) w, (int) h };
     }
 
-    private char[] fontMetricCharArray = new char[1];
-
     /**
      * Return how wide a character is in pixels- must take scale into consideration scale
      * 
@@ -148,7 +146,6 @@ public class SpriteFont
                 if (config.isExtendedCharEnabled())
                 {
                     // Return string width of extended char
-                    //fontMetricCharArray[0] = c.getChar();
                     baseWidth = fontMetrics.charWidth(c.getCodepoint());
                     // Don't include scale in this calculation, because it's already built into the font size
                     return (int) (baseWidth + config.getCharSpacing() * config.getFontScale());
@@ -163,7 +160,7 @@ public class SpriteFont
             else
             {
                 // Character
-                baseWidth = getCharacterBounds(c.getChar()).width;
+                baseWidth = getCharacterBounds(c.getCodepoint()).width;
             }
             return (int) ((baseWidth + config.getCharSpacing()) * config.getFontScale());
         }
