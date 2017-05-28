@@ -7,8 +7,8 @@ fontBorderFile=preset\://borders/shining_force_border.png
 fontBorderInsetY=0
 fontBorderInsetX=4
 fontBorderScale=2.0
-fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
 fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
 fontFile=preset\://fonts/shining_force_dialog_font.png
 fontGridHeight=12
 fontGridWidth=8
