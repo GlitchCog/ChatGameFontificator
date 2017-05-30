@@ -328,7 +328,7 @@ public class EmojiParser
         final boolean customFfzModBadgeExists = room != null && room.getModerator_badge() != null;
         if (customFfzModBadgeExists)
         {
-            LazyLoadEmoji modLle = new LazyLoadEmoji(UserType.MOD.getKey(), UserType.MOD.getKey(), "https:" + room.getModerator_badge(), ConfigEmoji.MOD_BADGE_COLOR, EmojiType.FRANKERFACEZ_BADGE);
+            LazyLoadEmoji modLle = new LazyLoadEmoji(UserType.MOD.getBadge(), UserType.MOD.getBadge(), "https:" + room.getModerator_badge(), ConfigEmoji.MOD_BADGE_COLOR, EmojiType.FRANKERFACEZ_BADGE);
             manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put(UserType.MOD.getKey(), modLle);
             logBox.log("Loaded the custom FrankerFaceZ moderator badge");
         }

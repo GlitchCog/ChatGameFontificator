@@ -414,22 +414,17 @@ public class Message
 
             // Bank to pull FrankerFaceZ badges from
             TypedEmojiMap ffzBadgeBank = emojiManager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE);
-
-            // Get the badge for the type of user, if the usertype has a badge (but not if it's an ffzBot)
-            if (privmsg.getUserType() != null && privmsg.getUserType() != UserType.NONE)
-            {
-                //LazyLoadEmoji testBadge;
-                // FFZ badges are enabled, the user is a moderator, and the custom FFZ moderator badge exists
-                if (emojiConfig.isFfzBadgesEnabled() && userIsModerator && ffzBadgeBank.getEmoji(UserType.MOD.getKey()) != null)
-                {
-                    badges.put(UserType.MOD.getBadge(), ffzBadgeBank.getEmoji(UserType.MOD.getKey()));
-                }
-            }
-
-            LazyLoadEmoji replacementBadge = null;
+            Map<String, LazyLoadEmoji> ffzBadgeMap = new LinkedHashMap<String, LazyLoadEmoji>();
 
             if (emojiConfig.isFfzBadgesEnabled())
             {
+                // Channel-specific mod badge override
+                if( userIsModerator && ffzBadgeBank.getEmoji(UserType.MOD.getBadge()) != null)
+                {
+                    ffzBadgeMap.put(UserType.MOD.getBadge(), ffzBadgeBank.getEmoji(UserType.MOD.getBadge()));
+                }
+
+                // User badges
                 Map<Integer, Set<String>> ffzBadgeUsers = emojiManager.getFfzBadgeUsers();
                 for (Integer ffzBadgeType : ffzBadgeUsers.keySet())
                 {
@@ -437,19 +432,7 @@ public class Message
                     Set<String> users = ffzBadgeUsers.get(ffzBadgeType);
                     if (users.contains(username.toLowerCase()))
                     {
-                        LazyLoadEmoji ffzBadge = ffzBadgeBank.getEmoji(ffzBadgeType);
-                        if (ffzBadge.isReplacement() && badges.containsKey(ffzBadge.getReplaces()))
-                        {
-                            badges.put(ffzBadge.getReplaces(), ffzBadge);
-                            if (userIsModerator)
-                            {
-                                replacementBadge = ffzBadge;
-                            }
-                        }
-                        else
-                        {
-                            badges.put(ffzBadgeKey, ffzBadge);
-                        }
+                        ffzBadgeMap.put(ffzBadgeKey, ffzBadgeBank.getEmoji(ffzBadgeType));
                     }
                 }
             }
@@ -470,7 +453,15 @@ public class Message
                         // Handle the special case of an FFZ badge replacing a twitch badge.
                         // Note that the twitch badge's key might be moderator/0 or moderator/1, but the FFZ badge
                         // with identifier "moderator" overrides them
-                        if( replacementBadge == null || !target_badge.getPrimaryidentifier().equals(replacementBadge.getPrimaryidentifier()) ) {
+                        LazyLoadEmoji ffzReplacement = ffzBadgeMap.remove(target_badge.getPrimaryidentifier());
+
+                        if( ffzReplacement != null ) {
+                            // The FFZ badge is there and overrides
+                            badges.put(target_badge.getPrimaryidentifier(), ffzReplacement);
+                        }
+                        else
+                        {
+                            // Other twitch badges are just inserted in the list
                             badges.put(badgestr, target_badge);
                         }
                     }
@@ -478,10 +469,14 @@ public class Message
             }
 
             // Add each badges map item onto the sprite character key list
+            for (LazyLoadEmoji lle : ffzBadgeMap.values())
+            {
+                keyList.add(new SpriteCharacterKey(lle, true));
+            }
             for (LazyLoadEmoji lle : badges.values())
             {
                 SpriteCharacterKey sck = new SpriteCharacterKey(lle, true);
-                if (userIsModerator && lle == replacementBadge)
+                if (userIsModerator && lle.isReplacement())
                 {
                     sck.setEmojiBgColorOverride(ConfigEmoji.MOD_BADGE_COLOR);
                 }
