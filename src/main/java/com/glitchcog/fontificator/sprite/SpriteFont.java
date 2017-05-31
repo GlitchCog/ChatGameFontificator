@@ -40,7 +40,7 @@ public class SpriteFont
 
     protected SpriteCache sprites;
 
-    protected Map<Character, Rectangle> characterBounds;
+    protected Map<Integer, Rectangle> characterBounds;
 
     /**
      * Characters that can be line breaks for wrapping to the next line
@@ -63,7 +63,7 @@ public class SpriteFont
     {
         logger.trace("Creating sprite font using config font filename " + (config == null ? "null" : config.getFontFilename()));
         this.config = config;
-        this.characterBounds = new HashMap<Character, Rectangle>();
+        this.characterBounds = new HashMap<Integer, Rectangle>();
         this.sprites = new SpriteCache(config);
     }
 
@@ -128,8 +128,6 @@ public class SpriteFont
         return new int[] { (int) w, (int) h };
     }
 
-    private char[] fontMetricCharArray = new char[1];
-
     /**
      * Return how wide a character is in pixels- must take scale into consideration scale
      * 
@@ -148,8 +146,7 @@ public class SpriteFont
                 if (config.isExtendedCharEnabled())
                 {
                     // Return string width of extended char
-                    fontMetricCharArray[0] = c.getChar();
-                    baseWidth = fontMetrics.charsWidth(fontMetricCharArray, 0, 1);
+                    baseWidth = fontMetrics.charWidth(c.getCodepoint());
                     // Don't include scale in this calculation, because it's already built into the font size
                     return (int) (baseWidth + config.getCharSpacing() * config.getFontScale());
                 }
@@ -163,7 +160,7 @@ public class SpriteFont
             else
             {
                 // Character
-                baseWidth = getCharacterBounds(c.getChar()).width;
+                baseWidth = getCharacterBounds(c.getCodepoint()).width;
             }
             return (int) ((baseWidth + config.getCharSpacing()) * config.getFontScale());
         }
@@ -213,7 +210,7 @@ public class SpriteFont
             Rectangle bounds = new Rectangle();
             bounds.setLocation(gridX * spriteWidth, gridY * spriteHeight);
             bounds.setSize(spriteWidth, spriteHeight);
-            characterBounds.put(c, bounds);
+            characterBounds.put((int)c, bounds);
         }
     }
 
@@ -294,13 +291,13 @@ public class SpriteFont
                 if (!leftEdgeFound)
                 {
                     // Then just use a quarter of the character width
-                    characterBounds.put(ckey, new Rectangle(x + charWidth / 4, y, charWidth / 2, charHeight));
+                    characterBounds.put((int)ckey, new Rectangle(x + charWidth / 4, y, charWidth / 2, charHeight));
                 }
                 // For all other characters, or for spaces that have some non transparent pixels, use the calculated
                 // bounds
                 else
                 {
-                    characterBounds.put(ckey, bounds);
+                    characterBounds.put((int)ckey, bounds);
                 }
 
                 letterIndex++;
@@ -314,9 +311,9 @@ public class SpriteFont
      * @param c
      * @return bounding box
      */
-    public Rectangle getCharacterBounds(char c)
+    public Rectangle getCharacterBounds(int c)
     {
-        if (!config.getCharacterKey().contains(Character.toString(c)))
+        if (!config.getCharacterKey().contains(new String(Character.toChars(c))))
         {
             c = config.getUnknownChar();
         }
@@ -595,7 +592,7 @@ public class SpriteFont
 
         if (sck.isChar())
         {
-            final boolean validNormalChar = !sck.isExtended() && characterBounds.containsKey(sck.getChar());
+            final boolean validNormalChar = !sck.isExtended() && characterBounds.containsKey(sck.getCodepoint());
             final boolean drawUnknownChar = !validNormalChar && !config.isExtendedCharEnabled();
 
             if (drawUnknownChar)
@@ -605,7 +602,7 @@ public class SpriteFont
 
             if (validNormalChar || drawUnknownChar)
             {
-                Rectangle bounds = characterBounds.get(sck.getChar());
+                Rectangle bounds = characterBounds.get(sck.getCodepoint());
                 sprites.getSprite(config).draw(g2d, drawX, drawY, bounds.width, bounds.height, bounds, config.getFontScale(), color);
                 if (debug)
                 {
@@ -617,7 +614,7 @@ public class SpriteFont
             else
             {
                 g2d.setColor(color);
-                g2d.drawString(Character.toString(sck.getChar()), drawX, drawY + (fontMetrics.getHeight() - fontMetrics.getDescent()) - config.getBaselineOffset() * config.getFontScale());
+                g2d.drawString(sck.toString(), drawX, drawY + (fontMetrics.getHeight() - fontMetrics.getDescent()) - config.getBaselineOffset() * config.getFontScale());
             }
         }
         else

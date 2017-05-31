@@ -397,10 +397,7 @@ public class Message
         {
             String timeStampStr = messageConfig.getTimerFormatter().format(timestamp);
             timeStampStr = applyCasing(timeStampStr, messageConfig.getMessageCasing());
-            for (int c = 0; c < timeStampStr.length(); c++)
-            {
-                keyList.add(new SpriteCharacterKey(timeStampStr.charAt(c)));
-            }
+            keyList.addAll(toSpriteArray(timeStampStr));
         }
 
         // Add badges to be placed right before the username
@@ -498,23 +495,14 @@ public class Message
         {
             if (messageConfig.showTimestamps())
             {
-                for (int c = 0; c < TIMESTAMP_USERNAME_SPACER.length(); c++)
-                {
-                    keyList.add(new SpriteCharacterKey(TIMESTAMP_USERNAME_SPACER.charAt(c)));
-                }
+                keyList.addAll(toSpriteArray(TIMESTAMP_USERNAME_SPACER));
             }
             String casedUsername = applyCasing(username, messageConfig.getMessageCasing());
-            for (int c = 0; c < casedUsername.length(); c++)
-            {
-                keyList.add(new SpriteCharacterKey(casedUsername.charAt(c)));
-            }
+            keyList.addAll(toSpriteArray(casedUsername));
         }
         if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isAnyBadgesEnabled() && badges != null && !badges.isEmpty()))
         {
-            for (int c = 0; c < type.getContentBreaker().length(); c++)
-            {
-                keyList.add(new SpriteCharacterKey(type.getContentBreaker().charAt(c)));
-            }
+            keyList.addAll(toSpriteArray(type.getContentBreaker()));
         }
 
         // Parse out the emoji, if enabled
@@ -525,11 +513,7 @@ public class Message
         // Configured for no emoji, so just chars
         else
         {
-            String casedContent = applyCasing(content, messageConfig.getMessageCasing());
-            for (int c = 0; c < casedContent.length(); c++)
-            {
-                keyList.add(new SpriteCharacterKey(casedContent.charAt(c)));
-            }
+            keyList.addAll(toSpriteArray(applyCasing(content, messageConfig.getMessageCasing())));
         }
 
         // Return the list as an array, to be kept until configuration is modified requiring a reprocessing
@@ -582,12 +566,12 @@ public class Message
 
         String[] words = content.split(SPACE_BOUNDARY_REGEX);
 
-        int charIndex = 0;
+        int codeIndex = 0;
 
         LazyLoadEmoji emoji = null;
         for (int w = 0; w < words.length; w++)
         {
-            EmoteAndIndices eai = emotes.get(charIndex);
+            EmoteAndIndices eai = emotes.get(codeIndex);
             if (eai != null && emojiConfig.isTwitchEnabled())
             {
                 // This catches subscriber emotes and any non-global emotes
@@ -625,20 +609,16 @@ public class Message
 
             if (emoji == null)
             {
-                String casedWord = applyCasing(words[w], casing);
-                // Done checking for all sorts of emoji types, so it's just a word. Set the characters.
-                for (int c = 0; c < casedWord.length(); c++)
-                {
-                    keyList.add(new SpriteCharacterKey(casedWord.charAt(c)));
-                }
+                keyList.addAll(toSpriteArray(applyCasing(words[w], casing)));
             }
             else
             {
                 keyList.add(new SpriteCharacterKey(emoji, false));
             }
 
-            // Increment the charIndex by the current word's length
-            charIndex += words[w].length();
+            // Increment the codeIndex by the current word's code point count
+            // Emoji indexes are in code points, but java is counting in fixed 16-bit units
+            codeIndex += words[w].codePointCount(0, words[w].length());
         }
     }
 
@@ -730,6 +710,28 @@ public class Message
         default:
             return str;
         }
+    }
+
+    /**
+     * Convert the string to a list of SpriteCharacterKeys by codepoint.
+     *
+     * @param str
+     * @returns A List of SpriteCharacterKeys
+     */
+    private static List<SpriteCharacterKey> toSpriteArray(String str)
+    {
+        // TODO java 1.8: We could use CharSequence and call codePoints method
+        List<SpriteCharacterKey> keyList = new ArrayList<SpriteCharacterKey>();
+
+        int i = 0;
+        while(i < str.length())
+        {
+            final int codepoint = str.codePointAt(i);
+            keyList.add(new SpriteCharacterKey(codepoint));
+            i += Character.charCount(codepoint);
+        }
+
+        return keyList;
     }
 
 }
