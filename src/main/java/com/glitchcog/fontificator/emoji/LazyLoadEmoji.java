@@ -61,6 +61,8 @@ public class LazyLoadEmoji
 
     private boolean firstLoadFailureReported;
 
+    private String primaryidentifier;
+
     /**
      * Used for FFZ badges only
      */
@@ -70,23 +72,23 @@ public class LazyLoadEmoji
     {
         this(id, null, url, null, type);
     }
-
     public LazyLoadEmoji(String id, String replaces, String url, Color bgColor, EmojiType type) throws MalformedURLException
     {
-        this(id, replaces, url, DEFAULT_EMOJI_SIZE, DEFAULT_EMOJI_SIZE, bgColor, type);
+        this(id, replaces, url, DEFAULT_EMOJI_SIZE, DEFAULT_EMOJI_SIZE, bgColor, type, null);
     }
-
     public LazyLoadEmoji(String identifier, String url, int width, int height, EmojiType type) throws MalformedURLException
     {
-        this(identifier, url, width, height, null, type);
+        this(identifier, url, width, height, null, type, null);
     }
-
-    public LazyLoadEmoji(String identifier, String url, int width, int height, Color bgColor, EmojiType type) throws MalformedURLException
+    public LazyLoadEmoji(String identifier, String url, int width, int height, EmojiType type, String primaryidentifier) throws MalformedURLException
     {
-        this(identifier, null, url, width, height, bgColor, type);
+        this(identifier, url, width, height, null, type, primaryidentifier);
     }
-
-    public LazyLoadEmoji(String identifier, String replaces, String url, int width, int height, Color bgColor, EmojiType type) throws MalformedURLException
+    public LazyLoadEmoji(String identifier, String url, int width, int height, Color bgColor, EmojiType type, String primaryidentifier) throws MalformedURLException
+    {
+        this(identifier, null, url, width, height, bgColor, type, primaryidentifier);
+    }
+    public LazyLoadEmoji(String identifier, String replaces, String url, int width, int height, Color bgColor, EmojiType type, String primaryidentifier) throws MalformedURLException
     {
         this.identifier = identifier;
         this.replaces = replaces;
@@ -96,6 +98,7 @@ public class LazyLoadEmoji
         this.height = height;
         this.firstLoadFailureReported = false;
         this.bgColor = bgColor;
+        this.primaryidentifier = primaryidentifier == null ? identifier : primaryidentifier;
     }
 
     public void cacheImage()
@@ -265,4 +268,7 @@ public class LazyLoadEmoji
         return replaces;
     }
 
+    public String getPrimaryidentifier() {
+        return primaryidentifier;
+    }
 }

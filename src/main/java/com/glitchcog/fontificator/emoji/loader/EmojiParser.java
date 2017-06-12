@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.gson.*;
 import org.apache.log4j.Logger;
 
 import com.glitchcog.fontificator.bot.UserType;
@@ -23,15 +24,11 @@ import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzBadgesAndUsers;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzEmote;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.Room;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchBadges;
+import com.glitchcog.fontificator.emoji.loader.twitch.TwitchBadgesNew;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV2;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV3;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchIdSetLink;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -63,7 +60,7 @@ public class EmojiParser
      *            the type of the emoji
      * @param jsonData
      *            the JSON data of the emoji to parse
-     * @param mapData
+     * @param jsonMapData
      *            can be null for non-Twitch emoji
      * @throws IOException
      */
@@ -86,6 +83,7 @@ public class EmojiParser
         //     parseTwitchEmoteJsonV3(manager, jsonData, jsonMapData);
         //     break;
         case TWITCH_BADGE:
+        case TWITCH_BADGE_GLOBAL:
             parseTwitchBadges(emojiMap, jsonData);
             break;
         case BETTER_TTV_CHANNEL:
@@ -224,24 +222,70 @@ public class EmojiParser
     {
         JsonElement jsonElement = new JsonParser().parse(jsonData);
 
+        Boolean isNewStyle = jsonElement.getAsJsonObject().has("badge_sets");
+
         Gson gson = new Gson();
-
-        Type emoteType = new TypeToken<Map<String, TwitchBadges>>()
-        {
-        }.getType();
-        Map<String, TwitchBadges> jsonMap = gson.fromJson(jsonElement, emoteType);
-
         int badgeCount = 0;
-        for (Entry<String, TwitchBadges> badge : jsonMap.entrySet())
+
+        if (!isNewStyle)
         {
-            if (badge.getValue() != null && badge.getValue().getImage() != null)
-            {
-                badgeCount++;
-                LazyLoadEmoji llBadge = new LazyLoadEmoji(badge.getKey(), badge.getValue().getImage(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, EmojiType.TWITCH_BADGE);
-                badgeMap.put(badge.getKey(), llBadge);
+            Type emoteType = new TypeToken<Map<String, TwitchBadges>>() {
+            }.getType();
+            Map<String, TwitchBadges> jsonMap = gson.fromJson(jsonElement, emoteType);
+
+            for (Entry<String, TwitchBadges> badge : jsonMap.entrySet()) {
+                if (badge.getValue() != null && badge.getValue().getImage() != null) {
+                    badgeCount++;
+                    LazyLoadEmoji llBadge = new LazyLoadEmoji(badge.getKey(), badge.getValue().getImage(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, EmojiType.TWITCH_BADGE);
+                    badgeMap.put(badge.getKey(), llBadge);
+                }
             }
         }
+        else
+        {
+            JsonElement badge_sets = jsonElement.getAsJsonObject().get("badge_sets");
+            JsonObject badge_sets_object = badge_sets.isJsonObject() ? badge_sets.getAsJsonObject() : new JsonObject();
 
+            for (Map.Entry<String,JsonElement> entry : badge_sets_object.entrySet())
+            {
+                String unversioned_key = entry.getKey();
+                JsonElement badge_set_element = entry.getValue();
+                if (!badge_set_element.isJsonObject() || !badge_set_element.getAsJsonObject().has("versions"))
+                {
+                    // TODO: Error message?
+                    continue;
+                }
+                JsonElement versions_element = badge_set_element.getAsJsonObject().get("versions");
+                if (!versions_element.isJsonObject())
+                {
+                    // TODO: Error message?
+                    continue;
+                }
+                Type emoteType = new TypeToken<Map<String, TwitchBadgesNew>>() {
+                }.getType();
+                Map<String, TwitchBadgesNew> jsonMap;
+                try {
+                    jsonMap = gson.fromJson(versions_element, emoteType);
+                }
+                catch( JsonSyntaxException e ) {
+                    // TODO: Error message?
+                    continue;
+                }
+
+                for (Entry<String, TwitchBadgesNew> sub_badge : jsonMap.entrySet()) {
+                    // The unversioned key is something like "subscriber".
+                    // The sub_badge is something like "1" or "6".
+                    // In the specific case of subscriber badges, "subscriber/1" is a 1 month badge and
+                    //  "subscriber/6" is a 6 month badge
+                    if (sub_badge.getValue() != null && sub_badge.getValue().getImage_url_1x() != null) {
+                        String badge_key = unversioned_key + "/" + sub_badge.getKey();
+                        LazyLoadEmoji llBadge = new LazyLoadEmoji(badge_key, sub_badge.getValue().getImage_url_1x(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, EmojiType.TWITCH_BADGE, unversioned_key);
+                        badgeMap.put(badge_key, llBadge);
+                        badgeCount++;
+                    }
+                }
+            }
+        }
         logBox.log(badgeCount + " Twitch badge" + (badgeCount == 1 ? "" : "s") + " loaded");
     }
 
@@ -258,7 +302,7 @@ public class EmojiParser
 
         for (Badge b : badgesAndUsers.getBadges())
         {
-            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put("" + b.getId(), new LazyLoadEmoji(b.getName(), "moderator".equals(b.getReplaces()) ? UserType.MOD.getKey() : b.getReplaces(), "http:" + b.getImage(), b.getColorParsed(), EmojiType.FRANKERFACEZ_BADGE));
+            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put("" + b.getId(), new LazyLoadEmoji(b.getName(), b.getReplaces(), "http:" + b.getImage(), b.getColorParsed(), EmojiType.FRANKERFACEZ_BADGE));
         }
 
         manager.setFfzBadgeUsers(badgesAndUsers.getUsers());
@@ -284,7 +328,7 @@ public class EmojiParser
         final boolean customFfzModBadgeExists = room != null && room.getModerator_badge() != null;
         if (customFfzModBadgeExists)
         {
-            LazyLoadEmoji modLle = new LazyLoadEmoji(UserType.MOD.getKey(), UserType.MOD.getKey(), "https:" + room.getModerator_badge(), ConfigEmoji.MOD_BADGE_COLOR, EmojiType.FRANKERFACEZ_BADGE);
+            LazyLoadEmoji modLle = new LazyLoadEmoji(UserType.MOD.getBadge(), UserType.MOD.getBadge(), "https:" + room.getModerator_badge(), ConfigEmoji.MOD_BADGE_COLOR, EmojiType.FRANKERFACEZ_BADGE);
             manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put(UserType.MOD.getKey(), modLle);
             logBox.log("Loaded the custom FrankerFaceZ moderator badge");
         }

@@ -23,6 +23,8 @@ public class EmojiApiLoader
 
     private static final String CHANNEL_NAME_REPLACE = "%CHANNEL_NAME%";
 
+    private static final String ID_REPLACE = "%ID_NUMBER%";
+
     public static final String OAUTH_REPLACE = "%OAUTH%";
 
     public static final String EMOTE_ID_REPLACE = "%EMOTE_ID%";
@@ -51,6 +53,16 @@ public class EmojiApiLoader
      * The base URL for getting the channel specific Twitch badges from the API
      */
     private static final String TWITCH_URL_BADGES = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/badges" + OAUTH_REPLACE;
+
+    /**
+     * The base URL for getting the channel specific Twitch badges from the new API
+     */
+    private static final String TWITCH_URL_BADGES2 = "https://badges.twitch.tv/v1/badges/channels/"+ ID_REPLACE + "/display" + OAUTH_REPLACE;
+
+    /**
+     * The base URL for getting the channel specific Twitch badges from the new API
+     */
+    private static final String TWITCH_URL_BADGES_GLOBAL = "https://badges.twitch.tv/v1/badges/global/display" + OAUTH_REPLACE;
 
     /**
      * The URL for getting the global FrankerFaceZ emotes from the API
@@ -146,15 +158,20 @@ public class EmojiApiLoader
         this.url = url;
     }
 
-    public void prepLoad(EmojiType emojiType, String channel, String oauth)
+    public void prepLoad(EmojiType emojiType, String channel, String oauth, String id)
     {
         // FrankerFaceZ API requires the channel name to be all lowercase, Twitch V2 is case agnostic
         channel = channel == null ? null : channel.toLowerCase();
-        String chanUrl = getUrl(emojiType, channel, oauth);
+        String chanUrl = getUrl(emojiType, channel, oauth, id);
         prepLoad(chanUrl);
     }
 
-    private String getUrl(EmojiType emojiType, String channel, String oauth)
+    public void prepLoad(EmojiType emojiType, String channel, String oauth)
+    {
+        this.prepLoad(emojiType, channel, oauth, null);
+    }
+
+    private String getUrl(EmojiType emojiType, String channel, String oauth, String id)
     {
         final String oauthLabel = "oauth:";
         if (oauth.contains(oauthLabel))
@@ -179,12 +196,31 @@ public class EmojiApiLoader
         // case TWITCH_V3:
         //     return TWITCH_URL_V3;
         case TWITCH_BADGE:
-            return TWITCH_URL_BADGES.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
+            if (id != null)
+            {
+                return TWITCH_URL_BADGES2.replaceAll(ID_REPLACE, id).replaceAll(OAUTH_REPLACE, oauth);
+            }
+            else
+            {
+                return TWITCH_URL_BADGES.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
+            }
+        case TWITCH_BADGE_GLOBAL:
+                if (id != null)
+                {
+                    return TWITCH_URL_BADGES_GLOBAL.replaceAll(ID_REPLACE, id).replaceAll(OAUTH_REPLACE, oauth);
+                }
+                else
+                {
+                    return null;
+                }
         default:
             return null;
         }
     }
-
+    private String getUrl(EmojiType emojiType, String channel, String oauth)
+    {
+        return this.getUrl(emojiType, channel, oauth, null);
+    }
     public boolean initLoad() throws IOException, MalformedURLException, FileNotFoundException
     {
         if (this.url != null)
