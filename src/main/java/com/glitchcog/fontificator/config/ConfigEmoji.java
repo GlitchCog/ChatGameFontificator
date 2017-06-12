@@ -759,7 +759,7 @@ public class ConfigEmoji extends Config
         this.ffzEnabled = copy.ffzEnabled;
         this.twitchLoaded = copy.twitchLoaded;
         this.twitchBadgesLoadedChannel = copy.twitchBadgesLoadedChannel;
-        this.twitchBadgesLoadedChannel = copy.twitchBadgesLoadedGlobal;
+        this.twitchBadgesLoadedGlobal = copy.twitchBadgesLoadedGlobal;
         this.ffzLoadedChannel = copy.ffzLoadedChannel;
         this.ffzGlobalLoaded = copy.ffzGlobalLoaded;
         this.bttvEnabled = copy.bttvEnabled;
