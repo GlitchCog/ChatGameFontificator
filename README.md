@@ -1,6 +1,8 @@
 # Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
-### April 06 Update: Bans and purges and timeouts, oh my! The Fontificator can now remove messages in tandem with the Twitch chat, enabled by default in the "Message Management" popup in the Messages menu.
+### June 12 Update: Support for multi-codepoint Unicode characters has been expanded. The characters available is highly dependent on your OS and what font Java pulls from it to be its default. Special thanks to broadstone and growf for this fix.
+
+#### April 06 Update: Bans and purges and timeouts, oh my! The Fontificator can now remove messages in tandem with the Twitch chat, enabled by default in the "Message Management" popup in the Messages menu.
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
