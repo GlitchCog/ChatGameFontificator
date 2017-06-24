@@ -186,6 +186,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Mario Land
   - Super Mario World
   - Super Mario World 2: Yoshi's Island
+  - Super Mario 64
   - Mario is Missing
   - Super Mario RPG: Dark
   - Super Mario RPG: Light
