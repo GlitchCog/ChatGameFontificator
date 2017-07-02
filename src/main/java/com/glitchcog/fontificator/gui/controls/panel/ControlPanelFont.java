@@ -132,6 +132,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Mario", "Super Mario Land"), new DropdownFont("sml_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World"), new DropdownFont("smw_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario World 2: Yoshi's Island"), new DropdownFont("yi_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mario", "Super Mario 64"), new DropdownFont("sm64_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario 64 Multicolor"), new DropdownFont("sm64_multicolor_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Mario", "Dr. Mario"), new DropdownFont("drmario_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Mario is Missing"), new DropdownFont("mmiss_font.png", FontType.FIXED_WIDTH));
