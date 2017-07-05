@@ -270,6 +270,12 @@ public class Message
         return completedTime != 0;
     }
 
+    public void setCompletelyDrawn()
+    {
+        drawCursor = Integer.MAX_VALUE;
+        completedTime = System.currentTimeMillis();
+    }
+
     /**
      * Get the time stamp
      * 
@@ -643,8 +649,7 @@ public class Message
         // otherwise the message will insta-draw because it would be censored if censorship were enabled
         if (censored && isCensorshipEnabled)
         {
-            drawCursor = Integer.MAX_VALUE;
-            completedTime = System.currentTimeMillis();
+            setCompletelyDrawn();
         }
         this.censored = censored;
     }
