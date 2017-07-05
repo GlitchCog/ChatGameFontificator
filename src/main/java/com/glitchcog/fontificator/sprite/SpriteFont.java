@@ -134,7 +134,7 @@ public class SpriteFont
      * @param c
      * @return character width
      */
-    private int getCharacterWidth(FontMetrics fontMetrics, SpriteCharacterKey c, ConfigEmoji emojiConfig)
+    public int getCharacterWidth(FontMetrics fontMetrics, SpriteCharacterKey c, ConfigEmoji emojiConfig)
     {
         if (c.isChar())
         {
@@ -473,11 +473,11 @@ public class SpriteFont
         int x = x_init;
         int y = y_init;
 
-        y += lineScrollOffset * getLineHeightScaled();
-
+        int height = getLineHeightScaled();
         int maxWidth = 0;
         int width = 0;
-        int height = getLineHeightScaled();
+
+        y += lineScrollOffset * height;
 
         boolean forcedBreak = false;
 
