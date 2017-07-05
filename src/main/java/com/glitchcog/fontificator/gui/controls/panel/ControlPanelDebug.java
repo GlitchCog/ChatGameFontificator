@@ -169,7 +169,7 @@ public class ControlPanelDebug extends ControlPanelBase
     }
 
     /**
-     * Construct an IRC (Connection) control panel
+     * Construct a debug control panel
      * 
      * @param fProps
      * @param chatWindow
