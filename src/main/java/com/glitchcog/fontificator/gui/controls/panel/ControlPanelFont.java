@@ -229,6 +229,20 @@ public class ControlPanelFont extends ControlPanelBase
         return "Unknown";
     }
 
+    public static List<DropdownFont> getAllFonts()
+    {
+        List<DropdownFont> allFonts = new ArrayList<DropdownFont>();
+        for (DropdownLabel ddfKey : PRESET_FONT_FILE_MAP.keySet())
+        {
+            if (CUSTOM_KEY.equals(ddfKey))
+            {
+                continue;
+            }
+            allFonts.add(PRESET_FONT_FILE_MAP.get(ddfKey));
+        }
+        return allFonts;
+    }
+
     private static final Map<DropdownLabel, DropdownBorder> PRESET_BORDER_FILE_MAP = new LinkedHashMap<DropdownLabel, DropdownBorder>()
     {
         private static final long serialVersionUID = 1L;
