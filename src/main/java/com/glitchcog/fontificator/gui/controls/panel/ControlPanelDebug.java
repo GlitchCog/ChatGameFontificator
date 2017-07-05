@@ -325,6 +325,10 @@ public class ControlPanelDebug extends ControlPanelBase
         add(collagePanel, gbc);
         gbc.gridy++;
 
+        ExamplePanel examplePanel = new ExamplePanel(this);
+        add(examplePanel, gbc);
+        gbc.gridy++;
+
         gbc.weightx = 1.0;
         gbc.weighty = 0.9;
         gbc.anchor = GridBagConstraints.SOUTH;
