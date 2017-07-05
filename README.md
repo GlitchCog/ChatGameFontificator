@@ -125,6 +125,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
 
 * Could I please see an exhaustive list of all the game fonts represented in this program?
 
+  [[Image of all the available fonts](../../raw/master/cgf_fonts_example.png)] 
+
   - 7th Dragon Name
   - 7th Saga Battle
   - Animal Crossing
