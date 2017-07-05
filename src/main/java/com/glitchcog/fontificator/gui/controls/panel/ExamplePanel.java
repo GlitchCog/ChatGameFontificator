@@ -101,8 +101,8 @@ public class ExamplePanel extends JPanel
 
     private void build(ControlPanelBase basePanel)
     {
-        fontColorButton = new ColorButton("Font Color", Color.WHITE, "Color to tint the font in the example image", basePanel);
-        bgColorButton = new ColorButton("Backgroud Color", Color.DARK_GRAY.darker(), "Color to make the background", basePanel);
+        fontColorButton = new ColorButton("Font Tint", Color.WHITE, "Color to tint the font in the example image", basePanel);
+        bgColorButton = new ColorButton("Backgroud", Color.DARK_GRAY.darker(), "Color to make the background", basePanel);
         lineFormatInput = new JTextField(TEXT_FONTNAME + " " + TEXT_PANGRAM + " " + TEXT_ASCII);
         JButton saveExample = new JButton("Generate/Save Example");
         saveExample.addActionListener(new ActionListener()
@@ -121,11 +121,11 @@ public class ExamplePanel extends JPanel
         gbc.gridx++;
         add(bgColorButton, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
+        gbc.weightx = 0.9;
         gbc.gridx++;
         add(lineFormatInput, gbc);
         gbc.fill = GridBagConstraints.NONE;
-        gbc.weightx = 0.0;
+        gbc.weightx = 0.1;
         gbc.gridx++;
         add(saveExample, gbc);
     }

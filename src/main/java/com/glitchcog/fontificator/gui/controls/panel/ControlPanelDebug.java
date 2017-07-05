@@ -319,6 +319,7 @@ public class ControlPanelDebug extends ControlPanelBase
 
         gbc.gridx = 0;
         gbc.gridwidth = 4;
+        gbc.weightx = 1.0;
 
         gbc.weighty = 0.1;
         CollagePanel collagePanel = new CollagePanel(chat);
@@ -329,7 +330,6 @@ public class ControlPanelDebug extends ControlPanelBase
         add(examplePanel, gbc);
         gbc.gridy++;
 
-        gbc.weightx = 1.0;
         gbc.weighty = 0.9;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.fill = GridBagConstraints.BOTH;
