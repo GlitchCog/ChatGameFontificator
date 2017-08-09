@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=604828
+colorHighlight=FF00FF
+colorPalette=D850A8,C86030,D8C030,E00808,F878C0,28B850,2870A0,8070C0
+fontBorderInsetX=-32
+fontBorderInsetY=-8
+fontBorderScale=2.0
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontGridHeight=12
+fontLineSpacing=0
+group=Drill Dozer
+fontFile=preset\://fonts/drilldozer_font.png
+fontSpaceWidth=30
+name=Drill Dozer
+fontGridWidth=8
+fontType=VARIABLE_WIDTH
+fontScale=2.0
+fontBorderFile=preset\://borders/drilldozer_border.png

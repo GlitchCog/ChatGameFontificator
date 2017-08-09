@@ -96,6 +96,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownFont("dq3_sfc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownFont("dw4_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest Heroes: Rocket Slime Dialog"), new DropdownFont("dqhrs_dialog_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Drill Dozer", "Drill Dozer Dialog"), new DropdownFont("drilldozer_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownFont("eb0_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound Zero Bold"), new DropdownFont("eb0_bold_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound"), new DropdownFont("eb_font.png", FontType.VARIABLE_WIDTH));
@@ -277,6 +278,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownBorder("dw4_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest VI (SFC)"), new DropdownBorder("dq6_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest Heroes: Rocket Slime"), new DropdownBorder("dqhrs_border.png", Color.WHITE));
+            put(new DropdownLabel("Drill Dozer", "Drill Dozer"), new DropdownBorder("drilldozer_border.png", Color.WHITE));
             put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownBorder("eb0_border.png", Color.WHITE));
             put(new DropdownLabel("EarthBound", "EarthBound Plain"), new DropdownBorder("eb_plain.png", Color.WHITE));
             put(new DropdownLabel("EarthBound", "EarthBound Mint"), new DropdownBorder("eb_mint.png", Color.WHITE));

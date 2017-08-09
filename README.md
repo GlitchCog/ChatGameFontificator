@@ -155,6 +155,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Dragon Quest III (SFC)
   - Dragon Warrior IV
   - Dragon Quest Heroes: Rocket Slime
+  - Drill Dozer
   - EarthBound Zero
   - EarthBound Zero Bold
   - EarthBound
