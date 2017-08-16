@@ -125,6 +125,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Holy Diver", "Holy Diver"), new DropdownFont("holy_diver_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownFont("rcr_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownFont("lostvik_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Lufia", "Lufia II: Rise of the Sinistrals"), new DropdownFont("lufia2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros."), new DropdownFont("smb1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 2"), new DropdownFont("smb2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3"), new DropdownFont("smb3_font.png", FontType.FIXED_WIDTH));
@@ -164,6 +165,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Quintet", "Terranigma"), new DropdownFont("terranigma_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Rygar", "Rygar (NES)"), new DropdownFont("rygar_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Secret of Evermore", "Secret of Evermore"), new DropdownFont("soe_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Shadow Hearts", "Shadow Hearts: Covenant Cutscene"), new DropdownFont("shadhearts2_cutscene_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shantae", "Shantae"), new DropdownFont("shantae_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Shining", "Shining Force Dialog"), new DropdownFont("shining_force_dialog_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Shining", "Shining Force Menu"), new DropdownFont("shining_force_menu_font.png", FontType.FIXED_WIDTH));
@@ -303,6 +305,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Harvest Moon", "The Tale of Two Towns Yellow"), new DropdownBorder("hm_ttott_yellow_border.png", Color.WHITE));
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownBorder("rcr_border.png", Color.WHITE));
             put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownBorder("lostvik_border.png", Color.WHITE));
+            put(new DropdownLabel("Lufia", "Lufia II: Rise of the Sinistrals Speech"), new DropdownBorder("lufia2_border.png", Color.WHITE));
+            put(new DropdownLabel("Lufia", "Lufia II: Rise of the Sinistrals Thought"), new DropdownBorder("lufia2_thought_border.png", Color.WHITE));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Brick"), new DropdownBorder("smb1_brick_border.png", 0x994E00));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Cloud"), new DropdownBorder("smb1_cloud_border.png", Color.WHITE));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Rock"), new DropdownBorder("smb1_rock_border.png", 0x994E00));
