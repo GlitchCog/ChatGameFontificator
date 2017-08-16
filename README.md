@@ -181,6 +181,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Holy Diver
   - Kero Blaster
   - The Lost Vikings
+  - Lufia II: Rise of the Sinistrals
   - Super Mario Bros.
   - Super Mario Bros. 2
   - Super Mario Bros. 3
@@ -220,6 +221,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Rygar (NES)
   - Secret of Evermore
   - Sega System
+  - Shadow Hearts: Covenant (Cutscene)
   - Shantae
   - Shining Force
   - Shovel Knight
