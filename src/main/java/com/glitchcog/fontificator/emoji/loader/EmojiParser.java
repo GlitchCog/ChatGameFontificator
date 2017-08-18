@@ -1,5 +1,6 @@
 package com.glitchcog.fontificator.emoji.loader;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -231,13 +232,16 @@ public class EmojiParser
         }.getType();
         Map<String, TwitchBadges> jsonMap = gson.fromJson(jsonElement, emoteType);
 
+        final Color subBgColor = new Color(0x6441A4);
         int badgeCount = 0;
         for (Entry<String, TwitchBadges> badge : jsonMap.entrySet())
         {
             if (badge.getValue() != null && badge.getValue().getImage() != null)
             {
+                // Sub badge color is a background color hack to make the sub badge visible against black backgrounds until the new Twitch badge system is implemented
+                final boolean isSubBadge = "subscriber".equals(badge.getKey());
                 badgeCount++;
-                LazyLoadEmoji llBadge = new LazyLoadEmoji(badge.getKey(), badge.getValue().getImage(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, EmojiType.TWITCH_BADGE);
+                LazyLoadEmoji llBadge = new LazyLoadEmoji(badge.getKey(), badge.getValue().getImage(), TWITCH_BADGE_PIXEL_SIZE, TWITCH_BADGE_PIXEL_SIZE, isSubBadge ? subBgColor : null, EmojiType.TWITCH_BADGE);
                 badgeMap.put(badge.getKey(), llBadge);
             }
         }

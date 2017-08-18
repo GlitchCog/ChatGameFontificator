@@ -335,7 +335,7 @@ public class ChatViewerBot extends PircBot
         }
         else
         {
-            log("Unknown implemented message type: " + response);
+            log(response);
         }
     }
 
