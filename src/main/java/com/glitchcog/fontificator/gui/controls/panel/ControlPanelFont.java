@@ -184,6 +184,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("TMNT", "Teenage Mutant Ninja Turtles (NES)"), new DropdownFont("tmnt_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Undertale", "Undertale"), new DropdownFont("undertale_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Wario", "Wario Land 4 (Dark)"), new DropdownFont("wl4_dark_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Wario", "Wario Land 4 (Light)"), new DropdownFont("wl4_light_font.png", FontType.VARIABLE_WIDTH));
@@ -368,6 +369,10 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png", Color.WHITE));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png", Color.WHITE));
             put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png", Color.WHITE));
+            put(new DropdownLabel("TMNT", "Teenage Mutant Ninja Turtles Dialog (NES)"), new DropdownBorder("tmnt_nes_dialog_border.png", Color.WHITE));
+            put(new DropdownLabel("TMNT", "Teenage Mutant Ninja Turtles Map (NES)"), new DropdownBorder("tmnt_nes_map_border.png", Color.WHITE));
+            put(new DropdownLabel("TMNT", "Teenage Mutant Ninja Turtles Portraits Color (NES)"), new DropdownBorder("tmnt_nes_portraits_color_border.png", Color.WHITE));
+            put(new DropdownLabel("TMNT", "Teenage Mutant Ninja Turtles Portraits Gray (NES)"), new DropdownBorder("tmnt_nes_portraits_gray_border.png", Color.WHITE));
             put(new DropdownLabel("Undertale", "Undertale"), new DropdownBorder("undertale_border.png", Color.WHITE));
             put(new DropdownLabel("Wario", "Wario Land 4"), new DropdownBorder("wl4_border.png", 0x58F8F8));
             put(new DropdownLabel("Wild Arms", "Wild Arms"), new DropdownBorder("wildarms_border.png", Color.WHITE));

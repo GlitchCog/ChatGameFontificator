@@ -1,0 +1,19 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=08FF00
+colorPalette=08FF00,93C4FF,FF002A,FFAD10,A900FF
+fontBorderFile=preset\://borders/tmnt_nes_dialog_border.png
+fontBorderInsetY=16
+fontBorderInsetX=16
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/tmnt_nes_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=8
+fontScale=2.0
+fontType=FIXED_WIDTH
+group=TMNT
+name=Teenage Mutant Ninja Turtles (NES) Dialog

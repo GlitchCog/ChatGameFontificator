@@ -236,6 +236,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Terranigma
   - Tetris (GB)
   - Tetris (NES)
+  - Teenage Mutant Ninja Turtles (NES)
   - Undertale
   - Wario Land 4 (Dark)
   - Wario Land 4 (Light)
