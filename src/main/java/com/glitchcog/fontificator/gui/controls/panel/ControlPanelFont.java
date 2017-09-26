@@ -84,6 +84,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Disney Capcom", "Chip 'n Dale Rescue Rangers"), new DropdownFont("cndrr_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Disney Capcom", "DuckTales"), new DropdownFont("ducktales_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Disney Capcom", "TaleSpin"), new DropdownFont("talespin_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Donkey Kong", "Donkey Kong 94"), new DropdownFont("dk94_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Donkey Kong", "Donkey Kong Country"), new DropdownFont("dkc_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Donkey Kong", "Donkey Kong Country Banana"), new DropdownFont("dkc_banana_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Donkey Kong", "Donkey Kong Country KONG"), new DropdownFont("dkc_kong_font.png", FontType.FIXED_WIDTH));
@@ -272,6 +273,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Disney Capcom", "DuckTales HUD"), new DropdownBorder("ducktales_hud_border.png", Color.WHITE));
             put(new DropdownLabel("Disney Capcom", "DuckTales Land Select"), new DropdownBorder("ducktales_land_border.png", Color.WHITE));
             put(new DropdownLabel("Disney Capcom", "TaleSpin"), new DropdownBorder("talespin_border.png", Color.WHITE));
+            put(new DropdownLabel("Donkey Kong", "Donkey Kong '94"), new DropdownBorder("dk94_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior"), new DropdownBorder("dw1_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior II"), new DropdownBorder("dw2_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest I.II (SFC)"), new DropdownBorder("dq1_2_sfc_border.png", Color.WHITE));

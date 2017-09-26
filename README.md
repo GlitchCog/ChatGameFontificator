@@ -144,6 +144,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Clash at Demonhead
   - Crystalis
   - DuckTales (NES)
+  - Donkey Kong '94
   - Donkey Kong Country
   - Dr. Mario
   - Dragon Warrior
