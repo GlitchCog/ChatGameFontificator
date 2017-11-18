@@ -1,8 +1,10 @@
 # Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
-### June 12 Update: Support for multi-codepoint Unicode characters has been expanded. The characters available is highly dependent on your OS and what font Java pulls from it to be its default. Special thanks to broadstone and growf for this fix.
+### November 18 Update: Low resolution screen users rejoyce: at long last, the super lengthy font and border selection menus are scrollable.
 
-#### April 06 Update: Bans and purges and timeouts, oh my! The Fontificator can now remove messages in tandem with the Twitch chat, enabled by default in the "Message Management" popup in the Messages menu.
+#### June 12 Update: Support for multi-codepoint Unicode characters has been expanded. The characters available is highly dependent on your OS and what font Java pulls from it to be its default. Special thanks to broadstone and growf for this fix.
+
+##### April 06 Update: Bans and purges and timeouts, oh my! The Fontificator can now remove messages in tandem with the Twitch chat, enabled by default in the "Message Management" popup in the Messages menu.
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
@@ -25,7 +27,7 @@ Enjoy!
 1. Get the program: [[Download](../../raw/master/jar/ChatGameFontificator.jar)]
 2. Run ChatGameFontificator.jar, probably by double clicking it, or possibly by right-clicking it and selecting to run it. It should look something like the picture below, with the two windows, one for the chat display, one for configuration. If you close the configuration window, just single click anywhere inside the chat display window to bring it back. If it doesn't run, you may need to download and install the [JRE](https://java.com/en/download/).
 <img src="http://www.glitchcog.com/cgf/cgf.png" alt="Chat Game Fontificator">
-3. Enter your credentials: the Twitch user name you want to join the chat with, and your [OAuth token](http://www.twitchapps.com/tmi/). ([What is an OAuth token?](http://oauth.net/about/))
+3. Enter your credentials: the Twitch user name you want to join the chat with, and your [OAuth token](http://www.twitchapps.com/tmi/). [What is an OAuth token?](http://oauth.net/about/)
 4. Enter the channel you want to join (the # is optional, but Twitch channels should be in all lowercase, but that is done invisibly and automatically if you're connecting to the Twitch IRC server).
 5. Make the chat look how you want it to look. Either select something from the Presets menu, or use the Fontificator Configuration window tabs to configure to your heart's content. There are many more games available on the Font/Border tab that don't have representation in the Preset menu.
 6. Click connect and enjoy.
@@ -92,8 +94,6 @@ Yes, just change the host on the Connection tab to a different server. Twitch-sp
 
   - A message consisting of a single period will not show up in the chat program. I'm not sure why this happens. The message appears to never be received by the program. It might be on Twitch's end, or in the PircBot IRC library this program uses.
 
-  - If your resolution is too low, the list of fonts or borders might go off the bottom of your screen. As a workaround, you can use the arrow keys to select fonts, although you won't be able to see which font you've arrowed down to until you press enter to select it. I'm working on a different GUI mechanism for selecting fonts... some sort of text input where you can type the name of a game or console to filter the list. 
-
   - In some rare unknown circumstance (possibly related to changing the rate at which messages are drawn?) the framerate can drop, making the message roll-out look choppy. Typically restarting will fix this.
 
   - Messages from massively popular streams like GamesDoneQuick don't show up in the chat window. I suspect Twitch uses a different protocol for massively populated streams, but I'm not sure. GamesDoneQuick is the only channel I've seen this happen with.
@@ -104,11 +104,11 @@ Select Custom... from the font dropdown menu and select your font sheet image. T
 
 * How do I use a custom border?
 
-Select Custom... from the border dropdown menu and select your border sheet image. This image must be a PNG containing a grid of uniformly sized rectangular cells, 3 cells wide by 3 cells tall. This image represents a small version of a border, which can be expanded by tiling the top-middle, middle-left, middle-right, and bottom-middle edge cells. The center cell is tiled on the inside of the border horizontally and vertically. The degree to which a pixel is pure white is the degree to which it is tinted by the Border Tint color, and any transparent or partially transparent pixels will show through to the background color the appropriate amount. [This image (a Metroid border) is an example of one that will work.] (../../raw/master/src/main/resources/borders/metroid_border.png)
+Select Custom... from the border dropdown menu and select your border sheet image. This image must be a PNG containing a grid of uniformly sized rectangular cells, 3 cells wide by 3 cells tall. This image represents a small version of a border, which can be expanded by tiling the top-middle, middle-left, middle-right, and bottom-middle edge cells. The center cell is tiled on the inside of the border horizontally and vertically. The degree to which a pixel is pure white is the degree to which it is tinted by the Border Tint color, and any transparent or partially transparent pixels will show through to the background color the appropriate amount. [This image (a Metroid border) is an example of one that will work.](../../raw/master/src/main/resources/borders/metroid_border.png)
 
 * What if I want to start with an existing font or border, rather than create a custom one from whole cloth?
 
-All the font and border images are available as part of the source code on this site. Modify them as you see fit, and then load them into the program as a custom font or border. To save them from the GitHub source code repository, you have to click on the font, then save the image from the button in the upper left that says Raw, or from the image that is displayed on that page. If you right-click the image name from the repository and select Save-As, you will be saving the HTML page that GitHub uses to represent that image, not the image itself. Another consideration is that the characters of many of the existing fonts are colored white against a transparent background, so some image viewing or editing programs will display these images as just a blank white picture. If this happens to you, you may need a more sophisticated program to work on them. Here are links to the repository locations containing the existing font and border images: [Fonts] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/fonts) | [Borders] (https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/borders)
+All the font and border images are available as part of the source code on this site. Modify them as you see fit, and then load them into the program as a custom font or border. To save them from the GitHub source code repository, you have to click on the font, then save the image from the button in the upper left that says Raw, or from the image that is displayed on that page. If you right-click the image name from the repository and select Save-As, you will be saving the HTML page that GitHub uses to represent that image, not the image itself. Another consideration is that the characters of many of the existing fonts are colored white against a transparent background, so some image viewing or editing programs will display these images as just a blank white picture. If this happens to you, you may need a more sophisticated program to work on them. Here are links to the repository locations containing the existing font and border images: [Fonts](https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/fonts) | [Borders](https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/borders)
 
 * The program wasn't broken. Why did you "fix" it?
 
@@ -127,7 +127,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
 
   [[Image of all the available fonts](../../raw/master/cgf_fonts_example.png)] 
 
-  - 7th Dragon Name
+  - 7th Dragon (Dialog)
+  - 7th Dragon (Name)
   - 7th Saga Battle
   - Animal Crossing
   - Bahamut Lagoon
@@ -234,6 +235,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
   - TaleSpin (NES)
+  - Tengai Makyou Zero
   - Terranigma
   - Tetris (GB)
   - Tetris (NES)

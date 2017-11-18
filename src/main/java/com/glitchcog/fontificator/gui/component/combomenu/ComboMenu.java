@@ -17,9 +17,9 @@ public class ComboMenu extends JMenu
 
     private ArrowIcon iconRenderer;
 
-    public ComboMenu(String label)
+    public ComboMenu()
     {
-        super(label);
+        super();
         iconRenderer = new ArrowIcon(SwingConstants.SOUTH, true);
         setBorder(new EtchedBorder());
         setIcon(new BlankIcon(null, 11));

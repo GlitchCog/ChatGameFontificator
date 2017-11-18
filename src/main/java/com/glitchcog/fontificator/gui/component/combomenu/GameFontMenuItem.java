@@ -12,6 +12,11 @@ public class GameFontMenuItem extends JMenuItem
 
     private VideoGame game;
 
+    public GameFontMenuItem(String text)
+    {
+        this(text, new VideoGame(text));
+    }
+
     public GameFontMenuItem(String text, VideoGame game)
     {
         super(text);

@@ -56,7 +56,7 @@ public class ControlPanelFont extends ControlPanelBase
      * Text of the selection option in the font and border preset dropdown menus to prompt the user to specify her own
      * file
      */
-    private final static DropdownLabel CUSTOM_KEY = new DropdownLabel(null, "Custom...");
+    private static final DropdownLabel CUSTOM_KEY = new DropdownLabel(null, "Custom...");
 
     private static final Color SCALE_EVEN = Color.BLACK;
 
@@ -68,7 +68,8 @@ public class ControlPanelFont extends ControlPanelBase
 
         {
             put(CUSTOM_KEY, null);
-            put(new DropdownLabel("7th Dragon", "7th Dragon Name"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("7th Dragon", "7th Dragon (Dialog)"), new DropdownFont("7d_dialog_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("7th Dragon", "7th Dragon (Name)"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("7th Saga", "7th Saga Battle"), new DropdownFont("7saga_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Animal Crossing", "Animal Crossing"), new DropdownFont("ac_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
@@ -183,6 +184,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tales", "Tales of Phantasia HUD (SFC, Mixed Case)"), new DropdownFont("tophan_hud_sfc_mixedcase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Phantasia HUD (SFC, Upper Case)"), new DropdownFont("tophan_hud_sfc_uppercase_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tales", "Tales of Symphonia"), new DropdownFont("tos_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Tengai Makyou Zero", "Tengai Makyou Zero"), new DropdownFont("tmzero_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("TMNT", "Teenage Mutant Ninja Turtles (NES)"), new DropdownFont("tmnt_nes_font.png", FontType.FIXED_WIDTH));
@@ -368,6 +370,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Symphonia C"), new DropdownBorder("tos_c_border.png", Color.WHITE));
+            put(new DropdownLabel("Tengai Makyou Zero", "Tengai Makyou Zero"), new DropdownBorder("tmzero_border.png", Color.WHITE));
             put(new DropdownLabel("Tetris", "Tetris Next (GB)"), new DropdownBorder("tetris_gb_border.png", Color.WHITE));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownBorder("tetris_nes_border.png", Color.WHITE));
             put(new DropdownLabel("Tetris", "Tetris Next (NES)"), new DropdownBorder("tetris_nes_next_border.png", Color.WHITE));
