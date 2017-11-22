@@ -539,6 +539,7 @@ public class ControlWindow extends JDialog
         final String[] strShiningForce = new String[] { "Shining Force", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "shiningforce.cgf" };
         final String[] strShovel = new String[] { "Shovel Knight", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "sk.cgf" };
         final String[] strStardew = new String[] { "Stardew Valley", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "sdv.cgf" };
+        final String[] strStarOcean = new String[] { "Star Ocean", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "staroc.cgf" };
         final String[] strSuikoden = new String[] { "Suikoden", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "suiko.cgf" };
         final String[] strTalesOfSymphonia = new String[] { "Tales of Symphonia", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tos.cgf" };
         final String[] strTengai = new String[] { "Tengai Makyou Zero", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tmzero.cgf" };
@@ -560,7 +561,7 @@ public class ControlWindow extends JDialog
             strYs1fc, strYs3fc, strYs3snes, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw, strZeldaMinish,  
             strSeventhDragon, strClash, strCrystalis, strDrillDozer, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strLufia2, strRiverCityRansom, 
-            strRygarNes, strSecretOfEvermore, strShantae, strShiningForce, strShovel, strStardew, strSuikoden, strTalesOfSymphonia, strTengai, strWarioLand4
+            strRygarNes, strSecretOfEvermore, strShantae, strShiningForce, strShovel, strStardew, strStarOcean, strSuikoden, strTalesOfSymphonia, strTengai, strWarioLand4
         };
         // @formatter:on
 
@@ -595,7 +596,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("TMNT", new String[] { strTmntNesDialog[0], strTmntNesPortraits[0] });
         presetMapSubmenuToItem.put("Ys", new String[] { strYs1fc[0], strYs3fc[0], strYs3snes[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0], strZeldaMinish[0] });
-        presetMapSubmenuToItem.put(null, new String[] { strSeventhDragon[0], strClash[0], strCrystalis[0], strDrillDozer[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strLufia2[0], strRiverCityRansom[0], strRygarNes[0], strSecretOfEvermore[0], strShantae[0], strShiningForce[0], strShovel[0], strStardew[0], strSuikoden[0], strTalesOfSymphonia[0], strTengai[0], strWarioLand4[0] });
+        presetMapSubmenuToItem.put(null, new String[] { strSeventhDragon[0], strClash[0], strCrystalis[0], strDrillDozer[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strLufia2[0], strRiverCityRansom[0], strRygarNes[0], strSecretOfEvermore[0], strShantae[0], strShiningForce[0], strShovel[0], strStardew[0], strStarOcean[0], strSuikoden[0], strTalesOfSymphonia[0], strTengai[0], strWarioLand4[0] });
 
         for (String submenuKey : presetMapSubmenuToItem.keySet())
         {

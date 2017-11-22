@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=DEC6AD
+colorPalette=ADADC6,E7C67B,9CAD7B,B58484,A5FFFF
+fontBorderFile=preset\://borders/staroc_dialog_color_border.png
+fontBorderInsetY=-64
+fontBorderInsetX=-48
+fontBorderScale=2.0
+fontCharSpacing=-1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/staroc_dialog_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=2
+fontScale=2.0
+fontSpaceWidth=48
+fontType=VARIABLE_WIDTH
+group=
+name=Star Ocean

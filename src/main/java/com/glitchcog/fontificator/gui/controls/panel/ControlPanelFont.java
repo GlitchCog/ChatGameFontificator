@@ -177,7 +177,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Sonic", "Sega System"), new DropdownFont("sega_sys_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Sonic", "Sonic Team"), new DropdownFont("sonic_team_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Stardew Valley", "Stardew Valley"), new DropdownFont("sdv_font.png", FontType.FIXED_WIDTH));
-            put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownFont("staroc_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Star Ocean", "Star Ocean Dialog"), new DropdownFont("staroc_dialog_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownFont("staroc_hud_font.png", FontType.FIXED_WIDTH));
+            // put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownFont("staroc_font.png", FontType.FIXED_WIDTH)); // Same as staroc_hud_font, retired, but font file left in resources
             put(new DropdownLabel("Studio Pixel", "Cave Story+"), new DropdownFont("cavestoryplus_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Studio Pixel", "Kero Blaster"), new DropdownFont("keroblast_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownFont("suiko_font.png", FontType.VARIABLE_WIDTH));
@@ -365,7 +367,11 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Stardew Valley", "Stardew Valley Dialog"), new DropdownBorder("sdv_dialog_border.png", Color.WHITE));
             put(new DropdownLabel("Stardew Valley", "Stardew Valley Portrait"), new DropdownBorder("sdv_portrait_border.png", Color.WHITE));
             put(new DropdownLabel("Stardew Valley", "Stardew Valley Scroll"), new DropdownBorder("sdv_scroll_border.png", Color.WHITE));
-            put(new DropdownLabel("Star Ocean", "Star Ocean"), new DropdownBorder("staroc_border.png", Color.WHITE));
+            put(new DropdownLabel("Star Ocean", "Star Ocean Dialog"), new DropdownBorder("staroc_dialog_border.png", Color.WHITE));
+            put(new DropdownLabel("Star Ocean", "Star Ocean Dialog Color"), new DropdownBorder("staroc_dialog_color_border.png", Color.WHITE));
+            put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownBorder("staroc_hud_border.png", Color.WHITE));
+            // put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownBorder("staroc_border.png", Color.WHITE)); // Same as staroc_hud_border, retired, but font file left in resources
+            put(new DropdownLabel("Star Ocean", "Star Ocean HUD Color"), new DropdownBorder("staroc_hud_color_border.png", Color.WHITE));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png", Color.WHITE));
