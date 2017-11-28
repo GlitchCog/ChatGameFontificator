@@ -268,6 +268,22 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Enemy"), new DropdownBorder("csotn_enemy_border.png", Color.WHITE));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png", 0xCEDBE8));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Menu"), new DropdownBorder("cc_menu_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Arnian Wood"), new DropdownBorder("cc_arnian_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Simple Line"), new DropdownBorder("cc_simple_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Iron Plate"), new DropdownBorder("cc_iron_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Shellfish"), new DropdownBorder("cc_shellfish_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Tea for Three"), new DropdownBorder("cc_tea_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Guldovian Stitch"), new DropdownBorder("cc_guldovian_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Infrared Vision"), new DropdownBorder("cc_infrared_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Valencian Cloth"), new DropdownBorder("cc_valencian_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Monster's Mouth"), new DropdownBorder("cc_monster_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Our Favorite Martian"), new DropdownBorder("cc_martian_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Snakes & Orbs"), new DropdownBorder("cc_snake_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Porre's Furnace"), new DropdownBorder("cc_furnace_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Skullduggery"), new DropdownBorder("cc_skull_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Tropical Paradise"), new DropdownBorder("cc_tropics_border.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Cross Quill and Papyrus"), new DropdownBorder("cc_papyrus_border.png", Color.WHITE));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead"), new DropdownBorder("cad_border.png", Color.WHITE));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Hermit"), new DropdownBorder("cad_hermit_border.png", Color.WHITE));
             put(new DropdownLabel("Clash at Demonhead", "Clash at Demonhead Shop"), new DropdownBorder("cad_shop_border.png", 0x44009C));
@@ -370,7 +386,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Star Ocean", "Star Ocean Dialog"), new DropdownBorder("staroc_dialog_border.png", Color.WHITE));
             put(new DropdownLabel("Star Ocean", "Star Ocean Dialog Color"), new DropdownBorder("staroc_dialog_color_border.png", Color.WHITE));
             put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownBorder("staroc_hud_border.png", Color.WHITE));
-            // put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownBorder("staroc_border.png", Color.WHITE)); // Same as staroc_hud_border, retired, but font file left in resources
+            // put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownBorder("staroc_border.png", Color.WHITE)); // Same as staroc_hud_border, retired, but border file left in resources
             put(new DropdownLabel("Star Ocean", "Star Ocean HUD Color"), new DropdownBorder("staroc_hud_color_border.png", Color.WHITE));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png", Color.WHITE));
