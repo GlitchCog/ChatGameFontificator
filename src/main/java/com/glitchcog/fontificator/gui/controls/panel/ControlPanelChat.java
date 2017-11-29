@@ -1,6 +1,7 @@
 package com.glitchcog.fontificator.gui.controls.panel;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
@@ -13,6 +14,7 @@ import java.awt.event.ComponentListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -90,8 +92,8 @@ public class ControlPanelChat extends ControlPanelBase
             public void componentResized(ComponentEvent e)
             {
                 Component c = (Component) e.getSource();
-                final int w = c.getWidth();
-                final int h = c.getHeight();
+                final int w = ((JFrame)c).getContentPane().getWidth();
+                final int h = ((JFrame)c).getContentPane().getHeight();
                 widthInput.setText(Integer.toString(w));
                 heightInput.setText(Integer.toString(h));
                 config.setWidth(w);
@@ -283,7 +285,9 @@ public class ControlPanelChat extends ControlPanelBase
                         final int height = Integer.parseInt(heightInput.getText());
                         config.setWidth(width);
                         config.setHeight(height);
-                        chatWindow.setSize(config.getWidth(), config.getHeight());
+                        chatWindow.getContentPane().setPreferredSize(new Dimension(config.getWidth(), config.getHeight()));
+                        chatWindow.getContentPane().setSize(config.getWidth(), config.getHeight());
+                        chatWindow.pack();
                     }
                     else
                     {
@@ -485,8 +489,8 @@ public class ControlPanelChat extends ControlPanelBase
         this.scrollableBox.setSelected(config.isScrollable());
         this.reverseScrollBox.setSelected(config.isReverseScrolling());
         this.chatFromBottomBox.setSelected(config.isChatFromBottom());
-        this.widthInput.setText(Integer.toString(config.getWidth()));
-        this.heightInput.setText(Integer.toString(config.getHeight()));
+        this.widthInput.setText(config.getWidth() == null ? null : Integer.toString(config.getWidth()));
+        this.heightInput.setText(config.getHeight() == null ? null : Integer.toString(config.getHeight()));
 
         this.chromaEnabledBox.setSelected(config.isChromaEnabled());
 
@@ -498,7 +502,7 @@ public class ControlPanelChat extends ControlPanelBase
         this.chromaInvertBox.setSelected(config.isChromaInvert());
         this.chromaCornerSlider.setValue(config.getChromaCornerRadius());
 
-        chatWindow.setSize(config.getWidth(), config.getHeight());
+        chatWindow.setChatSize(config);
 
         toggleChromaInputFields();
 

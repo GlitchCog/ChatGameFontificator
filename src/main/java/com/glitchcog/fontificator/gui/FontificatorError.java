@@ -47,7 +47,7 @@ public class FontificatorError
 
     public void handleProblem(String summary, List<String> errors)
     {
-        String allErrors = "<html>" + summary;
+        String allErrors = "<html>" + summary + (summary == null || summary.isEmpty() ? "" : "<br />");
         int eCount = 0;
         for (String er : errors)
         {

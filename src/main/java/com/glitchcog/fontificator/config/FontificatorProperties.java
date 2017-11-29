@@ -92,8 +92,10 @@ public class FontificatorProperties extends Properties
     public static final String KEY_CHAT_POSITION_X = "chatPositionX";
     public static final String KEY_CHAT_POSITION_Y = "chatPositionY";
     public static final String KEY_CHAT_FROM_BOTTOM = "chatFromBottom";
-    public static final String KEY_CHAT_WIDTH = "chatWidth";
-    public static final String KEY_CHAT_HEIGHT = "chatHeight";
+    public static final String KEY_CHAT_WINDOW_WIDTH = "chatWidth"; // Legacy, no longer saved, used for chat window, not chat window content pane
+    public static final String KEY_CHAT_WINDOW_HEIGHT = "chatHeight"; // Legacy, no longer saved, used for chat window, not chat window content pane
+    public static final String KEY_CHAT_WIDTH = "chatPixelWidth";
+    public static final String KEY_CHAT_HEIGHT = "chatPixelHeight";
     public static final String KEY_CHAT_CHROMA_ENABLED = "chromaEnabled";
     public static final String KEY_CHAT_INVERT_CHROMA = "invertChroma";
     public static final String KEY_CHAT_REVERSE_SCROLLING = "reverseScrolling";
@@ -700,6 +702,10 @@ public class FontificatorProperties extends Properties
 
         if (!report.isErrorFree())
         {
+            if (report.isOnlyMissingKeys())
+            {
+                report.setMainMessage("<center>Please resave the configuration file<br />to fix these issues:</center>");
+            }
             ChatWindow.popup.handleProblem(report);
         }
 

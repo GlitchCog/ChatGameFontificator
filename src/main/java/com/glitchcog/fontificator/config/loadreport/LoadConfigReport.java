@@ -99,6 +99,23 @@ public class LoadConfigReport
     }
 
     /**
+     * Get whether all the load problems are just missing keys
+     * 
+     * @return whether all errors are missing keys
+     */
+    public boolean isOnlyMissingKeys()
+    {
+        for (LoadConfigErrorType result : types)
+        {
+            if (result != LoadConfigErrorType.MISSING_KEY)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Get the messages
      * 
      * @return messages

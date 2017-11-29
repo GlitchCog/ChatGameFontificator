@@ -1,6 +1,7 @@
 package com.glitchcog.fontificator.gui.chat;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -15,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 
+import com.glitchcog.fontificator.config.ConfigChat;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.gui.FontificatorError;
 import com.glitchcog.fontificator.gui.controls.ControlWindow;
@@ -84,7 +86,9 @@ public class ChatWindow extends JFrame
         addMouseMotionListener(mouseListeners);
         addMouseWheelListener(chatPanel);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(fProps.getChatConfig().getWidth(), fProps.getChatConfig().getHeight());
+
+        setChatSize(fProps.getChatConfig());
+
         setResizable(fProps.getChatConfig().isResizable());
         setAlwaysOnTop(fProps.getChatConfig().isAlwaysOnTop());
 
@@ -138,6 +142,29 @@ public class ChatWindow extends JFrame
             }
         });
 
+    }
+
+    /**
+     * Handles sizing the Chat Window, clearing out old JFrame-based config values in the ConfigChat model if they were
+     * the only ones available
+     * 
+     * @param chatConfig
+     */
+    public void setChatSize(ConfigChat chatConfig)
+    {
+        if (chatConfig.getWindowWidth() != null && chatConfig.getWindowHeight() != null)
+        {
+            setSize(chatConfig.getWindowWidth(), chatConfig.getWindowHeight());
+            chatConfig.setWidth(getContentPane().getWidth());
+            chatConfig.setHeight(getContentPane().getHeight());
+            chatConfig.clearLegacyWindowSize();
+        }
+        else if (chatConfig.getWidth() > 0 && chatConfig.getHeight() > 0)
+        {
+            getContentPane().setPreferredSize(new Dimension(chatConfig.getWidth(), chatConfig.getHeight()));
+            getContentPane().setSize(chatConfig.getWidth(), chatConfig.getHeight());
+            pack();
+        }
     }
 
     /**

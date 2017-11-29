@@ -47,14 +47,24 @@ public class ConfigChat extends Config
     private Boolean chatFromBottom;
 
     /**
-     * The width of the chat window in pixels
+     * The width of the chat window content pane in pixels
      */
     private Integer width;
 
     /**
-     * The height of the chat window in pixels
+     * The height of the chat window content pane in pixels
      */
     private Integer height;
+
+    /**
+     * Legacy value for width of window itself
+     */
+    private Integer windowWidth;
+
+    /**
+     * Legacy value for height of window itself
+     */
+    private Integer windowHeight;
 
     /**
      * Whether the chroma border is enabled
@@ -103,6 +113,8 @@ public class ConfigChat extends Config
         this.chatFromBottom = null;
         this.width = null;
         this.height = null;
+        this.windowWidth = null;
+        this.windowHeight = null;
         this.chromaEnabled = null;
         this.chromaInvert = null;
         this.chromaBorder = null;
@@ -114,8 +126,8 @@ public class ConfigChat extends Config
 
     public LoadConfigReport validateDimStrings(LoadConfigReport report, String widthStr, String heightStr)
     {
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_WIDTH, widthStr, 1, report);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_HEIGHT, heightStr, 1, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_WINDOW_WIDTH, widthStr, 1, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_WINDOW_HEIGHT, heightStr, 1, report);
         return report;
     }
 
@@ -128,11 +140,18 @@ public class ConfigChat extends Config
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String widthStr, String heightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String reverseScrollBool, String resizeBool, String remPosBool, String fromBottomBool, String chromaBool, String invertBool, String topBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String widthStr, String heightStr, String windowWidthStr, String windowHeightStr, String chromaLeftStr, String chromaTopStr, String chromaRightStr, String chromaBottomStr, String chromaCornerStr, String scrollBool, String reverseScrollBool, String resizeBool, String remPosBool, String fromBottomBool, String chromaBool, String invertBool, String topBool)
     {
         validateBooleanStrings(report, scrollBool, reverseScrollBool, resizeBool, remPosBool, fromBottomBool, chromaBool, invertBool, topBool);
 
-        validateDimStrings(report, widthStr, heightStr);
+        if (widthStr != null && heightStr != null)
+        {
+            validateDimStrings(report, widthStr, heightStr);
+        }
+        else if (windowWidthStr != null && windowHeightStr != null)
+        {
+            validateDimStrings(report, windowWidthStr, windowHeightStr);
+        }
         validateChromaDimStrings(report, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr);
         validateIntegerWithLimitString(FontificatorProperties.KEY_CHAT_CHROMA_CORNER, chromaCornerStr, 0, report);
 
@@ -153,6 +172,8 @@ public class ConfigChat extends Config
         {
             final String widthStr = props.getProperty(FontificatorProperties.KEY_CHAT_WIDTH);
             final String heightStr = props.getProperty(FontificatorProperties.KEY_CHAT_HEIGHT);
+            final String windowWidthStr = props.getProperty(FontificatorProperties.KEY_CHAT_WINDOW_WIDTH);
+            final String windowHeightStr = props.getProperty(FontificatorProperties.KEY_CHAT_WINDOW_HEIGHT);
             final String chromaLeftStr = props.getProperty(FontificatorProperties.KEY_CHAT_CHROMA_LEFT);
             final String chromaTopStr = props.getProperty(FontificatorProperties.KEY_CHAT_CHROMA_TOP);
             final String chromaRightStr = props.getProperty(FontificatorProperties.KEY_CHAT_CHROMA_RIGHT);
@@ -170,13 +191,21 @@ public class ConfigChat extends Config
             final String topBool = props.getProperty(FontificatorProperties.KEY_CHAT_ALWAYS_ON_TOP);
 
             // Check that the values are valid
-            validateStrings(report, widthStr, heightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, reverseScrollBool, resizeBool, remPosBool, fromBottomBool, chromaBool, invertBool, topBool);
+            validateStrings(report, widthStr, heightStr, windowWidthStr, windowHeightStr, chromaLeftStr, chromaTopStr, chromaRightStr, chromaBottomStr, chromaCornerStr, scrollBool, reverseScrollBool, resizeBool, remPosBool, fromBottomBool, chromaBool, invertBool, topBool);
 
             // Fill the values
             if (report.isErrorFree())
             {
-                width = Integer.parseInt(widthStr);
-                height = Integer.parseInt(heightStr);
+                if (windowWidthStr != null && windowHeightStr != null)
+                {
+                    windowWidth = Integer.parseInt(windowWidthStr);
+                    windowHeight = Integer.parseInt(windowHeightStr);
+                }
+                else if (widthStr != null && heightStr != null)
+                {
+                    width = Integer.parseInt(widthStr);
+                    height = Integer.parseInt(heightStr);
+                }
 
                 chromaCornerRadius = Integer.parseInt(chromaCornerStr);
 
@@ -280,7 +309,7 @@ public class ConfigChat extends Config
         props.setProperty(FontificatorProperties.KEY_CHAT_REVERSE_SCROLLING, Boolean.toString(reverseScrolling));
     }
 
-    public int getWidth()
+    public Integer getWidth()
     {
         return width;
     }
@@ -291,7 +320,7 @@ public class ConfigChat extends Config
         props.setProperty(FontificatorProperties.KEY_CHAT_WIDTH, Integer.toString(width));
     }
 
-    public int getHeight()
+    public Integer getHeight()
     {
         return height;
     }
@@ -300,6 +329,26 @@ public class ConfigChat extends Config
     {
         this.height = height;
         props.setProperty(FontificatorProperties.KEY_CHAT_HEIGHT, Integer.toString(height));
+    }
+
+    public Integer getWindowWidth()
+    {
+        return windowWidth;
+    }
+
+    public void setWindowWidth(Integer windowWidth)
+    {
+        this.windowWidth = windowWidth;
+    }
+
+    public Integer getWindowHeight()
+    {
+        return windowHeight;
+    }
+
+    public void setWindowHeight(Integer windowHeight)
+    {
+        this.windowHeight = windowHeight;
     }
 
     public boolean isAlwaysOnTop()
@@ -374,6 +423,18 @@ public class ConfigChat extends Config
     {
         this.chromaCornerRadius = chromaCornerRadius;
         props.setProperty(FontificatorProperties.KEY_CHAT_CHROMA_CORNER, Integer.toString(chromaCornerRadius));
+    }
+
+    /**
+     * Remove the properties and clear the values for the old style window width and height that measure the actual
+     * window rather than its content pane
+     */
+    public void clearLegacyWindowSize()
+    {
+        this.windowWidth = null;
+        this.windowHeight = null;
+        props.remove(FontificatorProperties.KEY_CHAT_WINDOW_WIDTH);
+        props.remove(FontificatorProperties.KEY_CHAT_WINDOW_HEIGHT);
     }
 
 }
