@@ -97,6 +97,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior III (GBC) Fight"), new DropdownFont("dw3gbc_fight_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownFont("dq3_sfc_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownFont("dw4_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior VII Fight"), new DropdownFont("dw7_fight_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest Heroes: Rocket Slime Dialog"), new DropdownFont("dqhrs_dialog_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Drill Dozer", "Drill Dozer Dialog"), new DropdownFont("drilldozer_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownFont("eb0_font.png", FontType.FIXED_WIDTH));
@@ -267,6 +268,14 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Name"), new DropdownBorder("csotn_name_border.png", Color.WHITE));
             put(new DropdownLabel("Castlevania", "Castlevania: Symphony of the Night Enemy"), new DropdownBorder("csotn_enemy_border.png", Color.WHITE));
             put(new DropdownLabel("Chrono", "Chrono Trigger"), new DropdownBorder("ct_border.png", 0xCEDBE8));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 1 (Unshaded)"), new DropdownBorder("ct_border_1.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 2 (Unshaded)"), new DropdownBorder("ct_border_2.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 3 (Unshaded)"), new DropdownBorder("ct_border_3.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 4 (Unshaded)"), new DropdownBorder("ct_border_4.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 5 (Unshaded)"), new DropdownBorder("ct_border_5.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 6 (Unshaded)"), new DropdownBorder("ct_border_6.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 7 (Unshaded)"), new DropdownBorder("ct_border_7.png", Color.WHITE));
+            put(new DropdownLabel("Chrono", "Chrono Trigger 8 (Unshaded)"), new DropdownBorder("ct_border_8.png", Color.WHITE));
             put(new DropdownLabel("Chrono", "Chrono Cross"), new DropdownBorder("cc_border.png", Color.WHITE));
             put(new DropdownLabel("Chrono", "Chrono Cross Menu"), new DropdownBorder("cc_menu_border.png", Color.WHITE));
             put(new DropdownLabel("Chrono", "Chrono Cross Arnian Wood"), new DropdownBorder("cc_arnian_border.png", Color.WHITE));
@@ -302,6 +311,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest III (SFC)"), new DropdownBorder("dq3_sfc_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Warrior IV"), new DropdownBorder("dw4_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest VI (SFC)"), new DropdownBorder("dq6_border.png", Color.WHITE));
+            put(new DropdownLabel("Dragon Warrior", "Dragon Warrior VII"), new DropdownBorder("dw7_border.png", Color.WHITE));
             put(new DropdownLabel("Dragon Warrior", "Dragon Quest Heroes: Rocket Slime"), new DropdownBorder("dqhrs_border.png", Color.WHITE));
             put(new DropdownLabel("Drill Dozer", "Drill Dozer"), new DropdownBorder("drilldozer_border.png", Color.WHITE));
             put(new DropdownLabel("EarthBound", "EarthBound Zero"), new DropdownBorder("eb0_border.png", Color.WHITE));
@@ -685,8 +695,8 @@ public class ControlPanelFont extends ControlPanelBase
         borderPresetDropdown = new ComboMenuBar(borderMenuMap, borderAl);
         gridWidthInput = new LabeledInput("Grid Width", 4);
         gridHeightInput = new LabeledInput("Grid Height", 4);
-        fontScaleSlider = new LabeledSlider("Font Scale", "x", ConfigFont.MIN_FONT_SCALE, ConfigFont.MAX_FONT_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
-        borderScaleSlider = new LabeledSlider("Border Scale", "x", ConfigFont.MIN_BORDER_SCALE, ConfigFont.MAX_BORDER_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
+        fontScaleSlider = new LabeledSlider("Font Size", "x", ConfigFont.MIN_FONT_SCALE, ConfigFont.MAX_FONT_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
+        borderScaleSlider = new LabeledSlider("Border Size", "x", ConfigFont.MIN_BORDER_SCALE, ConfigFont.MAX_BORDER_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
         borderInsetXSlider = new LabeledSlider("X", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         borderInsetYSlider = new LabeledSlider("Y", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         characterKeyInput = new LabeledInput("Character Key", 32);
