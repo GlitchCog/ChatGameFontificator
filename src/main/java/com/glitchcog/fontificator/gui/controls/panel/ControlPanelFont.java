@@ -181,6 +181,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Star Ocean", "Star Ocean Dialog"), new DropdownFont("staroc_dialog_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownFont("staroc_hud_font.png", FontType.FIXED_WIDTH));
             // put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownFont("staroc_font.png", FontType.FIXED_WIDTH)); // Same as staroc_hud_font, retired, but font file left in resources
+            put(new DropdownLabel("Star Ocean", "Star Ocean: The Second Story HUD"), new DropdownFont("staroc2_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Studio Pixel", "Cave Story+"), new DropdownFont("cavestoryplus_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Studio Pixel", "Kero Blaster"), new DropdownFont("keroblast_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownFont("suiko_font.png", FontType.VARIABLE_WIDTH));
@@ -398,6 +399,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownBorder("staroc_hud_border.png", Color.WHITE));
             // put(new DropdownLabel("Star Ocean", "Star Ocean HUD"), new DropdownBorder("staroc_border.png", Color.WHITE)); // Same as staroc_hud_border, retired, but border file left in resources
             put(new DropdownLabel("Star Ocean", "Star Ocean HUD Color"), new DropdownBorder("staroc_hud_color_border.png", Color.WHITE));
+            put(new DropdownLabel("Star Ocean", "Star Ocean: The Second Story"), new DropdownBorder("staroc2_border.png", Color.WHITE));
             put(new DropdownLabel("Suikoden", "Suikoden"), new DropdownBorder("suiko_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Phantasia (SFC)"), new DropdownBorder("tophan_sfc_border.png", Color.WHITE));
             put(new DropdownLabel("Tales", "Tales of Symphonia B"), new DropdownBorder("tos_b_border.png", Color.WHITE));

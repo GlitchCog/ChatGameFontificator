@@ -230,7 +230,9 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Shovel Knight
   - Solstice
   - Sonic Team
-  - Star Ocean
+  - Star Ocean (Dialog)
+  - Star Ocean (HUD)
+  - Star Ocean: The Second Story (HUD)
   - Stardew Valley
   - Suikoden
   - Tales of Phantasia (SFC)
