@@ -45,13 +45,13 @@ public class ListInput extends JPanel
 
     private MessageCensorPanel censor;
 
-    public ListInput(String label, String description, MessageCensorPanel censor)
+    public ListInput(String label, String description, MessageCensorPanel censor, ActionListener lial)
     {
         this.censor = censor;
-        build(label, description, 5);
+        build(label, description, 5, lial);
     }
 
-    private void build(String label, String description, int size)
+    private void build(String label, String description, int size, ActionListener lial)
     {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = ControlPanelBase.getGbc();
@@ -73,6 +73,12 @@ public class ListInput extends JPanel
         this.remove = new JButton("\u2718");
         this.remove.setBackground(Color.WHITE);
         this.remove.setMargin(new Insets(0, 0, 0, 0));
+
+        if (lial != null)
+        {
+            this.add.addActionListener(lial);
+            this.remove.addActionListener(lial);
+        }
 
         // Backup in case the fancy unicode characters for the buttons aren't supported by the font
         if (!this.add.getFont().canDisplay(add.getText().charAt(0)))

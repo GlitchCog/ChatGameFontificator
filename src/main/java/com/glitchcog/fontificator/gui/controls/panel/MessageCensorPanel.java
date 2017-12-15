@@ -110,10 +110,6 @@ public class MessageCensorPanel extends ControlPanelBase
             }
         };
 
-        userWhitelist = new ListInput("User Whitelist", "Exempt from all censorship", this);
-        userBlacklist = new ListInput("User Blacklist", "Every message censored", this);
-        bannedWordList = new ListInput("Banned Words", "Containing censors message", this);
-
         ActionListener bl = new ActionListener()
         {
             @Override
@@ -124,6 +120,10 @@ public class MessageCensorPanel extends ControlPanelBase
                 chat.initMessageRollout();
             }
         };
+
+        userWhitelist = new ListInput("User Whitelist", "Exempt from all censorship", this, bl);
+        userBlacklist = new ListInput("User Blacklist", "Every message censored", this, bl);
+        bannedWordList = new ListInput("Banned Words", "Containing censors message", this, bl);
 
         enableCensorshipBox.addActionListener(bl);
         purgeOnTwitchBanBox.addActionListener(bl);
@@ -423,7 +423,8 @@ public class MessageCensorPanel extends ControlPanelBase
     }
 
     /**
-     * Usually this is handled by the Config object's setters, but for censorship it is done here
+     * This work is also handled by the Config object's setters, but for censorship it is done here as well. This may be
+     * redundant, but it was left in in case some of it is not.
      */
     public void updateConfig()
     {
@@ -436,8 +437,8 @@ public class MessageCensorPanel extends ControlPanelBase
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_FIRST_URL, Boolean.toString(config.isCensorFirstUrls()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS, Boolean.toString(config.isCensorUnknownChars()));
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS_PERCENT, Integer.toString(config.getUnknownCharPercentage()));
-            fProps.setProperty(FontificatorProperties.KEY_CENSOR_WHITE, config.getUserWhitelistString());
-            fProps.setProperty(FontificatorProperties.KEY_CENSOR_BLACK, config.getUserBalckListString());
+            fProps.setProperty(FontificatorProperties.KEY_CENSOR_WHITE, config.getUserWhiteListString());
+            fProps.setProperty(FontificatorProperties.KEY_CENSOR_BLACK, config.getUserBlackListString());
             fProps.setProperty(FontificatorProperties.KEY_CENSOR_BANNED, config.getBannedWordsString());
         }
         catch (Exception e)

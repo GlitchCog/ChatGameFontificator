@@ -99,14 +99,10 @@ public class ConfigCensor extends Config
         return censorshipEnabled;
     }
 
-    /**
-     * The work of setting these setter values on the properties is done by the MessageCensorPanel.updateConfig() method
-     * 
-     * @param censorshipEnabled
-     */
     public void setCensorshipEnabled(Boolean censorshipEnabled)
     {
         this.censorshipEnabled = censorshipEnabled;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_ENABLED, Boolean.toString(censorshipEnabled));
     }
 
     public boolean isPurgeOnTwitchBan()
@@ -117,6 +113,7 @@ public class ConfigCensor extends Config
     public void setPurgeOnTwitchBan(Boolean purgeOnTwitchBan)
     {
         this.purgeOnTwitchBan = purgeOnTwitchBan;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_PURGE_ON_TWITCH_BAN, Boolean.toString(purgeOnTwitchBan));
     }
 
     public boolean isCensorAllUrls()
@@ -127,6 +124,7 @@ public class ConfigCensor extends Config
     public void setCensorAllUrls(Boolean censorAllUrls)
     {
         this.censorAllUrls = censorAllUrls;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_URL, Boolean.toString(censorAllUrls));
     }
 
     public boolean isCensorFirstUrls()
@@ -137,6 +135,7 @@ public class ConfigCensor extends Config
     public void setCensorFirstUrls(Boolean censorFirstUrls)
     {
         this.censorFirstUrls = censorFirstUrls;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_FIRST_URL, Boolean.toString(censorFirstUrls));
     }
 
     public boolean isCensorUnknownChars()
@@ -147,6 +146,7 @@ public class ConfigCensor extends Config
     public void setCensorUnknownChars(Boolean censorUnknownChars)
     {
         this.censorUnknownChars = censorUnknownChars;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS, Boolean.toString(censorUnknownChars));
     }
 
     public int getUnknownCharPercentage()
@@ -157,6 +157,7 @@ public class ConfigCensor extends Config
     public void setUnknownCharPercentage(Integer unknownCharsPercent)
     {
         this.unknownCharsPercent = unknownCharsPercent;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_UNKNOWN_CHARS_PERCENT, Integer.toString(unknownCharsPercent));
     }
 
     public String[] getUserWhitelist()
@@ -167,6 +168,7 @@ public class ConfigCensor extends Config
     public void setUserWhitelist(String[] userWhitelist)
     {
         this.userWhitelist = userWhitelist;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_WHITE, getUserWhiteListString());
     }
 
     public String[] getUserBlacklist()
@@ -177,6 +179,7 @@ public class ConfigCensor extends Config
     public void setUserBlacklist(String[] userBlacklist)
     {
         this.userBlacklist = userBlacklist;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_BLACK, getUserBlackListString());
     }
 
     public String[] getBannedWords()
@@ -187,14 +190,15 @@ public class ConfigCensor extends Config
     public void setBannedWords(String[] bannedWords)
     {
         this.bannedWords = bannedWords;
+        props.setProperty(FontificatorProperties.KEY_CENSOR_BLACK, getBannedWordsString());
     }
 
-    public String getUserWhitelistString()
+    public String getUserWhiteListString()
     {
         return getListAsString(userWhitelist);
     }
 
-    public String getUserBalckListString()
+    public String getUserBlackListString()
     {
         return getListAsString(userBlacklist);
     }
