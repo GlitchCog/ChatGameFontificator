@@ -274,7 +274,7 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
                 List<LazyLoadEmoji> emojiToCache = new ArrayList<LazyLoadEmoji>();
                 for (String regex : regexes)
                 {
-                    LazyLoadEmoji emoji = manager.getEmoji(emojiType, regex, null);
+                    LazyLoadEmoji emoji = manager.getEmojiWords(emojiType, regex, null);
                     emojiToCache.add(emoji);
                 }
                 for (Integer id : ids)

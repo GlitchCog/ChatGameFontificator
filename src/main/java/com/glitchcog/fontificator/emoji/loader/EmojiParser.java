@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.log4j.Logger;
-
 import com.glitchcog.fontificator.bot.UserType;
 import com.glitchcog.fontificator.config.ConfigEmoji;
 import com.glitchcog.fontificator.emoji.AnimatedGifUtil;
@@ -24,8 +22,6 @@ import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzBadgesAndUsers;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.FfzEmote;
 import com.glitchcog.fontificator.emoji.loader.frankerfacez.Room;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchBadges;
-import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV2;
-import com.glitchcog.fontificator.emoji.loader.twitch.TwitchEmoteV3;
 import com.glitchcog.fontificator.emoji.loader.twitch.TwitchIdSetLink;
 import com.glitchcog.fontificator.gui.controls.panel.LogBox;
 import com.google.gson.Gson;
@@ -42,8 +38,6 @@ import com.google.gson.reflect.TypeToken;
  */
 public class EmojiParser
 {
-    private static final Logger logger = Logger.getLogger(EmojiParser.class);
-
     private static final int TWITCH_BADGE_PIXEL_SIZE = 18;
 
     /**
@@ -99,83 +93,6 @@ public class EmojiParser
     }
 
     /**
-     * Parse emotes loaded using Twitch's emote API version 2
-     * 
-     * Twitch V2 API retired on February 14, 2017
-     * 
-     * @param manager
-     * @param jsonData
-     * @param jsonMapData
-     * @throws IOException
-     */
-    @Deprecated
-    private void parseTwitchEmoteJsonV2(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
-    {
-        TypedEmojiMap emoji = manager.getEmojiByType(EmojiType.TWITCH_V2);
-        JsonElement emoteElement = new JsonParser().parse(jsonData).getAsJsonObject().get("emoticons");
-
-        Gson gson = new Gson();
-
-        Type emoteType = new TypeToken<TwitchEmoteV2[]>()
-        {
-        }.getType();
-        TwitchEmoteV2[] jsonEmoteObjects = gson.fromJson(emoteElement, emoteType);
-        for (TwitchEmoteV2 e : jsonEmoteObjects)
-        {
-            // For Twitch emotes V2, there are no multi-image emotes, I think, based on the JSON structure
-            LazyLoadEmoji lle = new LazyLoadEmoji(e.getRegex(), e.getUrl(), e.getWidth(), e.getHeight(), EmojiType.TWITCH_V2);
-            lle.setSubscriber(e.isSubscriber_only());
-            lle.setState(e.getState());
-            emoji.put(e.getRegex(), lle);
-        }
-
-        logBox.log(jsonEmoteObjects.length + " Twitch emote" + (jsonEmoteObjects.length == 1 ? "" : "s") + " loaded");
-    }
-
-    /**
-     * Parses emotes loaded using Twitch's emote API version 3. It parses emotes into two different maps, one of all
-     * emoji, and one that are accessible via set ID.
-     * 
-     * Twitch V3 API retired on February 14, 2017
-     * 
-     * @param manager
-     * @param jsonData
-     * @param jsonMapData
-     * @throws IOException
-     */
-    @Deprecated
-    private void parseTwitchEmoteJsonV3(EmojiManager manager, String jsonData, String jsonMapData) throws IOException
-    {
-        logger.trace(jsonData.substring(0, Math.min(jsonData.length(), 512)));
-
-        TypedEmojiMap emoji = manager.getEmojiByType(EmojiType.TWITCH_V3);
-
-        Gson gson = new Gson();
-
-        // Handle actual emotes
-        JsonElement emoteElement = new JsonParser().parse(jsonData).getAsJsonObject().get("emoticons");
-
-        Type emoteType = new TypeToken<TwitchEmoteV3[]>()
-        {
-        }.getType();
-        TwitchEmoteV3[] jsonEmoteObjects = gson.fromJson(emoteElement, emoteType);
-        int eMultiCount = 0;
-
-        for (TwitchEmoteV3 e : jsonEmoteObjects)
-        {
-            LazyLoadEmoji lle = new LazyLoadEmoji(e.getRegex(), e.getImages()[0].getUrl(), e.getImages()[0].getWidth(), e.getImages()[0].getHeight(), EmojiType.TWITCH_V3);
-            if (e.getImages().length > 1)
-            {
-                eMultiCount++;
-            }
-
-            emoji.put(e.getRegex(), lle);
-        }
-
-        logBox.log(jsonEmoteObjects.length + " Twitch emote" + (jsonEmoteObjects.length == 1 ? "" : "s") + " loaded (" + eMultiCount + " multi-image emote" + (eMultiCount == 1 ? "" : "s") + ")");
-    }
-
-    /**
      * This used to have a purpose, but now all Twitch emotes are loaded via the V1 emote ID in the IRC tag emote
      * information
      * 
@@ -201,24 +118,6 @@ public class EmojiParser
         }
 
         return setIdByEmoteId;
-    }
-
-    /**
-     * Utility method, currently unused, to parse out the emote ID from the URL for a Twitch V3 emote. Global emotes do
-     * not have the emote ID in their URLs, so this method will return null for them.
-     * 
-     * @param e
-     *            Twitch V3 emote model
-     * @return emoteId The emote ID from the URL
-     */
-    protected static Integer parseEmoteIdFromUrl(TwitchEmoteV3 e) throws Exception
-    {
-        final String pngName = e.getImages()[0].getUrl().substring(e.getImages()[0].getUrl().lastIndexOf('/') + 1);
-        final int dashIdxBeg = pngName.indexOf('-') + 1;
-        final int dashIdxEnd = pngName.indexOf('-', dashIdxBeg);
-        final String emoteIdStr = pngName.substring(dashIdxBeg, dashIdxEnd);
-        final Integer emoteId = Integer.parseInt(emoteIdStr);
-        return emoteId;
     }
 
     private void parseTwitchBadges(TypedEmojiMap badgeMap, String jsonData) throws IOException

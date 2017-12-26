@@ -25,9 +25,10 @@ public enum EmojiType
     FRANKERFACEZ_CHANNEL("FrankerFaceZ Emotes", EmojiGroup.FFZ, false, false), 
     FRANKERFACEZ_GLOBAL("FrankerFaceZ Global Emotes", EmojiGroup.FFZ, false, false), 
     FRANKERFACEZ_BADGE("FrankerFaceZ Badge", EmojiGroup.FFZ, true, false),
-    FRANKERFACEZ_REPLACEMENT("FrankerFaceZ Replacement Emotes", EmojiGroup.FFZ, false, false), 
+    FRANKERFACEZ_REPLACEMENT("FrankerFaceZ Replacement Emotes", EmojiGroup.FFZ, false, false),  
     BETTER_TTV_CHANNEL("Better Twitch TV Emotes", EmojiGroup.BTTV, false, false), 
-    BETTER_TTV_GLOBAL("Better Twitch TV Global Emotes", EmojiGroup.BTTV, false, false); 
+    BETTER_TTV_GLOBAL("Better Twitch TV Global Emotes", EmojiGroup.BTTV, false, false), 
+    TWITTER_EMOJI("Twitter Unicode Emotes", EmojiGroup.UNICODE, false, false);
     // @formatter:on
 
     private final EmojiGroup group;
@@ -41,14 +42,14 @@ public enum EmojiType
     /**
      * These are the types of emoji words to check against for manual messages.
      */
-    public static EmojiType[] MANUAL_EMOJI_TYPES = new EmojiType[] { EmojiType.TWITCH_V2, EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL };
+    public static EmojiType[] MANUAL_EMOJI_TYPES = new EmojiType[] { EmojiType.TWITCH_V2, EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL, EmojiType.TWITTER_EMOJI };
 
     /**
      * These are the types of emoji words in messages are checked against to include. This is done to prevent things
      * like badges from accidentally being included. For example, FFZ badges are included in their maps using keywords
      * like "bot", which could easily be accidentally inserted into a message.
      */
-    public static EmojiType[] THIRD_PARTY_EMOJI_TYPES = new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL };
+    public static EmojiType[] THIRD_PARTY_EMOJI_TYPES = new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL, EmojiType.TWITTER_EMOJI };
 
     private EmojiType(String description, EmojiGroup group, boolean badge, boolean loadSetMap)
     {

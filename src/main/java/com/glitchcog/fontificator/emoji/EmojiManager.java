@@ -101,9 +101,9 @@ public class EmojiManager
      *            The emoji configuration
      * @return emoji or null if not found
      */
-    public LazyLoadEmoji getEmoji(EmojiType type, String testKey, ConfigEmoji config)
+    public LazyLoadEmoji getEmojiWords(EmojiType type, String testKey, ConfigEmoji config)
     {
-        return getEmoji(new EmojiType[] { type }, testKey, config);
+        return getEmojiWords(new EmojiType[] { type }, testKey, config);
     }
 
     /**
@@ -118,7 +118,7 @@ public class EmojiManager
      *            The emoji configuration
      * @return emoji or null if it's not found
      */
-    public LazyLoadEmoji getEmoji(EmojiType[] types, String testKey, ConfigEmoji config)
+    public LazyLoadEmoji getEmojiWords(EmojiType[] types, String testKey, ConfigEmoji config)
     {
         LazyLoadEmoji emoji = null;
         // If config is null, then just assume we want it. Used when caching.

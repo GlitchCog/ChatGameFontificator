@@ -112,6 +112,11 @@ public class ControlPanelEmoji extends ControlPanelBase
     private JComboBox<EmojiLoadingDisplayStragegy> emojiLoadingDisplayStrat;
 
     /**
+     * Whether to enabled the Twitter emoji in place of the default font's extended unicode support
+     */
+    private JCheckBox enableTwitterEmoji;
+
+    /**
      * Whether to enable Twitch emotes
      */
     private JCheckBox enableTwitch;
@@ -200,6 +205,7 @@ public class ControlPanelEmoji extends ControlPanelBase
         badgeHeightOffset.setEnabled(badges);
         emojiLoadingDisplayStratLabel.setEnabled(all || badges);
         emojiLoadingDisplayStrat.setEnabled(all || badges);
+        enableTwitterEmoji.setEnabled(all);
 
         twitchPanel.setEnabled(all);
         enableTwitch.setEnabled(all);
@@ -233,8 +239,11 @@ public class ControlPanelEmoji extends ControlPanelBase
         badgeScale = new LabeledSlider("Badge Scale", "%", ConfigEmoji.MIN_SCALE, ConfigEmoji.MAX_SCALE, 100, 3);
         badgeHeightOffset = new LabeledSlider("Badge Height Offset", "pixels", ConfigEmoji.MIN_BADGE_OFFSET, ConfigEmoji.MAX_BADGE_OFFSET, 0, 3);
 
-        emojiLoadingDisplayStratLabel = new JLabel("Emoji Loading Display Strategy:");
+        emojiLoadingDisplayStratLabel = new JLabel("Loading Display Strategy:");
         emojiLoadingDisplayStrat = new JComboBox<EmojiLoadingDisplayStragegy>(EmojiLoadingDisplayStragegy.values());
+
+        enableTwitterEmoji = new JCheckBox("Enable Twitter Emoji");
+        enableTwitterEmoji.setToolTipText("Use Twitter emoji for extended character emoji instead of the local default font");
 
         enableTwitch = new JCheckBox("Enable Twitch Emotes");
         cacheTwitch = new JCheckBox("Cache Global Twitch Emotes");
@@ -281,6 +290,16 @@ public class ControlPanelEmoji extends ControlPanelBase
             public void actionPerformed(ActionEvent e)
             {
                 config.setDisplayStrategy((EmojiLoadingDisplayStragegy) emojiLoadingDisplayStrat.getSelectedItem());
+                chat.repaint();
+            }
+        });
+
+        enableTwitterEmoji.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                config.setTwitterEnabled(enableTwitterEmoji.isSelected());
                 chat.repaint();
             }
         });
@@ -426,6 +445,7 @@ public class ControlPanelEmoji extends ControlPanelBase
                 config.setBttvCacheEnabled(cacheBetterTtv.isSelected());
                 config.setEmojiScaleToLine(emojiScaleToLineHeight.isSelected());
                 config.setBadgeScaleToLine(badgeScaleToLineHeight.isSelected());
+                config.setTwitterEnabled(enableTwitterEmoji.isSelected());
                 resolveEnables();
 
                 chat.repaint();
@@ -499,9 +519,13 @@ public class ControlPanelEmoji extends ControlPanelBase
         scaleAndDisplayGbc.fill = GridBagConstraints.HORIZONTAL;
         scaleAndDisplayPanel.add(new JSeparator(SwingConstants.HORIZONTAL), scaleAndDisplayGbc);
         scaleAndDisplayGbc.gridy++;
-        JPanel bottomOfScaleDisplayPanel = new JPanel();
-        bottomOfScaleDisplayPanel.add(emojiLoadingDisplayStratLabel);
-        bottomOfScaleDisplayPanel.add(emojiLoadingDisplayStrat);
+        JPanel bottomOfScaleDisplayPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints bosdpGbc = getGbc();
+        bottomOfScaleDisplayPanel.add(emojiLoadingDisplayStratLabel, bosdpGbc);
+        bosdpGbc.gridx++;
+        bottomOfScaleDisplayPanel.add(emojiLoadingDisplayStrat, bosdpGbc);
+        bosdpGbc.gridx++;
+        bottomOfScaleDisplayPanel.add(enableTwitterEmoji, bosdpGbc);
         scaleAndDisplayPanel.add(bottomOfScaleDisplayPanel, scaleAndDisplayGbc);
 
         twitchPanel = new JPanel(new GridBagLayout());
@@ -807,6 +831,8 @@ public class ControlPanelEmoji extends ControlPanelBase
         this.cacheFrankerFaceZ.setSelected(config.isFfzCacheEnabled());
         this.enableBetterTtv.setSelected(config.isBttvEnabled());
         this.cacheBetterTtv.setSelected(config.isBttvCacheEnabled());
+        this.enableAnimation.setSelected(config.isAnimationEnabled());
+        this.enableTwitterEmoji.setSelected(config.isTwitterEnabled());
 
         resolveEnables();
     }
@@ -835,6 +861,8 @@ public class ControlPanelEmoji extends ControlPanelBase
         config.setFfzCacheEnabled(cacheFrankerFaceZ.isSelected());
         config.setBttvEnabled(enableBetterTtv.isSelected());
         config.setBttvCacheEnabled(cacheBetterTtv.isSelected());
+        config.setAnimationEnabled(enableAnimation.isSelected());
+        config.setTwitterEnabled(enableTwitterEmoji.isSelected());
     }
 
 }

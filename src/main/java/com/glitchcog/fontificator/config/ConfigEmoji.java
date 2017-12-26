@@ -163,6 +163,11 @@ public class ConfigEmoji extends Config
      */
     private Boolean bttvCached;
 
+    /**
+     * Whether to use Twitter emoji images rather than the system font
+     */
+    private Boolean twitterEnabled;
+
     public ConfigEmoji()
     {
         resetWorkCompleted();
@@ -190,6 +195,7 @@ public class ConfigEmoji extends Config
         bttvLoadedChannel = null;
         bttvGlobalLoaded = null;
         bttvCached = null;
+        twitterEnabled = null;
     }
 
     public boolean isEmojiEnabled()
@@ -404,6 +410,8 @@ public class ConfigEmoji extends Config
             //     return ControlPanelEmoji.TWITCH_EMOTE_VERSION.equals(type) && twitchEnabled != null && twitchEnabled && twitchLoaded != null && twitchLoaded;
             case TWITCH_BADGE:
                 return twitchBadgesEnabled != null && twitchBadgesEnabled && twitchBadgesLoadedChannel != null;
+            case TWITTER_EMOJI:
+                return twitterEnabled;
             default:
                 // If it doesn't have a coded EmojiType, then we don't know it
                 return false;
@@ -411,7 +419,7 @@ public class ConfigEmoji extends Config
         }
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String aniBool, String badgeTwitchBool, String badgeFfzBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String badgeHeightOffsetStr, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool, String bttvBool, String bttvCacheBool)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String enabledBool, String aniBool, String badgeTwitchBool, String badgeFfzBool, String scaleEnabledBool, String scaleBadgeEnabledBool, String badgeHeightOffsetStr, String scale, String scaleBadge, String displayStrat, String twitchBool, String twitchCacheBool, String ffzBool, String ffzCacheBool, String bttvBool, String bttvCacheBool, String twitterBool)
     {
         validateBooleanStrings(report, enabledBool, aniBool, badgeTwitchBool, badgeFfzBool, scaleEnabledBool, scaleBadgeEnabledBool, twitchBool, twitchCacheBool, ffzBool, ffzCacheBool, bttvBool, bttvCacheBool);
         validateIntegerWithLimitString(FontificatorProperties.KEY_EMOJI_SCALE, scale, MIN_SCALE, MAX_SCALE, report);
@@ -454,8 +462,10 @@ public class ConfigEmoji extends Config
             final String bttvEnabledStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BTTV_ENABLE);
             final String bttvCacheStr = props.getProperty(FontificatorProperties.KEY_EMOJI_BTTV_CACHE);
 
+            final String twitterStr = props.getProperty(FontificatorProperties.KEY_EMOJI_TWITTER_ENABLE);
+
             // Check that the values are valid
-            validateStrings(report, enabledStr, aniStr, twitchBadgeStr, ffzBadgeStr, scaleEnabledStr, scaleBadgeEnabledStr, badgeHeightOffsetStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr, bttvEnabledStr, bttvCacheStr);
+            validateStrings(report, enabledStr, aniStr, twitchBadgeStr, ffzBadgeStr, scaleEnabledStr, scaleBadgeEnabledStr, badgeHeightOffsetStr, scaleStr, scaleBadgeStr, displayStratStr, twitchEnabledStr, twitchCacheStr, ffzEnabledStr, ffzCacheStr, bttvEnabledStr, bttvCacheStr, twitterStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -476,6 +486,7 @@ public class ConfigEmoji extends Config
                 ffzCacheEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_FFZ_CACHE, report);
                 bttvEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BTTV_ENABLE, report);
                 bttvCacheEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_BTTV_CACHE, report);
+                twitterEnabled = evaluateBooleanString(props, FontificatorProperties.KEY_EMOJI_TWITTER_ENABLE, report);
             }
         }
 
@@ -716,6 +727,17 @@ public class ConfigEmoji extends Config
         {
             return false;
         }
+        if (twitterEnabled == null)
+        {
+            if (other.twitterEnabled != null)
+            {
+                return false;
+            }
+        }
+        else if (!twitterEnabled.equals(other.twitterEnabled))
+        {
+            return false;
+        }
         return true;
     }
 
@@ -747,6 +769,7 @@ public class ConfigEmoji extends Config
         this.bttvLoadedChannel = copy.bttvLoadedChannel;
         this.bttvGlobalLoaded = copy.bttvGlobalLoaded;
         this.bttvCached = copy.bttvCached;
+        this.twitterEnabled = copy.twitterEnabled;
     }
 
     /**
@@ -941,6 +964,17 @@ public class ConfigEmoji extends Config
     public void setBttvCached(Boolean bttvCached)
     {
         this.bttvCached = bttvCached;
+    }
+
+    public boolean isTwitterEnabled()
+    {
+        return twitterEnabled;
+    }
+
+    public void setTwitterEnabled(Boolean twitterEnabled)
+    {
+        this.twitterEnabled = twitterEnabled;
+        props.setProperty(FontificatorProperties.KEY_EMOJI_TWITTER_ENABLE, Boolean.toString(twitterEnabled));
     }
 
     /**

@@ -36,18 +36,6 @@ public class EmojiApiLoader
     public static final String TWITCH_EMOTE_ID_V1_URL = "http://static-cdn.jtvnw.net/emoticons/v1/" + EMOTE_ID_REPLACE + "/" + EMOTE_SIZE_REPLACE;
 
     /**
-     * The base URL for getting the channel specific Twitch emotes from V2 of the API
-     */
-    @Deprecated
-    private static final String TWITCH_URL_V2_BASE = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/emoticons" + OAUTH_REPLACE;
-
-    /**
-     * The URL for getting all Twitch emotes from V3 of the API
-     */
-    @Deprecated
-    private static final String TWITCH_URL_V3 = "https://api.twitch.tv/kraken/chat/emoticons";
-
-    /**
      * The base URL for getting the channel specific Twitch badges from the API
      */
     private static final String TWITCH_URL_BADGES = "https://api.twitch.tv/kraken/chat/" + CHANNEL_NAME_REPLACE + "/badges" + OAUTH_REPLACE;

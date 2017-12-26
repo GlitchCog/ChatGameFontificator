@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -35,6 +37,12 @@ public class Message
      * words and the spaces between them.
      */
     public static final String SPACE_BOUNDARY_REGEX = "(?:(?=\\s+)(?<!\\s+)|(?<=\\s+)(?!\\s+))";
+
+    /**
+     * Why doesn't this catch 🤖 (U+0x1f916)?
+     */
+    private static final String TWITTER_EMOJI_REGEX = "((([\uD83C\uDF00-\uD83D\uDDFF]|[\uD83D\uDE00-\uD83D\uDE4F]|[\uD83D\uDE80-\uD83D\uDEFF]|[\u2600-\u26FF]|[\u2700-\u27BF])[\\x{1F3FB}-\\x{1F3FF}]?))";
+    private static final Pattern TWITTER_EMOJI_PATTERN = Pattern.compile(TWITTER_EMOJI_REGEX);
 
     /**
      * The state of the user that is prepended to the message from Twitch. This reference is the same one that's stored
@@ -526,7 +534,7 @@ public class Message
         return keyList.toArray(new SpriteCharacterKey[keyList.size()]);
     }
 
-    public static String[] codePointSpaceSplit(String content)
+    private static String[] codePointSpaceSplit(String content)
     {
         List<String> words = new ArrayList<String>();
         if (!content.isEmpty())
@@ -570,7 +578,7 @@ public class Message
     {
         Map<Integer, EmoteAndIndices> emotes = privmsg.getEmotes();
 
-        String[] words = content.split(SPACE_BOUNDARY_REGEX);
+        String[] words = codePointSpaceSplit(content); // content.split(SPACE_BOUNDARY_REGEX);
 
         int codeIndex = 0;
 
@@ -584,7 +592,7 @@ public class Message
                 emoji = emojiManager.getEmojiById(eai.getEmoteId(), words[w], emojiConfig);
                 if (emoji == null)
                 {
-                    // The already loaded Twitch V1 emoji map doesn't this emote ID yet, so add it
+                    // The already loaded Twitch V1 emoji map doesn't have this emote ID yet, so add it
                     try
                     {
                         emoji = emojiManager.putEmojiById(eai.getEmoteId(), words[w], emojiConfig);
@@ -604,20 +612,62 @@ public class Message
                 {
                     // As a known bug here, all manual messages will have access to all Twitch emotes, regardless of
                     // subscriber status
-                    emoji = emojiManager.getEmoji(EmojiType.MANUAL_EMOJI_TYPES, words[w], emojiConfig);
+                    emoji = emojiManager.getEmojiWords(EmojiType.MANUAL_EMOJI_TYPES, words[w], emojiConfig);
                 }
                 // Only check 3rd party emotes
                 else
                 {
-                    emoji = emojiManager.getEmoji(EmojiType.THIRD_PARTY_EMOJI_TYPES, words[w], emojiConfig);
+                    emoji = emojiManager.getEmojiWords(EmojiType.THIRD_PARTY_EMOJI_TYPES, words[w], emojiConfig);
                 }
             }
 
+            // If a word-emoji has not yet been found and Twitter single-character emoji are enabled, then process them within the word
             if (emoji == null)
             {
-                keyList.addAll(toSpriteArray(applyCasing(words[w], casing)));
+                Matcher matcher = TWITTER_EMOJI_PATTERN.matcher(words[w]);
+                if (emojiConfig.isTwitterEnabled() && matcher.find())
+                {
+                    matcher.reset();
+
+                    String twitterEmojiUrl = null;
+                    int i = 0;
+                    while (matcher.find())
+                    {
+                        String rawCode = matcher.group(2);
+                        String iconId = toCodePoint(rawCode.indexOf('\u200D') < 0 ? rawCode.replace("\uFE0F", "") : rawCode);
+                        twitterEmojiUrl = "https://twemoji.maxcdn.com/2/" + "72x72" + "/" + iconId + ".png";
+                        LazyLoadEmoji lle = emojiManager.getEmojiByType(EmojiType.TWITTER_EMOJI).getEmoji(iconId);
+                        if (lle == null)
+                        {
+                            try
+                            {
+                                lle = new LazyLoadEmoji(iconId, twitterEmojiUrl, EmojiType.TWITTER_EMOJI);
+                                emojiManager.getEmojiByType(EmojiType.TWITTER_EMOJI).put(iconId, lle);
+                            }
+                            catch (MalformedURLException e)
+                            {
+                                logger.error("Couldn't parse emoji URL: " + twitterEmojiUrl, e);
+                            }
+                        }
+                        final String wordBit = words[w].substring(i, matcher.start());
+
+                        keyList.addAll(toSpriteArray(applyCasing(wordBit, casing)));
+                        if (lle != null)
+                        {
+                            keyList.add(new SpriteCharacterKey(lle, false));
+                        }
+                        i = matcher.end();
+                    }
+                    final String wordBit = words[w].substring(i, words[w].length());
+                    keyList.addAll(toSpriteArray(applyCasing(wordBit, casing)));
+                }
+                else
+                {
+                    keyList.addAll(toSpriteArray(applyCasing(words[w], casing)));
+                }
             }
-            else
+
+            if (emoji != null)
             {
                 keyList.add(new SpriteCharacterKey(emoji, false));
             }
@@ -626,6 +676,44 @@ public class Message
             // Emoji indexes are in code points, but java is counting in fixed 16-bit units
             codeIndex += words[w].codePointCount(0, words[w].length());
         }
+    }
+
+    /**
+     * From https://gist.github.com/heyarny/71c246f2f7fa4d9d10904fb9d5b1fa1d
+     * 
+     * @param unicodeSurrogates
+     * @param sep
+     * @return codePoint
+     */
+    private static String toCodePoint(String unicodeSurrogates)
+    {
+        ArrayList<String> r = new ArrayList<String>();
+        int c = 0, p = 0, i = 0;
+        while (i < unicodeSurrogates.length())
+        {
+            c = unicodeSurrogates.charAt(i++);
+            if (p != 0)
+            {
+                r.add(Integer.toString((0x10000 + ((p - 0xD800) << 10) + (c - 0xDC00)), 16));
+                p = 0;
+            }
+            else if (0xD800 <= c && c <= 0xDBFF)
+            {
+                p = c;
+            }
+            else
+            {
+                r.add(Integer.toString(c, 16));
+            }
+        }
+
+        String output = "";
+        for (String str : r)
+        {
+            output += (output.isEmpty() ? "" : "-") + str;
+        }
+
+        return output;
     }
 
     public String getCensoredReason()
@@ -729,7 +817,7 @@ public class Message
         List<SpriteCharacterKey> keyList = new ArrayList<SpriteCharacterKey>();
 
         int i = 0;
-        while(i < str.length())
+        while (i < str.length())
         {
             final int codepoint = str.codePointAt(i);
             keyList.add(new SpriteCharacterKey(codepoint));

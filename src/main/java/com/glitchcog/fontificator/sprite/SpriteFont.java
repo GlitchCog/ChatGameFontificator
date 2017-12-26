@@ -210,7 +210,7 @@ public class SpriteFont
             Rectangle bounds = new Rectangle();
             bounds.setLocation(gridX * spriteWidth, gridY * spriteHeight);
             bounds.setSize(spriteWidth, spriteHeight);
-            characterBounds.put((int)c, bounds);
+            characterBounds.put((int) c, bounds);
         }
     }
 
@@ -291,13 +291,13 @@ public class SpriteFont
                 if (!leftEdgeFound)
                 {
                     // Then just use a quarter of the character width
-                    characterBounds.put((int)ckey, new Rectangle(x + charWidth / 4, y, charWidth / 2, charHeight));
+                    characterBounds.put((int) ckey, new Rectangle(x + charWidth / 4, y, charWidth / 2, charHeight));
                 }
                 // For all other characters, or for spaces that have some non transparent pixels, use the calculated
                 // bounds
                 else
                 {
-                    characterBounds.put((int)ckey, bounds);
+                    characterBounds.put((int) ckey, bounds);
                 }
 
                 letterIndex++;
@@ -595,11 +595,14 @@ public class SpriteFont
             final boolean validNormalChar = !sck.isExtended() && characterBounds.containsKey(sck.getCodepoint());
             final boolean drawUnknownChar = !validNormalChar && !config.isExtendedCharEnabled();
 
+            // If the option to draw the unknown character in place of anything out of range is enabled, 
+            // then switch out the SpriteCharacterKey with one given the selected unknown character
             if (drawUnknownChar)
             {
                 sck = new SpriteCharacterKey(config.getUnknownChar());
             }
 
+            // Draw either a valid normal ASCII character, or draw the selected unknown replacement character
             if (validNormalChar || drawUnknownChar)
             {
                 Rectangle bounds = characterBounds.get(sck.getCodepoint());

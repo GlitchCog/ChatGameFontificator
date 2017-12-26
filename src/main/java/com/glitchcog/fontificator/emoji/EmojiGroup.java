@@ -9,7 +9,7 @@ package com.glitchcog.fontificator.emoji;
  */
 public enum EmojiGroup
 {
-    TWITCH("Twitch"), FFZ("FrankerFaceZ"), BTTV("Better TTV");
+    TWITCH("Twitch"), FFZ("FrankerFaceZ"), BTTV("Better TTV"), UNICODE("Unicode");
 
     private final String description;
 

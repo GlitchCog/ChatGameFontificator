@@ -72,6 +72,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("7th Dragon", "7th Dragon (Name)"), new DropdownFont("7d_name_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("7th Saga", "7th Saga Battle"), new DropdownFont("7saga_battle_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Animal Crossing", "Animal Crossing"), new DropdownFont("ac_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Ape Escape", "Ape Escape Credits"), new DropdownFont("ape_esc_credits_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Bahamut Lagoon", "Bahamut Lagoon"), new DropdownFont("bah_lag_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Breath of Fire", "Breath of Fire"), new DropdownFont("bof1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Breath of Fire", "Breath of Fire 2"), new DropdownFont("bof2_font.png", FontType.FIXED_WIDTH));
@@ -157,6 +158,8 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Metroid", "Metroid Fusion Outline"), new DropdownFont("metroid_fusion_outline_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid Zero Mission"), new DropdownFont("metroid_zm_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Metroid", "Metroid Zero Mission Outline"), new DropdownFont("metroid_zm_outline_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Moon Crystal", "Moon Crystal Dialog"), new DropdownFont("moon_crystal_dialog_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Moon Crystal", "Moon Crystal HUD"), new DropdownFont("moon_crystal_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ogre Battle", "Ogre Battle: The March of the Black Queen"), new DropdownFont("ogreb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownFont("ps1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownFont("ps2_font.png", FontType.FIXED_WIDTH));
@@ -376,6 +379,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Metroid", "Metroid Fusion"), new DropdownBorder("metroid_fusion_border.png", Color.WHITE));
             put(new DropdownLabel("Metroid", "Metroid Fusion Frame"), new DropdownBorder("metroid_fusion_frame_border.png", Color.WHITE));
             put(new DropdownLabel("Metroid", "Metroid Zero Mission"), new DropdownBorder("metroid_zm_border.png", Color.WHITE));
+            put(new DropdownLabel("Moon Crystal", "Moon Crystal"), new DropdownBorder("moon_crystal_border.png", Color.WHITE));
             put(new DropdownLabel("Ogre Battle", "Ogre Battle: The March of the Black Queen"), new DropdownBorder("ogreb_border.png", Color.WHITE));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownBorder("ps1_border.png", Color.WHITE));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownBorder("ps2_border.png", Color.WHITE));

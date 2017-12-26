@@ -131,6 +131,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - 7th Dragon (Name)
   - 7th Saga Battle
   - Animal Crossing
+  - Ape Escape (Credits)
   - Bahamut Lagoon
   - Bart vs. the Space Mutants
   - Breath of Fire
@@ -212,6 +213,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Metroid Fusion Outline
   - Metroid Zero Mission
   - Metroid Zero Mission Outline
+  - Moon Crystal Dialog
+  - Moon Crystal HUD
   - Ogre Battle: The March of the Black Queen
   - Phantasy Star
   - Phantasy Star 2

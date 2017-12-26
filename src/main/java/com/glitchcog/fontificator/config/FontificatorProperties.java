@@ -158,8 +158,9 @@ public class FontificatorProperties extends Properties
     public static final String KEY_EMOJI_FFZ_CACHE = "emojiFfzCached";
     public static final String KEY_EMOJI_BTTV_ENABLE = "emojiBttvEnabled";
     public static final String KEY_EMOJI_BTTV_CACHE = "emojiBttvCached";
+    public static final String KEY_EMOJI_TWITTER_ENABLE = "emojiTwitterEnabled";
 
-    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_ANIMATION, KEY_EMOJI_TWITCH_BADGES, KEY_EMOJI_FFZ_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_BADGE_HEIGHT_OFFSET, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE, KEY_EMOJI_BTTV_ENABLE, KEY_EMOJI_BTTV_CACHE };
+    public static final String[] EMOJI_KEYS = new String[] { KEY_EMOJI_ENABLED, KEY_EMOJI_ANIMATION, KEY_EMOJI_TWITCH_BADGES, KEY_EMOJI_FFZ_BADGES, KEY_EMOJI_SCALE_TO_LINE, KEY_EMOJI_BADGE_SCALE_TO_LINE, KEY_EMOJI_BADGE_HEIGHT_OFFSET, KEY_EMOJI_SCALE, KEY_EMOJI_BADGE_SCALE, KEY_EMOJI_DISPLAY_STRAT, KEY_EMOJI_TWITCH_ENABLE, KEY_EMOJI_TWITCH_CACHE, KEY_EMOJI_FFZ_ENABLE, KEY_EMOJI_FFZ_CACHE, KEY_EMOJI_BTTV_ENABLE, KEY_EMOJI_BTTV_CACHE, KEY_EMOJI_TWITTER_ENABLE };
 
     public static final String KEY_CENSOR_ENABLED = "censorEnabled";
     public static final String KEY_CENSOR_PURGE_ON_TWITCH_BAN = "censorPurgeOnTwitchBan";
@@ -657,6 +658,7 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_EMOJI_FFZ_CACHE, falseString, override);
         setPropertyOverride(KEY_EMOJI_BTTV_ENABLE, falseString, override);
         setPropertyOverride(KEY_EMOJI_BTTV_CACHE, falseString, override);
+        setPropertyOverride(KEY_EMOJI_TWITTER_ENABLE, trueString, override);
 
         setPropertyOverride(KEY_CENSOR_ENABLED, trueString, override);
         setPropertyOverride(KEY_CENSOR_PURGE_ON_TWITCH_BAN, trueString, override);
