@@ -1,5 +1,7 @@
 # Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
+## 🎄  Christmas Update: Regular emoji support added! 🍸🕹️ I sent that streamer a smiley face. Streamers love smiley faces.
+
 ### November 18 Update: Low resolution screen users rejoyce: at long last, the super lengthy font and border selection menus are scrollable.
 
 #### June 12 Update: Support for multi-codepoint Unicode characters has been expanded. The characters available is highly dependent on your OS and what font Java pulls from it to be its default. Special thanks to broadstone and growf for this fix.
