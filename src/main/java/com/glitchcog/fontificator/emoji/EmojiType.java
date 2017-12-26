@@ -9,17 +9,6 @@ public enum EmojiType
 {
     // @formatter:off
     TWITCH_V1("Twitch Emotes from Chat V1", EmojiGroup.TWITCH, false, false),
-
-    /**
-     * Twitch V2 API retired on February 14, 2017
-     */
-    @Deprecated 
-    TWITCH_V2("Twitch Emotes V2", EmojiGroup.TWITCH, false, false),
-    /**
-     * Twitch V3 API retired on February 14, 2017
-     */
-    @Deprecated 
-    TWITCH_V3("Twitch Emotes V3", EmojiGroup.TWITCH, false, true),
  
     TWITCH_BADGE("Twitch Badge", EmojiGroup.TWITCH, true, false), 
     FRANKERFACEZ_CHANNEL("FrankerFaceZ Emotes", EmojiGroup.FFZ, false, false), 
@@ -42,7 +31,7 @@ public enum EmojiType
     /**
      * These are the types of emoji words to check against for manual messages.
      */
-    public static EmojiType[] MANUAL_EMOJI_TYPES = new EmojiType[] { EmojiType.TWITCH_V2, EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL, EmojiType.TWITTER_EMOJI };
+    public static EmojiType[] MANUAL_EMOJI_TYPES = new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL, EmojiType.TWITTER_EMOJI };
 
     /**
      * These are the types of emoji words in messages are checked against to include. This is done to prevent things

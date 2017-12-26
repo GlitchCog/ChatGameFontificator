@@ -42,15 +42,6 @@ public class ControlPanelEmoji extends ControlPanelBase
     private static final long serialVersionUID = 1L;
 
     /**
-     * This is the version of the Twitch emote API to use. Using V2 just for global Twitch emotes for manual messages.
-     * 
-     * Twitch no longer offers an API for global emotes, so this feature can no longer be used to include emotes in
-     * manual messages when disconnected
-     */
-    @Deprecated
-    public static final EmojiType TWITCH_EMOTE_VERSION = EmojiType.TWITCH_V2;
-
-    /**
      * The bar to indicate progress as emotes load from the APIs
      */
     private EmojiLoadProgressPanel progressPanel;

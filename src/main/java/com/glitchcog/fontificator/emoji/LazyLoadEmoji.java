@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +29,11 @@ import org.apache.log4j.Logger;
 public class LazyLoadEmoji
 {
     private static final Logger logger = Logger.getLogger(LazyLoadEmoji.class);
+
+    /**
+     * Keep track of any failed URLs so we don't clobber the display trying to reload them over and over
+     */
+    private static List<String> BUSTED_URLS = new ArrayList<String>();
 
     /**
      * The word or regex that identifies this emoji
@@ -110,9 +118,19 @@ public class LazyLoadEmoji
      */
     public Image getImage(boolean animated)
     {
+        if (url == null || BUSTED_URLS.contains(url.toString()))
+        {
+            return null;
+        }
         // Lazy load the still image whether or not the emoji is animated
         if (image == null)
         {
+            if (!checkUrl(url))
+            {
+                BUSTED_URLS.add(url.toString());
+                return null;
+            }
+
             try
             {
                 BufferedImage imageFromTwitch = ImageIO.read(url);
@@ -265,4 +283,21 @@ public class LazyLoadEmoji
         return replaces;
     }
 
+    public static boolean checkUrl(URL url)
+    {
+        try
+        {
+            HttpURLConnection.setFollowRedirects(false);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("HEAD");
+            httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
+            int responseCode = httpURLConnection.getResponseCode();
+            return responseCode == HttpURLConnection.HTTP_OK;
+        }
+        catch (Exception e)
+        {
+            logger.debug(e.getMessage(), e);
+            return false;
+        }
+    }
 }

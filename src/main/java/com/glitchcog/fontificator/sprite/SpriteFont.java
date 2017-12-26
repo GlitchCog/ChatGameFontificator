@@ -74,8 +74,9 @@ public class SpriteFont
      * @param emojiConfig
      * @return
      */
-    private int[] getEmojiDimensions(LazyLoadEmoji emoji, ConfigEmoji emojiConfig)
+    private int[] getEmojiDimensions(SpriteCharacterKey c, ConfigEmoji emojiConfig)
     {
+        LazyLoadEmoji emoji = c.getEmoji();
         Image img = emoji.getImage(emojiConfig.isAnimationEnabled());
 
         int iw;
@@ -167,7 +168,7 @@ public class SpriteFont
         else
         {
             // Emoji
-            int[] eDim = getEmojiDimensions(c.getEmoji(), emojiConfig);
+            int[] eDim = getEmojiDimensions(c, emojiConfig);
             final int charSpacing = (int) (config.getCharSpacing() * config.getFontScale());
             final int extraSpacing = (c.getEmoji().getType().isBadge() ? Math.max(charSpacing, (int) (BADGE_MINIMUM_SPACING_PIXELS * config.getFontScale())) : charSpacing);
             return eDim[0] + extraSpacing;
@@ -622,7 +623,7 @@ public class SpriteFont
         }
         else
         {
-            int[] eDim = getEmojiDimensions(sck.getEmoji(), emojiConfig);
+            int[] eDim = getEmojiDimensions(sck, emojiConfig);
             // yOffset is to center the emoji on the line
             int yOffset = (int) (sprites.getSprite(config).getSpriteDrawHeight(config.getFontScale()) / 2 - config.getBaselineOffset() * config.getFontScale()) - (sck.isBadge() ? emojiConfig.getBadgeHeightOffset() : 0);
             drawY += yOffset - eDim[1] / 2;
@@ -641,6 +642,9 @@ public class SpriteFont
                     break;
                 case UNKNOWN:
                     drawCharacter(g2d, fontMetrics, new SpriteCharacterKey(config.getUnknownChar()), x, y, emojiConfig, color, debug, debugColor, emojiObserver);
+                    break;
+                case CHARACTER:
+                    drawCharacter(g2d, fontMetrics, sck, x, y, emojiConfig, color, debug, debugColor, emojiObserver);
                     break;
                 case SPACE:
                 case NOTHING:
