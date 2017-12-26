@@ -643,9 +643,6 @@ public class SpriteFont
                 case UNKNOWN:
                     drawCharacter(g2d, fontMetrics, new SpriteCharacterKey(config.getUnknownChar()), x, y, emojiConfig, color, debug, debugColor, emojiObserver);
                     break;
-                case CHARACTER:
-                    drawCharacter(g2d, fontMetrics, sck, x, y, emojiConfig, color, debug, debugColor, emojiObserver);
-                    break;
                 case SPACE:
                 case NOTHING:
                 default:
