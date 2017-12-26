@@ -5,10 +5,6 @@ I sent that streamer a smiley face. Streamers love smiley faces.
 
 ### November 18 Update: Low resolution screen users rejoyce: at long last, the super lengthy font and border selection menus are scrollable.
 
-#### June 12 Update: Support for multi-codepoint Unicode characters has been expanded. The characters available is highly dependent on your OS and what font Java pulls from it to be its default. Special thanks to broadstone and growf for this fix.
-
-##### April 06 Update: Bans and purges and timeouts, oh my! The Fontificator can now remove messages in tandem with the Twitch chat, enabled by default in the "Message Management" popup in the Messages menu.
-
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
 It's a Java application archive, so you'll need the JRE to run it, but it's likely you already have that. If you don't, you can get it [here](https://java.com/en/download/). Install the JRE, and then you can run this program.
