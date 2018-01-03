@@ -244,6 +244,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tetris (GB)
   - Tetris (NES)
   - Teenage Mutant Ninja Turtles (NES)
+  - Umihara Kawase
   - Undertale
   - Wario Land 4 (Dark)
   - Wario Land 4 (Light)
