@@ -214,6 +214,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Zelda", "The Legend of Zelda: Ocarina of Time"), new DropdownFont("loz_oot_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Wind Waker"), new DropdownFont("loz_ww_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zelda", "The Legend of Zelda: The Minish Cap"), new DropdownFont("minish_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Zelda", "The Legend of Zelda: Skyward Sword"), new DropdownFont("loz_ss_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Zero Wing", "Zero Wing"), new DropdownFont("zw_font.png", FontType.FIXED_WIDTH));
         }
     };

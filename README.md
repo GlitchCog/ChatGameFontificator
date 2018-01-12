@@ -263,4 +263,5 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - The Legend of Zelda: Ocarina of Time
   - The Legend of Zelda: The Wind Waker
   - The Legend of Zelda: The Minish Cap
+  - The Legend of Zelda: Skyward Sword
   - Zero Wing
