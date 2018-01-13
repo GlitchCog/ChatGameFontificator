@@ -62,7 +62,7 @@ public class EmojiParser
      *            can be null for non-Twitch emoji
      * @throws IOException
      */
-    public void putJsonEmojiIntoManager(EmojiManager manager, EmojiType type, String jsonData, String jsonMapData) throws IOException
+    public void putJsonEmojiIntoManager(EmojiManager manager, EmojiType type, String jsonData) throws IOException
     {
         TypedEmojiMap emojiMap = manager.getEmojiByType(type);
         switch (type)

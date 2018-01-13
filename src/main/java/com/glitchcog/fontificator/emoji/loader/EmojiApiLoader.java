@@ -144,12 +144,6 @@ public class EmojiApiLoader
 
     private String getUrl(EmojiType emojiType, String channel, String oauth)
     {
-        final String oauthLabel = "oauth:";
-        if (oauth.contains(oauthLabel))
-        {
-            oauth = oauth.substring(oauthLabel.length());
-        }
-        oauth = "?oauth_token=" + oauth;
         switch (emojiType)
         {
         case FRANKERFACEZ_CHANNEL:
@@ -167,10 +161,26 @@ public class EmojiApiLoader
         // case TWITCH_V3:
         //     return TWITCH_URL_V3;
         case TWITCH_BADGE:
+            oauth = formatOauth(oauth);
             return TWITCH_URL_BADGES.replaceAll(CHANNEL_NAME_REPLACE, channel).replaceAll(OAUTH_REPLACE, oauth);
         default:
             return null;
         }
+    }
+
+    private static String formatOauth(String oauth)
+    {
+        if (oauth == null)
+        {
+            oauth = "";
+        }
+        final String oauthLabel = "oauth:";
+        if (oauth.contains(oauthLabel))
+        {
+            oauth = oauth.substring(oauthLabel.length());
+        }
+        oauth = "?oauth_token=" + oauth;
+        return oauth;
     }
 
     public boolean initLoad() throws IOException, MalformedURLException, FileNotFoundException

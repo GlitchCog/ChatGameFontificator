@@ -8,23 +8,21 @@ package com.glitchcog.fontificator.emoji;
 public enum EmojiType
 {
     // @formatter:off
-    TWITCH_V1("Twitch Emotes from Chat V1", EmojiGroup.TWITCH, false, false),
+    TWITCH_V1("Twitch Emotes from Chat V1", EmojiGroup.TWITCH, false),
  
-    TWITCH_BADGE("Twitch Badge", EmojiGroup.TWITCH, true, false), 
-    FRANKERFACEZ_CHANNEL("FrankerFaceZ Emotes", EmojiGroup.FFZ, false, false), 
-    FRANKERFACEZ_GLOBAL("FrankerFaceZ Global Emotes", EmojiGroup.FFZ, false, false), 
-    FRANKERFACEZ_BADGE("FrankerFaceZ Badge", EmojiGroup.FFZ, true, false),
-    FRANKERFACEZ_REPLACEMENT("FrankerFaceZ Replacement Emotes", EmojiGroup.FFZ, false, false),  
-    BETTER_TTV_CHANNEL("Better Twitch TV Emotes", EmojiGroup.BTTV, false, false), 
-    BETTER_TTV_GLOBAL("Better Twitch TV Global Emotes", EmojiGroup.BTTV, false, false), 
-    TWITTER_EMOJI("Twitter Unicode Emotes", EmojiGroup.UNICODE, false, false);
+    TWITCH_BADGE("Twitch Badge", EmojiGroup.TWITCH, true), 
+    FRANKERFACEZ_CHANNEL("FrankerFaceZ Emotes", EmojiGroup.FFZ, false), 
+    FRANKERFACEZ_GLOBAL("FrankerFaceZ Global Emotes", EmojiGroup.FFZ, false), 
+    FRANKERFACEZ_BADGE("FrankerFaceZ Badge", EmojiGroup.FFZ, true),
+    FRANKERFACEZ_REPLACEMENT("FrankerFaceZ Replacement Emotes", EmojiGroup.FFZ, false),  
+    BETTER_TTV_CHANNEL("Better Twitch TV Emotes", EmojiGroup.BTTV, false), 
+    BETTER_TTV_GLOBAL("Better Twitch TV Global Emotes", EmojiGroup.BTTV, false), 
+    TWITTER_EMOJI("Twitter Unicode Emotes", EmojiGroup.UNICODE, false);
     // @formatter:on
 
     private final EmojiGroup group;
 
     private final boolean badge;
-
-    private final boolean loadSetMap;
 
     private final String description;
 
@@ -40,12 +38,11 @@ public enum EmojiType
      */
     public static EmojiType[] THIRD_PARTY_EMOJI_TYPES = new EmojiType[] { EmojiType.FRANKERFACEZ_CHANNEL, EmojiType.FRANKERFACEZ_GLOBAL, EmojiType.BETTER_TTV_CHANNEL, EmojiType.BETTER_TTV_GLOBAL, EmojiType.TWITTER_EMOJI };
 
-    private EmojiType(String description, EmojiGroup group, boolean badge, boolean loadSetMap)
+    private EmojiType(String description, EmojiGroup group, boolean badge)
     {
         this.group = group;
         this.description = description;
         this.badge = badge;
-        this.loadSetMap = loadSetMap;
     }
 
     public boolean isTwitchEmote()
@@ -66,11 +63,6 @@ public enum EmojiType
     public boolean isBadge()
     {
         return badge;
-    }
-
-    public boolean isLoadSetMap()
-    {
-        return loadSetMap;
     }
 
     public String getDescription()

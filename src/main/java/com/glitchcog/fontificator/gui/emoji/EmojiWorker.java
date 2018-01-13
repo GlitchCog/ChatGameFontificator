@@ -32,13 +32,6 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
     private static final Logger logger = Logger.getLogger(EmojiWorker.class);
 
     /**
-     * Twitch gives a specific emote ID with each post, but identifies all its V3 emotes with a broader "set" ID, so
-     * this API links the narrow emote ID to a wider emote set ID. This is an ineffective way to map these data, but
-     * Twitch's V3 API demands it.
-     */
-    private static final String TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP = "https://api.twitch.tv/kraken/chat/emoticon_images";
-
-    /**
      * Hard-coded URL for the Twitch prime (premium) badge, because it is not added to the channel badge API as of
      * 2016-10-04
      */
@@ -192,20 +185,12 @@ public class EmojiWorker extends SwingWorker<Integer, EmojiWorkerReport>
 
             if (EmojiOperation.LOAD == opType)
             {
-                // Some custom loading required to get the set map from Twitch API, if it's Twitch V2/V3 emotes being loaded
-                String jsonSetMapData = null;
-                if (emojiType.isLoadSetMap())
-                {
-                    loader.prepLoad(TWITCH_URL_EMOTE_ID_TO_SET_ID_MAP);
-                    jsonSetMapData = runLoader(emojiType);
-                }
-
                 // The proper load for the emoji
                 loader.prepLoad(emojiType, channel, oauth);
                 String data = runLoader(emojiType);
                 if (data != null)
                 {
-                    parser.putJsonEmojiIntoManager(manager, emojiType, data, jsonSetMapData);
+                    parser.putJsonEmojiIntoManager(manager, emojiType, data);
                 }
 
                 // Some custom loading required for custom FFZ moderator badges

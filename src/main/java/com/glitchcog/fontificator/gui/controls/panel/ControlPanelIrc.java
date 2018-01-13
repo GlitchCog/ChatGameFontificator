@@ -9,6 +9,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -51,6 +52,8 @@ public class ControlPanelIrc extends ControlPanelBase
     private LabeledInput hostInput;
 
     private LabeledInput portInput;
+
+    private JCheckBox anonymous;
 
     private LabeledInput authInput;
 
@@ -96,16 +99,39 @@ public class ControlPanelIrc extends ControlPanelBase
      */
     private void connect() throws NumberFormatException, NickAlreadyInUseException, IOException, IrcException, Exception
     {
+        anonymous.setEnabled(false);
         fillConfigFromInput();
+
+        final boolean anon = config.isAnonymous();
+
         logBox.setAuthCode(config.getAuthorization());
         String user = config.getUsername();
         String host = config.getHost();
         int port = Integer.parseInt(config.getPort());
         String auth = config.getAuthorization();
+
+        if (anon)
+        {
+            String rndNumStr = "" + new Random().nextInt(99999);
+            while (rndNumStr.length() < 5)
+            {
+                rndNumStr = "0" + rndNumStr;
+            }
+            user = "justinfan" + rndNumStr;
+        }
+
         bot.setUsername(user);
         logger.trace("Attempting to connect " + user + " to " + host + ":" + port);
         bot.reset();
-        bot.connect(host, port, auth);
+
+        if (anon)
+        {
+            bot.connect(host, port);
+        }
+        else
+        {
+            bot.connect(host, port, auth);
+        }
 
         joinChannel();
     }
@@ -132,12 +158,12 @@ public class ControlPanelIrc extends ControlPanelBase
         // This call does nothing
         LoadConfigReport report = validateInput();
 
-        if (userInput.getText().isEmpty())
+        if (userInput.getText().isEmpty() && !anonymous.isSelected())
         {
             report.addError("An input value for Username is required", LoadConfigErrorType.MISSING_VALUE);
         }
 
-        if (authInput.getText().trim().isEmpty())
+        if (authInput.getText().trim().isEmpty() && !anonymous.isSelected())
         {
             report.addError("An input value for the OAuth Token is required", LoadConfigErrorType.MISSING_VALUE);
         }
@@ -185,6 +211,20 @@ public class ControlPanelIrc extends ControlPanelBase
 
         hostInput = new LabeledInput("Host", 7);
         portInput = new LabeledInput("Port", 3);
+
+        anonymous = new JCheckBox("Read Only (Credentials not required)");
+        anonymous.setToolTipText("Connect without credentials, but also without access to custom Twitch badges");
+
+        anonymous.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                userInput.setEnabled(!anonymous.isSelected());
+                authInput.setEnabled(!anonymous.isSelected());
+                config.setAnonymous(anonymous.isSelected());
+            }
+        });
 
         FocusListener fl = new FocusListener()
         {
@@ -321,12 +361,14 @@ public class ControlPanelIrc extends ControlPanelBase
         JPanel midRow = new JPanel(new GridBagLayout());
         JPanel botRow = new JPanel(new GridBagLayout());
 
+        gbc.weightx = 0.0;
+        gbc.fill = GridBagConstraints.NONE;
+        topRow.add(anonymous, gbc);
+        gbc.gridx++;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
         gbc.weightx = 1.0;
         gbc.weighty = 0.0;
-
         topRow.add(userInput, gbc);
         gbc.gridx++;
         topRow.add(chanInput, gbc);
@@ -380,11 +422,12 @@ public class ControlPanelIrc extends ControlPanelBase
 
     public void toggleConnect(boolean connected)
     {
-        userInput.setEnabled(!connected);
-        authInput.setEnabled(!connected);
+        userInput.setEnabled(!anonymous.isSelected() && !connected);
+        authInput.setEnabled(!anonymous.isSelected() && !connected);
         chanInput.setEnabled(!connected);
         hostInput.setEnabled(!connected);
         portInput.setEnabled(!connected);
+        anonymous.setEnabled(!connected);
 
         connectButton.setText(connected ? "Disconnect" : "Connect");
     }
@@ -402,6 +445,7 @@ public class ControlPanelIrc extends ControlPanelBase
         userInput.setText(config.getUsername());
         chanInput.setText(config.getChannel());
         authInput.setText(config.getAuthorization());
+        anonymous.setSelected(config.isAnonymous());
 
         logBox.setAuthCode(config.getAuthorization());
 
@@ -409,6 +453,9 @@ public class ControlPanelIrc extends ControlPanelBase
         portInput.setText(config.getPort());
 
         autoReconnectBox.setSelected(config.isAutoReconnect());
+
+        userInput.setEnabled(!anonymous.isSelected());
+        authInput.setEnabled(!anonymous.isSelected());
     }
 
     @Override
@@ -423,6 +470,7 @@ public class ControlPanelIrc extends ControlPanelBase
     {
         config.setUsername(userInput.getText());
         config.setAuthorization(authInput.getText());
+        config.setAnonymous(anonymous.isSelected());
         config.setChannel(chanInput.getText());
 
         config.setHost(hostInput.getText());

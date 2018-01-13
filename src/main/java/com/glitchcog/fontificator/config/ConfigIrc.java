@@ -21,6 +21,8 @@ public class ConfigIrc extends Config
 
     private String channel;
 
+    private Boolean anonymous;
+
     private Boolean autoReconnect;
 
     @Override
@@ -30,6 +32,7 @@ public class ConfigIrc extends Config
         host = null;
         port = null;
         authorization = null;
+        anonymous = null;
         channel = null;
         setAutoReconnect(null);
     }
@@ -41,7 +44,15 @@ public class ConfigIrc extends Config
 
         reset();
 
-        // No validation here because these values are not required to be saved
+        final String anonStr = props.getProperty(FontificatorProperties.KEY_IRC_ANON);
+        validateBooleanStrings(report, anonStr);
+
+        if (report.isErrorFree())
+        {
+            anonymous = evaluateBooleanString(props, FontificatorProperties.KEY_IRC_ANON, report);
+        }
+
+        // No more validation here because these values are not required to be saved
 
         final String propUser = props.getProperty(FontificatorProperties.KEY_IRC_USER);
         final String propAuth = props.getProperty(FontificatorProperties.KEY_IRC_AUTH);
@@ -145,6 +156,17 @@ public class ConfigIrc extends Config
     {
         this.channel = channel;
         props.setProperty(FontificatorProperties.KEY_IRC_CHAN, channel);
+    }
+
+    public Boolean isAnonymous()
+    {
+        return anonymous;
+    }
+
+    public void setAnonymous(Boolean anonymous)
+    {
+        this.anonymous = anonymous;
+        props.setProperty(FontificatorProperties.KEY_IRC_ANON, Boolean.toString(anonymous));
     }
 
     public Boolean isAutoReconnect()

@@ -186,7 +186,7 @@ public class ControlPanelEmoji extends ControlPanelBase
     private void resolveEnables()
     {
         final boolean all = enableAll.isSelected();
-        final boolean badges = enableTwitchBadges.isSelected() | enableFfzBadges.isSelected();
+        final boolean badges = enableTwitchBadges.isSelected() || enableFfzBadges.isSelected();
 
         scaleAndDisplayPanel.setEnabled(all || badges);
         emojiScaleToLineHeight.setEnabled(all);
