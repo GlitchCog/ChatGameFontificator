@@ -1,0 +1,19 @@
+colorBackground=FFFFFF
+colorBorder=FFFFFF
+colorForeground=000000
+colorHighlight=6699FF
+colorPalette=0070EC,80D010,E40058,8000F0,B53120
+fontBorderFile=preset\://borders/ff_adv_border.png
+fontBorderInsetY=16
+fontBorderInsetX=0
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/ff_adv_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=8
+fontScale=2.0
+fontType=FIXED_WIDTH
+group=Mana
+name=Final Fantasy Adventure

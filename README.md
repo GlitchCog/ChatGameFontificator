@@ -184,6 +184,9 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Kero Blaster
   - The Lost Vikings
   - Lufia II: Rise of the Sinistrals
+  - Final Fantasy Adventure
+  - Secret of Mana
+  - Legend of Mana
   - Super Mario Bros.
   - Super Mario Bros. 2
   - Super Mario Bros. 3

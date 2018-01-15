@@ -130,6 +130,10 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Kunio-kun", "River City Ransom"), new DropdownFont("rcr_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownFont("lostvik_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Lufia", "Lufia II: Rise of the Sinistrals"), new DropdownFont("lufia2_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mana", "Final Fantasy Adventure"), new DropdownFont("ff_adv_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mana", "Secret of Mana (Europe)"), new DropdownFont("som_eu_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("Mana", "Legend of Mana"), new DropdownFont("lom_font.png", FontType.VARIABLE_WIDTH));
+            put(new DropdownLabel("Mana", "Legend of Mana Colorizable"), new DropdownFont("lom_colorizable_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros."), new DropdownFont("smb1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 2"), new DropdownFont("smb2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Mario", "Super Mario Bros. 3"), new DropdownFont("smb3_font.png", FontType.FIXED_WIDTH));
@@ -346,6 +350,9 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Lost Vikings", "The Lost Vikings"), new DropdownBorder("lostvik_border.png", Color.WHITE));
             put(new DropdownLabel("Lufia", "Lufia II: Rise of the Sinistrals Speech"), new DropdownBorder("lufia2_border.png", Color.WHITE));
             put(new DropdownLabel("Lufia", "Lufia II: Rise of the Sinistrals Thought"), new DropdownBorder("lufia2_thought_border.png", Color.WHITE));
+            put(new DropdownLabel("Mana", "Final Fantasy Adventure"), new DropdownBorder("ff_adv_border.png", Color.WHITE));
+            put(new DropdownLabel("Mana", "Secret of Mana"), new DropdownBorder("som_border.png", Color.WHITE));
+            put(new DropdownLabel("Mana", "Legend of Mana"), new DropdownBorder("lom_border.png", Color.WHITE));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Brick"), new DropdownBorder("smb1_brick_border.png", 0x994E00));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Cloud"), new DropdownBorder("smb1_cloud_border.png", Color.WHITE));
             put(new DropdownLabel("Mario (NES)", "Super Mario Bros. Rock"), new DropdownBorder("smb1_rock_border.png", 0x994E00));

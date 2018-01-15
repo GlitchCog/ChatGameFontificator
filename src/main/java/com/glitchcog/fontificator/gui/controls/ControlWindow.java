@@ -485,6 +485,10 @@ public class ControlWindow extends JDialog
         final String[] strFinalFantasy6 = new String[] { "Final Fantasy VI", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff6.cgf" };
         final String[] strFinalFantasy7 = new String[] { "Final Fantasy VII", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff7.cgf" };
         final String[] strFinalFantasy9 = new String[] { "Final Fantasy IX", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff9.cgf" };
+        /* Presets Mana */
+        final String[] strFinalFantasyAdv = new String[] { "Final Fantasy Adventure", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ffadv.cgf" };
+        final String[] strSecretOfMana = new String[] { "Secret of Mana", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "som.cgf" };
+        final String[] strLegendOfMana = new String[] { "Legend of Mana", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "lom.cgf" };
         /* Presets Mario */
         final String[] strMario1 = new String[] { "Super Mario Bros.", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1.cgf" };
         final String[] strMario1Underworld = new String[] { "Super Mario Bros. Underworld", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1_underworld.cgf" };
@@ -553,6 +557,7 @@ public class ControlWindow extends JDialog
             strDw1, strDw2, strDq1_2, strDw3, strDw3Gbc, strDq3, strDw4, strDqhrs, 
             strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
             strFinalFantasy1, strFinalFantasy4, strFinalFantasy6, strFinalFantasy7, strFinalFantasy9, 
+            strFinalFantasyAdv, strSecretOfMana, strLegendOfMana, 
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strMarioWorld, strYoshisIsland, strMarioRpg, 
             strMetroid, strMetroidBoss, strMetroid2, strSuperMetroid, strMetroidFusion, strMetroidZero, 
             strPhanStar1, strPhanStar2, 
@@ -589,6 +594,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDq1_2[0], strDw3[0], strDw3Gbc[0], strDq3[0], strDw4[0], strDqhrs[0] });
         presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
         presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy4[0], strFinalFantasy6[0], strFinalFantasy7[0], strFinalFantasy9[0] });
+        presetMapSubmenuToItem.put("Mana", new String[] { strFinalFantasyAdv[0], strSecretOfMana[0], strLegendOfMana[0] });
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario1Underworld[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0], strMarioRpg[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strMetroid2[0], strSuperMetroid[0], strMetroidFusion[0], strMetroidZero[0] });
         presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] });

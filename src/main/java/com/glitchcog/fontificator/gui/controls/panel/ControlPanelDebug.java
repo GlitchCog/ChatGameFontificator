@@ -219,7 +219,7 @@ public class ControlPanelDebug extends ControlPanelBase
         });
 
         postMessagesButton = new JToggleButton("Post Messages");
-        postRateSlider = new LabeledSlider("Post Rate ", " / min", 1, 120, 15, 3);
+        postRateSlider = new LabeledSlider("Post Rate ", " / min", 1, 120, 30, 3);
 
         postClock = new Timer(60000 / postRateSlider.getValue(), new ActionListener()
         {
