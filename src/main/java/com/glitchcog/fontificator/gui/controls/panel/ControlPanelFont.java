@@ -165,6 +165,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Moon Crystal", "Moon Crystal Dialog"), new DropdownFont("moon_crystal_dialog_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Moon Crystal", "Moon Crystal HUD"), new DropdownFont("moon_crystal_hud_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Ogre Battle", "Ogre Battle: The March of the Black Queen"), new DropdownFont("ogreb_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("PaRappa the Rapper", "PaRappa the Rapper"), new DropdownFont("parappa_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownFont("ps1_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownFont("ps2_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownFont("pkmnrb_font.png", FontType.FIXED_WIDTH));
@@ -390,6 +391,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Metroid", "Metroid Zero Mission"), new DropdownBorder("metroid_zm_border.png", Color.WHITE));
             put(new DropdownLabel("Moon Crystal", "Moon Crystal"), new DropdownBorder("moon_crystal_border.png", Color.WHITE));
             put(new DropdownLabel("Ogre Battle", "Ogre Battle: The March of the Black Queen"), new DropdownBorder("ogreb_border.png", Color.WHITE));
+            put(new DropdownLabel("PaRappa the Rapper", "PaRappa the Rapper"), new DropdownBorder("parappa_border.png", Color.WHITE));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star"), new DropdownBorder("ps1_border.png", Color.WHITE));
             put(new DropdownLabel("Phantasy Star", "Phantasy Star 2"), new DropdownBorder("ps2_border.png", Color.WHITE));
             put(new DropdownLabel("Pokemon", "Pokemon Red/Blue"), new DropdownBorder("pkmnrb_border.png", 0x171717));

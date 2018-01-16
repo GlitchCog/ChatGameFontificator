@@ -217,6 +217,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Moon Crystal Dialog
   - Moon Crystal HUD
   - Ogre Battle: The March of the Black Queen
+  - PaRappa the Rapper
   - Phantasy Star
   - Phantasy Star 2
   - Pokemon Red/Blue
