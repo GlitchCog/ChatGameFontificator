@@ -199,6 +199,7 @@ public class ControlPanelFont extends ControlPanelBase
             put(new DropdownLabel("Tengai Makyou Zero", "Tengai Makyou Zero"), new DropdownFont("tmzero_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (GB)"), new DropdownFont("tetris_gb_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Tetris", "Tetris (NES)"), new DropdownFont("tetris_nes_font.png", FontType.FIXED_WIDTH));
+            put(new DropdownLabel("The Legend of Dragoon", "The Legend of Dragoon"), new DropdownFont("legoon_font.png", FontType.VARIABLE_WIDTH));
             put(new DropdownLabel("TMNT", "Teenage Mutant Ninja Turtles (NES)"), new DropdownFont("tmnt_nes_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Umihara Kawase", "Umihara Kawase"), new DropdownFont("umi_font.png", FontType.FIXED_WIDTH));
             put(new DropdownLabel("Undertale", "Undertale"), new DropdownFont("undertale_font.png", FontType.FIXED_WIDTH));
