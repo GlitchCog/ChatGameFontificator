@@ -1,15 +1,15 @@
-colorBackground=BFC79F
+colorBackground=FFFFFF
 colorBorder=171717
 colorForeground=171717
 colorHighlight=FFFFCC
 colorPalette=B90545,5255A5,486621,8C6F07,009589,2E3092
-fontBorderFile=preset\://borders/pkmnrb_border.png
+fontBorderFile=preset\://borders/pkmngs_border.png
 fontBorderInsetX=-4
 fontBorderInsetY=10
 fontBorderScale=2.0
 fontCharSpacing=0
 fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
-fontFile=preset\://fonts/pkmnrb_font.png
+fontFile=preset\://fonts/pkmngs_font.png
 fontGridHeight=12
 fontGridWidth=8
 fontLineSpacing=8

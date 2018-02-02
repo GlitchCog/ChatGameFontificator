@@ -510,7 +510,11 @@ public class ControlWindow extends JDialog
         final String[] strPhanStar2 = new String[] { "Phantasy Star II", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ps2.cgf" };
         /* Presets Pokemon */
         final String[] strPkmnRb = new String[] { "Pokemon Red/Blue", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrb.cgf" };
-        final String[] strPkmnFrlg = new String[] { "Pokemon Fire Red/Leaf Green", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnfrlg.cgf" };
+        final String[] strPkmnGs = new String[] { "Pokemon Gold/Silver", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmngs.cgf" };
+        final String[] strPkmnRsDialog = new String[] { "Pokemon Ruby/Sapphire Dialog", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrubysaph_dialog.cgf" };
+        final String[] strPkmnRsBattle = new String[] { "Pokemon Ruby/Sapphire Battle", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrubysaph_battle.cgf" };
+        final String[] strPkmnFrlg = new String[] { "Pokemon FireRed/LeafGreen", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnfrlg.cgf" };
+        final String[] strPkmnDp = new String[] { "Pokemon Diamond/Pearl", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmndp.cgf" };
         /* Presets TMNT */
         final String[] strTmntNesDialog = new String[] { "Teenage Mutant Ninja Turtles (NES) Dialog", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tmnt_nes_dialog.cgf" };
         final String[] strTmntNesPortraits = new String[] { "Teenage Mutant Ninja Turtles (NES) Portraits", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tmnt_nes_portraits.cgf" };
@@ -561,7 +565,7 @@ public class ControlWindow extends JDialog
             strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strMarioWorld, strYoshisIsland, strMarioRpg, 
             strMetroid, strMetroidBoss, strMetroid2, strSuperMetroid, strMetroidFusion, strMetroidZero, 
             strPhanStar1, strPhanStar2, 
-            strPkmnRb, strPkmnFrlg, 
+            strPkmnRb, strPkmnGs, strPkmnRsDialog, strPkmnRsBattle, strPkmnFrlg, strPkmnDp, 
             strTmntNesDialog, strTmntNesPortraits, 
             strYs1fc, strYs3fc, strYs3snes, 
             strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw, strZeldaMinish,  
@@ -598,7 +602,7 @@ public class ControlWindow extends JDialog
         presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario1Underworld[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0], strMarioRpg[0] });
         presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strMetroid2[0], strSuperMetroid[0], strMetroidFusion[0], strMetroidZero[0] });
         presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] });
-        presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnFrlg[0] });
+        presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnGs[0], strPkmnRsDialog[0], strPkmnRsBattle[0], strPkmnFrlg[0], strPkmnDp[0] });
         presetMapSubmenuToItem.put("TMNT", new String[] { strTmntNesDialog[0], strTmntNesPortraits[0] });
         presetMapSubmenuToItem.put("Ys", new String[] { strYs1fc[0], strYs3fc[0], strYs3snes[0] });
         presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0], strZeldaMinish[0] });

@@ -220,8 +220,12 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - PaRappa the Rapper
   - Phantasy Star
   - Phantasy Star 2
-  - Pokemon Red/Blue
+  - Pokemon Red/Blue/Yellow
+  - Pokemon Gold/Silver
+  - Pokemon Ruby/Sapphire (Dark)
+  - Pokemon Ruby/Sapphire (Light)
   - Pokemon Fire Red/Leaf Green
+  - Pokemon Diamond/Pearl
   - Princess Tomato in the Salad Kingdom
   - River City Ransom
   - Robotrek

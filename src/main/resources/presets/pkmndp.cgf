@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=A0A0A8
+colorHighlight=FFFFCC
+colorPalette=FF99FF,99CCFF,CCFFCC,FF9999,CCCCFF
+fontBorderFile=preset\://borders/pkmndp_01_border.png
+fontBorderInsetY=-16
+fontBorderInsetX=-10
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/pkmndp_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=0
+fontScale=2.0
+fontSpaceWidth=25
+fontType=VARIABLE_WIDTH
+group=Pok\u00C3\u00A9mon
+name=Pok\u00C3\u00A9mon Diamond/Pearl

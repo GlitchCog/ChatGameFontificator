@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=FFFFCC
+colorPalette=C86868,80A850,609888,E09020,6060C0,D89070
+fontBorderFile=preset\://borders/pkmnrubysaph_dialog_border.png
+fontBorderInsetY=-18
+fontBorderInsetX=-2
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/pkmnrubysaph_dark_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=0
+fontScale=2.0
+fontSpaceWidth=20
+fontType=VARIABLE_WIDTH
+group=Pok\u00C3\u00A9mon
+name=Pok\u00C3\u00A9mon Ruby/Sapphire Dialog
