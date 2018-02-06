@@ -157,6 +157,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Dragon Warrior IV
   - Dragon Warrior VII Fight
   - Dragon Quest Heroes: Rocket Slime
+  - Dragon Quest IX
   - Drill Dozer
   - EarthBound Zero
   - EarthBound Zero Bold
