@@ -86,7 +86,7 @@ public class AssetIndexLoader
                 final String name = splitLine[1].trim();
                 final String filename = splitLine[2].trim();
                 final int color = Integer.parseInt(splitLine[3].trim(), 16);
-                borderMap.put(new DropdownLabel(category, name), new DropdownBorder(filename, Color.WHITE));
+                borderMap.put(new DropdownLabel(category, name), new DropdownBorder(filename, color));
             }
         }
         catch (Exception e)
