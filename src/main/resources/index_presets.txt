@@ -1,0 +1,83 @@
+Breath of Fire,Breath of Fire,bof1.cgf
+Breath of Fire,Breath of Fire 2,bof2.cgf
+Chrono,Chrono Trigger,ct.cgf
+Chrono,Chrono Cross,cc.cgf
+Dragon Warrior,Dragon Warrior,dw1.cgf
+Dragon Warrior,Dragon Warrior II,dw2.cgf
+Dragon Warrior,Dragon Quest I.II (SFC),dq1_2_sfc.cgf
+Dragon Warrior,Dragon Warrior III,dw3.cgf
+Dragon Warrior,Dragon Warrior III (GBC),dw3gbc.cgf
+Dragon Warrior,Dragon Quest III (SFC),dq3_sfc.cgf
+Dragon Warrior,Dragon Warrior IV,dw4.cgf
+Dragon Warrior,Dragon Quest Heroes: Rocket Slime,dqhrs.cgf
+Earthbound,Earthbound Zero,eb0.cgf
+Earthbound,Earthbound Plain,eb_plain.cgf
+Earthbound,Earthbound Mint,eb_mint.cgf
+Earthbound,Earthbound Strawberry,eb_strawberry.cgf
+Earthbound,Earthbound Banana,eb_banana.cgf
+Earthbound,Earthbound Peanut,eb_peanut.cgf
+Earthbound,Earthbound Mr. Saturn,eb_saturn.cgf
+Earthbound,Mother 3,m3.cgf
+Final Fantasy,Final Fantasy,ff1.cgf
+Final Fantasy,Final Fantasy IV,ff4.cgf
+Final Fantasy,Final Fantasy VI,ff6.cgf
+Final Fantasy,Final Fantasy VII,ff7.cgf
+Final Fantasy,Final Fantasy IX,ff9.cgf
+Mana,Final Fantasy Adventure,ffadv.cgf
+Mana,Secret of Mana,som.cgf
+Mana,Legend of Mana,lom.cgf
+Mario,Super Mario Bros.,smb1.cgf
+Mario,Super Mario Bros. Underworld,smb1_underworld.cgf
+Mario,Super Mario Bros. 2,smb2.cgf
+Mario,Super Mario Bros. 3 HUD,smb3_hud.cgf
+Mario,Super Mario Bros. 3 Letter,smb3_letter.cgf
+Mario,Super Mario World,smw.cgf
+Mario,Super Mario World 2: Yoshi's Island,yi.cgf
+Mario,Super Mario RPG,smrpg.cgf
+Metroid,Metroid,metroid.cgf
+Metroid,Metroid Mother Brain,metroidboss.cgf
+Metroid,Metroid II,metroid2.cgf
+Metroid,Super Metroid,smetroid.cgf
+Metroid,Metroid Fusion,metroid_fusion.cgf
+Metroid,Metroid Zero Mission,metroid_zm.cgf
+Phantasy Star,Phantasy Star,ps1.cgf
+Phantasy Star,Phantasy Star II,ps2.cgf
+Pokemon,Pokemon Red/Blue,pkmnrb.cgf
+Pokemon,Pokemon Gold/Silver,pkmngs.cgf
+Pokemon,Pokemon Ruby/Sapphire Dialog,pkmnrubysaph_dialog.cgf
+Pokemon,Pokemon Ruby/Sapphire Battle,pkmnrubysaph_battle.cgf
+Pokemon,Pokemon FireRed/LeafGreen,pkmnfrlg.cgf
+Pokemon,Pokemon Diamond/Pearl,pkmndp.cgf
+TMNT,Teenage Mutant Ninja Turtles (NES) Dialog,tmnt_nes_dialog.cgf
+TMNT,Teenage Mutant Ninja Turtles (NES) Portraits,tmnt_nes_portraits.cgf
+Ys,Ys (FC),ys1_fc.cgf
+Ys,Ys III (FC),ys3_fc.cgf
+Ys,Ys III (SNES),ys3_snes.cgf
+Zelda,The Legend of Zelda Bushes,zelda1_bush.cgf
+Zelda,The Legend of Zelda Mountains,zelda1_rock.cgf
+Zelda,The Legend of Zelda Dungeon,zelda1_dungeon.cgf
+Zelda,Zelda II: The Adventures of Link,zelda2.cgf
+Zelda,The Legend of Zelda: Link's Awakening,zelda_la.cgf
+Zelda,The Legend of Zelda: A Link to the Past,zelda3.cgf
+Zelda,The Legend of Zelda: The Wind Waker,zelda_ww.cgf
+Zelda,The Legend of Zelda: The Minish Cap,zelda_minish.cgf
+Other,7th Dragon,7d.cgf
+Other,Clash at Demonhead,cad.cgf
+Other,Crystalis,crystalis.cgf
+Other,Drill Dozer,drilldozer.cgf
+Other,Freedom Planet,freep.cgf
+Other,Golden Sun,gsun.cgf
+Other,Harvest Moon: Friends of Mineral Town,hm_fmt.cgf
+Other,Lufia II: Rise of the Sinistrals,lufia2.cgf
+Other,River City Ransom,rcr.cgf
+Other,Rygar (NES),rygar_nes.cgf
+Other,Secret of Evermore,soe.cgf
+Other,Shantae,shantae.cgf
+Other,Shining Force,shiningforce.cgf
+Other,Shovel Knight,sk.cgf
+Other,Stardew Valley,sdv.cgf
+Other,Star Ocean,staroc.cgf
+Other,Suikoden,suiko.cgf
+Other,Tales of Symphonia,tos.cgf
+Other,Tengai Makyou Zero,tmzero.cgf
+Other,Wario Land 4,wl4.cgf

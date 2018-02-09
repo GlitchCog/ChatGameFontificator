@@ -1,0 +1,160 @@
+7th Dragon,7th Dragon (Dialog),7d_dialog_font.png,VARIABLE_WIDTH
+7th Dragon,7th Dragon (Name),7d_name_font.png,VARIABLE_WIDTH
+7th Saga,7th Saga Battle,7saga_battle_font.png,FIXED_WIDTH
+Animal Crossing,Animal Crossing,ac_font.png,VARIABLE_WIDTH
+Ape Escape,Ape Escape Credits,ape_esc_credits_font.png,VARIABLE_WIDTH
+Bahamut Lagoon,Bahamut Lagoon,bah_lag_font.png,VARIABLE_WIDTH
+Breath of Fire,Breath of Fire,bof1_font.png,FIXED_WIDTH
+Breath of Fire,Breath of Fire 2,bof2_font.png,FIXED_WIDTH
+Castlevania,Castlevania 2 Title,cv2_title_font.png,FIXED_WIDTH
+Castlevania,Castlevania 3,cv3_font.png,FIXED_WIDTH
+Castlevania,Castlevania: Symphony of the Night,csotn_font.png,FIXED_WIDTH
+Chrono,Chrono Trigger,ct_font.png,VARIABLE_WIDTH
+Chrono,Chrono Cross,cc_font.png,VARIABLE_WIDTH
+Clash at Demonhead,Clash at Demonhead,cad_font.png,FIXED_WIDTH
+Crystalis,Crystalis,crystalis_font.png,FIXED_WIDTH
+Disney Capcom,Chip 'n Dale Rescue Rangers,cndrr_font.png,FIXED_WIDTH
+Disney Capcom,DuckTales,ducktales_font.png,FIXED_WIDTH
+Disney Capcom,TaleSpin,talespin_font.png,FIXED_WIDTH
+Donkey Kong,Donkey Kong 94,dk94_font.png,FIXED_WIDTH
+Donkey Kong,Donkey Kong Country,dkc_font.png,FIXED_WIDTH
+Donkey Kong,Donkey Kong Country Banana,dkc_banana_font.png,FIXED_WIDTH
+Donkey Kong,Donkey Kong Country KONG,dkc_kong_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Warrior,dw1_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Warrior II,dw2_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Quest I.II (SFC),dq1_2_sfc_font.png,VARIABLE_WIDTH
+Dragon Warrior,Dragon Warrior III,dw3_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Warrior III (GBC) Dialog,dw3gbc_dialog_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Warrior III (GBC) Fight,dw3gbc_fight_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Quest III (SFC),dq3_sfc_font.png,VARIABLE_WIDTH
+Dragon Warrior,Dragon Warrior IV,dw4_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Warrior VII Fight,dw7_fight_font.png,FIXED_WIDTH
+Dragon Warrior,Dragon Quest Heroes: Rocket Slime Dialog,dqhrs_dialog_font.png,VARIABLE_WIDTH
+Dragon Warrior,Dragon Quest IX,dq9_font.png,VARIABLE_WIDTH
+Drill Dozer,Drill Dozer Dialog,drilldozer_font.png,VARIABLE_WIDTH
+EarthBound,EarthBound Zero,eb0_font.png,FIXED_WIDTH
+EarthBound,EarthBound Zero Bold,eb0_bold_font.png,FIXED_WIDTH
+EarthBound,EarthBound,eb_font.png,VARIABLE_WIDTH
+EarthBound,EarthBound Mr. Saturn,eb_saturn_font.png,VARIABLE_WIDTH
+EarthBound,Mother 3,m3_font.png,VARIABLE_WIDTH
+Faxanadu,Faxanadu (PRG1) Dialog,faxanadu_dialog_font.png,FIXED_WIDTH
+Faxanadu,Faxanadu (PRG0) Dialog and HUD,faxanadu_hud_font.png,FIXED_WIDTH
+Final Fantasy,Final Fantasy,ff1_font.png,FIXED_WIDTH
+Final Fantasy,Final Fantasy II,ff2_font.png,FIXED_WIDTH
+Final Fantasy,Final Fantasy Dawn of Souls,ffdos_font.png,VARIABLE_WIDTH
+Final Fantasy,Final Fantasy IV,ff4_font.png,FIXED_WIDTH
+Final Fantasy,Final Fantasy VI,ff6_font.png,VARIABLE_WIDTH
+Final Fantasy,Final Fantasy VI (Battle),ff6_battle_font.png,FIXED_WIDTH
+Final Fantasy,Final Fantasy VII,ff7_font.png,VARIABLE_WIDTH
+Final Fantasy,Final Fantasy IX,ff9_font.png,VARIABLE_WIDTH
+Final Fantasy,Final Fantasy Tactics Advance (Dialog),ffta_dialog_font.png,VARIABLE_WIDTH
+Final Fantasy,Final Fantasy Tactics Advance (Menu),ffta_menu_font.png,VARIABLE_WIDTH
+Freedom Planet,Freedom Planet,freep_font.png,FIXED_WIDTH
+Ghosts and Goblins,Ghosts n Goblins,gng_font.png,FIXED_WIDTH
+Golden Sun,Golden Sun,gsun_font.png,VARIABLE_WIDTH
+Golden Sun,Golden Sun (Battle),gsun_battle_font.png,VARIABLE_WIDTH
+Harvest Moon,Friends of Mineral Town,hm_fmt_font.png,FIXED_WIDTH
+Harvest Moon,Friends of Mineral Town Inverted,hm_fmt_i_font.png,FIXED_WIDTH
+Harvest Moon,The Tale of Two Towns,hm_ttott_font.png,FIXED_WIDTH
+Harvest Moon,The Tale of Two Towns Name,hm_ttott_name_font.png,FIXED_WIDTH
+Holy Diver,Holy Diver,holy_diver_font.png,FIXED_WIDTH
+Kunio-kun,River City Ransom,rcr_font.png,FIXED_WIDTH
+Lost Vikings,The Lost Vikings,lostvik_font.png,FIXED_WIDTH
+Lufia,Lufia II: Rise of the Sinistrals,lufia2_font.png,FIXED_WIDTH
+Mana,Final Fantasy Adventure,ff_adv_font.png,FIXED_WIDTH
+Mana,Secret of Mana (Europe),som_eu_font.png,FIXED_WIDTH
+Mana,Legend of Mana,lom_font.png,VARIABLE_WIDTH
+Mana,Legend of Mana Colorizable,lom_colorizable_font.png,VARIABLE_WIDTH
+Mario,Super Mario Bros.,smb1_font.png,FIXED_WIDTH
+Mario,Super Mario Bros. 2,smb2_font.png,FIXED_WIDTH
+Mario,Super Mario Bros. 3,smb3_font.png,FIXED_WIDTH
+Mario,Super Mario Bros. 3 HUD,smb3_hud_font.png,FIXED_WIDTH
+Mario,Super Mario Bros. 3 HUD (Mixed Case),smb3_hud_lowercase_font.png,FIXED_WIDTH
+Mario,Super Mario Land,sml_font.png,FIXED_WIDTH
+Mario,Super Mario World,smw_font.png,FIXED_WIDTH
+Mario,Super Mario World 2: Yoshi's Island,yi_font.png,FIXED_WIDTH
+Mario,Super Mario 64,sm64_font.png,VARIABLE_WIDTH
+Mario,Super Mario 64 Multicolor,sm64_multicolor_font.png,VARIABLE_WIDTH
+Mario,Dr. Mario,drmario_font.png,FIXED_WIDTH
+Mario,Mario is Missing,mmiss_font.png,FIXED_WIDTH
+Mario,Super Mario RPG: Dark,smrpg_dark_font.png,VARIABLE_WIDTH
+Mario,Super Mario RPG: Light,smrpg_light_font.png,VARIABLE_WIDTH
+Mario,Paper Mario: The Thousand Year Door,pmttyd_font.png,VARIABLE_WIDTH
+Mega Man,Mega Man 9,mm9_font.png,FIXED_WIDTH
+Mega Man,Mega Man X,mmx_font.png,FIXED_WIDTH
+Mega Man,Mega Man Battle Network,mmbn1_font.png,FIXED_WIDTH
+Metal Gear,Metal Gear,mg_font.png,FIXED_WIDTH
+Metroid,Metroid,metroid_font.png,FIXED_WIDTH
+Metroid,Metroid II,metroid2_font.png,FIXED_WIDTH
+Metroid,Metroid II (Credits),metroid2_credits_font.png,FIXED_WIDTH
+Metroid,Super Metroid,smetroid_font.png,FIXED_WIDTH
+Metroid,Super Metroid (Mixed Case),smetroid_mixedcase_font.png,FIXED_WIDTH
+Metroid,Metroid Fusion,metroid_fusion_font.png,VARIABLE_WIDTH
+Metroid,Metroid Fusion Outline,metroid_fusion_outline_font.png,VARIABLE_WIDTH
+Metroid,Metroid Zero Mission,metroid_zm_font.png,VARIABLE_WIDTH
+Metroid,Metroid Zero Mission Outline,metroid_zm_outline_font.png,VARIABLE_WIDTH
+Moon Crystal,Moon Crystal Dialog,moon_crystal_dialog_font.png,FIXED_WIDTH
+Moon Crystal,Moon Crystal HUD,moon_crystal_hud_font.png,FIXED_WIDTH
+Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_font.png,FIXED_WIDTH
+PaRappa the Rapper,PaRappa the Rapper,parappa_font.png,VARIABLE_WIDTH
+Phantasy Star,Phantasy Star,ps1_font.png,FIXED_WIDTH
+Phantasy Star,Phantasy Star 2,ps2_font.png,FIXED_WIDTH
+Pokemon,Pokemon Red/Blue/Yellow,pkmnrb_font.png,FIXED_WIDTH
+Pokemon,Pokemon Gold/Silver,pkmngs_font.png,FIXED_WIDTH
+Pokemon,Pokemon Ruby/Sapphire (Dark),pkmnrubysaph_dark_font.png,VARIABLE_WIDTH
+Pokemon,Pokemon Ruby/Sapphire (Light),pkmnrubysaph_light_font.png,VARIABLE_WIDTH
+Pokemon,Pokemon FireRed/LeafGreen,pkmnfrlg_font.png,VARIABLE_WIDTH
+Pokemon,Pokemon Diamond/Pearl,pkmndp_font.png,VARIABLE_WIDTH
+Pokemon,Pokemon Diamond/Pearl Name,pkmndp_name_font.png,VARIABLE_WIDTH
+Princess Tomato,Princess Tomato in the Salad Kingdom,ptsk_font.png,FIXED_WIDTH
+Quintet,Robotrek,robotrek_font.png,FIXED_WIDTH
+Quintet,Robotrek (Battle),robotrek_battle_font.png,FIXED_WIDTH
+Quintet,Terranigma,terranigma_font.png,FIXED_WIDTH
+Rygar,Rygar (NES),rygar_nes_font.png,FIXED_WIDTH
+Secret of Evermore,Secret of Evermore,soe_font.png,VARIABLE_WIDTH
+Shadow Hearts,Shadow Hearts: Covenant Cutscene,shadhearts2_cutscene_font.png,VARIABLE_WIDTH
+Shantae,Shantae,shantae_font.png,FIXED_WIDTH
+Shining,Shining Force Dialog,shining_force_dialog_font.png,VARIABLE_WIDTH
+Shining,Shining Force Menu,shining_force_menu_font.png,FIXED_WIDTH
+Shovel Knight,Shovel Knight,sk_font.png,FIXED_WIDTH
+Simpsons,Bart vs. the Space Mutants,bart_font.png,FIXED_WIDTH
+Solstice,Solstice,sol_font.png,FIXED_WIDTH
+Sonic,Sega System,sega_sys_font.png,FIXED_WIDTH
+Sonic,Sonic Team,sonic_team_font.png,VARIABLE_WIDTH
+Stardew Valley,Stardew Valley,sdv_font.png,FIXED_WIDTH
+Star Ocean,Star Ocean Dialog,staroc_dialog_font.png,VARIABLE_WIDTH
+Star Ocean,Star Ocean HUD,staroc_hud_font.png,FIXED_WIDTH
+# Star Ocean,Star Ocean HUD,staroc_font.png,FIXED_WIDTH // Same as staroc_hud_font,retired,but font file left in resources
+Star Ocean,Star Ocean: The Second Story HUD,staroc2_hud_font.png,FIXED_WIDTH
+Studio Pixel,Cave Story+,cavestoryplus_font.png,VARIABLE_WIDTH
+Studio Pixel,Kero Blaster,keroblast_font.png,VARIABLE_WIDTH
+Suikoden,Suikoden,suiko_font.png,VARIABLE_WIDTH
+Tales,Tales of Phantasia HUD (SFC Mixed Case),tophan_hud_sfc_mixedcase_font.png,FIXED_WIDTH
+Tales,Tales of Phantasia HUD (SFC Upper Case),tophan_hud_sfc_uppercase_font.png,FIXED_WIDTH
+Tales,Tales of Symphonia,tos_font.png,VARIABLE_WIDTH
+Tengai Makyou Zero,Tengai Makyou Zero,tmzero_font.png,VARIABLE_WIDTH
+Tetris,Tetris (GB),tetris_gb_font.png,FIXED_WIDTH
+Tetris,Tetris (NES),tetris_nes_font.png,FIXED_WIDTH
+The Legend of Dragoon,The Legend of Dragoon,legoon_font.png,VARIABLE_WIDTH
+TMNT,Teenage Mutant Ninja Turtles (NES),tmnt_nes_font.png,FIXED_WIDTH
+Umihara Kawase,Umihara Kawase,umi_font.png,FIXED_WIDTH
+Undertale,Undertale,undertale_font.png,FIXED_WIDTH
+Wario,Wario Land 4 (Dark),wl4_dark_font.png,VARIABLE_WIDTH
+Wario,Wario Land 4 (Light),wl4_light_font.png,VARIABLE_WIDTH
+Wild Arms,Wild Arms,wildarms_font.png,FIXED_WIDTH
+Willow,Willow (NES),willow_nes_font.png,FIXED_WIDTH
+Wonder Boy,Wonder Boy In Monster World,wbmw_font.png,FIXED_WIDTH
+Ys,Ys (NES),ys1_fc_font.png,FIXED_WIDTH
+Ys,Ys III (NES),ys3_fc_font.png,FIXED_WIDTH
+Ys,Ys III (SNES),ys3_snes_font.png,FIXED_WIDTH
+Zelda,The Legend of Zelda,loz_font.png,FIXED_WIDTH
+Zelda,The Legend of Zelda (Mixed Case),loz_lowercase_font.png,FIXED_WIDTH
+Zelda,Zelda II: The Adventures of Link,zelda2_font.png,FIXED_WIDTH
+Zelda,Zelda II (Mixed Case),zelda2_lowercase_font.png,FIXED_WIDTH
+Zelda,The Legend of Zelda: A Link to the Past,lttp_font.png,VARIABLE_WIDTH
+Zelda,The Legend of Zelda: Link's Awakening,loz_la_font.png,FIXED_WIDTH
+Zelda,The Legend of Zelda: Ocarina of Time,loz_oot_font.png,VARIABLE_WIDTH
+Zelda,The Legend of Zelda: The Wind Waker,loz_ww_font.png,VARIABLE_WIDTH
+Zelda,The Legend of Zelda: The Minish Cap,minish_font.png,VARIABLE_WIDTH
+Zelda,The Legend of Zelda: Skyward Sword,loz_ss_font.png,VARIABLE_WIDTH
+Zero Wing,Zero Wing,zw_font.png,FIXED_WIDTH

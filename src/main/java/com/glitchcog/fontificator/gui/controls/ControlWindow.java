@@ -18,7 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.IIOImage;
@@ -53,10 +54,10 @@ import org.apache.log4j.Logger;
 import com.glitchcog.fontificator.bot.ChatViewerBot;
 import com.glitchcog.fontificator.bot.MessageType;
 import com.glitchcog.fontificator.bot.TwitchPrivmsg;
-import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.FontificatorProperties;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigErrorType;
 import com.glitchcog.fontificator.config.loadreport.LoadConfigReport;
+import com.glitchcog.fontificator.gui.AssetIndexLoader;
 import com.glitchcog.fontificator.gui.chat.ChatPanel;
 import com.glitchcog.fontificator.gui.chat.ChatWindow;
 import com.glitchcog.fontificator.gui.component.MenuComponent;
@@ -76,8 +77,6 @@ public class ControlWindow extends JDialog
     private static final Logger logger = Logger.getLogger(ControlWindow.class);
 
     private static final long serialVersionUID = 1L;
-
-    private final String PRESET_DIRECTORY = "presets/";
 
     private final String DEFAULT_CONFIG_FILE_EXTENSION = "cgf";
 
@@ -455,124 +454,16 @@ public class ControlWindow extends JDialog
             menuBar.add(menus[i]);
         }
 
-        /* Presets Breath of Fire */
-        final String[] strBof1 = new String[] { "Breath of Fire", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "bof1.cgf" };
-        final String[] strBof2 = new String[] { "Breath of Fire 2", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "bof2.cgf" };
-        /* Presets Chrono */
-        final String[] strChrono = new String[] { "Chrono Trigger", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ct.cgf" };
-        final String[] strChronoCross = new String[] { "Chrono Cross", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "cc.cgf" };
-        /* Presets Dragon Warrior */
-        final String[] strDw1 = new String[] { "Dragon Warrior", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dw1.cgf" };
-        final String[] strDw2 = new String[] { "Dragon Warrior II", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dw2.cgf" };
-        final String[] strDq1_2 = new String[] { "Dragon Quest I.II (SFC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dq1_2_sfc.cgf" };
-        final String[] strDw3 = new String[] { "Dragon Warrior III", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dw3.cgf" };
-        final String[] strDw3Gbc = new String[] { "Dragon Warrior III (GBC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dw3gbc.cgf" };
-        final String[] strDq3 = new String[] { "Dragon Quest III (SFC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dq3_sfc.cgf" };
-        final String[] strDw4 = new String[] { "Dragon Warrior IV", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dw4.cgf" };
-        final String[] strDqhrs = new String[] { "Dragon Quest Heroes: Rocket Slime", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "dqhrs.cgf" };
-        /* Presets EarthBound */
-        final String[] strEb0 = new String[] { "Earthbound Zero", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb0.cgf" };
-        final String[] strEbPlain = new String[] { "Earthbound Plain", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_plain.cgf" };
-        final String[] strEbMint = new String[] { "Earthbound Mint", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_mint.cgf" };
-        final String[] strEbStrawberry = new String[] { "Earthbound Strawberry", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_strawberry.cgf" };
-        final String[] strEbBanana = new String[] { "Earthbound Banana", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_banana.cgf" };
-        final String[] strEbPeanut = new String[] { "Earthbound Peanut", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_peanut.cgf" };
-        final String[] strEbSaturn = new String[] { "Earthbound Mr. Saturn", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "eb_saturn.cgf" };
-        final String[] strM3 = new String[] { "Mother 3", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "m3.cgf" };
-        /* Presets Final Fantasy */
-        final String[] strFinalFantasy1 = new String[] { "Final Fantasy", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff1.cgf" };
-        final String[] strFinalFantasy4 = new String[] { "Final Fantasy IV", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff4.cgf" };
-        final String[] strFinalFantasy6 = new String[] { "Final Fantasy VI", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff6.cgf" };
-        final String[] strFinalFantasy7 = new String[] { "Final Fantasy VII", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff7.cgf" };
-        final String[] strFinalFantasy9 = new String[] { "Final Fantasy IX", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ff9.cgf" };
-        /* Presets Mana */
-        final String[] strFinalFantasyAdv = new String[] { "Final Fantasy Adventure", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ffadv.cgf" };
-        final String[] strSecretOfMana = new String[] { "Secret of Mana", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "som.cgf" };
-        final String[] strLegendOfMana = new String[] { "Legend of Mana", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "lom.cgf" };
-        /* Presets Mario */
-        final String[] strMario1 = new String[] { "Super Mario Bros.", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1.cgf" };
-        final String[] strMario1Underworld = new String[] { "Super Mario Bros. Underworld", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb1_underworld.cgf" };
-        final String[] strMario2 = new String[] { "Super Mario Bros. 2", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb2.cgf" };
-        final String[] strMario3hud = new String[] { "Super Mario Bros. 3 HUD", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb3_hud.cgf" };
-        final String[] strMario3letter = new String[] { "Super Mario Bros. 3 Letter", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smb3_letter.cgf" };
-        final String[] strMarioWorld = new String[] { "Super Mario World", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smw.cgf" };
-        final String[] strYoshisIsland = new String[] { "Super Mario World 2: Yoshi's Island", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "yi.cgf" };
-        final String[] strMarioRpg = new String[] { "Super Mario RPG", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smrpg.cgf" };
-        /* Presets Metroid */
-        final String[] strMetroid = new String[] { "Metroid", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid.cgf" };
-        final String[] strMetroidBoss = new String[] { "Metroid Mother Brain", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroidboss.cgf" };
-        final String[] strMetroid2 = new String[] { "Metroid II", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid2.cgf" };
-        final String[] strSuperMetroid = new String[] { "Super Metroid", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "smetroid.cgf" };
-        final String[] strMetroidFusion = new String[] { "Metroid Fusion", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid_fusion.cgf" };
-        final String[] strMetroidZero = new String[] { "Metroid Zero Mission", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "metroid_zm.cgf" };
-        /* Presets Phantasy Star */
-        final String[] strPhanStar1 = new String[] { "Phantasy Star", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ps1.cgf" };
-        final String[] strPhanStar2 = new String[] { "Phantasy Star II", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ps2.cgf" };
-        /* Presets Pokemon */
-        final String[] strPkmnRb = new String[] { "Pokemon Red/Blue", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrb.cgf" };
-        final String[] strPkmnGs = new String[] { "Pokemon Gold/Silver", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmngs.cgf" };
-        final String[] strPkmnRsDialog = new String[] { "Pokemon Ruby/Sapphire Dialog", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrubysaph_dialog.cgf" };
-        final String[] strPkmnRsBattle = new String[] { "Pokemon Ruby/Sapphire Battle", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnrubysaph_battle.cgf" };
-        final String[] strPkmnFrlg = new String[] { "Pokemon FireRed/LeafGreen", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmnfrlg.cgf" };
-        final String[] strPkmnDp = new String[] { "Pokemon Diamond/Pearl", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "pkmndp.cgf" };
-        /* Presets TMNT */
-        final String[] strTmntNesDialog = new String[] { "Teenage Mutant Ninja Turtles (NES) Dialog", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tmnt_nes_dialog.cgf" };
-        final String[] strTmntNesPortraits = new String[] { "Teenage Mutant Ninja Turtles (NES) Portraits", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tmnt_nes_portraits.cgf" };
-        /* Presets Ys */
-        final String[] strYs1fc = new String[] { "Ys (FC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ys1_fc.cgf" };
-        final String[] strYs3fc = new String[] { "Ys III (FC)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ys3_fc.cgf" };
-        final String[] strYs3snes = new String[] { "Ys III (SNES)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "ys3_snes.cgf" };
-        /* Presets Zelda */
-        final String[] strLozBush = new String[] { "The Legend of Zelda Bushes", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_bush.cgf" };
-        final String[] strLozRock = new String[] { "The Legend of Zelda Moutains", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_rock.cgf" };
-        final String[] strLozDungeon = new String[] { "The Legend of Zelda Dungeon", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda1_dungeon.cgf" };
-        final String[] strZelda2 = new String[] { "Zelda II: The Adventures of Link", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda2.cgf" };
-        final String[] strLozLa = new String[] { "The Legend of Zelda: Link's Awakening", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda_la.cgf" };
-        final String[] strZelda3 = new String[] { "The Legend of Zelda: A Link to the Past", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda3.cgf" };
-        final String[] strZeldaWw = new String[] { "The Legend of Zelda: The Wind Waker", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda_ww.cgf" };
-        final String[] strZeldaMinish = new String[] { "The Legend of Zelda: The Minish Cap", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "zelda_minish.cgf" };
-        /* Ungrouped Presets */
-        final String[] strSeventhDragon = new String[] { "7th Dragon", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "7d.cgf" };
-        final String[] strClash = new String[] { "Clash at Demonhead", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "cad.cgf" };
-        final String[] strCrystalis = new String[] { "Crystalis", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "crystalis.cgf" };
-        final String[] strDrillDozer = new String[] { "Drill Dozer", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "drilldozer.cgf" };
-        final String[] strFreedomPlanet = new String[] { "Freedom Planet", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "freep.cgf" };
-        final String[] strGoldenSun = new String[] { "Golden Sun", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "gsun.cgf" };
-        final String[] strHarvestMoonFmt = new String[] { "Harvest Moon: Friends of Mineral Town", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "hm_fmt.cgf" };
-        final String[] strLufia2 = new String[] { "Lufia II: Rise of the Sinistrals", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "lufia2.cgf" };
-        final String[] strRiverCityRansom = new String[] { "River City Ransom", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "rcr.cgf" };
-        final String[] strRygarNes = new String[] { "Rygar (NES)", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "rygar_nes.cgf" };
-        final String[] strSecretOfEvermore = new String[] { "Secret of Evermore", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "soe.cgf" };
-        final String[] strShantae = new String[] { "Shantae", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "shantae.cgf" };
-        final String[] strShiningForce = new String[] { "Shining Force", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "shiningforce.cgf" };
-        final String[] strShovel = new String[] { "Shovel Knight", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "sk.cgf" };
-        final String[] strStardew = new String[] { "Stardew Valley", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "sdv.cgf" };
-        final String[] strStarOcean = new String[] { "Star Ocean", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "staroc.cgf" };
-        final String[] strSuikoden = new String[] { "Suikoden", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "suiko.cgf" };
-        final String[] strTalesOfSymphonia = new String[] { "Tales of Symphonia", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tos.cgf" };
-        final String[] strTengai = new String[] { "Tengai Makyou Zero", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "tmzero.cgf" };
-        final String[] strWarioLand4 = new String[] { "Wario Land 4", ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + "wl4.cgf" };
+        Map<String, List<String[]>> presetMapSubmenuToItem = AssetIndexLoader.loadPresets();
 
-        // @formatter:off
-        final String[][] allPresets = new String[][]
+        List<String[]> allPresets = new ArrayList<String[]>();
+        for (String key : presetMapSubmenuToItem.keySet())
         {
-            strBof1, strBof2, 
-            strChrono, strChronoCross, 
-            strDw1, strDw2, strDq1_2, strDw3, strDw3Gbc, strDq3, strDw4, strDqhrs, 
-            strEb0, strEbPlain, strEbMint, strEbStrawberry, strEbBanana, strEbPeanut, strEbSaturn, strM3,
-            strFinalFantasy1, strFinalFantasy4, strFinalFantasy6, strFinalFantasy7, strFinalFantasy9, 
-            strFinalFantasyAdv, strSecretOfMana, strLegendOfMana, 
-            strMario1, strMario1Underworld, strMario2, strMario3hud, strMario3letter, strMarioWorld, strYoshisIsland, strMarioRpg, 
-            strMetroid, strMetroidBoss, strMetroid2, strSuperMetroid, strMetroidFusion, strMetroidZero, 
-            strPhanStar1, strPhanStar2, 
-            strPkmnRb, strPkmnGs, strPkmnRsDialog, strPkmnRsBattle, strPkmnFrlg, strPkmnDp, 
-            strTmntNesDialog, strTmntNesPortraits, 
-            strYs1fc, strYs3fc, strYs3snes, 
-            strLozBush, strLozRock, strLozDungeon, strZelda2, strLozLa, strZelda3, strZeldaWw, strZeldaMinish,  
-            strSeventhDragon, strClash, strCrystalis, strDrillDozer, strFreedomPlanet, strGoldenSun, strHarvestMoonFmt, strLufia2, strRiverCityRansom, 
-            strRygarNes, strSecretOfEvermore, strShantae, strShiningForce, strShovel, strStardew, strStarOcean, strSuikoden, strTalesOfSymphonia, strTengai, strWarioLand4
-        };
-        // @formatter:on
+            for (String[] value : presetMapSubmenuToItem.get(key))
+            {
+                allPresets.add(value);
+            }
+        }
 
         ActionListener presetListener = new ActionListener()
         {
@@ -580,43 +471,26 @@ public class ControlWindow extends JDialog
             public void actionPerformed(ActionEvent e)
             {
                 String sourceText = ((JMenuItem) e.getSource()).getText();
-                for (int i = 0; i < allPresets.length; i++)
+                for (String[] presets : allPresets)
                 {
-                    if (allPresets[i][0].equals(sourceText))
+                    if (presets[0].equals(sourceText))
                     {
-                        loadPreset(allPresets[i][0], allPresets[i][1]);
+                        loadPreset(presets[0], presets[1]);
                         break;
                     }
                 }
             }
         };
 
-        // Put all the presets into this map to convert them into the submenu items
-        final Map<String, String[]> presetMapSubmenuToItem = new LinkedHashMap<String, String[]>();
-        presetMapSubmenuToItem.put("Breath of Fire", new String[] { strBof1[0], strBof2[0] });
-        presetMapSubmenuToItem.put("Chrono", new String[] { strChrono[0], strChronoCross[0] });
-        presetMapSubmenuToItem.put("Dragon Warrior", new String[] { strDw1[0], strDw2[0], strDq1_2[0], strDw3[0], strDw3Gbc[0], strDq3[0], strDw4[0], strDqhrs[0] });
-        presetMapSubmenuToItem.put("Earthbound", new String[] { strEb0[0], strEbPlain[0], strEbMint[0], strEbStrawberry[0], strEbBanana[0], strEbPeanut[0], strEbSaturn[0], strM3[0] });
-        presetMapSubmenuToItem.put("Final Fantasy", new String[] { strFinalFantasy1[0], strFinalFantasy4[0], strFinalFantasy6[0], strFinalFantasy7[0], strFinalFantasy9[0] });
-        presetMapSubmenuToItem.put("Mana", new String[] { strFinalFantasyAdv[0], strSecretOfMana[0], strLegendOfMana[0] });
-        presetMapSubmenuToItem.put("Mario", new String[] { strMario1[0], strMario1Underworld[0], strMario2[0], strMario3hud[0], strMario3letter[0], strMarioWorld[0], strYoshisIsland[0], strMarioRpg[0] });
-        presetMapSubmenuToItem.put("Metroid", new String[] { strMetroid[0], strMetroidBoss[0], strMetroid2[0], strSuperMetroid[0], strMetroidFusion[0], strMetroidZero[0] });
-        presetMapSubmenuToItem.put("Phantasy Star", new String[] { strPhanStar1[0], strPhanStar2[0] });
-        presetMapSubmenuToItem.put("Pokemon", new String[] { strPkmnRb[0], strPkmnGs[0], strPkmnRsDialog[0], strPkmnRsBattle[0], strPkmnFrlg[0], strPkmnDp[0] });
-        presetMapSubmenuToItem.put("TMNT", new String[] { strTmntNesDialog[0], strTmntNesPortraits[0] });
-        presetMapSubmenuToItem.put("Ys", new String[] { strYs1fc[0], strYs3fc[0], strYs3snes[0] });
-        presetMapSubmenuToItem.put("Zelda", new String[] { strLozBush[0], strLozRock[0], strLozDungeon[0], strZelda2[0], strLozLa[0], strZelda3[0], strZeldaWw[0], strZeldaMinish[0] });
-        presetMapSubmenuToItem.put(null, new String[] { strSeventhDragon[0], strClash[0], strCrystalis[0], strDrillDozer[0], strFreedomPlanet[0], strGoldenSun[0], strHarvestMoonFmt[0], strLufia2[0], strRiverCityRansom[0], strRygarNes[0], strSecretOfEvermore[0], strShantae[0], strShiningForce[0], strShovel[0], strStardew[0], strStarOcean[0], strSuikoden[0], strTalesOfSymphonia[0], strTengai[0], strWarioLand4[0] });
-
         for (String submenuKey : presetMapSubmenuToItem.keySet())
         {
-            String[] submenuItems = presetMapSubmenuToItem.get(submenuKey);
+            List<String[]> submenuItems = presetMapSubmenuToItem.get(submenuKey);
             if (submenuKey != null)
             {
                 JMenu submenu = new JMenu(submenuKey);
-                for (String itemStr : submenuItems)
+                for (String[] itemAndFilename : submenuItems)
                 {
-                    JMenuItem submenuItem = new JMenuItem(itemStr);
+                    JMenuItem submenuItem = new JMenuItem(itemAndFilename[0]);
                     submenuItem.addActionListener(presetListener);
                     submenu.add(submenuItem);
                 }
@@ -624,9 +498,9 @@ public class ControlWindow extends JDialog
             }
             else
             {
-                for (String submenuRootItemStr : submenuItems)
+                for (String[] submenuRootItemAndFilename : submenuItems)
                 {
-                    JMenuItem submenuRootItem = new JMenuItem(submenuRootItemStr);
+                    JMenuItem submenuRootItem = new JMenuItem(submenuRootItemAndFilename[0]);
                     submenuRootItem.addActionListener(presetListener);
                     menus[1].add(submenuRootItem);
                 }

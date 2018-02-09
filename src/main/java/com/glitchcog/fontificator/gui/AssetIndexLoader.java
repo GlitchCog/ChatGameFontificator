@@ -1,6 +1,5 @@
 package com.glitchcog.fontificator.gui;
 
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +11,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.glitchcog.fontificator.config.ConfigFont;
 import com.glitchcog.fontificator.config.FontType;
 import com.glitchcog.fontificator.gui.controls.panel.ControlPanelFont;
 import com.glitchcog.fontificator.gui.controls.panel.model.DropdownBorder;
@@ -25,6 +25,10 @@ public class AssetIndexLoader
     private static final String INDEX_FONTS_FILENAME = "index_fonts.txt";
 
     private static final String INDEX_BORDERS_FILENAME = "index_borders.txt";
+
+    private static final String INDEX_PRESETS_FILENAME = "index_presets.txt";
+
+    private static final String PRESET_DIRECTORY = "presets/";
 
     /**
      * Loads all the font index values into a map
@@ -42,7 +46,7 @@ public class AssetIndexLoader
             for (String line : fontLines)
             {
                 errorLine = line;
-                if (line.startsWith("#"))
+                if (line.trim().startsWith("#"))
                 {
                     continue;
                 }
@@ -77,7 +81,7 @@ public class AssetIndexLoader
             for (String line : borderLines)
             {
                 errorLine = line;
-                if (line.startsWith("#"))
+                if (line.trim().startsWith("#"))
                 {
                     continue;
                 }
@@ -94,6 +98,42 @@ public class AssetIndexLoader
             logger.error("Error loading border index" + (errorLine == null ? "" : "\n" + errorLine), e);
         }
         return borderMap;
+    }
+
+    public static Map<String, List<String[]>> loadPresets()
+    {
+        final Map<String, List<String[]>> presetMapSubmenuToItem = new LinkedHashMap<String, List<String[]>>();
+
+        String errorLine = null;
+        try
+        {
+            List<String> presetLines = loadIndexFile(INDEX_PRESETS_FILENAME);
+            for (String line : presetLines)
+            {
+                errorLine = line;
+                if (line.trim().startsWith("#"))
+                {
+                    continue;
+                }
+                String[] splitLine = line.split(",");
+                final String category = splitLine[0].trim();
+                final String item = splitLine[1].trim();
+                final String filename = splitLine[2].trim();
+                List<String[]> catArray = presetMapSubmenuToItem.get(category);
+                if (catArray == null)
+                {
+                    catArray = new ArrayList<String[]>();
+                    presetMapSubmenuToItem.put(category, catArray);
+                }
+                catArray.add(new String[] { item, ConfigFont.INTERNAL_FILE_PREFIX + PRESET_DIRECTORY + filename });
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error loading preset index" + (errorLine == null ? "" : "\n" + errorLine), e);
+        }
+
+        return presetMapSubmenuToItem;
     }
 
     private static List<String> loadIndexFile(String indexFilename) throws IOException

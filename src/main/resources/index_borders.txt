@@ -1,0 +1,229 @@
+7th Dragon,7th Dragon (Left),7d_left_border.png,208053
+7th Dragon,7th Dragon (Right),7d_right_border.png,208053
+Breath of Fire,Breath of Fire,bof1_border.png,E7E7E7
+Breath of Fire,Breath of Fire 2,bof2_border.png,D6C6E7
+Castlevania,Castlevania 2,cv2_border.png,FFFFFF
+Castlevania,Castlevania 3,cv3_border.png,FFFFFF
+Castlevania,Castlevania: Symphony of the Night Name,csotn_name_border.png,FFFFFF
+Castlevania,Castlevania: Symphony of the Night Enemy,csotn_enemy_border.png,FFFFFF
+Chrono,Chrono Trigger,ct_border.png,CEDBE8
+Chrono,Chrono Trigger 1 (Unshaded),ct_border_1.png,FFFFFF
+Chrono,Chrono Trigger 2 (Unshaded),ct_border_2.png,FFFFFF
+Chrono,Chrono Trigger 3 (Unshaded),ct_border_3.png,FFFFFF
+Chrono,Chrono Trigger 4 (Unshaded),ct_border_4.png,FFFFFF
+Chrono,Chrono Trigger 5 (Unshaded),ct_border_5.png,FFFFFF
+Chrono,Chrono Trigger 6 (Unshaded),ct_border_6.png,FFFFFF
+Chrono,Chrono Trigger 7 (Unshaded),ct_border_7.png,FFFFFF
+Chrono,Chrono Trigger 8 (Unshaded),ct_border_8.png,FFFFFF
+Chrono,Chrono Cross,cc_border.png,FFFFFF
+Chrono,Chrono Cross Menu,cc_menu_border.png,FFFFFF
+Chrono,Chrono Cross Arnian Wood,cc_arnian_border.png,FFFFFF
+Chrono,Chrono Cross Simple Line,cc_simple_border.png,FFFFFF
+Chrono,Chrono Cross Iron Plate,cc_iron_border.png,FFFFFF
+Chrono,Chrono Cross Shellfish,cc_shellfish_border.png,FFFFFF
+Chrono,Chrono Cross Tea for Three,cc_tea_border.png,FFFFFF
+Chrono,Chrono Cross Guldovian Stitch,cc_guldovian_border.png,FFFFFF
+Chrono,Chrono Cross Infrared Vision,cc_infrared_border.png,FFFFFF
+Chrono,Chrono Cross Valencian Cloth,cc_valencian_border.png,FFFFFF
+Chrono,Chrono Cross Monster's Mouth,cc_monster_border.png,FFFFFF
+Chrono,Chrono Cross Our Favorite Martian,cc_martian_border.png,FFFFFF
+Chrono,Chrono Cross Snakes & Orbs,cc_snake_border.png,FFFFFF
+Chrono,Chrono Cross Porre's Furnace,cc_furnace_border.png,FFFFFF
+Chrono,Chrono Cross Skullduggery,cc_skull_border.png,FFFFFF
+Chrono,Chrono Cross Tropical Paradise,cc_tropics_border.png,FFFFFF
+Chrono,Chrono Cross Quill and Papyrus,cc_papyrus_border.png,FFFFFF
+Clash at Demonhead,Clash at Demonhead,cad_border.png,FFFFFF
+Clash at Demonhead,Clash at Demonhead Hermit,cad_hermit_border.png,FFFFFF
+Clash at Demonhead,Clash at Demonhead Shop,cad_shop_border.png,44009C
+Clash at Demonhead,Clash at Demonhead Suzie,cad_suzie_border.png,FFFFFF
+Cyrstalis,Crystalis,crystalis_border.png,FFFFFF
+Disney Capcom,Chip 'n Dale Rescue Rangers Zone Clear,cndrr_zone_border.png,FFFFFF
+Disney Capcom,DuckTales HUD,ducktales_hud_border.png,FFFFFF
+Disney Capcom,DuckTales Land Select,ducktales_land_border.png,FFFFFF
+Disney Capcom,TaleSpin,talespin_border.png,FFFFFF
+Donkey Kong,Donkey Kong '94,dk94_border.png,FFFFFF
+Dragon Warrior,Dragon Warrior,dw1_border.png,FFFFFF
+Dragon Warrior,Dragon Warrior II,dw2_border.png,FFFFFF
+Dragon Warrior,Dragon Quest I.II (SFC),dq1_2_sfc_border.png,FFFFFF
+Dragon Warrior,Dragon Warrior III,dw3_border.png,FFFFFF
+Dragon Warrior,Dragon Warrior III (GBC),dw3gbc_border.png,000000
+Dragon Warrior,Dragon Quest III (SFC),dq3_sfc_border.png,FFFFFF
+Dragon Warrior,Dragon Warrior IV,dw4_border.png,FFFFFF
+Dragon Warrior,Dragon Quest VI (SFC),dq6_border.png,FFFFFF
+Dragon Warrior,Dragon Warrior VII,dw7_border.png,FFFFFF
+Dragon Warrior,Dragon Quest Heroes: Rocket Slime,dqhrs_border.png,FFFFFF
+Dragon Warrior,Dragon Quest IX,dq9_border.png,FFFFFF
+Drill Dozer,Drill Dozer,drilldozer_border.png,FFFFFF
+EarthBound,EarthBound Zero,eb0_border.png,FFFFFF
+EarthBound,EarthBound Plain,eb_plain.png,FFFFFF
+EarthBound,EarthBound Mint,eb_mint.png,FFFFFF
+EarthBound,EarthBound Strawberry,eb_strawberry.png,FFFFFF
+EarthBound,EarthBound Banana,eb_banana.png,FFFFFF
+EarthBound,EarthBound Peanut,eb_peanut.png,FFFFFF
+EarthBound,Mother 3,m3_border.png,FFFFFF
+Faxanadu,Faxanadu,faxanadu_border.png,FFFFFF
+Final Fantasy,Final Fantasy,ff1_filled_border.png,FFFFFF
+Final Fantasy,Final Fantasy Frame,ff1_border.png,FFFFFF
+Final Fantasy,Final Fantasy IV,ff4_border.png,FFFFFF
+Final Fantasy,Final Fantasy VI,ff6_border.png,FFFFFF
+Final Fantasy,Final Fantasy VII,ff7_border.png,FFFFFF
+Final Fantasy,Final Fantasy IX,ff9_border.png,FFFFFF
+Freedom Planet,Freedom Planet,freep_border.png,FFFFFF
+Golden Sun,Golden Sun,gsun_border.png,FFFFFF
+Harvest Moon,Friends of Mineral Town,hm_fmt_border.png,FFFFFF
+Harvest Moon,Friends of Mineral Town Transparent,hm_fmt_t_border.png,FFFFFF
+Harvest Moon,The Tale of Two Towns,hm_ttott_border.png,FFFFFF
+Harvest Moon,The Tale of Two Towns Blue,hm_ttott_blue_border.png,FFFFFF
+Harvest Moon,The Tale of Two Towns Green,hm_ttott_green_border.png,FFFFFF
+Harvest Moon,The Tale of Two Towns Yellow,hm_ttott_yellow_border.png,FFFFFF
+Kunio-kun,River City Ransom,rcr_border.png,FFFFFF
+Lost Vikings,The Lost Vikings,lostvik_border.png,FFFFFF
+Lufia,Lufia II: Rise of the Sinistrals Speech,lufia2_border.png,FFFFFF
+Lufia,Lufia II: Rise of the Sinistrals Thought,lufia2_thought_border.png,FFFFFF
+Mana,Final Fantasy Adventure,ff_adv_border.png,FFFFFF
+Mana,Secret of Mana,som_border.png,FFFFFF
+Mana,Legend of Mana,lom_border.png,FFFFFF
+Mario (NES),Super Mario Bros. Brick,smb1_brick_border.png,994E00
+Mario (NES),Super Mario Bros. Cloud,smb1_cloud_border.png,FFFFFF
+Mario (NES),Super Mario Bros. Rock,smb1_rock_border.png,994E00
+Mario (NES),Super Mario Bros. Seabed,smb1_seabed_border.png,00A800
+Mario (NES),Super Mario Bros. Stone,smb1_stone_border.png,BCBCBC
+Mario (NES),Super Mario Bros. Empty Block,smb1_used_border.png,A06400
+Mario (NES),Super Mario Bros. 2 Pause,smb2_pause_border.png,FFFFFF
+Mario (NES),Super Mario Bros. 3 HUD,smb3_hud_border.png,FFFFFF
+Mario (NES),Super Mario Bros. 3 Letter,smb3_letter_border.png,FBA7C3
+Mario (NES),Dr. Mario,drmario_border.png,FFFFFF
+Mario (SNES),Super Mario World Block,smw_block_border.png,FFFFFF
+Mario (SNES),Super Mario World Bonus,smw_bonus_border.png,FFFFFF
+Mario (SNES),Super Mario World Gold,smw_gold_border.png,FFFFFF
+Mario (SNES),Super Mario World Ground,smw_ground_border.png,FFFFFF
+Mario (SNES),Super Mario World Mesh,smw_mesh_border.png,FFFFFF
+Mario (SNES),Super Mario World Pipe,smw_pipe_border.png,00F800
+Mario (SNES),Super Mario World Rock,smw_rock_border.png,FFFFFF
+Mario (SNES),Super Mario World Yoshi's House,smw_yoshi_border.png,FFFFFF
+Mario (SNES),Super Mario World 2: Yoshi's Island,yi_border.png,FFFFFF
+Mario (SNES),Super Mario RPG,smrpg_border.png,FFFFFF
+Mario (SNES),Super Mario RPG Pipes,smrpg_pipe_border.png,31EF4A
+Mega Man,Mega Man 9 Stage Select,mm9_stage_border.png,FFFFFF
+Mega Man,Mega Man 9 Menu,mm9_menu_border.png,FFFFFF
+Mega Man,Mega Man 9 Menu Popup,mm9_popup_border.png,FFFFFF
+Mega Man,Mega Man X,mmx_border.png,FFFFFF
+Metroid,Metroid,metroid_border.png,4090C0
+Metroid,Metroid II,metroid2_border.png,FFFFFF
+Metroid,Metroid Pipes,metroid_pipe_border.png,FFFFFF
+Metroid,Metroid Mother Brain Glass,metroid_glass_border.png,FFFFFF
+Metroid,Super Metroid Mother Inventory,smetroid_inventory_border.png,FFFFFF
+Metroid,Super Metroid Broken Glass,smetroid_glass_broke_border.png,FFFFFF
+Metroid,Super Metroid Glass,smetroid_glass_border.png,FFFFFF
+Metroid,Metroid Fusion,metroid_fusion_border.png,FFFFFF
+Metroid,Metroid Fusion Frame,metroid_fusion_frame_border.png,FFFFFF
+Metroid,Metroid Zero Mission,metroid_zm_border.png,FFFFFF
+Moon Crystal,Moon Crystal,moon_crystal_border.png,FFFFFF
+Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_border.png,FFFFFF
+PaRappa the Rapper,PaRappa the Rapper,parappa_border.png,FFFFFF
+Phantasy Star,Phantasy Star,ps1_border.png,FFFFFF
+Phantasy Star,Phantasy Star 2,ps2_border.png,FFFFFF
+Pokemon (GB),Pokemon Red/Blue/Yellow,pkmnrb_border.png,171717
+Pokemon (GB),Pokemon Yellow Beach High Score,pkmnyel_beach_score_border.png,FFFFFF
+Pokemon (GB),Pokemon Gold/Silver,pkmngs_border.png,171717
+Pokemon (GB),Pokemon Ruby/Sapphire Battle,pkmnrubysaph_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Dialog,pkmnrubysaph_dialog_border.png,FFFFFF
+Pokemon (GB),Pokemon FireRed/LeafGreen,pkmnfrlg_border.png,66CCFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 01,pkmnrubysaph_01_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 02,pkmnrubysaph_02_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 03,pkmnrubysaph_03_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 04,pkmnrubysaph_04_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 05,pkmnrubysaph_05_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 06,pkmnrubysaph_06_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 07,pkmnrubysaph_07_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 08,pkmnrubysaph_08_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 09,pkmnrubysaph_09_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 10,pkmnrubysaph_10_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 11,pkmnrubysaph_11_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 12,pkmnrubysaph_12_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 13,pkmnrubysaph_13_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 14,pkmnrubysaph_14_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 15,pkmnrubysaph_15_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 16,pkmnrubysaph_16_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 17,pkmnrubysaph_17_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 18,pkmnrubysaph_18_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 19,pkmnrubysaph_19_border.png,FFFFFF
+Pokemon (GB),Pokemon Ruby/Sapphire Frame 20,pkmnrubysaph_20_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 01,pkmndp_01_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 02,pkmndp_02_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 03,pkmndp_03_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 04,pkmndp_04_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 05,pkmndp_05_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 06,pkmndp_06_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 07,pkmndp_07_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 08,pkmndp_08_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 09,pkmndp_09_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 10,pkmndp_10_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 11,pkmndp_11_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 12,pkmndp_12_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 13,pkmndp_13_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 14,pkmndp_14_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 15,pkmndp_15_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 16,pkmndp_16_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 17,pkmndp_17_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 18,pkmndp_18_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 19,pkmndp_19_border.png,FFFFFF
+Pokemon (DS),Pokemon Diamond/Pearl Type 20,pkmndp_20_border.png,FFFFFF
+Princess Tomato,Princess Tomato in the Salad Kingdom,ptsk_border.png,FFFFFF
+Quintet,Robotrek,robotrek_border.png,FFFFFF
+Quintet,Robotrek (Battle),robotrek_battle_border.png,FFFFFF
+Quintet,Terranigma,terranigma_border.png,FFFFFF
+Rygar,Rygar (NES),rygar_nes_border.png,FFFFFF
+Secret of Evermore,Secret of Evermore,soe_border.png,CEDBE8
+Shantae,Shantae,shantae_border.png,FFFFFF
+Shining,Shining Force,shining_force_border.png,FFFFFF
+Shovel Knight,Shovel Knight,sk_border.png,FFFFFF
+Stardew Valley,Stardew Valley Dialog,sdv_dialog_border.png,FFFFFF
+Stardew Valley,Stardew Valley Portrait,sdv_portrait_border.png,FFFFFF
+Stardew Valley,Stardew Valley Scroll,sdv_scroll_border.png,FFFFFF
+Star Ocean,Star Ocean Dialog,staroc_dialog_border.png,FFFFFF
+Star Ocean,Star Ocean Dialog Color,staroc_dialog_color_border.png,FFFFFF
+Star Ocean,Star Ocean HUD,staroc_hud_border.png,FFFFFF
+# Star Ocean,Star Ocean HUD,staroc_border.png,FFFFFF // Same as staroc_hud_border,retired,but border file left in resources
+Star Ocean,Star Ocean HUD Color,staroc_hud_color_border.png,FFFFFF
+Star Ocean,Star Ocean: The Second Story,staroc2_border.png,FFFFFF
+Suikoden,Suikoden,suiko_border.png,FFFFFF
+Tales,Tales of Phantasia (SFC),tophan_sfc_border.png,FFFFFF
+Tales,Tales of Symphonia B,tos_b_border.png,FFFFFF
+Tales,Tales of Symphonia C,tos_c_border.png,FFFFFF
+Tengai Makyou Zero,Tengai Makyou Zero,tmzero_border.png,FFFFFF
+Tetris,Tetris Next (GB),tetris_gb_border.png,FFFFFF
+Tetris,Tetris (NES),tetris_nes_border.png,FFFFFF
+Tetris,Tetris Next (NES),tetris_nes_next_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles Dialog (NES),tmnt_nes_dialog_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles Map (NES),tmnt_nes_map_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles Portraits Color (NES),tmnt_nes_portraits_color_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles Portraits Gray (NES),tmnt_nes_portraits_gray_border.png,FFFFFF
+Umihara Kawase,Umihara Kawase,umi_border.png,FFFFFF
+Undertale,Undertale,undertale_border.png,FFFFFF
+Wario,Wario Land 4,wl4_border.png,58F8F8
+Wild Arms,Wild Arms,wildarms_border.png,FFFFFF
+Willow,Willow (NES),willow_nes_border.png,FC9838
+Wonder Boy,Wonder Boy In Monster World,wbmw_border.png,E7E3E7
+Ys,Ys Dialog (FC),ys1_fc_dialog_border.png,FFFFFF
+Ys,Ys Menu (FC),ys1_fc_menu_border.png,FFFFFF
+Ys,Ys II Dialog (FC),ys2_fc_dialog_border.png,FFFFFF
+Ys,Ys II HUD (FC),ys2_fc_hud_border.png,FFFFFF
+Ys,Ys II Menu (FC),ys2_fc_menu_border.png,FFFFFF
+Ys,Ys II Portrait (FC),ys2_fc_portrait_border.png,FFFFFF
+Ys,Ys III Dialog (FC),ys3_fc_dialog_border.png,FFFFFF
+Ys,Ys III HUD (FC),ys3_fc_hud_border.png,FFFFFF
+Ys,Ys III (SNES),ys3_snes_border.png,FFFFFF
+Ys,Ys III Frame (SNES),ys3_snes_frame_border.png,FFFFFF
+Zelda,The Legend of Zelda Bush,loz_bush_border.png,48A810
+Zelda,The Legend of Zelda Rock,loz_rock_border.png,C84C0C
+Zelda,The Legend of Zelda Dungeon,loz_dungeon_border.png,FFFFFF
+Zelda,The Legend of Zelda Story,loz_story_border.png,80D010
+Zelda,Zelda II: The Adventures of Link,zelda2_border.png,FFFFFF
+Zelda,The Legend of Zelda: A Link to the Past,lttp_border.png,FFFFFF
+Zelda,The Legend of Zelda: Link's Awakening Room,loz_la_room_border.png,BFC79F
+Zelda,The Legend of Zelda: Link's Awakening Name,loz_la_name_border.png,BFC79F
+Zelda,The Legend of Zelda: The Wind Waker,loz_ww_border.png,FFFFFF
+Zelda,The Legend of Zelda: The Minish Cap Dialog,minish_dialog_border.png,FFFFFF
+Zelda,The Legend of Zelda: The Minish Cap Select,minish_select_border.png,FFFFFF
+Zelda,The Legend of Zelda: The Minish Cap Stone,minish_stone_border.png,E0D8D8
