@@ -2,6 +2,7 @@
 7th Dragon,7th Dragon (Right),7d_right_border.png,208053
 Breath of Fire,Breath of Fire,bof1_border.png,E7E7E7
 Breath of Fire,Breath of Fire 2,bof2_border.png,D6C6E7
+Bucky O'Hare,Bucky O'Hare,bohare_border.png,80D010
 Castlevania,Castlevania 2,cv2_border.png,FFFFFF
 Castlevania,Castlevania 3,cv3_border.png,FFFFFF
 Castlevania,Castlevania: Symphony of the Night Name,csotn_name_border.png,FFFFFF
@@ -104,6 +105,7 @@ Mario (SNES),Super Mario World Yoshi's House,smw_yoshi_border.png,FFFFFF
 Mario (SNES),Super Mario World 2: Yoshi's Island,yi_border.png,FFFFFF
 Mario (SNES),Super Mario RPG,smrpg_border.png,FFFFFF
 Mario (SNES),Super Mario RPG Pipes,smrpg_pipe_border.png,31EF4A
+Marvelous,Marvelous: Another Treasure Island,marvelous_border.png,FFFFFF
 Mega Man,Mega Man 9 Stage Select,mm9_stage_border.png,FFFFFF
 Mega Man,Mega Man 9 Menu,mm9_menu_border.png,FFFFFF
 Mega Man,Mega Man 9 Menu Popup,mm9_popup_border.png,FFFFFF

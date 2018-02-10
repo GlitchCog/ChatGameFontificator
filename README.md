@@ -134,6 +134,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Bart vs. the Space Mutants
   - Breath of Fire
   - Breath of Fire II
+  - Bucky O'Hare
   - Castlevania II: Simon's Quest
   - Castlevania III: Dracula's Curse
   - Castlevania: Symphony of the Night
@@ -202,6 +203,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Mario RPG: Dark
   - Super Mario RPG: Light
   - Paper Mario: The Thousand Year Door
+  - Marvelous: Another Treasure Island
   - Mega Man 9
   - Mega Man X
   - Mega Man Battle Network

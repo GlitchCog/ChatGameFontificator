@@ -1,11 +1,12 @@
-7th Dragon,7th Dragon (Dialog),7d_dialog_font.png,VARIABLE_WIDTH
-7th Dragon,7th Dragon (Name),7d_name_font.png,VARIABLE_WIDTH
+7th Dragon,7th Dragon Dialog,7d_dialog_font.png,VARIABLE_WIDTH
+7th Dragon,7th Dragon Name,7d_name_font.png,VARIABLE_WIDTH
 7th Saga,7th Saga Battle,7saga_battle_font.png,FIXED_WIDTH
 Animal Crossing,Animal Crossing,ac_font.png,VARIABLE_WIDTH
 Ape Escape,Ape Escape Credits,ape_esc_credits_font.png,VARIABLE_WIDTH
 Bahamut Lagoon,Bahamut Lagoon,bah_lag_font.png,VARIABLE_WIDTH
 Breath of Fire,Breath of Fire,bof1_font.png,FIXED_WIDTH
 Breath of Fire,Breath of Fire 2,bof2_font.png,FIXED_WIDTH
+Bucky O'Hare,Bucky O'Hare,bohare_font.png,FIXED_WIDTH
 Castlevania,Castlevania 2 Title,cv2_title_font.png,FIXED_WIDTH
 Castlevania,Castlevania 3,cv3_font.png,FIXED_WIDTH
 Castlevania,Castlevania: Symphony of the Night,csotn_font.png,FIXED_WIDTH
@@ -63,6 +64,7 @@ Lost Vikings,The Lost Vikings,lostvik_font.png,FIXED_WIDTH
 Lufia,Lufia II: Rise of the Sinistrals,lufia2_font.png,FIXED_WIDTH
 Mana,Final Fantasy Adventure,ff_adv_font.png,FIXED_WIDTH
 Mana,Secret of Mana (Europe),som_eu_font.png,FIXED_WIDTH
+Mana,Secret of Mana (USA),som_us_font.png,FIXED_WIDTH
 Mana,Legend of Mana,lom_font.png,VARIABLE_WIDTH
 Mana,Legend of Mana Colorizable,lom_colorizable_font.png,VARIABLE_WIDTH
 Mario,Super Mario Bros.,smb1_font.png,FIXED_WIDTH
@@ -80,6 +82,8 @@ Mario,Mario is Missing,mmiss_font.png,FIXED_WIDTH
 Mario,Super Mario RPG: Dark,smrpg_dark_font.png,VARIABLE_WIDTH
 Mario,Super Mario RPG: Light,smrpg_light_font.png,VARIABLE_WIDTH
 Mario,Paper Mario: The Thousand Year Door,pmttyd_font.png,VARIABLE_WIDTH
+Marvelous,Marvelous: Another Treasure Island,marvelous_font.png,FIXED_WIDTH
+Marvelous,Marvelous: Another Treasure Island Name,marvelous_name_font.png,FIXED_WIDTH
 Mega Man,Mega Man 9,mm9_font.png,FIXED_WIDTH
 Mega Man,Mega Man X,mmx_font.png,FIXED_WIDTH
 Mega Man,Mega Man Battle Network,mmbn1_font.png,FIXED_WIDTH
