@@ -43,6 +43,9 @@ public class ConfigFont extends Config
     public static final int MIN_CHAR_SPACING = -16;
     public static final int MAX_CHAR_SPACING = 32;
 
+    public static final int MIN_MESSAGE_SPACING = 0;
+    public static final int MAX_MESSAGE_SPACING = 128;
+
     private String fontFilename;
 
     private String borderFilename;
@@ -73,6 +76,8 @@ public class ConfigFont extends Config
 
     private int charSpacing;
 
+    private int messageSpacing;
+
     private FontType fontType;
 
     /**
@@ -101,6 +106,7 @@ public class ConfigFont extends Config
         extendedCharEnabled = null;
         lineSpacing = 0;
         charSpacing = 0;
+        messageSpacing = 0;
     }
 
     public void validateFontFile(LoadConfigReport report, String fontFilename)
@@ -164,7 +170,7 @@ public class ConfigFont extends Config
         }
     }
 
-    public void validateStrings(LoadConfigReport report, String fontFilenameStr, String borderFilenameStr, String widthStr, String heightStr, String charKey, String unknownCharStr, String extendedCharStr, String scaleStr, String borderScaleStr, String borderInsetXStr, String borderInsetYStr, String spaceWidthStr, String baselineStr, String lineStr, String charStr, String fontTypeStr)
+    public void validateStrings(LoadConfigReport report, String fontFilenameStr, String borderFilenameStr, String widthStr, String heightStr, String charKey, String unknownCharStr, String extendedCharStr, String scaleStr, String borderScaleStr, String borderInsetXStr, String borderInsetYStr, String spaceWidthStr, String baselineStr, String lineStr, String charStr, String msgStr, String fontTypeStr)
     {
         validateStrings(report, widthStr, heightStr, charKey, unknownCharStr);
 
@@ -188,6 +194,7 @@ public class ConfigFont extends Config
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BASELINE_OFFSET, baselineStr, MIN_BASELINE_OFFSET, MAX_BASELINE_OFFSET, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_LINE, lineStr, MIN_LINE_SPACING, MAX_LINE_SPACING, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_CHAR, charStr, MIN_CHAR_SPACING, MAX_CHAR_SPACING, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_MESSAGE, charStr, MIN_MESSAGE_SPACING, MAX_MESSAGE_SPACING, report);
 
         if (!FontType.contains(fontTypeStr))
         {
@@ -219,6 +226,7 @@ public class ConfigFont extends Config
             final String extendedCharStr = props.getProperty(FontificatorProperties.KEY_FONT_EXTENDED_CHAR);
             final String lineSpacingStr = props.getProperty(FontificatorProperties.KEY_FONT_SPACING_LINE);
             final String charSpacingStr = props.getProperty(FontificatorProperties.KEY_FONT_SPACING_CHAR);
+            final String messageSpacingStr = props.getProperty(FontificatorProperties.KEY_FONT_SPACING_MESSAGE);
             final String fontTypeStr = props.getProperty(FontificatorProperties.KEY_FONT_TYPE);
             final String charKeyStr = props.getProperty(FontificatorProperties.KEY_FONT_CHARACTERS);
 
@@ -226,7 +234,7 @@ public class ConfigFont extends Config
             final String fontFilenameStr = props.getProperty(FontificatorProperties.KEY_FONT_FILE_FONT);
 
             // Check that the values are valid
-            validateStrings(report, fontFilenameStr, borderFilenameStr, gridWidthStr, gridHeightStr, charKeyStr, unknownCharStr, extendedCharStr, scaleStr, borderScaleStr, borderInsetXStr, borderInsetYStr, spaceWidthStr, baselineStr, lineSpacingStr, charSpacingStr, fontTypeStr);
+            validateStrings(report, fontFilenameStr, borderFilenameStr, gridWidthStr, gridHeightStr, charKeyStr, unknownCharStr, extendedCharStr, scaleStr, borderScaleStr, borderInsetXStr, borderInsetYStr, spaceWidthStr, baselineStr, lineSpacingStr, charSpacingStr, messageSpacingStr, fontTypeStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -247,6 +255,7 @@ public class ConfigFont extends Config
                 this.baselineOffset = Integer.parseInt(baselineStr);
                 this.lineSpacing = Integer.parseInt(lineSpacingStr);
                 this.charSpacing = Integer.parseInt(charSpacingStr);
+                this.messageSpacing = Integer.parseInt(messageSpacingStr);
             }
         }
 
@@ -416,6 +425,17 @@ public class ConfigFont extends Config
     {
         this.charSpacing = charSpacing;
         props.setProperty(FontificatorProperties.KEY_FONT_SPACING_CHAR, Integer.toString(charSpacing));
+    }
+
+    public int getMessageSpacing()
+    {
+        return messageSpacing;
+    }
+
+    public void setMessageSpacing(int messageSpacing)
+    {
+        this.messageSpacing = messageSpacing;
+        props.setProperty(FontificatorProperties.KEY_FONT_SPACING_MESSAGE, Integer.toString(messageSpacing));
     }
 
     public FontType getFontType()

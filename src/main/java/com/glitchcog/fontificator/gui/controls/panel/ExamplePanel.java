@@ -240,7 +240,7 @@ public class ExamplePanel extends JPanel
             final int heightScaled = font.getLineHeightScaled();
             exampleGraphics.fillRect(0, y, width, y + heightScaled);
             colorConfig.setFgColor(fontColorButton.getColor());
-            font.drawMessage(exampleGraphics, exampleGraphics.getFontMetrics(), exampleMsg, fontColorButton.getColor(), colorConfig, messageConfig, emojiConfig, null, xOffset, (int) (y + heightOffset * fontConfig.getFontScale()), 0, Integer.MAX_VALUE, Integer.MAX_VALUE, false, null, null);
+            font.drawMessage(exampleGraphics, exampleGraphics.getFontMetrics(), exampleMsg, fontColorButton.getColor(), colorConfig, messageConfig, emojiConfig, null, xOffset, (int) (y + heightOffset * fontConfig.getFontScale()), 0, Integer.MAX_VALUE, Integer.MAX_VALUE, false, null, null, true);
             y += heightScaled;
         }
 

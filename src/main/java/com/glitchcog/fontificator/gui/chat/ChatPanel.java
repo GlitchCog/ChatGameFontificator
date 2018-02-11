@@ -360,9 +360,11 @@ public class ChatPanel extends JPanel implements MouseWheelListener
 
         // totalHeight is the height of all the messages
         int totalHeight = 0;
-        for (Message msg : drawMessages)
+        for (int i = 0; i < drawMessages.size(); i++)
         {
-            Dimension dim = font.getMessageDimensions(msg, g2d.getFontMetrics(), messageConfig, emojiConfig, emojiManager, lineWrapLength);
+            Message msg = drawMessages.get(i);
+            final boolean lastMessage = i >= drawMessages.size() - 1;
+            Dimension dim = font.getMessageDimensions(msg, g2d.getFontMetrics(), messageConfig, emojiConfig, emojiManager, lineWrapLength, lastMessage);
             totalHeight += dim.getHeight();
         }
 
@@ -441,8 +443,9 @@ public class ChatPanel extends JPanel implements MouseWheelListener
             int msgIndex = chatConfig.isReverseScrolling() ? drawMessages.size() - i - 1 : i;
             Message msg = drawMessages.get(msgIndex);
             Color col = getUsernameColor(colorConfig, msg);
+            final boolean lastMessage = i >= drawMessages.size() - 1;
             // The call to drawMessage in SpriteFont will determine whether to draw each character based on whether it is located at a position appropriate to be drawn on
-            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, botLimit, lineWrapLength, debug, debugColor, this);
+            Dimension dim = font.drawMessage(g2d, g2d.getFontMetrics(), msg, col, colorConfig, messageConfig, emojiConfig, emojiManager, leftEdge, y, borderEdgeThickness, botLimit, lineWrapLength, debug, debugColor, this, lastMessage);
             y += dim.getHeight();
         }
     }

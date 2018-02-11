@@ -407,9 +407,9 @@ public class SpriteFont
      * @param lineWrapLength
      * @return The size of the bounding box of the drawn message
      */
-    public Dimension getMessageDimensions(Message message, FontMetrics fontMetrics, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int lineWrapLength)
+    public Dimension getMessageDimensions(Message message, FontMetrics fontMetrics, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int lineWrapLength, boolean lastMessage)
     {
-        return drawMessage(null, fontMetrics, message, null, null, messageConfig, emojiConfig, emojiManager, 0, 0, 0, 0, lineWrapLength, false, null, null);
+        return drawMessage(null, fontMetrics, message, null, null, messageConfig, emojiConfig, emojiManager, 0, 0, 0, 0, lineWrapLength, false, null, null, lastMessage);
     }
 
     /**
@@ -446,9 +446,12 @@ public class SpriteFont
      *            The color to draw debugging boxes
      * @param emojiObserver
      *            Used to update animated GIF BTTV emotes
+     * @param lastMessage
+     *            Whether this message is the last message, used to determine whether to add message spacing distance
+     *            after the message is printed
      * @return The size of the bounding box of the drawn message
      */
-    public Dimension drawMessage(Graphics2D g2d, FontMetrics fontMetrics, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int topLimit, int botLimit, int lineWrapLength, boolean debug, Color debugColor, ImageObserver emojiObserver)
+    public Dimension drawMessage(Graphics2D g2d, FontMetrics fontMetrics, Message msg, Color userColor, ConfigColor colorConfig, ConfigMessage messageConfig, ConfigEmoji emojiConfig, EmojiManager emojiManager, int x_init, int y_init, int topLimit, int botLimit, int lineWrapLength, boolean debug, Color debugColor, ImageObserver emojiObserver, boolean lastMessage)
     {
         if (msg.isJoinType() && !messageConfig.showJoinMessages())
         {
@@ -581,8 +584,13 @@ public class SpriteFont
                     width += charWidth;
                 }
             }
-
         }
+
+        if (!lastMessage)
+        {
+            height += config.getMessageSpacing();
+        }
+
         return new Dimension(maxWidth, height);
     }
 
