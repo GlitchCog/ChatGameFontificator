@@ -16,6 +16,8 @@ Here are some screenshots of some of just a few of the preset game styles:
 
 <img src="http://www.glitchcog.com/cgf/cgf_smb1.png" width="120" alt="Super Mario Bros."> <img src="http://www.glitchcog.com/cgf/cgf_smb3.png" width="120" alt="Super Mario Bros. 3"> <img src="http://www.glitchcog.com/cgf/cgf_smb3_letter.png" width="120" alt="Super Mario Bros. 3 Princess Letter"> <img src="http://www.glitchcog.com/cgf/cgf_zelda1.png" width="120" alt="The Legend of Zelda"> <img src="http://www.glitchcog.com/cgf/cgf_zelda3.png" width="120" alt="Zelda: LttP">
 
+Follow me on Twitter [@glitchcog](https://twitter.com/glitchcog) for updates whenever I add new games.
+
 Enjoy!
 
 *****
