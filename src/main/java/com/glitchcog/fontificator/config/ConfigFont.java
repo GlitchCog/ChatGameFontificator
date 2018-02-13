@@ -194,7 +194,7 @@ public class ConfigFont extends Config
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_BASELINE_OFFSET, baselineStr, MIN_BASELINE_OFFSET, MAX_BASELINE_OFFSET, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_LINE, lineStr, MIN_LINE_SPACING, MAX_LINE_SPACING, report);
         validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_CHAR, charStr, MIN_CHAR_SPACING, MAX_CHAR_SPACING, report);
-        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_MESSAGE, charStr, MIN_MESSAGE_SPACING, MAX_MESSAGE_SPACING, report);
+        validateIntegerWithLimitString(FontificatorProperties.KEY_FONT_SPACING_MESSAGE, msgStr, MIN_MESSAGE_SPACING, MAX_MESSAGE_SPACING, report);
 
         if (!FontType.contains(fontTypeStr))
         {
