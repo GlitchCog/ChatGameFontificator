@@ -74,6 +74,8 @@ First, make sure messages are actually being posted to the chat. Only messages p
 
   -You're not really connected, or you're expecting to see messages that were posted before you connected. Just connect to the channel and wait, and future messages will be posted.
 
+  -You're not really connected to the correct channel. Make sure what you have in the channel input field is just the username of the Twitch channel you're trying to connect to. If you have anything but just the channel name, or if there is a typo in it, you'll be "connected" to something that's not really the channel you're trying to connect to.
+
   -The text and the background (or chroma color) are the same. Change the colors to something else.
 
   -The font is too large or too spaced out, or the border is too big, given the chat window size, to have room for even a single character. Try reducing the sizes, or making the border offset negative.
