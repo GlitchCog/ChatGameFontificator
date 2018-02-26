@@ -208,6 +208,12 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Mario RPG: Light
   - Paper Mario: The Thousand Year Door
   - Marvelous: Another Treasure Island
+  - Mega Man
+  - Mega Man 2
+  - Mega Man 3
+  - Mega Man 4
+  - Mega Man 5
+  - Mega Man 6
   - Mega Man 9
   - Mega Man X
   - Mega Man Battle Network

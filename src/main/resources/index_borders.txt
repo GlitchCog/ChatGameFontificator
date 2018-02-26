@@ -106,6 +106,25 @@ Mario (SNES),Super Mario World 2: Yoshi's Island,yi_border.png,FFFFFF
 Mario (SNES),Super Mario RPG,smrpg_border.png,FFFFFF
 Mario (SNES),Super Mario RPG Pipes,smrpg_pipe_border.png,31EF4A
 Marvelous,Marvelous: Another Treasure Island,marvelous_border.png,FFFFFF
+Mega Man,Mega Man 2 Stage Select,mm2_stage_border.png,FFFFFF
+Mega Man,Mega Man 2 Get Equipped,mm2_equip_border.png,FFFFFF
+Mega Man,Mega Man 2 Bubble Man,mm2_bubble_border.png,FFFFFF
+Mega Man,Mega Man 2 Air Man,mm2_air_border.png,FFFFFF
+Mega Man,Mega Man 2 Quick Man,mm2_quick_border.png,FFFFFF
+Mega Man,Mega Man 2 Heat Man,mm2_heat_border.png,FFFFFF
+Mega Man,Mega Man 2 Wood Man,mm2_wood_border.png,FFFFFF
+Mega Man,Mega Man 2 Metal Man,mm2_metal_border.png,FFFFFF
+Mega Man,Mega Man 2 Flash Man,mm2_flash_border.png,FFFFFF
+Mega Man,Mega Man 2 Crash Man,mm2_crash_border.png,FFFFFF
+Mega Man,Mega Man 3 Stage Select,mm3_stage_border.png,FFFFFF
+Mega Man,Mega Man 3 Spark Man,mm3_spark_border.png,FFFFFF
+Mega Man,Mega Man 3 Snake Man,mm3_snake_border.png,FFFFFF
+Mega Man,Mega Man 3 Needle Man,mm3_needle_border.png,FFFFFF
+Mega Man,Mega Man 3 Hard Man,mm3_hard_border.png,FFFFFF
+Mega Man,Mega Man 3 Top Man,mm3_top_border.png,FFFFFF
+Mega Man,Mega Man 3 Gemini Man,mm3_gemini_border.png,FFFFFF
+Mega Man,Mega Man 3 Magnet Man,mm3_magnet_border.png,FFFFFF
+Mega Man,Mega Man 3 Shadow Man,mm3_shadow_border.png,FFFFFF
 Mega Man,Mega Man 9 Stage Select,mm9_stage_border.png,FFFFFF
 Mega Man,Mega Man 9 Menu,mm9_menu_border.png,FFFFFF
 Mega Man,Mega Man 9 Menu Popup,mm9_popup_border.png,FFFFFF

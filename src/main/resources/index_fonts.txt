@@ -84,6 +84,19 @@ Mario,Super Mario RPG: Light,smrpg_light_font.png,VARIABLE_WIDTH
 Mario,Paper Mario: The Thousand Year Door,pmttyd_font.png,VARIABLE_WIDTH
 Marvelous,Marvelous: Another Treasure Island,marvelous_font.png,FIXED_WIDTH
 Marvelous,Marvelous: Another Treasure Island Name,marvelous_name_font.png,FIXED_WIDTH
+Mega Man,Mega Man 2,mm2_font.png,FIXED_WIDTH
+Mega Man,Mega Man 2 Get Equipped,mm2_equip_font.png,FIXED_WIDTH
+Mega Man,Mega Man 3,mm3_font.png,FIXED_WIDTH
+Mega Man,Mega Man 3 Stage Select,mm3_stage_font.png,FIXED_WIDTH
+Mega Man,Mega Man 4,mm4_font.png,FIXED_WIDTH
+Mega Man,Mega Man 4 Get Equipped,mm4_equip_font.png,FIXED_WIDTH
+Mega Man,Mega Man 5,mm5_font.png,FIXED_WIDTH
+Mega Man,Mega Man 5 Get Equipped,mm5_equip_font.png,FIXED_WIDTH
+Mega Man,Mega Man 5 Weapon Select,mm5_weapon_font.png,FIXED_WIDTH
+Mega Man,Mega Man 6,mm6_font.png,FIXED_WIDTH
+Mega Man,Mega Man 6 Stage Select,mm6_stage_font.png,FIXED_WIDTH
+Mega Man,Mega Man 6 Get Equipped,mm6_equip_font.png,FIXED_WIDTH
+Mega Man,Mega Man 6 Weapon Select,mm6_weapon_font.png,FIXED_WIDTH
 Mega Man,Mega Man 9,mm9_font.png,FIXED_WIDTH
 Mega Man,Mega Man X,mmx_font.png,FIXED_WIDTH
 Mega Man,Mega Man Battle Network,mmbn1_font.png,FIXED_WIDTH
