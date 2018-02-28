@@ -4,9 +4,15 @@
 Animal Crossing,Animal Crossing,ac_font.png,VARIABLE_WIDTH
 Ape Escape,Ape Escape Credits,ape_esc_credits_font.png,VARIABLE_WIDTH
 Bahamut Lagoon,Bahamut Lagoon,bah_lag_font.png,VARIABLE_WIDTH
+Batman,Batman (NES),batman_nes_font.png,FIXED_WIDTH
+Batman,Batman Returns (NES),batman_ret_nes_font.png,FIXED_WIDTH
+Bionic Commando,Bionic Commando (NES),biocomando_font.png,FIXED_WIDTH
+Blaster Master,Blaster Master,blastmast_font.png,FIXED_WIDTH
+Blaster Master,Blaster Master Credits,blastmast_credits_font.png,FIXED_WIDTH
 Breath of Fire,Breath of Fire,bof1_font.png,FIXED_WIDTH
 Breath of Fire,Breath of Fire 2,bof2_font.png,FIXED_WIDTH
 Bucky O'Hare,Bucky O'Hare,bohare_font.png,FIXED_WIDTH
+Castlevania,Castlevania,cv1_font.png,FIXED_WIDTH
 Castlevania,Castlevania 2 Title,cv2_title_font.png,FIXED_WIDTH
 Castlevania,Castlevania 3,cv3_font.png,FIXED_WIDTH
 Castlevania,Castlevania: Symphony of the Night,csotn_font.png,FIXED_WIDTH
@@ -17,10 +23,16 @@ Crystalis,Crystalis,crystalis_font.png,FIXED_WIDTH
 Disney Capcom,Chip 'n Dale Rescue Rangers,cndrr_font.png,FIXED_WIDTH
 Disney Capcom,DuckTales,ducktales_font.png,FIXED_WIDTH
 Disney Capcom,TaleSpin,talespin_font.png,FIXED_WIDTH
+Donkey Kong,Donkey Kong,dk_font.png,FIXED_WIDTH
+Donkey Kong,Donkey Kong Jr.,dkjr_font.png,FIXED_WIDTH
+Donkey Kong,Donkey Kong Jr. Math,dkjr_math_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong 94,dk94_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Country,dkc_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Country Banana,dkc_banana_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Country KONG,dkc_kong_font.png,FIXED_WIDTH
+Double Dragon,Double Dragon,ddrag1_font.png,FIXED_WIDTH
+Double Dragon,Double Dragon 2,ddrag2_font.png,FIXED_WIDTH
+Double Dragon,Double Dragon 3,ddrag3_font.png,FIXED_WIDTH
 Dragon Warrior,Dragon Warrior,dw1_font.png,FIXED_WIDTH
 Dragon Warrior,Dragon Warrior II,dw2_font.png,FIXED_WIDTH
 Dragon Warrior,Dragon Quest I.II (SFC),dq1_2_sfc_font.png,VARIABLE_WIDTH
@@ -33,6 +45,7 @@ Dragon Warrior,Dragon Warrior VII Fight,dw7_fight_font.png,FIXED_WIDTH
 Dragon Warrior,Dragon Quest Heroes: Rocket Slime Dialog,dqhrs_dialog_font.png,VARIABLE_WIDTH
 Dragon Warrior,Dragon Quest IX,dq9_font.png,VARIABLE_WIDTH
 Drill Dozer,Drill Dozer Dialog,drilldozer_font.png,VARIABLE_WIDTH
+Duck Hunt,Duck Hunt,duckhunt_font.png,FIXED_WIDTH
 EarthBound,EarthBound Zero,eb0_font.png,FIXED_WIDTH
 EarthBound,EarthBound Zero Bold,eb0_bold_font.png,FIXED_WIDTH
 EarthBound,EarthBound,eb_font.png,VARIABLE_WIDTH

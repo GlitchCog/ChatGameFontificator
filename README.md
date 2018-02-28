@@ -136,9 +136,15 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Ape Escape (Credits)
   - Bahamut Lagoon
   - Bart vs. the Space Mutants
+  - Batman (NES)
+  - Batman Returns (NES)
+  - Bionic Commando
+  - Blaster Master
+  - Blaster Master (Credits)
   - Breath of Fire
   - Breath of Fire II
   - Bucky O'Hare
+  - Castlevania
   - Castlevania II: Simon's Quest
   - Castlevania III: Dracula's Curse
   - Castlevania: Symphony of the Night
@@ -148,9 +154,16 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Chrono Trigger
   - Clash at Demonhead
   - Crystalis
+  - Duck Hunt
   - DuckTales (NES)
+  - Donkey Kong
+  - Donkey Kong Jr.
+  - Donkey Kong Jr. Math
   - Donkey Kong '94
   - Donkey Kong Country
+  - Double Dragon
+  - Double Dragon 2
+  - Double Dragon 3
   - Dr. Mario
   - Dragon Warrior
   - Dragon Warrior II
