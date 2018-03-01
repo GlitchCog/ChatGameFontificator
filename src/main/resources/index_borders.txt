@@ -62,6 +62,7 @@ EarthBound,EarthBound Strawberry,eb_strawberry.png,FFFFFF
 EarthBound,EarthBound Banana,eb_banana.png,FFFFFF
 EarthBound,EarthBound Peanut,eb_peanut.png,FFFFFF
 EarthBound,Mother 3,m3_border.png,FFFFFF
+Excite Bike, Excite Bike,excitebk_border.png,FFFFFF
 Faxanadu,Faxanadu,faxanadu_border.png,FFFFFF
 Final Fantasy,Final Fantasy,ff1_filled_border.png,FFFFFF
 Final Fantasy,Final Fantasy Frame,ff1_border.png,FFFFFF
@@ -70,6 +71,8 @@ Final Fantasy,Final Fantasy VI,ff6_border.png,FFFFFF
 Final Fantasy,Final Fantasy VII,ff7_border.png,FFFFFF
 Final Fantasy,Final Fantasy IX,ff9_border.png,FFFFFF
 Freedom Planet,Freedom Planet,freep_border.png,FFFFFF
+Gemfire,Gemfire NES,gemfire_nes_border.png,FFFFFF
+Gemfire,Gemfire NES Title,gemfire_nes_title_border.png,FFFFFF
 Golden Sun,Golden Sun,gsun_border.png,FFFFFF
 Harvest Moon,Friends of Mineral Town,hm_fmt_border.png,FFFFFF
 Harvest Moon,Friends of Mineral Town Transparent,hm_fmt_t_border.png,FFFFFF
@@ -77,7 +80,13 @@ Harvest Moon,The Tale of Two Towns,hm_ttott_border.png,FFFFFF
 Harvest Moon,The Tale of Two Towns Blue,hm_ttott_blue_border.png,FFFFFF
 Harvest Moon,The Tale of Two Towns Green,hm_ttott_green_border.png,FFFFFF
 Harvest Moon,The Tale of Two Towns Yellow,hm_ttott_yellow_border.png,FFFFFF
+Kid Icarus,Kid Icarus,kid_icarus_border.png,FFFFFF
+Kid Icarus,Kid Icarus Item,kid_icarus_item_border.png,FFFFFF
+Kid Icarus,Kid Icarus Hospital,kid_icarus_hospital_border.png,FFFFFF
+Kid Icarus,Kid Icarus Password,kid_icarus_password_border.png,FFFFFF
 Kunio-kun,River City Ransom,rcr_border.png,FFFFFF
+Little Nemo,Little Nemo: The Dream Master,little_nemo_border.png,FFFFFF
+Little Nemo,Little Nemo: The Dream Master Title,little_nemo_title_border.png,FFFFFF
 Lost Vikings,The Lost Vikings,lostvik_border.png,FFFFFF
 Lufia,Lufia II: Rise of the Sinistrals Speech,lufia2_border.png,FFFFFF
 Lufia,Lufia II: Rise of the Sinistrals Thought,lufia2_thought_border.png,FFFFFF

@@ -51,6 +51,7 @@ EarthBound,EarthBound Zero Bold,eb0_bold_font.png,FIXED_WIDTH
 EarthBound,EarthBound,eb_font.png,VARIABLE_WIDTH
 EarthBound,EarthBound Mr. Saturn,eb_saturn_font.png,VARIABLE_WIDTH
 EarthBound,Mother 3,m3_font.png,VARIABLE_WIDTH
+Excite Bike,Excite Bike,excitebk_font.png,FIXED_WIDTH
 Faxanadu,Faxanadu (PRG1) Dialog,faxanadu_dialog_font.png,FIXED_WIDTH
 Faxanadu,Faxanadu (PRG0) Dialog and HUD,faxanadu_hud_font.png,FIXED_WIDTH
 Final Fantasy,Final Fantasy,ff1_font.png,FIXED_WIDTH
@@ -64,6 +65,8 @@ Final Fantasy,Final Fantasy IX,ff9_font.png,VARIABLE_WIDTH
 Final Fantasy,Final Fantasy Tactics Advance (Dialog),ffta_dialog_font.png,VARIABLE_WIDTH
 Final Fantasy,Final Fantasy Tactics Advance (Menu),ffta_menu_font.png,VARIABLE_WIDTH
 Freedom Planet,Freedom Planet,freep_font.png,FIXED_WIDTH
+Gemfire,Gemfire NES Small,gemfire_nes_small_font.png,FIXED_WIDTH
+Gemfire,Gemfire NES Large,gemfire_nes_large_font.png,FIXED_WIDTH
 Ghosts and Goblins,Ghosts n Goblins,gng_font.png,FIXED_WIDTH
 Golden Sun,Golden Sun,gsun_font.png,VARIABLE_WIDTH
 Golden Sun,Golden Sun (Battle),gsun_battle_font.png,VARIABLE_WIDTH
@@ -72,7 +75,9 @@ Harvest Moon,Friends of Mineral Town Inverted,hm_fmt_i_font.png,FIXED_WIDTH
 Harvest Moon,The Tale of Two Towns,hm_ttott_font.png,FIXED_WIDTH
 Harvest Moon,The Tale of Two Towns Name,hm_ttott_name_font.png,FIXED_WIDTH
 Holy Diver,Holy Diver,holy_diver_font.png,FIXED_WIDTH
+Kid Icarus,Kid Icarus,kid_icarus_font.png,FIXED_WIDTH
 Kunio-kun,River City Ransom,rcr_font.png,FIXED_WIDTH
+Little Nemo,Little Nemo,little_nemo_font.png,FIXED_WIDTH
 Lost Vikings,The Lost Vikings,lostvik_font.png,FIXED_WIDTH
 Lufia,Lufia II: Rise of the Sinistrals,lufia2_font.png,FIXED_WIDTH
 Mana,Final Fantasy Adventure,ff_adv_font.png,FIXED_WIDTH

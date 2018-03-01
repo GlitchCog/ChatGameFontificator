@@ -181,6 +181,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - EarthBound Zero Bold
   - EarthBound
   - EarthBound Mr. Saturn
+  - Excite Bike
   - Mother 3
   - Faxanadu
   - Final Fantasy
@@ -194,6 +195,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Final Fantasy Tactics Advance (Dialog)
   - Final Fantasy Tactics Advance (Menu)
   - Freedom Planet
+  - Gemfire (NES)
   - Ghosts n Goblins
   - Golden Sun
   - Golden Sun (Battle)
@@ -201,7 +203,9 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Harvest Moon: The Tale of Two Towns
   - Holy Diver
   - Kero Blaster
+  - Kid Icarus
   - The Lost Vikings
+  - Little Nemo: The Dream Master
   - Lufia II: Rise of the Sinistrals
   - Final Fantasy Adventure
   - Secret of Mana
