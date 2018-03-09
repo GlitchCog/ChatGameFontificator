@@ -235,6 +235,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Mega Man X
   - Mega Man Battle Network
   - Metal Gear
+  - Metal Storm
   - Metroid
   - Metroid II
   - Metroid II (Credits)
@@ -244,9 +245,19 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Metroid Fusion Outline
   - Metroid Zero Mission
   - Metroid Zero Mission Outline
+  - Mickey Mousecapade
   - Moon Crystal Dialog
   - Moon Crystal HUD
+  - Ninja Gaiden
+  - Ninja Gaiden HUD
+  - Ninja Gaiden II
+  - Ninja Gaiden II HUD
+  - Ninja Gaiden III
+  - Ninja Gaiden III HUD
   - Ogre Battle: The March of the Black Queen
+  - Pac-Man (NES)
+  - Ms. Pac-Man (NES)
+  - Paperboy
   - PaRappa the Rapper
   - Phantasy Star
   - Phantasy Star 2
@@ -257,6 +268,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Pokemon Fire Red/Leaf Green
   - Pokemon Diamond/Pearl
   - Princess Tomato in the Salad Kingdom
+  - Punch-Out!!
   - River City Ransom
   - Robotrek
   - Robotrek (Battle)

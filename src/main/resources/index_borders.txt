@@ -38,10 +38,11 @@ Clash at Demonhead,Clash at Demonhead Hermit,cad_hermit_border.png,FFFFFF
 Clash at Demonhead,Clash at Demonhead Shop,cad_shop_border.png,44009C
 Clash at Demonhead,Clash at Demonhead Suzie,cad_suzie_border.png,FFFFFF
 Cyrstalis,Crystalis,crystalis_border.png,FFFFFF
-Disney Capcom,Chip 'n Dale Rescue Rangers Zone Clear,cndrr_zone_border.png,FFFFFF
-Disney Capcom,DuckTales HUD,ducktales_hud_border.png,FFFFFF
-Disney Capcom,DuckTales Land Select,ducktales_land_border.png,FFFFFF
-Disney Capcom,TaleSpin,talespin_border.png,FFFFFF
+Disney,Chip 'n Dale Rescue Rangers Zone Clear,cndrr_zone_border.png,FFFFFF
+Disney,DuckTales HUD,ducktales_hud_border.png,FFFFFF
+Disney,DuckTales Land Select,ducktales_land_border.png,FFFFFF
+Disney,Mickey Mousecapade Bonus Room,mickeymcpd_bonus_border.png,FFFFFF
+Disney,TaleSpin,talespin_border.png,FFFFFF
 Donkey Kong,Donkey Kong '94,dk94_border.png,FFFFFF
 Dragon Warrior,Dragon Warrior,dw1_border.png,FFFFFF
 Dragon Warrior,Dragon Warrior II,dw2_border.png,FFFFFF
@@ -138,6 +139,7 @@ Mega Man,Mega Man 9 Stage Select,mm9_stage_border.png,FFFFFF
 Mega Man,Mega Man 9 Menu,mm9_menu_border.png,FFFFFF
 Mega Man,Mega Man 9 Menu Popup,mm9_popup_border.png,FFFFFF
 Mega Man,Mega Man X,mmx_border.png,FFFFFF
+Metal Storm, Metal Storm Stage 4,metalstorm_s4_border.png,FFFFFF
 Metroid,Metroid,metroid_border.png,4090C0
 Metroid,Metroid II,metroid2_border.png,FFFFFF
 Metroid,Metroid Pipes,metroid_pipe_border.png,FFFFFF
@@ -150,6 +152,8 @@ Metroid,Metroid Fusion Frame,metroid_fusion_frame_border.png,FFFFFF
 Metroid,Metroid Zero Mission,metroid_zm_border.png,FFFFFF
 Moon Crystal,Moon Crystal,moon_crystal_border.png,FFFFFF
 Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_border.png,FFFFFF
+Pac-Man,Pac-Man,pacman_border.png,FFFFFF
+Pac-Man,Ms. Pac-Man,mspacman_border.png,FFFFFF
 PaRappa the Rapper,PaRappa the Rapper,parappa_border.png,FFFFFF
 Phantasy Star,Phantasy Star,ps1_border.png,FFFFFF
 Phantasy Star,Phantasy Star 2,ps2_border.png,FFFFFF

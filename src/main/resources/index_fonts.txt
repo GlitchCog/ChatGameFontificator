@@ -20,9 +20,10 @@ Chrono,Chrono Trigger,ct_font.png,VARIABLE_WIDTH
 Chrono,Chrono Cross,cc_font.png,VARIABLE_WIDTH
 Clash at Demonhead,Clash at Demonhead,cad_font.png,FIXED_WIDTH
 Crystalis,Crystalis,crystalis_font.png,FIXED_WIDTH
-Disney Capcom,Chip 'n Dale Rescue Rangers,cndrr_font.png,FIXED_WIDTH
-Disney Capcom,DuckTales,ducktales_font.png,FIXED_WIDTH
-Disney Capcom,TaleSpin,talespin_font.png,FIXED_WIDTH
+Disney,Chip 'n Dale Rescue Rangers,cndrr_font.png,FIXED_WIDTH
+Disney,DuckTales,ducktales_font.png,FIXED_WIDTH
+Disney,Mickey Mousecapade,mickeymcpd_font.png,FIXED_WIDTH
+Disney,TaleSpin,talespin_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong,dk_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Jr.,dkjr_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Jr. Math,dkjr_math_font.png,FIXED_WIDTH
@@ -119,6 +120,7 @@ Mega Man,Mega Man 9,mm9_font.png,FIXED_WIDTH
 Mega Man,Mega Man X,mmx_font.png,FIXED_WIDTH
 Mega Man,Mega Man Battle Network,mmbn1_font.png,FIXED_WIDTH
 Metal Gear,Metal Gear,mg_font.png,FIXED_WIDTH
+Metal Storm,Metal Storm,metalstorm_font.png,FIXED_WIDTH
 Metroid,Metroid,metroid_font.png,FIXED_WIDTH
 Metroid,Metroid II,metroid2_font.png,FIXED_WIDTH
 Metroid,Metroid II (Credits),metroid2_credits_font.png,FIXED_WIDTH
@@ -130,7 +132,16 @@ Metroid,Metroid Zero Mission,metroid_zm_font.png,VARIABLE_WIDTH
 Metroid,Metroid Zero Mission Outline,metroid_zm_outline_font.png,VARIABLE_WIDTH
 Moon Crystal,Moon Crystal Dialog,moon_crystal_dialog_font.png,FIXED_WIDTH
 Moon Crystal,Moon Crystal HUD,moon_crystal_hud_font.png,FIXED_WIDTH
+Ninja Gaiden,Ninja Gaiden,ninjagaiden1_font.png,FIXED_WIDTH
+Ninja Gaiden,Ninja Gaiden HUD,ninjagaiden1_hud_font.png,FIXED_WIDTH
+Ninja Gaiden,Ninja Gaiden II,ninjagaiden2_font.png,FIXED_WIDTH
+Ninja Gaiden,Ninja Gaiden II HUD,ninjagaiden2_hud_font.png,FIXED_WIDTH
+Ninja Gaiden,Ninja Gaiden III,ninjagaiden3_font.png,FIXED_WIDTH
+Ninja Gaiden,Ninja Gaiden III HUD,ninjagaiden3_hud_font.png,FIXED_WIDTH
 Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_font.png,FIXED_WIDTH
+Pac-Man,Pac-Man (NES),pacman_nes_font.png,FIXED_WIDTH
+Pac-Man,Ms. Pac-Man (NES),mspacman_nes_font.png,FIXED_WIDTH
+Paperboy,Paperboy,paperboy_font.png,FIXED_WIDTH
 PaRappa the Rapper,PaRappa the Rapper,parappa_font.png,VARIABLE_WIDTH
 Phantasy Star,Phantasy Star,ps1_font.png,FIXED_WIDTH
 Phantasy Star,Phantasy Star 2,ps2_font.png,FIXED_WIDTH
@@ -142,6 +153,7 @@ Pokemon,Pokemon FireRed/LeafGreen,pkmnfrlg_font.png,VARIABLE_WIDTH
 Pokemon,Pokemon Diamond/Pearl,pkmndp_font.png,VARIABLE_WIDTH
 Pokemon,Pokemon Diamond/Pearl Name,pkmndp_name_font.png,VARIABLE_WIDTH
 Princess Tomato,Princess Tomato in the Salad Kingdom,ptsk_font.png,FIXED_WIDTH
+Punch-Out!!,Mike Tyson's Punch-Out!!,mtpunchout_font.png,FIXED_WIDTH
 Quintet,Robotrek,robotrek_font.png,FIXED_WIDTH
 Quintet,Robotrek (Battle),robotrek_battle_font.png,FIXED_WIDTH
 Quintet,Terranigma,terranigma_font.png,FIXED_WIDTH
