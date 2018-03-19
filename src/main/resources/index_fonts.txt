@@ -154,11 +154,15 @@ Pokemon,Pokemon Diamond/Pearl,pkmndp_font.png,VARIABLE_WIDTH
 Pokemon,Pokemon Diamond/Pearl Name,pkmndp_name_font.png,VARIABLE_WIDTH
 Princess Tomato,Princess Tomato in the Salad Kingdom,ptsk_font.png,FIXED_WIDTH
 Punch-Out!!,Mike Tyson's Punch-Out!!,mtpunchout_font.png,FIXED_WIDTH
+Q*bert,Q*bert (NES),qbert_font.png,FIXED_WIDTH
 Quintet,Robotrek,robotrek_font.png,FIXED_WIDTH
 Quintet,Robotrek (Battle),robotrek_battle_font.png,FIXED_WIDTH
 Quintet,Terranigma,terranigma_font.png,FIXED_WIDTH
+R.C. Pro-Am,R.C. Pro-Am (NES),rcproam_race_font.png,FIXED_WIDTH
+Rampage,Rampage (NES),rampage_font.png,FIXED_WIDTH
 Rygar,Rygar (NES),rygar_nes_font.png,FIXED_WIDTH
 Secret of Evermore,Secret of Evermore,soe_font.png,VARIABLE_WIDTH
+Shadow Gate,Shadow Gate (NES),shdwgt_font.png,FIXED_WIDTH
 Shadow Hearts,Shadow Hearts: Covenant Cutscene,shadhearts2_cutscene_font.png,VARIABLE_WIDTH
 Shantae,Shantae,shantae_font.png,FIXED_WIDTH
 Shining,Shining Force Dialog,shining_force_dialog_font.png,VARIABLE_WIDTH
