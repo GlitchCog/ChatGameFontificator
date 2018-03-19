@@ -269,12 +269,16 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Pokemon Diamond/Pearl
   - Princess Tomato in the Salad Kingdom
   - Punch-Out!!
+  - Q\*bert (NES)
+  - R.C. Pro-Am
+  - Rampage
   - River City Ransom
   - Robotrek
   - Robotrek (Battle)
   - Rygar (NES)
   - Secret of Evermore
   - Sega System
+  - Shadowgate (NES)
   - Shadow Hearts: Covenant (Cutscene)
   - Shantae
   - Shining Force
