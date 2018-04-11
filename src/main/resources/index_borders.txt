@@ -37,7 +37,7 @@ Clash at Demonhead,Clash at Demonhead,cad_border.png,FFFFFF
 Clash at Demonhead,Clash at Demonhead Hermit,cad_hermit_border.png,FFFFFF
 Clash at Demonhead,Clash at Demonhead Shop,cad_shop_border.png,44009C
 Clash at Demonhead,Clash at Demonhead Suzie,cad_suzie_border.png,FFFFFF
-Cyrstalis,Crystalis,crystalis_border.png,FFFFFF
+Crystalis,Crystalis,crystalis_border.png,FFFFFF
 Disney,Chip 'n Dale Rescue Rangers Zone Clear,cndrr_zone_border.png,FFFFFF
 Disney,DuckTales HUD,ducktales_hud_border.png,FFFFFF
 Disney,DuckTales Land Select,ducktales_land_border.png,FFFFFF
@@ -209,6 +209,7 @@ Quintet,Robotrek (Battle),robotrek_battle_border.png,FFFFFF
 Quintet,Terranigma,terranigma_border.png,FFFFFF
 R.C. Pro-Am,R.C. Pro-Am (NES) HUD,rcproam_hud_border.png,FF002A
 R.C. Pro-Am,R.C. Pro-Am (NES) Title,rcproam_title_border.png,FFFFFF
+R.C. Pro-Am,R.C. Pro-Am (NES) Trophy,rcproam_trophy_border.png,FFFFFF
 Rygar,Rygar (NES),rygar_nes_border.png,FFFFFF
 Secret of Evermore,Secret of Evermore,soe_border.png,CEDBE8
 Shadow Gate,Shadow Gate (NES),shdwgt_border.png,FCD8A8
@@ -219,6 +220,7 @@ Shadow Gate,Shadow Gate (NES) Goods Lined,shdwgt_goods_lined_border.png,FFFFFF
 Shantae,Shantae,shantae_border.png,FFFFFF
 Shining,Shining Force,shining_force_border.png,FFFFFF
 Shovel Knight,Shovel Knight,sk_border.png,FFFFFF
+Solomon's Key,Solomon's Key (NES),solomons_key_title_border.png,FFFFFF
 Stardew Valley,Stardew Valley Dialog,sdv_dialog_border.png,FFFFFF
 Stardew Valley,Stardew Valley Portrait,sdv_portrait_border.png,FFFFFF
 Stardew Valley,Stardew Valley Scroll,sdv_scroll_border.png,FFFFFF
@@ -228,6 +230,7 @@ Star Ocean,Star Ocean HUD,staroc_hud_border.png,FFFFFF
 # Star Ocean,Star Ocean HUD,staroc_border.png,FFFFFF // Same as staroc_hud_border,retired,but border file left in resources
 Star Ocean,Star Ocean HUD Color,staroc_hud_color_border.png,FFFFFF
 Star Ocean,Star Ocean: The Second Story,staroc2_border.png,FFFFFF
+Star Wars,Star Wars Japan,starwars_japan_border.png,6C6C6C
 Suikoden,Suikoden,suiko_border.png,FFFFFF
 Tales,Tales of Phantasia (SFC),tophan_sfc_border.png,FFFFFF
 Tales,Tales of Symphonia B,tos_b_border.png,FFFFFF

@@ -270,7 +270,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Princess Tomato in the Salad Kingdom
   - Punch-Out!!
   - Q\*bert (NES)
-  - R.C. Pro-Am
+  - R.C. Pro-Am (NES) Race
+  - R.C. Pro-Am (NES) Trophy
   - Rampage
   - River City Ransom
   - Robotrek
@@ -283,11 +284,15 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Shantae
   - Shining Force
   - Shovel Knight
+  - Solomon's Key (NES)
   - Solstice
   - Sonic Team
+  - Splatterhouse
+  - Spyhunter (NES)
   - Star Ocean (Dialog)
   - Star Ocean (HUD)
   - Star Ocean: The Second Story (HUD)
+  - Star Wars Japan
   - Stardew Valley
   - Suikoden
   - Tales of Phantasia (SFC)
