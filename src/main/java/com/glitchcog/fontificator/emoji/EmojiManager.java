@@ -19,7 +19,7 @@ public class EmojiManager
 {
     private static final Logger logger = Logger.getLogger(EmojiManager.class);
 
-    private static final String FFZ_REPLACEMENT_EMOTE_URL_BASE = "http://cdn.frankerfacez.com/static/replacements/";
+    private static final String FFZ_REPLACEMENT_EMOTE_URL_BASE = "https://cdn.frankerfacez.com/static/replacements/";
 
     /**
      * Replacement FFZ emoji, because Twitch's look horrible
