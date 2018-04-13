@@ -221,9 +221,6 @@ Shantae,Shantae,shantae_border.png,FFFFFF
 Shining,Shining Force,shining_force_border.png,FFFFFF
 Shovel Knight,Shovel Knight,sk_border.png,FFFFFF
 Solomon's Key,Solomon's Key (NES),solomons_key_title_border.png,FFFFFF
-Stardew Valley,Stardew Valley Dialog,sdv_dialog_border.png,FFFFFF
-Stardew Valley,Stardew Valley Portrait,sdv_portrait_border.png,FFFFFF
-Stardew Valley,Stardew Valley Scroll,sdv_scroll_border.png,FFFFFF
 Star Ocean,Star Ocean Dialog,staroc_dialog_border.png,FFFFFF
 Star Ocean,Star Ocean Dialog Color,staroc_dialog_color_border.png,FFFFFF
 Star Ocean,Star Ocean HUD,staroc_hud_border.png,FFFFFF
@@ -231,6 +228,22 @@ Star Ocean,Star Ocean HUD,staroc_hud_border.png,FFFFFF
 Star Ocean,Star Ocean HUD Color,staroc_hud_color_border.png,FFFFFF
 Star Ocean,Star Ocean: The Second Story,staroc2_border.png,FFFFFF
 Star Wars,Star Wars Japan,starwars_japan_border.png,6C6C6C
+Stardew Valley,Stardew Valley Dialog,sdv_dialog_border.png,FFFFFF
+Stardew Valley,Stardew Valley Portrait,sdv_portrait_border.png,FFFFFF
+Stardew Valley,Stardew Valley Scroll,sdv_scroll_border.png,FFFFFF
+StarTropics,StarTropics Dialog,startropics_dialog_border.png,FFFFFF
+StarTropics,StarTropics Got Item,startropics_got_border.png,FFFFFF
+StarTropics,StarTropics Overworld,startropics_overworld_border.png,FFFFFF
+StarTropics,StarTropics Village,startropics_village_border.png,FFFFFF
+StarTropics,StarTropics Hut,startropics_hut_border.png,FFFFFF
+StarTropics,StarTropics Cave Square,startropics_cave1_border.png,FFFFFF
+StarTropics,StarTropics Cave Room,startropics_cave2_border.png,FFFFFF
+StarTropics,StarTropics Cave Water,startropics_cave3_border.png,FFFFFF
+StarTropics,StarTropics Cave Hop 1,startropics_hop1_border.png,FFFFFF
+StarTropics,StarTropics Cave Hop 2,startropics_hop2_border.png,FFFFFF
+StarTropics,StarTropics 2 Book,startropics2_book_border.png,FFFFFF
+StarTropics,StarTropics 2 Cave,startropics2_cave_border.png,FFFFFF
+StarTropics,StarTropics 2 Platform,startropics2_platform_border.png,FFFFFF
 Suikoden,Suikoden,suiko_border.png,FFFFFF
 Tales,Tales of Phantasia (SFC),tophan_sfc_border.png,FFFFFF
 Tales,Tales of Symphonia B,tos_b_border.png,FFFFFF

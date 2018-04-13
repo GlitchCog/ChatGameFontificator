@@ -175,15 +175,18 @@ Solstice,Solstice,sol_font.png,FIXED_WIDTH
 Sonic,Sega System,sega_sys_font.png,FIXED_WIDTH
 Sonic,Sonic Team,sonic_team_font.png,VARIABLE_WIDTH
 Splatterhouse,Splatterhouse,splatterhouse_font.png,FIXED_WIDTH
-Stardew Valley,Stardew Valley,sdv_font.png,FIXED_WIDTH
+Spyhunter,Spyhunter (NES),spyhunter_font.png,FIXED_WIDTH
 Star Ocean,Star Ocean Dialog,staroc_dialog_font.png,VARIABLE_WIDTH
 Star Ocean,Star Ocean HUD,staroc_hud_font.png,FIXED_WIDTH
 # Star Ocean,Star Ocean HUD,staroc_font.png,FIXED_WIDTH // Same as staroc_hud_font,retired,but font file left in resources
 Star Ocean,Star Ocean: The Second Story HUD,staroc2_hud_font.png,FIXED_WIDTH
+Star Wars,Star Wars Japan,starwars_japan_font.png,FIXED_WIDTH
+Stardew Valley,Stardew Valley,sdv_font.png,FIXED_WIDTH
+StarTropics,StarTropics,startropics_font.png,FIXED_WIDTH
+StarTropics,StarTropics Title,startropics_title_font.png,VARIABLE_WIDTH
+StarTropics,Zoda's Revenge: StarTropics II,startropics2_font.png,FIXED_WIDTH
 Studio Pixel,Cave Story+,cavestoryplus_font.png,VARIABLE_WIDTH
 Studio Pixel,Kero Blaster,keroblast_font.png,VARIABLE_WIDTH
-Spyhunter,Spyhunter (NES),spyhunter_font.png,FIXED_WIDTH
-Star Wars,Star Wars Japan,starwars_japan_font.png,FIXED_WIDTH
 Suikoden,Suikoden,suiko_font.png,VARIABLE_WIDTH
 Tales,Tales of Phantasia HUD (SFC Mixed Case),tophan_hud_sfc_mixedcase_font.png,FIXED_WIDTH
 Tales,Tales of Phantasia HUD (SFC Upper Case),tophan_hud_sfc_uppercase_font.png,FIXED_WIDTH

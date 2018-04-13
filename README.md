@@ -294,6 +294,9 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Star Ocean: The Second Story (HUD)
   - Star Wars Japan
   - Stardew Valley
+  - StarTropics
+  - StarTropics Title
+  - Zoda's Revenge: StarTropics II
   - Suikoden
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
