@@ -262,7 +262,7 @@ public class EmojiParser
                 LazyLoadEmoji lle = null;
                 for (String key : e.getUrls().keySet())
                 {
-                    lle = new LazyLoadEmoji(e.getName(), "http:" + e.getUrls().get(key), e.getWidth(), e.getHeight(), isGlobal ? EmojiType.FRANKERFACEZ_GLOBAL : EmojiType.FRANKERFACEZ_CHANNEL);
+                    lle = new LazyLoadEmoji(e.getName(), "https:" + e.getUrls().get(key), e.getWidth(), e.getHeight(), isGlobal ? EmojiType.FRANKERFACEZ_GLOBAL : EmojiType.FRANKERFACEZ_CHANNEL);
                     break;
                 }
                 if (e.getUrls().size() > 1)
