@@ -1,8 +1,10 @@
 # Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
-## 🎄  Christmas Update: Regular emoji support added! 🕹️ I sent that streamer a smiley face. Streamers love smiley faces. 🍸
+## Get the update to fix your FFZ emotes and badges now that they redirect to https!
 
-### November 18 Update: Low resolution screen users rejoyce: at long last, the super lengthy font and border selection menus are scrollable.
+### 🎄  Christmas Update: Regular emoji support added! 🕹️ I sent that streamer a smiley face. Streamers love smiley faces. 🍸
+
+#### November 18 Update: Low resolution screen users rejoyce: at long last, the super lengthy font and border selection menus are scrollable.
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
