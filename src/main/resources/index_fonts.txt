@@ -169,7 +169,11 @@ Shantae,Shantae,shantae_font.png,FIXED_WIDTH
 Shining,Shining Force Dialog,shining_force_dialog_font.png,VARIABLE_WIDTH
 Shining,Shining Force Menu,shining_force_menu_font.png,FIXED_WIDTH
 Shovel Knight,Shovel Knight,sk_font.png,FIXED_WIDTH
-Simpsons,Bart vs. the Space Mutants,bart_font.png,FIXED_WIDTH
+Simpsons,The Simpsons: Bart vs. the Space Mutants,bart_font.png,FIXED_WIDTH
+Simpsons,The Simpsons: Bart vs. the World (NES),bart_world_font.png,FIXED_WIDTH
+Simpsons,The Simpsons: Bart vs. the World (NES) Pause,bart_world_pause_font.png,FIXED_WIDTH
+Simpsons,The Simpsons: Bartman Meets Radioactive Man (NES),bart_radioactive_font.png,FIXED_WIDTH
+Simpsons,The Simpsons: Bartman Meets Radioactive Man (NES) Pause,bart_radioactive_pause_font.png,FIXED_WIDTH
 Solomon's Key,Solomon's Key (NES),solomons_key_font.png,FIXED_WIDTH
 Solstice,Solstice,sol_font.png,FIXED_WIDTH
 Sonic,Sega System,sega_sys_font.png,FIXED_WIDTH
@@ -179,8 +183,13 @@ Spyhunter,Spyhunter (NES),spyhunter_font.png,FIXED_WIDTH
 Star Ocean,Star Ocean Dialog,staroc_dialog_font.png,VARIABLE_WIDTH
 Star Ocean,Star Ocean HUD,staroc_hud_font.png,FIXED_WIDTH
 # Star Ocean,Star Ocean HUD,staroc_font.png,FIXED_WIDTH // Same as staroc_hud_font,retired,but font file left in resources
+Star Trek,Star Trek: 25th Anniversary (NES) Dialog,startrek_25ani_dialog_font.png,FIXED_WIDTH
+Star Trek,Star Trek: 25th Anniversary (NES) Intro,startrek_25ani_intro_font.png,FIXED_WIDTH
+Star Trek,Star Trek: 25th Anniversary (NES) Credits,startrek_25ani_credits_font.png,FIXED_WIDTH
 Star Ocean,Star Ocean: The Second Story HUD,staroc2_hud_font.png,FIXED_WIDTH
+Star Wars,Star Wars (NES),starwars_nes_font.png,FIXED_WIDTH
 Star Wars,Star Wars Japan,starwars_japan_font.png,FIXED_WIDTH
+Star Wars,Star Wars: The Empire Strikes Back,starwars_esb_font.png,FIXED_WIDTH
 Stardew Valley,Stardew Valley,sdv_font.png,FIXED_WIDTH
 StarTropics,StarTropics,startropics_font.png,FIXED_WIDTH
 StarTropics,StarTropics Title,startropics_title_font.png,VARIABLE_WIDTH
@@ -198,6 +207,7 @@ The Legend of Dragoon,The Legend of Dragoon,legoon_font.png,VARIABLE_WIDTH
 TMNT,Teenage Mutant Ninja Turtles (NES),tmnt_nes_font.png,FIXED_WIDTH
 Umihara Kawase,Umihara Kawase,umi_font.png,FIXED_WIDTH
 Undertale,Undertale,undertale_font.png,FIXED_WIDTH
+Wario,Wario's Woods (NES),warios_woods_font.png,FIXED_WIDTH
 Wario,Wario Land 4 (Dark),wl4_dark_font.png,VARIABLE_WIDTH
 Wario,Wario Land 4 (Light),wl4_light_font.png,VARIABLE_WIDTH
 Wild Arms,Wild Arms,wildarms_font.png,FIXED_WIDTH

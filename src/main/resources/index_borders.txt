@@ -220,6 +220,8 @@ Shadow Gate,Shadow Gate (NES) Goods Lined,shdwgt_goods_lined_border.png,FFFFFF
 Shantae,Shantae,shantae_border.png,FFFFFF
 Shining,Shining Force,shining_force_border.png,FFFFFF
 Shovel Knight,Shovel Knight,sk_border.png,FFFFFF
+Simpsons,The Simpsons: Bart vs. the Space Mutants TV,bart_tv_border.png,FFFFFF
+Simpsons,The Simpsons: Bart vs. the World (NES) Scroll,bart_world_scroll_border.png,FFFFFF
 Solomon's Key,Solomon's Key (NES),solomons_key_title_border.png,FFFFFF
 Star Ocean,Star Ocean Dialog,staroc_dialog_border.png,FFFFFF
 Star Ocean,Star Ocean Dialog Color,staroc_dialog_color_border.png,FFFFFF
@@ -227,7 +229,12 @@ Star Ocean,Star Ocean HUD,staroc_hud_border.png,FFFFFF
 # Star Ocean,Star Ocean HUD,staroc_border.png,FFFFFF // Same as staroc_hud_border,retired,but border file left in resources
 Star Ocean,Star Ocean HUD Color,staroc_hud_color_border.png,FFFFFF
 Star Ocean,Star Ocean: The Second Story,staroc2_border.png,FFFFFF
+Star Trek,Star Trek: 25th Anniversary (NES),startrek_25ani_border.png,FFFFFF
+Star Trek,Star Trek: 25th Anniversary (NES) Screen,startrek_25ani_screen_border.png,FFFFFF
+Star Wars,Star Wars (NES),starwars_nes_border.png,FFFFFF
+Star Wars,Star Wars (NES) Item,starwars_nes_item_border.png,FFFFFF
 Star Wars,Star Wars Japan,starwars_japan_border.png,6C6C6C
+Star Wars,Star Wars: The Empire Strikes Back,starwars_esb_border.png,FFFFFF
 Stardew Valley,Stardew Valley Dialog,sdv_dialog_border.png,FFFFFF
 Stardew Valley,Stardew Valley Portrait,sdv_portrait_border.png,FFFFFF
 Stardew Valley,Stardew Valley Scroll,sdv_scroll_border.png,FFFFFF
@@ -258,6 +265,8 @@ TMNT,Teenage Mutant Ninja Turtles Portraits Color (NES),tmnt_nes_portraits_color
 TMNT,Teenage Mutant Ninja Turtles Portraits Gray (NES),tmnt_nes_portraits_gray_border.png,FFFFFF
 Umihara Kawase,Umihara Kawase,umi_border.png,FFFFFF
 Undertale,Undertale,undertale_border.png,FFFFFF
+Wario,Wario's Woods (NES) Name,warios_woods_name_border.png,FFFFFF
+Wario,Wario's Woods (NES) Menu,warios_woods_menu_border.png,FFFFFF
 Wario,Wario Land 4,wl4_border.png,58F8F8
 Wild Arms,Wild Arms,wildarms_border.png,FFFFFF
 Willow,Willow (NES),willow_nes_border.png,FC9838

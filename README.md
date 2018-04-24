@@ -135,7 +135,6 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Animal Crossing
   - Ape Escape (Credits)
   - Bahamut Lagoon
-  - Bart vs. the Space Mutants
   - Batman (NES)
   - Batman Returns (NES)
   - Bionic Commando
@@ -284,6 +283,11 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Shantae
   - Shining Force
   - Shovel Knight
+  - The Simpsons: Bart vs. the Space Mutants
+  - The Simpsons: Bart vs. the World (NES)
+  - The Simpsons: Bart vs. the World (NES) Pause
+  - The Simpsons: Bartman Meets Radioactive Man (NES)
+  - The Simpsons: Bartman Meets Radioactive Man (NES) Pause
   - Solomon's Key (NES)
   - Solstice
   - Sonic Team
@@ -292,7 +296,12 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Star Ocean (Dialog)
   - Star Ocean (HUD)
   - Star Ocean: The Second Story (HUD)
+  - Star Trek: 25th Anniversary (NES) Dialog
+  - Star Trek: 25th Anniversary (NES) Intro
+  - Star Trek: 25th Anniversary (NES) Credits
+  - Star Wars (NES)
   - Star Wars Japan
+  - Star Wars: The Empire Strikes Back
   - Stardew Valley
   - StarTropics
   - StarTropics Title
@@ -309,6 +318,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - The Legend of Dragoon
   - Umihara Kawase
   - Undertale
+  - Wario's Woods
   - Wario Land 4 (Dark)
   - Wario Land 4 (Light)
   - Wild Arms
