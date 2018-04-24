@@ -1,6 +1,6 @@
 # Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
-## Get the update to fix your FFZ emotes and badges now that they redirect to https!
+## April 23 Update: Your FFZ emotes and badges will work again now that they're https!
 
 ### 🎄  Christmas Update: Regular emoji support added! 🕹️ I sent that streamer a smiley face. Streamers love smiley faces. 🍸
 
