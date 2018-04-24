@@ -161,7 +161,7 @@ public class EmojiParser
 
         for (Badge b : badgesAndUsers.getBadges())
         {
-            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put("" + b.getId(), new LazyLoadEmoji(b.getName(), "moderator".equals(b.getReplaces()) ? UserType.MOD.getKey() : b.getReplaces(), "http:" + b.getImage(), b.getColorParsed(), EmojiType.FRANKERFACEZ_BADGE));
+            manager.getEmojiByType(EmojiType.FRANKERFACEZ_BADGE).put("" + b.getId(), new LazyLoadEmoji(b.getName(), "moderator".equals(b.getReplaces()) ? UserType.MOD.getKey() : b.getReplaces(), "https:" + b.getImage(), b.getColorParsed(), EmojiType.FRANKERFACEZ_BADGE));
         }
 
         manager.setFfzBadgeUsers(badgesAndUsers.getUsers());
