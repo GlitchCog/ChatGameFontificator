@@ -154,6 +154,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Chrono Cross
   - Chrono Trigger
   - Clash at Demonhead
+  - Super C
   - Crystalis
   - Duck Hunt
   - DuckTales (NES)
@@ -203,6 +204,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Harvest Moon: Friends of Mineral Town
   - Harvest Moon: The Tale of Two Towns
   - Holy Diver
+  - Super Jeopardy!
   - Kero Blaster
   - Kid Icarus
   - The Lost Vikings
@@ -312,12 +314,19 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Tales of Phantasia (SFC)
   - Tales of Symphonia
   - TaleSpin (NES)
+  - Tecmo Bowl
   - Tengai Makyou Zero
   - Terranigma
   - Tetris (GB)
   - Tetris (NES)
   - Teenage Mutant Ninja Turtles (NES)
+  - Teenage Mutant Ninja Turtles II: The Arcade Game
+  - Teenage Mutant Ninja Turtles II: The Arcade Game HUD
+  - Teenage Mutant Ninja Turtles III: The Manhattan Project
+  - Teenage Mutant Ninja Turtles: Tournament Fighters (NES)  
   - The Legend of Dragoon
+  - Ultima Exodus (NES)
+  - Ultima Exodus (NES) Credits
   - Umihara Kawase
   - Undertale
   - Wario's Woods

@@ -657,7 +657,7 @@ public class ChatViewerBot extends PircBot
                         }
                         catch (Exception e)
                         {
-                            logger.error("Attempt to look up " + username + " on Twitch API failed.");
+                            logger.debug("Attempt to look up " + username + " on Twitch API failed.");
                         }
                     }
                     break;

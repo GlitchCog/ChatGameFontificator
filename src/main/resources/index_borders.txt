@@ -263,6 +263,10 @@ TMNT,Teenage Mutant Ninja Turtles Dialog (NES),tmnt_nes_dialog_border.png,FFFFFF
 TMNT,Teenage Mutant Ninja Turtles Map (NES),tmnt_nes_map_border.png,FFFFFF
 TMNT,Teenage Mutant Ninja Turtles Portraits Color (NES),tmnt_nes_portraits_color_border.png,FFFFFF
 TMNT,Teenage Mutant Ninja Turtles Portraits Gray (NES),tmnt_nes_portraits_gray_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles II: The Arcade Game,tmnt2_arcade_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles II: The Arcade Game Character Select,tmnt2_arcade_select_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles II: The Arcade Game Portal,tmnt2_arcade_portal_border.png,FFFFFF
+TMNT,Teenage Mutant Ninja Turtles III: The Manhattan Project,tmnt3_manhat_border.png,FFFFFF
 Umihara Kawase,Umihara Kawase,umi_border.png,FFFFFF
 Undertale,Undertale,undertale_border.png,FFFFFF
 Wario,Wario's Woods (NES) Name,warios_woods_name_border.png,FFFFFF

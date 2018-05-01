@@ -19,6 +19,7 @@ Castlevania,Castlevania: Symphony of the Night,csotn_font.png,FIXED_WIDTH
 Chrono,Chrono Trigger,ct_font.png,VARIABLE_WIDTH
 Chrono,Chrono Cross,cc_font.png,VARIABLE_WIDTH
 Clash at Demonhead,Clash at Demonhead,cad_font.png,FIXED_WIDTH
+Contra,Super C,super_c_font.png,FIXED_WIDTH
 Crystalis,Crystalis,crystalis_font.png,FIXED_WIDTH
 Disney,Chip 'n Dale Rescue Rangers,cndrr_font.png,FIXED_WIDTH
 Disney,DuckTales,ducktales_font.png,FIXED_WIDTH
@@ -76,6 +77,7 @@ Harvest Moon,Friends of Mineral Town Inverted,hm_fmt_i_font.png,FIXED_WIDTH
 Harvest Moon,The Tale of Two Towns,hm_ttott_font.png,FIXED_WIDTH
 Harvest Moon,The Tale of Two Towns Name,hm_ttott_name_font.png,FIXED_WIDTH
 Holy Diver,Holy Diver,holy_diver_font.png,FIXED_WIDTH
+Jeopardy!,Super Jeopardy!,super_jeopardy_font.png,FIXED_WIDTH
 Kid Icarus,Kid Icarus,kid_icarus_font.png,FIXED_WIDTH
 Kunio-kun,River City Ransom,rcr_font.png,FIXED_WIDTH
 Little Nemo,Little Nemo,little_nemo_font.png,FIXED_WIDTH
@@ -200,11 +202,18 @@ Suikoden,Suikoden,suiko_font.png,VARIABLE_WIDTH
 Tales,Tales of Phantasia HUD (SFC Mixed Case),tophan_hud_sfc_mixedcase_font.png,FIXED_WIDTH
 Tales,Tales of Phantasia HUD (SFC Upper Case),tophan_hud_sfc_uppercase_font.png,FIXED_WIDTH
 Tales,Tales of Symphonia,tos_font.png,VARIABLE_WIDTH
+Tecmo Bowl,Tecmo Bowl,tecmo_bowl_font.png,FIXED_WIDTH
 Tengai Makyou Zero,Tengai Makyou Zero,tmzero_font.png,VARIABLE_WIDTH
 Tetris,Tetris (GB),tetris_gb_font.png,FIXED_WIDTH
 Tetris,Tetris (NES),tetris_nes_font.png,FIXED_WIDTH
 The Legend of Dragoon,The Legend of Dragoon,legoon_font.png,VARIABLE_WIDTH
 TMNT,Teenage Mutant Ninja Turtles (NES),tmnt_nes_font.png,FIXED_WIDTH
+TMNT,Teenage Mutant Ninja Turtles II: The Arcade Game,tmnt2_arcade_font.png,FIXED_WIDTH
+TMNT,Teenage Mutant Ninja Turtles II: The Arcade Game HUD,tmnt2_arcade_hud_font.png,FIXED_WIDTH
+TMNT,Teenage Mutant Ninja Turtles III: The Manhattan Project,tmnt3_manhat_font.png,FIXED_WIDTH
+TMNT,Teenage Mutant Ninja Turtles: Tournament Fighters (NES),tmnt_tf_nes_font.png,FIXED_WIDTH
+Ultima,Ultima Exodus (NES),ultima_exo_font.png,FIXED_WIDTH
+Ultima,Ultima Exodus (NES) Credits,ultima_exo_credits_font.png,FIXED_WIDTH
 Umihara Kawase,Umihara Kawase,umi_font.png,FIXED_WIDTH
 Undertale,Undertale,undertale_font.png,FIXED_WIDTH
 Wario,Wario's Woods (NES),warios_woods_font.png,FIXED_WIDTH
