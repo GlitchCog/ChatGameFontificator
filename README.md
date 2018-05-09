@@ -134,6 +134,10 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - 7th Dragon (Dialog)
   - 7th Dragon (Name)
   - 7th Saga Battle
+  - ActRaiser
+  - ActRaiser 2
+  - ActRaiser 2 Password
+  - ActRaiser 2 Score
   - Animal Crossing
   - Ape Escape (Credits)
   - Bahamut Lagoon

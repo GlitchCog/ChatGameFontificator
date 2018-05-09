@@ -204,6 +204,10 @@ Pokemon (DS),Pokemon Diamond/Pearl Type 18,pkmndp_18_border.png,FFFFFF
 Pokemon (DS),Pokemon Diamond/Pearl Type 19,pkmndp_19_border.png,FFFFFF
 Pokemon (DS),Pokemon Diamond/Pearl Type 20,pkmndp_20_border.png,FFFFFF
 Princess Tomato,Princess Tomato in the Salad Kingdom,ptsk_border.png,FFFFFF
+Quintet,ActRaiser,ar_border.png,FFFFFF
+Quintet,ActRaiser Stage,ar_stage_border.png,FFFFFF
+Quintet,ActRaiser 2,ar2_border.png,FFFFFF
+Quintet,ActRaiser 2 Stage,ar2_stage_border.png,FFFFFF
 Quintet,Robotrek,robotrek_border.png,FFFFFF
 Quintet,Robotrek (Battle),robotrek_battle_border.png,FFFFFF
 Quintet,Terranigma,terranigma_border.png,FFFFFF

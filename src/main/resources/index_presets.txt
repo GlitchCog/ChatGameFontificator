@@ -48,6 +48,8 @@ Pokemon,Pokemon Ruby/Sapphire Dialog,pkmnrubysaph_dialog.cgf
 Pokemon,Pokemon Ruby/Sapphire Battle,pkmnrubysaph_battle.cgf
 Pokemon,Pokemon FireRed/LeafGreen,pkmnfrlg.cgf
 Pokemon,Pokemon Diamond/Pearl,pkmndp.cgf
+Quintet,ActRaiser,ar.cgf
+Quintet,ActRaiser 2,ar2.cgf
 TMNT,Teenage Mutant Ninja Turtles (NES) Dialog,tmnt_nes_dialog.cgf
 TMNT,Teenage Mutant Ninja Turtles (NES) Portraits,tmnt_nes_portraits.cgf
 Ys,Ys (FC),ys1_fc.cgf
