@@ -347,6 +347,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Zelda II: The Adventures of Link
   - Zelda II (Mixed Case)
   - The Legend of Zelda: A Link to the Past
+  - The Legend of Zelda: A Link to the Past Randomizer
   - The Legend of Zelda: Link's Awakening
   - The Legend of Zelda: Ocarina of Time
   - The Legend of Zelda: The Wind Waker

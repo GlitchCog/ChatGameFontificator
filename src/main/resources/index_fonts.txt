@@ -234,6 +234,7 @@ Zelda,The Legend of Zelda (Mixed Case),loz_lowercase_font.png,FIXED_WIDTH
 Zelda,Zelda II: The Adventures of Link,zelda2_font.png,FIXED_WIDTH
 Zelda,Zelda II (Mixed Case),zelda2_lowercase_font.png,FIXED_WIDTH
 Zelda,The Legend of Zelda: A Link to the Past,lttp_font.png,VARIABLE_WIDTH
+Zelda,The Legend of Zelda: A Link to the Past Randomizer,lttp_random_font.png,FIXED_WIDTH
 Zelda,The Legend of Zelda: Link's Awakening,loz_la_font.png,FIXED_WIDTH
 Zelda,The Legend of Zelda: Ocarina of Time,loz_oot_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: The Wind Waker,loz_ww_font.png,VARIABLE_WIDTH
