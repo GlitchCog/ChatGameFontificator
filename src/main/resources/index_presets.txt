@@ -23,6 +23,7 @@ Final Fantasy,Final Fantasy IV,ff4.cgf
 Final Fantasy,Final Fantasy VI,ff6.cgf
 Final Fantasy,Final Fantasy VII,ff7.cgf
 Final Fantasy,Final Fantasy IX,ff9.cgf
+Final Fantasy,Final Fantasy Mystic Quest,ffmq.cgf
 Mana,Final Fantasy Adventure,ffadv.cgf
 Mana,Secret of Mana,som.cgf
 Mana,Legend of Mana,lom.cgf

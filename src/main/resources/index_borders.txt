@@ -71,6 +71,7 @@ Final Fantasy,Final Fantasy IV,ff4_border.png,FFFFFF
 Final Fantasy,Final Fantasy VI,ff6_border.png,FFFFFF
 Final Fantasy,Final Fantasy VII,ff7_border.png,FFFFFF
 Final Fantasy,Final Fantasy IX,ff9_border.png,FFFFFF
+Final Fantasy,Final Fantasy Mystic Quest,ffmq_border.png,FFFFFF
 Freedom Planet,Freedom Planet,freep_border.png,FFFFFF
 Gemfire,Gemfire NES,gemfire_nes_border.png,FFFFFF
 Gemfire,Gemfire NES Title,gemfire_nes_title_border.png,FFFFFF

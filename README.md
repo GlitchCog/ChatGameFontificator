@@ -133,7 +133,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
 
   - 7th Dragon (Dialog)
   - 7th Dragon (Name)
-  - 7th Saga Battle
+  - 7th Saga (Battle)
   - ActRaiser
   - ActRaiser 2
   - ActRaiser 2 Password
@@ -198,6 +198,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Final Fantasy VI (Battle)
   - Final Fantasy VII
   - Final Fantasy IX
+  - Final Fantasy Mystic Quest (Dialog)
+  - Final Fantasy Mystic Quest (HUD)
   - Final Fantasy Tactics Advance (Dialog)
   - Final Fantasy Tactics Advance (Menu)
   - Freedom Planet

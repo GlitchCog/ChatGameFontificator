@@ -1,0 +1,20 @@
+colorBackground=FF33FF
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=FFFF73
+colorPalette=F7D67B,73ADA5,9CADCE,73DE63,F7A5C6
+fontBorderFile=preset\://borders/ffmq_border.png
+fontBorderInsetX=0
+fontBorderInsetY=-2
+fontBorderScale=2.0
+fontCharSpacing=1
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/ffmq_dialog_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=0
+fontScale=2.0
+fontSpaceWidth=55
+fontType=VARIABLE_WIDTH
+group=Final Fantasy
+name=Final Fantasy Mystic Quest
