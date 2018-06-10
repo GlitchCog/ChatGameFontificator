@@ -33,7 +33,7 @@ public class EmojiApiLoader
      * The URL template for loading V1 Twitch emotes. The ID in this URL is the emote ID value in the IRC tag prepended
      * to a post to the Twitch IRC server.
      */
-    public static final String TWITCH_EMOTE_ID_V1_URL = "http://static-cdn.jtvnw.net/emoticons/v1/" + EMOTE_ID_REPLACE + "/" + EMOTE_SIZE_REPLACE;
+    public static final String TWITCH_EMOTE_ID_V1_URL = "https://static-cdn.jtvnw.net/emoticons/v1/" + EMOTE_ID_REPLACE + "/" + EMOTE_SIZE_REPLACE;
 
     /**
      * The base URL for getting the channel specific Twitch badges from the API
