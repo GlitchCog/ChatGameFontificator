@@ -1,5 +1,10 @@
 Breath of Fire,Breath of Fire,bof1.cgf
 Breath of Fire,Breath of Fire 2,bof2.cgf
+Castlevania,Super Castlevania IV,cv4.cgf
+Castlevania,Super Castlevania IV Japanese,cv4j.cgf
+Castlevania,Super Castlevania IV Credits,cv4_credits.cgf
+Castlevania,Super Castlevania IV Naming,cv4_naming.cgf
+Castlevania,Castlevania: Symphony of the Night,cvson.cgf
 Chrono,Chrono Trigger,ct.cgf
 Chrono,Chrono Cross,cc.cgf
 Dragon Warrior,Dragon Warrior,dw1.cgf

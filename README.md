@@ -152,6 +152,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Castlevania
   - Castlevania II: Simon's Quest
   - Castlevania III: Dracula's Curse
+  - Super Castlevania IV
   - Castlevania: Symphony of the Night
   - Cave Story Plus
   - Chip 'n Dale Rescue Rangers

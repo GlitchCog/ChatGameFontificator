@@ -3,8 +3,14 @@
 Breath of Fire,Breath of Fire,bof1_border.png,E7E7E7
 Breath of Fire,Breath of Fire 2,bof2_border.png,D6C6E7
 Bucky O'Hare,Bucky O'Hare,bohare_border.png,80D010
-Castlevania,Castlevania 2,cv2_border.png,FFFFFF
-Castlevania,Castlevania 3,cv3_border.png,FFFFFF
+Castlevania,Castlevania II: Simon's Quest,cv2_border.png,0078F8
+Castlevania,Castlevania III: Dracula's Curse,cv3_border.png,FFFFFF
+Castlevania,Super Castlevania IV Gate,cv4_gate_border.png,FFFFFF
+Castlevania,Super Castlevania IV Name Upper,cv4_name_upper_border.png,FFFFFF
+Castlevania,Super Castlevania IV Name Lower,cv4_name_lower_border.png,FFFFFF
+Castlevania,Super Castlevania IV Name Lower Inner,cv4_name_lower_inner_border.png,FFFFFF
+Castlevania,Super Castlevania IV Name Lower Outer,cv4_name_lower_outer_border.png,FFFFFF
+Castlevania,Super Castlevania IV Password,cv4_password_border.png,FFFFFF
 Castlevania,Castlevania: Symphony of the Night Name,csotn_name_border.png,FFFFFF
 Castlevania,Castlevania: Symphony of the Night Enemy,csotn_enemy_border.png,FFFFFF
 Chrono,Chrono Trigger,ct_border.png,CEDBE8

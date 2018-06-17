@@ -1,0 +1,21 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=7BDEAD
+colorHighlight=FFFFFF
+colorPalette=FF6666,99FFFF,993965,9987D5,C4C665,9A6A10
+fontBorderFile=preset\://borders/cv4_name_lower_inner_border.png
+fontBorderInsetX=0
+fontBorderInsetY=-32
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/cv4_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=8
+fontScale=2.0
+fontSpaceWidth=25
+fontType=FIXED_WIDTH
+group=Castlevania
+name=Super Castlevania IV
+

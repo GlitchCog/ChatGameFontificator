@@ -13,8 +13,12 @@ Breath of Fire,Breath of Fire,bof1_font.png,FIXED_WIDTH
 Breath of Fire,Breath of Fire 2,bof2_font.png,FIXED_WIDTH
 Bucky O'Hare,Bucky O'Hare,bohare_font.png,FIXED_WIDTH
 Castlevania,Castlevania,cv1_font.png,FIXED_WIDTH
-Castlevania,Castlevania 2 Title,cv2_title_font.png,FIXED_WIDTH
-Castlevania,Castlevania 3,cv3_font.png,FIXED_WIDTH
+Castlevania,Castlevania II: Simon's Quest Title,cv2_title_font.png,FIXED_WIDTH
+Castlevania,Castlevania III: Dracula's Curse,cv3_font.png,FIXED_WIDTH
+Castlevania,Super Castlevania IV,cv4_font.png,FIXED_WIDTH
+Castlevania,Super Castlevania IV Name,cv4_name_font.png,FIXED_WIDTH
+Castlevania,Super Castlevania IV Credits,cv4_credits_font.png,FIXED_WIDTH
+Castlevania,Super Castlevania IV Japanese,cv4_japan_font.png,FIXED_WIDTH
 Castlevania,Castlevania: Symphony of the Night,csotn_font.png,FIXED_WIDTH
 Chrono,Chrono Trigger,ct_font.png,VARIABLE_WIDTH
 Chrono,Chrono Cross,cc_font.png,VARIABLE_WIDTH
