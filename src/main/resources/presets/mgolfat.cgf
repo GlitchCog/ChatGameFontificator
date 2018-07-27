@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=FFFFFF
+colorHighlight=FFFF99
+colorPalette=B0A0F8,00D8F8,F888F8,E8D870,CCFFCC
+fontBorderFile=preset\://borders/mgolfat_border.png
+fontBorderInsetX=-2
+fontBorderInsetY=-8
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/mgolfat_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=-1
+fontScale=2.0
+fontSpaceWidth=54
+fontType=VARIABLE_WIDTH
+group=Mario\ Golf
+name=Mario\ Golf\:\ Advance\ Tour

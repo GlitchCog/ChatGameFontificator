@@ -122,6 +122,8 @@ Mario (SNES),Super Mario World Yoshi's House,smw_yoshi_border.png,FFFFFF
 Mario (SNES),Super Mario World 2: Yoshi's Island,yi_border.png,FFFFFF
 Mario (SNES),Super Mario RPG,smrpg_border.png,FFFFFF
 Mario (SNES),Super Mario RPG Pipes,smrpg_pipe_border.png,31EF4A
+Mario Golf,Mario Golf,mgolf_border.png,FFFFFF
+Mario Golf,Mario Golf: Advance Tour,mgolfat_border.png,FFFFFF
 Marvelous,Marvelous: Another Treasure Island,marvelous_border.png,FFFFFF
 Mega Man,Mega Man 2 Stage Select,mm2_stage_border.png,FFFFFF
 Mega Man,Mega Man 2 Get Equipped,mm2_equip_border.png,FFFFFF

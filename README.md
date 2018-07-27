@@ -234,6 +234,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Mario RPG: Dark
   - Super Mario RPG: Light
   - Paper Mario: The Thousand Year Door
+  - Mario Golf
+  - Mario Golf: Advance Tour
   - Marvelous: Another Treasure Island
   - Mega Man
   - Mega Man 2

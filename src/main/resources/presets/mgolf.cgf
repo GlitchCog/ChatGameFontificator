@@ -1,0 +1,20 @@
+colorBackground=000000
+colorBorder=FFFFFF
+colorForeground=C09038
+colorHighlight=FFFFFF
+colorPalette=B0A0F8,00D8F8,60F850,F888F8,F8F800,F800D0,E8D870,6010D0
+fontBorderFile=preset\://borders/mgolf_border.png
+fontBorderInsetX=0
+fontBorderInsetY=0
+fontBorderScale=2.0
+fontCharSpacing=0
+fontCharacters=\ \!"\#$%&'()*+,-./0123456789\:;<\=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F
+fontFile=preset\://fonts/mgolf_font.png
+fontGridHeight=12
+fontGridWidth=8
+fontLineSpacing=8
+fontScale=2.0
+fontSpaceWidth=64
+fontType=VARIABLE_WIDTH
+group=Mario\ Golf
+name=Mario\ Golf

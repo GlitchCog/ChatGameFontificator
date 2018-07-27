@@ -109,6 +109,10 @@ Mario,Mario is Missing,mmiss_font.png,FIXED_WIDTH
 Mario,Super Mario RPG: Dark,smrpg_dark_font.png,VARIABLE_WIDTH
 Mario,Super Mario RPG: Light,smrpg_light_font.png,VARIABLE_WIDTH
 Mario,Paper Mario: The Thousand Year Door,pmttyd_font.png,VARIABLE_WIDTH
+Mario Golf,Mario Golf,mgolf_font.png,VARIABLE_WIDTH
+Mario Golf,Mario Golf Intro,mgolf_intro_font.png,VARIABLE_WIDTH
+Mario Golf,Mario Golf Name,mgolf_name_font.png,FIXED_WIDTH
+Mario Golf,Mario Golf Advance Tour,mgolfat_font.png,VARIABLE_WIDTH
 Marvelous,Marvelous: Another Treasure Island,marvelous_font.png,FIXED_WIDTH
 Marvelous,Marvelous: Another Treasure Island Name,marvelous_name_font.png,FIXED_WIDTH
 Mega Man,Mega Man 2,mm2_font.png,FIXED_WIDTH
