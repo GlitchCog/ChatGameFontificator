@@ -285,6 +285,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - R.C. Pro-Am (NES) Race
   - R.C. Pro-Am (NES) Trophy
   - Rampage
+  - Ristar
   - River City Ransom
   - Robotrek
   - Robotrek (Battle)

@@ -177,6 +177,10 @@ Quintet,Terranigma,terranigma_font.png,FIXED_WIDTH
 R.C. Pro-Am,R.C. Pro-Am (NES) Race,rcproam_race_font.png,FIXED_WIDTH
 R.C. Pro-Am,R.C. Pro-Am (NES) Trophy,rcproam_trophy_font.png,FIXED_WIDTH
 Rampage,Rampage (NES),rampage_font.png,FIXED_WIDTH
+Ristar,Ristar (Small),ristar_small_font.png,FIXED_WIDTH
+Ristar,Ristar (Medium),ristar_med_font.png,FIXED_WIDTH
+Ristar,Ristar (Large),ristar_large_font.png,FIXED_WIDTH
+Ristar,Ristar (Large Grayscale),ristar_large_gray_font.png,FIXED_WIDTH
 Rygar,Rygar (NES),rygar_nes_font.png,FIXED_WIDTH
 Secret of Evermore,Secret of Evermore,soe_font.png,VARIABLE_WIDTH
 Shadow Gate,Shadow Gate (NES),shdwgt_font.png,FIXED_WIDTH
