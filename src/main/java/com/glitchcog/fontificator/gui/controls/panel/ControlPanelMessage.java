@@ -369,11 +369,11 @@ public class ControlPanelMessage extends ControlPanelBase
 
         GridBagConstraints bGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
         bGbc.gridwidth = 3;
+        bGbc.fill = GridBagConstraints.HORIZONTAL;
         optionsB.add(queueSizeSlider, bGbc);
         bGbc.gridy++;
         optionsB.add(messageSpeedSlider, bGbc);
         bGbc.gridy++;
-        bGbc.fill = GridBagConstraints.HORIZONTAL;
         optionsB.add(expirationTimeSlider, bGbc);
         bGbc.gridy++;
         bGbc.fill = GridBagConstraints.NONE;

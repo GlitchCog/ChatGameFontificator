@@ -24,7 +24,7 @@ public class ConfigMessage extends Config
     public static final long SHORTEST_DELAY = 67L;
 
     public static final int MIN_QUEUE_SIZE = 1;
-    public static final int MAX_QUEUE_SIZE = 256;
+    public static final int MAX_QUEUE_SIZE = 5000;
 
     public static final int MIN_MESSAGE_SPEED = 1;
     public static final int MAX_MESSAGE_SPEED = 121;
