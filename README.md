@@ -236,6 +236,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Paper Mario: The Thousand Year Door
   - Mario Golf
   - Mario Golf: Advance Tour
+  - Marvel vs. Capcom: Clash of Super Heroes Battle Message
+  - Marvel vs. Capcom: Clash of Super Heroes Health Name
   - Marvelous: Another Treasure Island
   - Mega Man
   - Mega Man 2
@@ -269,6 +271,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Ogre Battle: The March of the Black Queen
   - Pac-Man (NES)
   - Ms. Pac-Man (NES)
+  - Panzer Dragoon
+  - Panzer Dragoon Saga
   - Paperboy
   - PaRappa the Rapper
   - Phantasy Star
