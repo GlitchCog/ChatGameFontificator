@@ -113,6 +113,8 @@ Mario Golf,Mario Golf,mgolf_font.png,VARIABLE_WIDTH
 Mario Golf,Mario Golf Intro,mgolf_intro_font.png,VARIABLE_WIDTH
 Mario Golf,Mario Golf Name,mgolf_name_font.png,FIXED_WIDTH
 Mario Golf,Mario Golf Advance Tour,mgolfat_font.png,VARIABLE_WIDTH
+Marvel vs. Capcom,Marvel vs. Capcom: Clash of Super Heroes Battle Message,mvc_battle_message_font.png,VARIABLE_WIDTH
+Marvel vs. Capcom,Marvel vs. Capcom: Clash of Super Heroes Health Name,mvc_health_name_font.png,FIXED_WIDTH
 Marvelous,Marvelous: Another Treasure Island,marvelous_font.png,FIXED_WIDTH
 Marvelous,Marvelous: Another Treasure Island Name,marvelous_name_font.png,FIXED_WIDTH
 Mega Man,Mega Man 2,mm2_font.png,FIXED_WIDTH
@@ -153,6 +155,8 @@ Ninja Gaiden,Ninja Gaiden III HUD,ninjagaiden3_hud_font.png,FIXED_WIDTH
 Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_font.png,FIXED_WIDTH
 Pac-Man,Pac-Man (NES),pacman_nes_font.png,FIXED_WIDTH
 Pac-Man,Ms. Pac-Man (NES),mspacman_nes_font.png,FIXED_WIDTH
+Panzer Dragoon,Panzer Dragoon Menu,panzd_menu_font.png,FIXED_WIDTH
+Panzer Dragoon,Panzer Dragoon Saga,panzd_saga_font.png,FIXED_WIDTH
 Paperboy,Paperboy,paperboy_font.png,FIXED_WIDTH
 PaRappa the Rapper,PaRappa the Rapper,parappa_font.png,VARIABLE_WIDTH
 Phantasy Star,Phantasy Star,ps1_font.png,FIXED_WIDTH

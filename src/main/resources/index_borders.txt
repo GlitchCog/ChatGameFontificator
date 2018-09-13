@@ -163,6 +163,7 @@ Moon Crystal,Moon Crystal,moon_crystal_border.png,FFFFFF
 Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_border.png,FFFFFF
 Pac-Man,Pac-Man,pacman_border.png,FFFFFF
 Pac-Man,Ms. Pac-Man,mspacman_border.png,FFFFFF
+Panzer Dragoon,Panzer Dragoon Saga,panzd_saga_border.png,FFFFFF
 PaRappa the Rapper,PaRappa the Rapper,parappa_border.png,FFFFFF
 Phantasy Star,Phantasy Star,ps1_border.png,FFFFFF
 Phantasy Star,Phantasy Star 2,ps2_border.png,FFFFFF
