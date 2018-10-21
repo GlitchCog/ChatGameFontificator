@@ -118,6 +118,9 @@ Mario (SNES),Super Mario World Ground,smw_ground_border.png,FFFFFF
 Mario (SNES),Super Mario World Mesh,smw_mesh_border.png,FFFFFF
 Mario (SNES),Super Mario World Pipe,smw_pipe_border.png,00F800
 Mario (SNES),Super Mario World Rock,smw_rock_border.png,FFFFFF
+Mario (SNES),Super Mario Kart Mario Circuit,smk_mc_border.png,FFFFFF
+Mario (SNES),Super Mario Kart Ghost Valley,smk_gv_border.png,FFFFFF
+Mario (SNES),Super Mario Kart Rainbow Road,smk_rr_border.png,FFFFFF
 Mario (SNES),Super Mario World Yoshi's House,smw_yoshi_border.png,FFFFFF
 Mario (SNES),Super Mario World 2: Yoshi's Island,yi_border.png,FFFFFF
 Mario (SNES),Super Mario RPG,smrpg_border.png,FFFFFF

@@ -155,6 +155,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Castlevania IV
   - Castlevania: Symphony of the Night
   - Cave Story Plus
+  - Chibi Robo
   - Chip 'n Dale Rescue Rangers
   - Chrono Cross
   - Chrono Trigger
@@ -228,6 +229,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Mario Land
   - Super Mario World
   - Super Mario World 2: Yoshi's Island
+  - Super Mario Kart
   - Super Mario 64
   - Super Mario 64 Multicolor
   - Mario is Missing
@@ -362,5 +364,6 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - The Legend of Zelda: Ocarina of Time
   - The Legend of Zelda: The Wind Waker
   - The Legend of Zelda: The Minish Cap
+  - The Legend of Zelda: Four Swords Adventures
   - The Legend of Zelda: Skyward Sword
   - Zero Wing

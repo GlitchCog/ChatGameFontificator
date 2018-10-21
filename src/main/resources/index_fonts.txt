@@ -20,6 +20,7 @@ Castlevania,Super Castlevania IV Name,cv4_name_font.png,FIXED_WIDTH
 Castlevania,Super Castlevania IV Credits,cv4_credits_font.png,FIXED_WIDTH
 Castlevania,Super Castlevania IV Japanese,cv4_japan_font.png,FIXED_WIDTH
 Castlevania,Castlevania: Symphony of the Night,csotn_font.png,FIXED_WIDTH
+Chibi Robo,Chibi Robo,chibi_robo_font.png,VARIABLE_WIDTH
 Chrono,Chrono Trigger,ct_font.png,VARIABLE_WIDTH
 Chrono,Chrono Cross,cc_font.png,VARIABLE_WIDTH
 Clash at Demonhead,Clash at Demonhead,cad_font.png,FIXED_WIDTH
@@ -102,6 +103,7 @@ Mario,Super Mario Bros. 3 HUD Mixed Case,smb3_hud_lowercase_font.png,FIXED_WIDTH
 Mario,Super Mario Land,sml_font.png,FIXED_WIDTH
 Mario,Super Mario World,smw_font.png,FIXED_WIDTH
 Mario,Super Mario World 2: Yoshi's Island,yi_font.png,FIXED_WIDTH
+Mario,Super Mario Kart,smk_font.png,FIXED_WIDTH
 Mario,Super Mario 64,sm64_font.png,VARIABLE_WIDTH
 Mario,Super Mario 64 Multicolor,sm64_multicolor_font.png,VARIABLE_WIDTH
 Mario,Dr. Mario,drmario_font.png,FIXED_WIDTH
@@ -257,5 +259,6 @@ Zelda,The Legend of Zelda: Link's Awakening,loz_la_font.png,FIXED_WIDTH
 Zelda,The Legend of Zelda: Ocarina of Time,loz_oot_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: The Wind Waker,loz_ww_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: The Minish Cap,minish_font.png,VARIABLE_WIDTH
+Zelda,The Legend of Zelda: Four Swords Adventures,loz_4sadv_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: Skyward Sword,loz_ss_font.png,VARIABLE_WIDTH
 Zero Wing,Zero Wing,zw_font.png,FIXED_WIDTH
