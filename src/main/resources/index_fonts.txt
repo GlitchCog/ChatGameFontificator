@@ -58,6 +58,8 @@ EarthBound,EarthBound Zero Bold,eb0_bold_font.png,FIXED_WIDTH
 EarthBound,EarthBound,eb_font.png,VARIABLE_WIDTH
 EarthBound,EarthBound Mr. Saturn,eb_saturn_font.png,VARIABLE_WIDTH
 EarthBound,Mother 3,m3_font.png,VARIABLE_WIDTH
+Ecco the Dolphin,Ecco the Dolphin,ecco_font.png,VARIABLE_WIDTH
+Ecco the Dolphin,Ecco the Dolphin Small,ecco_small_font.png,FIXED_WIDTH
 Excite Bike,Excite Bike,excitebk_font.png,FIXED_WIDTH
 Faxanadu,Faxanadu (PRG1) Dialog,faxanadu_dialog_font.png,FIXED_WIDTH
 Faxanadu,Faxanadu (PRG0) Dialog and HUD,faxanadu_hud_font.png,FIXED_WIDTH
@@ -225,6 +227,7 @@ Studio Pixel,Kero Blaster,keroblast_font.png,VARIABLE_WIDTH
 Suikoden,Suikoden,suiko_font.png,VARIABLE_WIDTH
 Tales,Tales of Phantasia HUD (SFC Mixed Case),tophan_hud_sfc_mixedcase_font.png,FIXED_WIDTH
 Tales,Tales of Phantasia HUD (SFC Upper Case),tophan_hud_sfc_uppercase_font.png,FIXED_WIDTH
+Tales,Tales of Destiny Battle,tod_battle_font.png,VARIABLE_WIDTH
 Tales,Tales of Symphonia,tos_font.png,VARIABLE_WIDTH
 Tecmo Bowl,Tecmo Bowl,tecmo_bowl_font.png,FIXED_WIDTH
 Tengai Makyou Zero,Tengai Makyou Zero,tmzero_font.png,VARIABLE_WIDTH

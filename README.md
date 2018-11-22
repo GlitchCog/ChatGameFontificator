@@ -189,6 +189,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - EarthBound Zero Bold
   - EarthBound
   - EarthBound Mr. Saturn
+  - Ecco the Dolphin
+  - Ecco the Dolphin Small
   - Excite Bike
   - Mother 3
   - Faxanadu
@@ -328,6 +330,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Zoda's Revenge: StarTropics II
   - Suikoden
   - Tales of Phantasia (SFC)
+  - Tales of Destiny Battle
   - Tales of Symphonia
   - TaleSpin (NES)
   - Tecmo Bowl
