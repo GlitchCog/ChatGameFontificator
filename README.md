@@ -1,10 +1,8 @@
 # Chat Game Fontificator [[Download](../../raw/master/jar/ChatGameFontificator.jar)] 
 
-# June 10 Update: Twitch emote disappearances should be fixed now.
+### June 10 Update: Twitch emote disappearances should be fixed now.
 
-### April 23 Update: Your FFZ emotes and badges will work again now that they're https!
-
-#### 🎄  Christmas Update: Regular emoji support added! 🕹️ I sent that streamer a smiley face. Streamers love smiley faces. 🍸
+#### April 23 Update: Your FFZ emotes and badges will work again now that they're https!
 
 The Chat Game Fontificator is a Twitch chat display that visually imitates the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.
 
@@ -114,15 +112,6 @@ Select Custom... from the border dropdown menu and select your border sheet imag
 
 All the font and border images are available as part of the source code on this site. Modify them as you see fit, and then load them into the program as a custom font or border. To save them from the GitHub source code repository, you have to click on the font, then save the image from the button in the upper left that says Raw, or from the image that is displayed on that page. If you right-click the image name from the repository and select Save-As, you will be saving the HTML page that GitHub uses to represent that image, not the image itself. Another consideration is that the characters of many of the existing fonts are colored white against a transparent background, so some image viewing or editing programs will display these images as just a blank white picture. If this happens to you, you may need a more sophisticated program to work on them. Here are links to the repository locations containing the existing font and border images: [Fonts](https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/fonts) | [Borders](https://github.com/GlitchCog/ChatGameFontificator/tree/master/src/main/resources/borders)
 
-* The program wasn't broken. Why did you "fix" it?
-
-Sorry. Here are a few versions of the program for download immediately preceding notable feature additions. These versions will be missing any fonts and borders added subsequently though.
-Last version without extended character support: [JAR from December 4, 2015] (../../raw/cb1d26f56ba7a17d3f2a539ed0ee5e688261092c/jar/ChatGameFontificator.jar).
-Last version without emoji support: [JAR from August 20, 2015] (../../raw/29dade0e07918c7ebbdd9e3428ec7f637d946914/jar/ChatGameFontificator.jar). 
-Last version without message censorship support: [JAR from October 20, 2015] (../../raw/4c31662a29dc9ac5b7437ecbaf904069d878e676/jar/ChatGameFontificator.jar).
-Last version before subscriber emotes and badges: [JAR from November 06, 2015]
-(../../raw/38257dc575fef2cc66f8dea6bfd134632889bb51/jar/ChatGameFontificator.jar).
-
 * Why didn't you tell me there were more game fonts available than just those in the Preset menu?
 
 I'm sorry, I should have mentioned that you can use the Font/Border tab to select fonts from some games that aren't even represented with a preset option. Making presets is more tedious than you might think because I take care to try to match every aspect of the game's dialog, including pixel-perfect kerning, line spacing, text positioning and coloration. I don't always get it exactly correct, but many of the presets represent exactly how the text would appear if it were actually in the game.
@@ -231,7 +220,6 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Super Mario Land
   - Super Mario World
   - Super Mario World 2: Yoshi's Island
-  - Super Mario Kart
   - Super Mario 64
   - Super Mario 64 Multicolor
   - Mario is Missing
@@ -240,6 +228,8 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Paper Mario: The Thousand Year Door
   - Mario Golf
   - Mario Golf: Advance Tour
+  - Super Mario Kart
+  - Mario Kart 8 Deluxe Outline
   - Marvel vs. Capcom: Clash of Super Heroes Battle Message
   - Marvel vs. Capcom: Clash of Super Heroes Health Name
   - Marvelous: Another Treasure Island
@@ -266,6 +256,11 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Mickey Mousecapade
   - Moon Crystal Dialog
   - Moon Crystal HUD
+  - Mortal Kombat II SNES Story
+  - Mortal Kombat II SNES Health Name
+  - Mortal Kombat II SNES Flawless Victory
+  - Mortal Kombat II SNES Header
+  - Night in the Woods
   - Ninja Gaiden
   - Ninja Gaiden HUD
   - Ninja Gaiden II
@@ -354,6 +349,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Wild Arms
   - Willow (NES)
   - Wonder Boy In Monster World
+  - X-Men Arcade
   - Ys (FC)
   - Ys III (FC)
   - Ys III (SNES)

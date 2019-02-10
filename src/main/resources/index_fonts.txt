@@ -105,7 +105,6 @@ Mario,Super Mario Bros. 3 HUD Mixed Case,smb3_hud_lowercase_font.png,FIXED_WIDTH
 Mario,Super Mario Land,sml_font.png,FIXED_WIDTH
 Mario,Super Mario World,smw_font.png,FIXED_WIDTH
 Mario,Super Mario World 2: Yoshi's Island,yi_font.png,FIXED_WIDTH
-Mario,Super Mario Kart,smk_font.png,FIXED_WIDTH
 Mario,Super Mario 64,sm64_font.png,VARIABLE_WIDTH
 Mario,Super Mario 64 Multicolor,sm64_multicolor_font.png,VARIABLE_WIDTH
 Mario,Dr. Mario,drmario_font.png,FIXED_WIDTH
@@ -117,6 +116,8 @@ Mario Golf,Mario Golf,mgolf_font.png,VARIABLE_WIDTH
 Mario Golf,Mario Golf Intro,mgolf_intro_font.png,VARIABLE_WIDTH
 Mario Golf,Mario Golf Name,mgolf_name_font.png,FIXED_WIDTH
 Mario Golf,Mario Golf Advance Tour,mgolfat_font.png,VARIABLE_WIDTH
+Mario Kart,Super Mario Kart,smk_font.png,FIXED_WIDTH
+Mario Kart,Mario Kart 8 Deluxe,mk8d_outline_font.png,VARIABLE_WIDTH
 Marvel vs. Capcom,Marvel vs. Capcom: Clash of Super Heroes Battle Message,mvc_battle_message_font.png,VARIABLE_WIDTH
 Marvel vs. Capcom,Marvel vs. Capcom: Clash of Super Heroes Health Name,mvc_health_name_font.png,FIXED_WIDTH
 Marvelous,Marvelous: Another Treasure Island,marvelous_font.png,FIXED_WIDTH
@@ -150,6 +151,11 @@ Metroid,Metroid Zero Mission,metroid_zm_font.png,VARIABLE_WIDTH
 Metroid,Metroid Zero Mission Outline,metroid_zm_outline_font.png,VARIABLE_WIDTH
 Moon Crystal,Moon Crystal Dialog,moon_crystal_dialog_font.png,FIXED_WIDTH
 Moon Crystal,Moon Crystal HUD,moon_crystal_hud_font.png,FIXED_WIDTH
+Mortal Kombat II,Mortal Kombat II SNES Story,mk2_snes_story_font.png,VARIABLE_WIDTH
+Mortal Kombat II,Mortal Kombat II SNES Health Name,mk2_snes_health_name_font.png,VARIABLE_WIDTH
+Mortal Kombat II,Mortal Kombat II SNES Flawless Victory,mk2_snes_flawless_font.png,VARIABLE_WIDTH
+Mortal Kombat II,Mortal Kombat II SNES Header,mk2_snes_header_font.png,VARIABLE_WIDTH
+Night in the Woods,Night in the Woods,nitw_font.png,VARIABLE_WIDTH
 Ninja Gaiden,Ninja Gaiden,ninjagaiden1_font.png,FIXED_WIDTH
 Ninja Gaiden,Ninja Gaiden HUD,ninjagaiden1_hud_font.png,FIXED_WIDTH
 Ninja Gaiden,Ninja Gaiden II,ninjagaiden2_font.png,FIXED_WIDTH
@@ -249,6 +255,7 @@ Wario,Wario Land 4 Light,wl4_light_font.png,VARIABLE_WIDTH
 Wild Arms,Wild Arms,wildarms_font.png,FIXED_WIDTH
 Willow,Willow (NES),willow_nes_font.png,FIXED_WIDTH
 Wonder Boy,Wonder Boy In Monster World,wbmw_font.png,FIXED_WIDTH
+X-Men,X-Men Arcade,xmen_arcade_font.png,FIXED_WIDTH
 Ys,Ys (NES),ys1_fc_font.png,FIXED_WIDTH
 Ys,Ys III (NES),ys3_fc_font.png,FIXED_WIDTH
 Ys,Ys III (SNES),ys3_snes_font.png,FIXED_WIDTH
@@ -265,3 +272,5 @@ Zelda,The Legend of Zelda: The Minish Cap,minish_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: Four Swords Adventures,loz_4sadv_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: Skyward Sword,loz_ss_font.png,VARIABLE_WIDTH
 Zero Wing,Zero Wing,zw_font.png,FIXED_WIDTH
+Other,Arial Black,arial_black_font.png,VARIABLE_WIDTH
+Other,Times New Roman,times_new_roman_font.png,VARIABLE_WIDTH
