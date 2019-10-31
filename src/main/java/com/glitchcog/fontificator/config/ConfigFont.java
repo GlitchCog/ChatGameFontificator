@@ -159,7 +159,7 @@ public class ConfigFont extends Config
             {
                 if (w * h != charKey.length())
                 {
-                    report.addError("Character key length (" + characterKey.length() + ") must match the number of characters in the font image (" + w + " x " + h + " = " + (w * h) + ")", LoadConfigErrorType.VALUE_OUT_OF_RANGE);
+                    report.addError("Character key length (" + charKey.length() + ") must match the number of characters in the font image (" + w + " x " + h + " = " + (w * h) + ")", LoadConfigErrorType.VALUE_OUT_OF_RANGE);
                 }
             }
 

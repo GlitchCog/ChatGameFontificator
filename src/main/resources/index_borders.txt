@@ -227,6 +227,7 @@ Quintet,Terranigma,terranigma_border.png,FFFFFF
 R.C. Pro-Am,R.C. Pro-Am (NES) HUD,rcproam_hud_border.png,FF002A
 R.C. Pro-Am,R.C. Pro-Am (NES) Title,rcproam_title_border.png,FFFFFF
 R.C. Pro-Am,R.C. Pro-Am (NES) Trophy,rcproam_trophy_border.png,FFFFFF
+Resident Evil,Umbrella Corporation,re_uc_border.png,FFFFFF
 Ristar,Ristar Stage,ristar_stage_border.png,FFFFFF
 Rygar,Rygar (NES),rygar_nes_border.png,FFFFFF
 Secret of Evermore,Secret of Evermore,soe_border.png,CEDBE8
