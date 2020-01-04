@@ -152,7 +152,8 @@ public class LabeledSlider extends JPanel
             valStr = " " + valStr;
         }
         valStr = valStr.replaceAll(" ", "&nbsp;");
-        return valStr;    }
+        return valStr;
+    }
 
     public void addChangeListener(ChangeListener cl)
     {

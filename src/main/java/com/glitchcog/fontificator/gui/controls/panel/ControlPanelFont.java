@@ -368,7 +368,7 @@ public class ControlPanelFont extends ControlPanelBase
         borderPresetDropdown = new ComboMenuBar(borderMenuMap, borderAl);
         gridWidthInput = new LabeledInput("Grid Width", 4);
         gridHeightInput = new LabeledInput("Grid Height", 4);
-        fontScaleSlider = new LabeledSlider("Font Size", "x", ConfigFont.MIN_FONT_SCALE, ConfigFont.MAX_FONT_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
+        fontScaleSlider = new LabeledSlider("Font Size", "x", 1, ConfigFont.MAX_FONT_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
         borderScaleSlider = new LabeledSlider("Border Size", "x", ConfigFont.MIN_BORDER_SCALE, ConfigFont.MAX_BORDER_SCALE, ConfigFont.FONT_BORDER_SCALE_GRANULARITY);
         borderInsetXSlider = new LabeledSlider("X", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);
         borderInsetYSlider = new LabeledSlider("Y", "pixels", ConfigFont.MIN_BORDER_INSET, ConfigFont.MAX_BORDER_INSET);

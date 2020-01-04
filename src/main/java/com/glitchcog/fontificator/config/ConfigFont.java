@@ -22,7 +22,7 @@ public class ConfigFont extends Config
      */
     public static final float FONT_BORDER_SCALE_GRANULARITY = 0.25f;
 
-    public static final int MIN_FONT_SCALE = 1;
+    public static final float MIN_FONT_SCALE = 0.25f;
     public static final int MAX_FONT_SCALE = (int) (8 / FONT_BORDER_SCALE_GRANULARITY);
 
     public static final int MIN_BORDER_SCALE = 0;
