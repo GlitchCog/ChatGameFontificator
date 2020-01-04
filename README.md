@@ -366,4 +366,5 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - The Legend of Zelda: The Minish Cap
   - The Legend of Zelda: Four Swords Adventures
   - The Legend of Zelda: Skyward Sword
+  - The Legend of Zelda: Breath of the Wild
   - Zero Wing
