@@ -271,7 +271,7 @@ Zelda,The Legend of Zelda: Ocarina of Time,loz_oot_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: The Wind Waker,loz_ww_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: The Minish Cap,minish_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: Four Swords Adventures,loz_4sadv_font.png,VARIABLE_WIDTH
-Zelda,The Legend of Zelda: Skyward Sword,z_ss_font.png,VARIABLE_WIDTH
+Zelda,The Legend of Zelda: Skyward Sword,loz_ss_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: Breath of the Wild,loz_botw_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: Breath of the Wild Outline,loz_botw_outline_font.png,VARIABLE_WIDTH
 Zelda,The Legend of Zelda: Breath of the Wild Special,loz_botw_special_font.png,VARIABLE_WIDTH
