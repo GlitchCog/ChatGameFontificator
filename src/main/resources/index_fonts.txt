@@ -37,6 +37,7 @@ Donkey Kong,Donkey Kong 94,dk94_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Country,dkc_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Country Banana,dkc_banana_font.png,FIXED_WIDTH
 Donkey Kong,Donkey Kong Country KONG,dkc_kong_font.png,FIXED_WIDTH
+DOS,DOS,dos_font.png,FIXED_WIDTH
 Double Dragon,Double Dragon,ddrag1_font.png,FIXED_WIDTH
 Double Dragon,Double Dragon 2,ddrag2_font.png,FIXED_WIDTH
 Double Dragon,Double Dragon 3,ddrag3_font.png,FIXED_WIDTH

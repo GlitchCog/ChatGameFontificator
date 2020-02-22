@@ -158,6 +158,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Donkey Kong Jr. Math
   - Donkey Kong '94
   - Donkey Kong Country
+  - DOS
   - Double Dragon
   - Double Dragon 2
   - Double Dragon 3
