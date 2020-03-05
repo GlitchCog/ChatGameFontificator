@@ -32,6 +32,8 @@ public class ConfigMessage extends Config
     public static final int MIN_MESSAGE_EXPIRATION = 0;
     public static final int MAX_MESSAGE_EXPIRATION = 720;
 
+    public static final String USERNAME_REPLACE = "%user%";
+
     private static final long MIN_MESSAGE_DELAY = 1L;
 
     /**
@@ -396,6 +398,16 @@ public class ConfigMessage extends Config
     {
         this.messageCasing = messageCasing;
         props.setProperty(FontificatorProperties.KEY_MESSAGE_CASING, messageCasing.name());
+    }
+
+    public String getUsernameFormat()
+    {
+        return "%user%";
+    }
+
+    public String getContentBreaker()
+    {
+        return ": ";
     }
 
     @Override

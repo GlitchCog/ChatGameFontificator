@@ -73,7 +73,7 @@ public class Message
     /**
      * The username of the poster, or the username of the user who joined, if the message is a join message
      */
-    private final String username;
+    private final String rawUsername;
 
     /**
      * A time stamp of when the message was created
@@ -140,16 +140,16 @@ public class Message
      * 
      * @param type
      *            The type of this message
-     * @param username
+     * @param rawUsername
      *            The username of whomever posted this message
      * @param content
      *            The text of the message
      * @param privmsg
      *            The Twitch Privmsg object, will not be null
      */
-    public Message(MessageType type, String username, String content, TwitchPrivmsg privmsg)
+    public Message(MessageType type, String rawUsername, String content, TwitchPrivmsg privmsg)
     {
-        this(type, username, new Date(), content, privmsg);
+        this(type, rawUsername, new Date(), content, privmsg);
     }
 
     /**
@@ -157,7 +157,7 @@ public class Message
      * 
      * @param type
      *            The type of this message
-     * @param username
+     * @param rawUsername
      *            The username of whomever posted this message
      * @param timestamp
      *            When the message was posted (local time)
@@ -166,10 +166,10 @@ public class Message
      * @param privmsg
      *            The Twitch Privmsg object, will not be null
      */
-    public Message(MessageType type, String username, Date timestamp, String content, TwitchPrivmsg privmsg)
+    public Message(MessageType type, String rawUsername, Date timestamp, String content, TwitchPrivmsg privmsg)
     {
         this.type = type;
-        this.username = username;
+        this.rawUsername = rawUsername;
         this.timestamp = timestamp;
         this.content = content;
         this.drawCursor = 0.0f;
@@ -206,7 +206,7 @@ public class Message
      */
     public String getUsername()
     {
-        return username;
+        return rawUsername;
     }
 
     /**
@@ -318,7 +318,7 @@ public class Message
     @Override
     public String toString()
     {
-        return username + ": " + content;
+        return rawUsername + ": " + content;
     }
 
     /**
@@ -333,27 +333,40 @@ public class Message
     }
 
     /**
-     * Get the index right after the username based on the specified messageConfig
+     * Get the indexes for when the username starts and right after the username based on the specified messageConfig
      * 
      * @param messageConfig
      * @return username index
      */
-    public int getIndexUsername(ConfigMessage messageConfig)
+    public int[] getIndexUsername(ConfigMessage messageConfig)
     {
-        int index = badges == null ? 0 : badges.size();
+        int start = badges == null ? 0 : badges.size();
+        int end;
         if (messageConfig.showTimestamps())
         {
-            index += getIndexTimestamp(messageConfig);
+            start += getIndexTimestamp(messageConfig);
         }
         if (messageConfig.showUsernames())
         {
             if (messageConfig.showTimestamps())
             {
-                index += TIMESTAMP_USERNAME_SPACER.length();
+                start += TIMESTAMP_USERNAME_SPACER.length();
             }
-            index += username.length();
+            final String usernameFormat = messageConfig.getUsernameFormat();
+            if (usernameFormat.indexOf(ConfigMessage.USERNAME_REPLACE) > 0)
+            {
+                final int distanceIntoFormat = usernameFormat.indexOf(ConfigMessage.USERNAME_REPLACE);
+                start += distanceIntoFormat;
+            }
+            end = start;
+            end += rawUsername.length();
+            return new int[] { start, end };
         }
-        return index;
+        else
+        {
+            return new int[] { start, start };
+        }
+
     }
 
     /**
@@ -451,7 +464,7 @@ public class Message
                 {
                     final String ffzBadgeKey = ffzBadgeType == null ? null : Integer.toString(ffzBadgeType);
                     Set<String> users = ffzBadgeUsers.get(ffzBadgeType);
-                    if (users.contains(username.toLowerCase()))
+                    if (users.contains(rawUsername.toLowerCase()))
                     {
                         LazyLoadEmoji ffzBadge = ffzBadgeBank.getEmoji(ffzBadgeType);
                         if (ffzBadge.isReplacement() && badges.containsKey(ffzBadge.getReplaces()))
@@ -511,12 +524,19 @@ public class Message
             {
                 keyList.addAll(toSpriteArray(TIMESTAMP_USERNAME_SPACER));
             }
-            String casedUsername = applyCasing(username, messageConfig.getMessageCasing());
+            String casedUsername = getFormattedUsername(messageConfig);
             keyList.addAll(toSpriteArray(casedUsername));
         }
         if (messageConfig.showUsernames() || messageConfig.showTimestamps() || (emojiConfig.isAnyBadgesEnabled() && badges != null && !badges.isEmpty()))
         {
-            keyList.addAll(toSpriteArray(type.getContentBreaker()));
+            if (type == MessageType.NORMAL || type == MessageType.MANUAL)
+            {
+                keyList.addAll(toSpriteArray(messageConfig.getContentBreaker()));
+            }
+            else
+            {
+                keyList.addAll(toSpriteArray(type.getContentBreaker()));
+            }
         }
 
         // Parse out the emoji, if enabled
@@ -621,7 +641,8 @@ public class Message
                 }
             }
 
-            // If a word-emoji has not yet been found and Twitter single-character emoji are enabled, then process them within the word
+            // If a word-emoji has not yet been found and Twitter single-character emoji are enabled, then process them
+            // within the word
             if (emoji == null)
             {
                 Matcher matcher = TWITTER_EMOJI_PATTERN.matcher(words[w]);
@@ -733,7 +754,7 @@ public class Message
 
     public void setCensored(boolean censored, boolean isCensorshipEnabled)
     {
-        // Only end the draw cursor if the message is both censored AND if censorship is actually enabled, 
+        // Only end the draw cursor if the message is both censored AND if censorship is actually enabled,
         // otherwise the message will insta-draw because it would be censored if censorship were enabled
         if (censored && isCensorshipEnabled)
         {
@@ -827,4 +848,11 @@ public class Message
         return keyList;
     }
 
+    private String getFormattedUsername(ConfigMessage messageConfig)
+    {
+        final String usernameFormat = messageConfig.getUsernameFormat();
+        final String casedUsername = applyCasing(rawUsername, messageConfig.getMessageCasing());
+        final String formattedUsername = usernameFormat.replaceAll(ConfigMessage.USERNAME_REPLACE, casedUsername);
+        return formattedUsername;
+    }
 }

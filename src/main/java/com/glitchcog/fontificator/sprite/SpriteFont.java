@@ -604,7 +604,7 @@ public class SpriteFont
             final boolean validNormalChar = !sck.isExtended() && characterBounds.containsKey(sck.getCodepoint());
             final boolean drawUnknownChar = !validNormalChar && !config.isExtendedCharEnabled();
 
-            // If the option to draw the unknown character in place of anything out of range is enabled, 
+            // If the option to draw the unknown character in place of anything out of range is enabled,
             // then switch out the SpriteCharacterKey with one given the selected unknown character
             if (drawUnknownChar)
             {
@@ -702,7 +702,7 @@ public class SpriteFont
             {
                 return colorConfig.isColorTimestamp() ? userColor : colorConfig.getFgColor();
             }
-            else if (messageConfig.showUsernames() && c < msg.getIndexUsername(messageConfig))
+            else if (messageConfig.showUsernames() && c >= msg.getIndexUsername(messageConfig)[0] && c < msg.getIndexUsername(messageConfig)[1])
             {
                 return colorConfig.isColorUsername() ? userColor : colorConfig.getFgColor();
             }
