@@ -72,6 +72,12 @@ public class ControlPanelMessage extends ControlPanelBase
     private JButton usernameFormatUpdateButton;
 
     /**
+     * Button to reset the username format pattern, in case the user changes it and forgets the text of the %user%
+     * variable
+     */
+    private JButton formatRestButton;
+
+    /**
      * Button to apply any changes to the content breaker pattern
      */
     private JButton contentBreakerUpdateButton;
@@ -158,9 +164,21 @@ public class ControlPanelMessage extends ControlPanelBase
         contentBreakerInput = new LabeledInput(null, 9);
         timeFormatInput = new LabeledInput(null, 9);
         usernameFormatUpdateButton = new JButton("Update Username Format");
+        formatRestButton = new JButton("Reset");
         contentBreakerUpdateButton = new JButton("Update Content Breaker Format");
         timeFormatUpdateButton = new JButton("Update Time Format");
         queueSizeSlider = new LabeledSlider("Message Queue Size", "messages", ConfigMessage.MIN_QUEUE_SIZE, ConfigMessage.MAX_QUEUE_SIZE);
+
+        formatRestButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                usernameFormatInput.setText(ConfigMessage.USERNAME_REPLACE);
+                contentBreakerInput.setText(ConfigMessage.DEFAULT_CONTENT_BREAKER);
+                toggleEnableds();
+            }
+        });
 
         final String maxSpeedLabel = "MAX";
         messageSpeedSlider = new LabeledSlider("Message Speed", "char/sec", ConfigMessage.MIN_MESSAGE_SPEED, ConfigMessage.MAX_MESSAGE_SPEED, maxSpeedLabel.length())
@@ -400,6 +418,10 @@ public class ControlPanelMessage extends ControlPanelBase
         formatPanel.add(usernameFormatInput, tfGbc);
         tfGbc.gridx++;
         formatPanel.add(usernameFormatUpdateButton, tfGbc);
+        tfGbc.gridx++;
+        formatPanel.add(formatRestButton, tfGbc);
+        tfGbc.gridx = 0;
+        tfGbc.gridwidth = 2;
         tfGbc.gridy++;
         tfGbc.gridx = 0;
         formatPanel.add(contentBreakerInput, tfGbc);
@@ -516,9 +538,10 @@ public class ControlPanelMessage extends ControlPanelBase
         {
             tfModified = false;
         }
-        usernameFormatUpdateButton.setEnabled(config.showUsernames() && ufModified);
+        usernameFormatUpdateButton.setEnabled(ufModified);
         timeFormatUpdateButton.setEnabled(config.showTimestamps() && tfModified);
         contentBreakerUpdateButton.setEnabled(cbModified);
+        formatRestButton.setEnabled(!config.getUsernameFormat().equals(ConfigMessage.USERNAME_REPLACE) || !config.getContentBreaker().equals(ConfigMessage.DEFAULT_CONTENT_BREAKER));
     }
 
     @Override

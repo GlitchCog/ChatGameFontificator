@@ -33,6 +33,7 @@ public class ConfigMessage extends Config
     public static final int MAX_MESSAGE_EXPIRATION = 720;
 
     public static final String USERNAME_REPLACE = "%user%";
+    public static final String DEFAULT_CONTENT_BREAKER = ": ";
 
     private static final long MIN_MESSAGE_DELAY = 1L;
 

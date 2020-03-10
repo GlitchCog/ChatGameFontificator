@@ -638,9 +638,9 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_MESSAGE_JOIN, falseString, override);
         setPropertyOverride(KEY_MESSAGE_USERNAME, trueString, override);
         setPropertyOverride(KEY_MESSAGE_TIMESTAMP, falseString, override);
-        setPropertyOverride(KEY_MESSAGE_USERFORMAT, "%user%", override);
+        setPropertyOverride(KEY_MESSAGE_USERFORMAT, ConfigMessage.USERNAME_REPLACE, override);
         setPropertyOverride(KEY_MESSAGE_TIMEFORMAT, "[HH:mm:ss]", override);
-        setPropertyOverride(KEY_MESSAGE_CONTENT_BREAK, ": ", override);
+        setPropertyOverride(KEY_MESSAGE_CONTENT_BREAK, ConfigMessage.DEFAULT_CONTENT_BREAKER, override);
         setPropertyOverride(KEY_MESSAGE_QUEUE_SIZE, Integer.toString(64), override);
         setPropertyOverride(KEY_MESSAGE_SPEED, Integer.toString((int) (ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)), override);
         setPropertyOverride(KEY_MESSAGE_EXPIRATION_TIME, Integer.toString(0), override);

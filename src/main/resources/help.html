@@ -15,48 +15,97 @@ table {
 </style>
 
 <table>
-  <tr>
-    <td>The Chat Game Fontificator (CGF) is a Twitch chat display that makes the chat look like the text boxes from various video games. Its intended use is as a part of a Twitch video game stream in place of less pretty chat windows.</td>
-  </tr>
-  <tr>
-    <td>The File menu contains options for Opening and Saving custom configurations. These files contain all the options you can specify on each of the tabs. The last file successfully loaded or saved will be automatically opened the next time the
-      program runs. The files are plain text Java properties files with a .cgf extension, but the OAuth Token is encrypted before it is stored, so it cannot be read. The option to save a screenshot is also available, and will write a PNG image file of the
-      graphical contents of the Chat Window.</td>
-  </tr>
-  <tr>
-    <td>The Presets menu contains all the built-in configurations for various games. Care was taken to approximate the appearance of the text from the respective games. These presets are configuration files, just like the custom ones that can be saved
-      and opened using the options in the File menu, but they only contain any properties related to the font, border, and colors.</td>
-  </tr>
-  <tr>
-    <td>The View menu contains options for rendering the chat using Anti-Aliasing, making the chat window Always on Top, and for hiding the Configuration window so only the Chat window is displayed. Closing the Configuration window has the same effect
-      as selecting the option to hide it. The Configuration window can be brought back by single clicking anywhere inside the Chat window on the chat display. The Anti-Aliasing and Always on Top selections are saved as part of the configuration.</td>
-  </tr>
-  <tr>
-    <td>The Message menu contains an option to display a pop-up dialog for managing messages, which includes the ability to post a manual message and to enable and edit message censorship and message censorship rules. All effects on messages from this
-      popup are only for the chat display; they have no effect on the IRC server for either posting in the actual IRC chat or banning users or censoring messages.</td>
-  </tr>
-  <tr>
-    <td>Message censorship rules include a master option to enable or disable any message censorship, an option to censor messages that contain a specifiable percentage of extended characters (characters outside the ASCII range of 32 to 127), an
-      option for censoring any message that contains a URL, and an option for censoring any message that contains a URL when that message is a user's first post of the session. The first post of the session URL censorship should censor any Twitch bot Spam
-      that comes as a single message from a user that has never posted to the chat before.</td>
-  </tr>
-  <tr>
-    <td>The option to censor messages based on the number of unknown characters will censor messages whenever the percentage of characters that fall outside the standard ASCII range exceeds the specified percentage. When appropriately calibrated, this
-      should censor any messages containing ASCII art, while permitting a few characters with umlauts or accents.</td>
-  </tr>
-  <tr>
-    <td>The user whitelist is a list of users who are exempt from any censorship. The messages of any user added to this list will not be subject to censorship from user blacklisting, the message containing banned words, or for the message containing
-      URLs. The user blacklist is a list of users whose messages will always be censored regardless of content. And the banned word list contains words that will trigger message censorship when they are included in a message. Only single words can be
-      included, not phrases, and words that may be turned into emoji are also banned word list candidates. The user whitelist, user blacklist, and banned word list are all case insensitive.</td>
-  </tr>
-  <tr>
-    <td>Manually toggling message censorship is possible with the checkboxes in the list of all the messages. Once a message is manually censored or uncensored, its status will remain unchanged by any rule changes. From the first instance of manual
-      intervention on that message, it is only subject to further manual intervention. The Reapply Rules button will undo this manual intervention lock and will undo all manual censorship and re-enforce the rules. This will affect all manually censored or
-      uncensored messages at once.</td>
-  </tr>
-  <tr>
-    <td>For the option to post manual messages, both the Username and Message fields are required. Checking the 'Retain message input after post' option will preserve the Username and Message input for reposting. The Post button posts the message to
-      the chat display, and the clear button clears out any input in the Username and Message input fields.</td>
+	<tr>
+		<td>The Chat Game Fontificator (CGF) is a Twitch chat display
+			that makes the chat look like the text boxes from various video
+			games. Its intended use is as a part of a Twitch video game stream in
+			place of less pretty chat windows.</td>
+	</tr>
+	<tr>
+		<td>The File menu contains options for Opening and Saving custom
+			configurations. These files contain all the options you can specify
+			on each of the tabs. The last file successfully loaded or saved will
+			be automatically opened the next time the program runs. The files are
+			plain text Java properties files with a .cgf extension, but the OAuth
+			Token is encrypted before it is stored, so it cannot be read. The
+			option to save a screenshot is also available, and will write a PNG
+			image file of the graphical contents of the Chat Window.</td>
+	</tr>
+	<tr>
+		<td>The Presets menu contains all the built-in configurations for
+			various games. Care was taken to approximate the appearance of the
+			text from the respective games. These presets are configuration
+			files, just like the custom ones that can be saved and opened using
+			the options in the File menu, but they only contain any properties
+			related to the font, border, and colors.</td>
+	</tr>
+	<tr>
+		<td>The View menu contains options for rendering the chat using
+			Anti-Aliasing, making the chat window Always on Top, and for hiding
+			the Configuration window so only the Chat window is displayed.
+			Closing the Configuration window has the same effect as selecting the
+			option to hide it. The Configuration window can be brought back by
+			single clicking anywhere inside the Chat window on the chat display.
+			The Anti-Aliasing and Always on Top selections are saved as part of
+			the configuration.</td>
+	</tr>
+	<tr>
+		<td>The Message menu contains an option to display a pop-up
+			dialog for managing messages, which includes the ability to post a
+			manual message and to enable and edit message censorship and message
+			censorship rules. All effects on messages from this popup are only
+			for the chat display; they have no effect on the IRC server for
+			either posting in the actual IRC chat or banning users or censoring
+			messages.</td>
+	</tr>
+	<tr>
+		<td>Message censorship rules include a master option to enable or
+			disable any message censorship, an option to censor messages that
+			contain a specifiable percentage of extended characters (characters
+			outside the ASCII range of 32 to 127), an option for censoring any
+			message that contains a URL, and an option for censoring any message
+			that contains a URL when that message is a user's first post of the
+			session. The first post of the session URL censorship should censor
+			any Twitch bot Spam that comes as a single message from a user that
+			has never posted to the chat before.</td>
+	</tr>
+	<tr>
+		<td>The option to censor messages based on the number of unknown
+			characters will censor messages whenever the percentage of characters
+			that fall outside the standard ASCII range exceeds the specified
+			percentage. When appropriately calibrated, this should censor any
+			messages containing ASCII art, while permitting a few characters with
+			umlauts or accents.</td>
+	</tr>
+	<tr>
+		<td>The user whitelist is a list of users who are exempt from any
+			censorship. The messages of any user added to this list will not be
+			subject to censorship from user blacklisting, the message containing
+			banned words, or for the message containing URLs. The user blacklist
+			is a list of users whose messages will always be censored regardless
+			of content. And the banned word list contains words that will trigger
+			message censorship when they are included in a message. Only single
+			words can be included, not phrases, and words that may be turned into
+			emoji are also banned word list candidates. The user whitelist, user
+			blacklist, and banned word list are all case insensitive.</td>
+	</tr>
+	<tr>
+		<td>Manually toggling message censorship is possible with the
+			checkboxes in the list of all the messages. Once a message is
+			manually censored or uncensored, its status will remain unchanged by
+			any rule changes. From the first instance of manual intervention on
+			that message, it is only subject to further manual intervention. The
+			Reapply Rules button will undo this manual intervention lock and will
+			undo all manual censorship and re-enforce the rules. This will affect
+			all manually censored or uncensored messages at once.</td>
+	</tr>
+	<tr>
+		<td>For the option to post manual messages, both the Username and
+			Message fields are required. Checking the 'Retain message input after
+			post' option will preserve the Username and Message input for
+			reposting. The Post button posts the message to the chat display, and
+			the clear button clears out any input in the Username and Message
+			input fields.</td>
   </tr>
   <tr>
     <td>The Help menu contains this information and an About pop-up option.</td>
@@ -297,11 +346,20 @@ table {
           <td>Whether to display a timestamp with the messages. This timestamp will be local to your time zone, and it will be formatted using the specified time format pattern. The time data are always stored with each message regardless of whether
             this option is selected, so checking it will display the time information for any message already in the queue as well as new messages being posted.</td>
         </tr>
+		<tr>
+          <td>Username Format</td>
+          <td>This is the pattern used to format the username, should the show username option be selected. The Update Username Format button will become enabled whenever the show username option is selected and the username format pattern value is
+            different than the currently specified pattern. The text %user% is the variable to include in this format that represents the actual username.</td>
+		</tr>
         <tr>
           <td>Time Format</td>
           <td>This is the pattern used to format the timestamps, should the show timestamps option be selected. The Update Time Format button will become enabled whenever the show timestamps option is selected and the time format pattern value is
             valid and different than the currently specified pattern.</td>
         </tr>
+		<tr>
+          <td>Content Breaker</td>
+          <td>This is the text used to separate the timestamp and or username from the actual content of the message. The Update Content Breaker button will become enabled whenever the content breaker text is different than the current value.</td>
+		</tr>
         <tr>
           <td>Message Queue Size</td>
           <td>This is the number of messages that are stored in the queue. It should be higher than the number of rows you can see on the screen to avoid any wasted empty space in the chat display, but smaller message queue sizes will use less space.
