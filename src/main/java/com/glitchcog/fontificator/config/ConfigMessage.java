@@ -52,12 +52,22 @@ public class ConfigMessage extends Config
     private Boolean timestamps;
 
     /**
+     * The pattern for the username
+     */
+    private String usernameFormat;
+
+    /**
      * The datetime pattern for the timestamps
      */
     private String timeFormat;
 
     /**
-     * The formatter for timestamps
+     * The text that goes between the timestamp and or username and the content of the message
+     */
+    private String contentBreaker;
+
+    /**
+     * The formatter for timestampstimeFormatIntimeFormatInputput
      */
     private DateFormat timeFormatter;
 
@@ -108,7 +118,9 @@ public class ConfigMessage extends Config
         this.joinMessages = null;
         this.usernames = null;
         this.timestamps = null;
+        this.usernameFormat = null;
         this.timeFormat = null;
+        this.contentBreaker = null;
         this.queueSize = null;
         this.messageSpeed = null;
         this.expirationTime = null;
@@ -144,7 +156,7 @@ public class ConfigMessage extends Config
         return report;
     }
 
-    public LoadConfigReport validateStrings(LoadConfigReport report, String timeFormatStr, String queueSizeStr, String messageSpeedStr, String expirationTimerStr, String hideEmptyBorderBool, String hideEmptyBgBool, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool, String msgCasingStr)
+    public LoadConfigReport validateStrings(LoadConfigReport report, String userFormatStr, String timeFormatStr, String contentBreakStr, String queueSizeStr, String messageSpeedStr, String expirationTimerStr, String hideEmptyBorderBool, String hideEmptyBgBool, String caseTypeStr, String joinBool, String userBool, String timestampBool, String specifyCaseBool, String msgCasingStr)
     {
         validateStrings(report, timeFormatStr, queueSizeStr, messageSpeedStr, expirationTimerStr);
 
@@ -177,6 +189,8 @@ public class ConfigMessage extends Config
         {
             // Check that the values are valid
             final String tfString = props.getProperty(FontificatorProperties.KEY_MESSAGE_TIMEFORMAT);
+            final String usrString = props.getProperty(FontificatorProperties.KEY_MESSAGE_USERFORMAT);
+            final String cbString = props.getProperty(FontificatorProperties.KEY_MESSAGE_CONTENT_BREAK);
             final String quSizeStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE);
             final String msgSpeedStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_SPEED);
             final String caseTpStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_CASE_TYPE);
@@ -188,7 +202,7 @@ public class ConfigMessage extends Config
             final String expTimerStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME);
             final String hideEmptyBorderStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BORDER);
             final String hideEmptyBgStr = props.getProperty(FontificatorProperties.KEY_MESSAGE_HIDE_EMPTY_BACKGROUND);
-            validateStrings(report, tfString, quSizeStr, msgSpeedStr, expTimerStr, hideEmptyBorderStr, hideEmptyBgStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool, msgCaseStr);
+            validateStrings(report, usrString, tfString, cbString, quSizeStr, msgSpeedStr, expTimerStr, hideEmptyBorderStr, hideEmptyBgStr, caseTpStr, joinBool, userBool, timestampBool, specifyCaseBool, msgCaseStr);
 
             // Fill the values
             if (report.isErrorFree())
@@ -196,7 +210,9 @@ public class ConfigMessage extends Config
                 this.joinMessages = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_JOIN, report);
                 this.usernames = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_USERNAME, report);
                 this.timestamps = evaluateBooleanString(props, FontificatorProperties.KEY_MESSAGE_TIMESTAMP, report);
+                this.usernameFormat = usrString;
                 this.timeFormat = tfString;
+                this.contentBreaker = cbString;
                 this.queueSize = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_QUEUE_SIZE, report);
                 this.messageSpeed = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_SPEED, report);
                 this.expirationTime = evaluateIntegerString(props, FontificatorProperties.KEY_MESSAGE_EXPIRATION_TIME, report);
@@ -254,6 +270,20 @@ public class ConfigMessage extends Config
     }
 
     /**
+     * Get the format pattern with which to display the username
+     */
+    public String getUsernameFormat()
+    {
+        return usernameFormat;
+    }
+
+    public void setUsernameFormat(String usernameFormat)
+    {
+        this.usernameFormat = usernameFormat;
+        props.setProperty(FontificatorProperties.KEY_MESSAGE_USERFORMAT, usernameFormat);
+    }
+
+    /**
      * Get the datetime pattern for the timestamps
      */
     public String getTimeFormat()
@@ -271,6 +301,20 @@ public class ConfigMessage extends Config
         this.timeFormat = timeFormat;
         this.timeFormatter = new SimpleDateFormat(timeFormat);
         props.setProperty(FontificatorProperties.KEY_MESSAGE_TIMEFORMAT, timeFormat);
+    }
+
+    /**
+     * Get the text that marks the pre-message timestamp and or username from the content of the message
+     */
+    public String getContentBreaker()
+    {
+        return contentBreaker;
+    }
+
+    public void setContentBreaker(String contentBreaker)
+    {
+        this.contentBreaker = contentBreaker;
+        props.setProperty(FontificatorProperties.KEY_MESSAGE_CONTENT_BREAK, contentBreaker);
     }
 
     /**
@@ -400,23 +444,15 @@ public class ConfigMessage extends Config
         props.setProperty(FontificatorProperties.KEY_MESSAGE_CASING, messageCasing.name());
     }
 
-    public String getUsernameFormat()
-    {
-        return "%user%";
-    }
-
-    public String getContentBreaker()
-    {
-        return ": ";
-    }
-
     @Override
     public int hashCode()
     {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((joinMessages == null) ? 0 : joinMessages.hashCode());
+        result = prime * result + ((usernameFormat == null) ? 0 : usernameFormat.hashCode());
         result = prime * result + ((timeFormat == null) ? 0 : timeFormat.hashCode());
+        result = prime * result + ((contentBreaker == null) ? 0 : contentBreaker.hashCode());
         result = prime * result + ((timestamps == null) ? 0 : timestamps.hashCode());
         result = prime * result + ((usernames == null) ? 0 : usernames.hashCode());
         result = prime * result + ((messageCasing == null) ? 0 : messageCasing.hashCode());
@@ -442,12 +478,26 @@ public class ConfigMessage extends Config
         }
         else if (!joinMessages.equals(other.joinMessages))
             return false;
+        if (usernameFormat == null)
+        {
+            if (other.usernameFormat != null)
+                return false;
+        }
+        else if (!usernameFormat.equals(other.usernameFormat))
+            return false;
         if (timeFormat == null)
         {
             if (other.timeFormat != null)
                 return false;
         }
         else if (!timeFormat.equals(other.timeFormat))
+            return false;
+        if (contentBreaker == null)
+        {
+            if (other.contentBreaker != null)
+                return false;
+        }
+        else if (!contentBreaker.equals(other.contentBreaker))
             return false;
         if (timestamps == null)
         {
@@ -475,7 +525,9 @@ public class ConfigMessage extends Config
     public void deepCopy(ConfigMessage copy)
     {
         this.joinMessages = copy.joinMessages;
+        this.usernameFormat = copy.usernameFormat;
         this.timeFormat = copy.timeFormat;
+        this.contentBreaker = copy.contentBreaker;
         this.timestamps = copy.timestamps;
         this.usernames = copy.usernames;
         this.messageCasing = copy.messageCasing;

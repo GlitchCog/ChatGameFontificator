@@ -132,7 +132,9 @@ public class FontificatorProperties extends Properties
     public static final String KEY_MESSAGE_JOIN = "messageShowJoin";
     public static final String KEY_MESSAGE_USERNAME = "messageShowUsername";
     public static final String KEY_MESSAGE_TIMESTAMP = "messageShowTimestamp";
+    public static final String KEY_MESSAGE_USERFORMAT = "messageUsernameFormat";
     public static final String KEY_MESSAGE_TIMEFORMAT = "messageTimestampFormat";
+    public static final String KEY_MESSAGE_CONTENT_BREAK = "messageContentBreak";
     public static final String KEY_MESSAGE_QUEUE_SIZE = "messageQueueSize";
     public static final String KEY_MESSAGE_SPEED = "messageSpeed";
     public static final String KEY_MESSAGE_EXPIRATION_TIME = "messageExpirationTime";
@@ -142,7 +144,7 @@ public class FontificatorProperties extends Properties
     public static final String KEY_MESSAGE_CASE_SPECIFY = "messageUserCaseSpecify";
     public static final String KEY_MESSAGE_CASING = "messageCasing";
 
-    public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_EXPIRATION_TIME, KEY_MESSAGE_HIDE_EMPTY_BORDER, KEY_MESSAGE_HIDE_EMPTY_BACKGROUND, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY, KEY_MESSAGE_CASING };
+    public static final String[] MESSAGE_KEYS = new String[] { KEY_MESSAGE_JOIN, KEY_MESSAGE_USERNAME, KEY_MESSAGE_TIMESTAMP, KEY_MESSAGE_USERFORMAT, KEY_MESSAGE_TIMEFORMAT, KEY_MESSAGE_CONTENT_BREAK, KEY_MESSAGE_QUEUE_SIZE, KEY_MESSAGE_SPEED, KEY_MESSAGE_EXPIRATION_TIME, KEY_MESSAGE_HIDE_EMPTY_BORDER, KEY_MESSAGE_HIDE_EMPTY_BACKGROUND, KEY_MESSAGE_CASE_TYPE, KEY_MESSAGE_CASE_SPECIFY, KEY_MESSAGE_CASING };
 
     public static final String KEY_EMOJI_ENABLED = "emojiEnabled";
     public static final String KEY_EMOJI_ANIMATION = "emojiAnimationEnabled";
@@ -636,7 +638,9 @@ public class FontificatorProperties extends Properties
         setPropertyOverride(KEY_MESSAGE_JOIN, falseString, override);
         setPropertyOverride(KEY_MESSAGE_USERNAME, trueString, override);
         setPropertyOverride(KEY_MESSAGE_TIMESTAMP, falseString, override);
+        setPropertyOverride(KEY_MESSAGE_USERFORMAT, "%user%", override);
         setPropertyOverride(KEY_MESSAGE_TIMEFORMAT, "[HH:mm:ss]", override);
+        setPropertyOverride(KEY_MESSAGE_CONTENT_BREAK, ": ", override);
         setPropertyOverride(KEY_MESSAGE_QUEUE_SIZE, Integer.toString(64), override);
         setPropertyOverride(KEY_MESSAGE_SPEED, Integer.toString((int) (ConfigMessage.MAX_MESSAGE_SPEED * 0.25f)), override);
         setPropertyOverride(KEY_MESSAGE_EXPIRATION_TIME, Integer.toString(0), override);

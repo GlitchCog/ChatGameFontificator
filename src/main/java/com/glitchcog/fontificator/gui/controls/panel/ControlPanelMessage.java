@@ -52,9 +52,29 @@ public class ControlPanelMessage extends ControlPanelBase
     private JCheckBox timestampsBox;
 
     /**
+     * Input for specifying the format pattern of the username
+     */
+    private LabeledInput usernameFormatInput;
+
+    /**
+     * Input for specifying how the username/timestamp is separated from the message content
+     */
+    private LabeledInput contentBreakerInput;
+
+    /**
      * Input for specifying the format pattern of the timestamp
      */
     private LabeledInput timeFormatInput;
+
+    /**
+     * Button to apply any changes to the username format pattern
+     */
+    private JButton usernameFormatUpdateButton;
+
+    /**
+     * Button to apply any changes to the content breaker pattern
+     */
+    private JButton contentBreakerUpdateButton;
 
     /**
      * Button to apply any changes to the time format pattern
@@ -134,7 +154,11 @@ public class ControlPanelMessage extends ControlPanelBase
         usernamesBox = new JCheckBox("Show Usernames");
         joinMessagesBox = new JCheckBox("Show Joins");
         timestampsBox = new JCheckBox("Show Timestamps");
+        usernameFormatInput = new LabeledInput(null, 9);
+        contentBreakerInput = new LabeledInput(null, 9);
         timeFormatInput = new LabeledInput(null, 9);
+        usernameFormatUpdateButton = new JButton("Update Username Format");
+        contentBreakerUpdateButton = new JButton("Update Content Breaker Format");
         timeFormatUpdateButton = new JButton("Update Time Format");
         queueSizeSlider = new LabeledSlider("Message Queue Size", "messages", ConfigMessage.MIN_QUEUE_SIZE, ConfigMessage.MAX_QUEUE_SIZE);
 
@@ -218,7 +242,9 @@ public class ControlPanelMessage extends ControlPanelBase
             }
         };
 
+        usernameFormatInput.addDocumentListener(docListener);
         timeFormatInput.addDocumentListener(docListener);
+        contentBreakerInput.addDocumentListener(docListener);
 
         caseTypeDropdown.addActionListener(new ActionListener()
         {
@@ -254,6 +280,7 @@ public class ControlPanelMessage extends ControlPanelBase
                 if (usernamesBox.equals(source))
                 {
                     config.setShowUsernames(source.isSelected());
+                    toggleEnableds();
                 }
                 else if (joinMessagesBox.equals(source))
                 {
@@ -288,25 +315,44 @@ public class ControlPanelMessage extends ControlPanelBase
         hideEmptyBorder.addActionListener(boxListener);
         hideEmptyBackground.addActionListener(boxListener);
 
-        timeFormatUpdateButton.addActionListener(new ActionListener()
+        ActionListener updateButtonListener = new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                LoadConfigReport report = new LoadConfigReport();
-                config.validateTimeFormat(report, timeFormatInput.getText());
-                if (report.isErrorFree())
+                if (e.getSource() == timeFormatUpdateButton)
                 {
-                    config.setTimeFormat(timeFormatInput.getText());
+                    LoadConfigReport report = new LoadConfigReport();
+                    config.validateTimeFormat(report, timeFormatInput.getText());
+                    if (report.isErrorFree())
+                    {
+                        config.setTimeFormat(timeFormatInput.getText());
+                        toggleEnableds();
+                        chat.repaint();
+                    }
+                    else
+                    {
+                        ChatWindow.popup.handleProblem(report);
+                    }
+                }
+                else if (e.getSource() == usernameFormatUpdateButton)
+                {
+                    config.setUsernameFormat(usernameFormatInput.getText());
                     toggleEnableds();
                     chat.repaint();
                 }
-                else
+                else if (e.getSource() == contentBreakerUpdateButton)
                 {
-                    ChatWindow.popup.handleProblem(report);
+                    config.setContentBreaker(contentBreakerInput.getText());
+                    toggleEnableds();
+                    chat.repaint();
                 }
             }
-        });
+        };
+
+        usernameFormatUpdateButton.addActionListener(updateButtonListener);
+        timeFormatUpdateButton.addActionListener(updateButtonListener);
+        contentBreakerUpdateButton.addActionListener(updateButtonListener);
 
         ChangeListener cl = new ChangeListener()
         {
@@ -348,24 +394,35 @@ public class ControlPanelMessage extends ControlPanelBase
         JPanel optionsA = new JPanel(new GridBagLayout());
         JPanel optionsB = new JPanel(new GridBagLayout());
 
-        GridBagConstraints tfGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
-        JPanel timeFormatPanel = new JPanel(new GridBagLayout());
-        timeFormatPanel.add(timeFormatInput, tfGbc);
+        GridBagConstraints tfGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
+        JPanel formatPanel = new JPanel(new GridBagLayout());
+
+        formatPanel.add(usernameFormatInput, tfGbc);
         tfGbc.gridx++;
-        timeFormatPanel.add(timeFormatUpdateButton, tfGbc);
+        formatPanel.add(usernameFormatUpdateButton, tfGbc);
+        tfGbc.gridy++;
+        tfGbc.gridx = 0;
+        formatPanel.add(contentBreakerInput, tfGbc);
+        tfGbc.gridx++;
+        formatPanel.add(contentBreakerUpdateButton, tfGbc);
+        tfGbc.gridy++;
+        tfGbc.gridx = 0;
+        formatPanel.add(timeFormatInput, tfGbc);
+        tfGbc.gridx++;
+        formatPanel.add(timeFormatUpdateButton, tfGbc);
 
         GridBagConstraints aGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
         optionsA.add(usernamesBox, aGbc);
-        aGbc.gridx++;
-        aGbc.anchor = GridBagConstraints.NORTH;
+        aGbc.gridy++;
+        aGbc.anchor = GridBagConstraints.WEST;
         optionsA.add(timestampsBox, aGbc);
         aGbc.gridy++;
-        aGbc.gridx = 0;
-        aGbc.anchor = GridBagConstraints.WEST;
         optionsA.add(joinMessagesBox, aGbc);
+        aGbc.gridy = 0;
+
         aGbc.gridx++;
-        aGbc.anchor = GridBagConstraints.EAST;
-        optionsA.add(timeFormatPanel, aGbc);
+        aGbc.gridheight = 3;
+        optionsA.add(formatPanel, aGbc);
 
         GridBagConstraints bGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, DEFAULT_INSETS, 0, 0);
         bGbc.gridwidth = 3;
@@ -439,19 +496,29 @@ public class ControlPanelMessage extends ControlPanelBase
      */
     private void toggleEnableds()
     {
+        usernameFormatInput.setEnabled(config.showUsernames());
         timeFormatInput.setEnabled(config.showTimestamps());
+        // Username Formatter
+        boolean ufModified = false;
+        // Timestamp Formatter
         boolean tfModified = false;
+        // Content Breaker
+        boolean cbModified = false;
         try
         {
+            tfModified = !timeFormatInput.getText().equals(config.getTimeFormat());
+            ufModified = !usernameFormatInput.getText().equals(config.getUsernameFormat());
+            cbModified = !contentBreakerInput.getText().equals(config.getContentBreaker());
             DateFormat df = new SimpleDateFormat(timeFormatInput.getText());
             df.format(new Date());
-            tfModified = !timeFormatInput.getText().equals(config.getTimeFormat());
         }
         catch (Exception e)
         {
             tfModified = false;
         }
+        usernameFormatUpdateButton.setEnabled(config.showUsernames() && ufModified);
         timeFormatUpdateButton.setEnabled(config.showTimestamps() && tfModified);
+        contentBreakerUpdateButton.setEnabled(cbModified);
     }
 
     @Override
@@ -466,9 +533,13 @@ public class ControlPanelMessage extends ControlPanelBase
     {
         usernamesBox.setSelected(config.showUsernames());
         timestampsBox.setSelected(config.showTimestamps());
+        usernameFormatInput.setText(config.getUsernameFormat());
         timeFormatInput.setText(config.getTimeFormat());
-        // Set the timeformatter here by sending it back
+        contentBreakerInput.setText(config.getContentBreaker());
+        // Set the formatters here by sending them back
+        config.setUsernameFormat(usernameFormatInput.getText());
         config.setTimeFormat(timeFormatInput.getText());
+        config.setContentBreaker(contentBreakerInput.getText());
         toggleEnableds();
         joinMessagesBox.setSelected(config.showJoinMessages());
         queueSizeSlider.setValue(config.getQueueSize());
@@ -495,7 +566,9 @@ public class ControlPanelMessage extends ControlPanelBase
         config.setShowUsernames(usernamesBox.isSelected());
         config.setJoinMessages(joinMessagesBox.isSelected());
         config.setShowTimestamps(timestampsBox.isSelected());
+        config.setUsernameFormat(usernameFormatInput.getText());
         config.setTimeFormat(timeFormatInput.getText());
+        config.setContentBreaker(contentBreakerInput.getText());
         toggleEnableds();
         config.setQueueSize(queueSizeSlider.getValue());
         config.setMessageSpeed(messageSpeedSlider.getValue(), chat.getMessageProgressor());
