@@ -25,6 +25,7 @@ Chrono,Chrono Trigger,ct_font.png,VARIABLE_WIDTH
 Chrono,Chrono Cross,cc_font.png,VARIABLE_WIDTH
 Clash at Demonhead,Clash at Demonhead,cad_font.png,FIXED_WIDTH
 Contra,Super C,super_c_font.png,FIXED_WIDTH
+Crusader of Centy,Crusader of Centy,coc_font.png,FIXED_WIDTH
 Crystalis,Crystalis,crystalis_font.png,FIXED_WIDTH
 Disney,Chip 'n Dale Rescue Rangers,cndrr_font.png,FIXED_WIDTH
 Disney,DuckTales,ducktales_font.png,FIXED_WIDTH

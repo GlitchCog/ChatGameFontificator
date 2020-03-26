@@ -150,6 +150,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Chrono Trigger
   - Clash at Demonhead
   - Super C
+  - Crusader of Centry
   - Crystalis
   - Duck Hunt
   - DuckTales (NES)

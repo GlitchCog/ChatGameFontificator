@@ -43,6 +43,8 @@ Clash at Demonhead,Clash at Demonhead,cad_border.png,FFFFFF
 Clash at Demonhead,Clash at Demonhead Hermit,cad_hermit_border.png,FFFFFF
 Clash at Demonhead,Clash at Demonhead Shop,cad_shop_border.png,44009C
 Clash at Demonhead,Clash at Demonhead Suzie,cad_suzie_border.png,FFFFFF
+Crusader of Centy,Crusader of Centy,coc_border.png,FFFFFF
+Crusader of Centy,Crusader of Centy Menu,coc_menu_border.png,FFFFFF
 Crystalis,Crystalis,crystalis_border.png,FFFFFF
 Disney,Chip 'n Dale Rescue Rangers Zone Clear,cndrr_zone_border.png,FFFFFF
 Disney,DuckTales HUD,ducktales_hud_border.png,FFFFFF
