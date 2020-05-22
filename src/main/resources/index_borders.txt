@@ -100,6 +100,10 @@ Little Nemo,Little Nemo: The Dream Master Title,little_nemo_title_border.png,FFF
 Lost Vikings,The Lost Vikings,lostvik_border.png,FFFFFF
 Lufia,Lufia II: Rise of the Sinistrals Speech,lufia2_border.png,FFFFFF
 Lufia,Lufia II: Rise of the Sinistrals Thought,lufia2_thought_border.png,FFFFFF
+Lunar,Lunar: Silver Star Story Complete (PS) Formation,lsssc_ps_formation_border.png,FFFFFF
+Lunar,Lunar: Silver Star Story Complete (PS) Green Carpet,lsssc_ps_carpetgrn_border.png,FFFFFF
+Lunar,Lunar: Silver Star Story Complete (PS) Red Carpet,lsssc_ps_carpetred_border.png,FFFFFF
+Lunar,Lunar: Silver Star Story Complete (PS) Pool,lsssc_ps_pool_border.png,FFFFFF
 Mana,Final Fantasy Adventure,ff_adv_border.png,FFFFFF
 Mana,Secret of Mana,som_border.png,FFFFFF
 Mana,Legend of Mana,lom_border.png,FFFFFF

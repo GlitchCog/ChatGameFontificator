@@ -94,6 +94,7 @@ Kunio-kun,River City Ransom,rcr_font.png,FIXED_WIDTH
 Little Nemo,Little Nemo,little_nemo_font.png,FIXED_WIDTH
 Lost Vikings,The Lost Vikings,lostvik_font.png,FIXED_WIDTH
 Lufia,Lufia II: Rise of the Sinistrals,lufia2_font.png,FIXED_WIDTH
+Lunar,Lunar: Silver Star Story Complete (PlayStation),lsssc_ps_font.png,VARIABLE_WIDTH
 Mana,Final Fantasy Adventure,ff_adv_font.png,FIXED_WIDTH
 Mana,Secret of Mana (Europe),som_eu_font.png,FIXED_WIDTH
 Mana,Secret of Mana (USA),som_us_font.png,FIXED_WIDTH

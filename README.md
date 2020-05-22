@@ -211,6 +211,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - The Lost Vikings
   - Little Nemo: The Dream Master
   - Lufia II: Rise of the Sinistrals
+  - Lunar: Silver Star Story Complete
   - Final Fantasy Adventure
   - Secret of Mana
   - Legend of Mana
