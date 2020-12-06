@@ -240,6 +240,8 @@ Tales,Tales of Phantasia HUD (SFC Upper Case),tophan_hud_sfc_uppercase_font.png,
 Tales,Tales of Destiny Battle,tod_battle_font.png,VARIABLE_WIDTH
 Tales,Tales of Symphonia,tos_font.png,VARIABLE_WIDTH
 Tecmo Bowl,Tecmo Bowl,tecmo_bowl_font.png,FIXED_WIDTH
+Tenchu,Tenchu 2 Small Font,tenchu2_small_font.png,VARIABLE_WIDTH
+Tenchu,Tenchu 2 Large Font,tenchu2_large_font.png,VARIABLE_WIDTH
 Tengai Makyou Zero,Tengai Makyou Zero,tmzero_font.png,VARIABLE_WIDTH
 Tetris,Tetris (GB),tetris_gb_font.png,FIXED_WIDTH
 Tetris,Tetris (NES),tetris_nes_font.png,FIXED_WIDTH

@@ -280,6 +280,7 @@ Suikoden,Suikoden,suiko_border.png,FFFFFF
 Tales,Tales of Phantasia (SFC),tophan_sfc_border.png,FFFFFF
 Tales,Tales of Symphonia B,tos_b_border.png,FFFFFF
 Tales,Tales of Symphonia C,tos_c_border.png,FFFFFF
+Tenchu,Tenchu 2 Paper,tenchu2_paper_border.png,FFFFFF
 Tengai Makyou Zero,Tengai Makyou Zero,tmzero_border.png,FFFFFF
 Tetris,Tetris Next (GB),tetris_gb_border.png,FFFFFF
 Tetris,Tetris (NES),tetris_nes_border.png,FFFFFF
