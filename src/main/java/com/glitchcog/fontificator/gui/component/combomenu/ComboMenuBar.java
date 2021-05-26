@@ -88,8 +88,14 @@ public class ComboMenuBar extends JMenuBar
     private Map<JMenuItem, MenuVisibilityStatus> allMenuItems;
     private Map<JMenu, MenuVisibilityStatus> allMenuFolders;
 
+    public HintTextField getFilter()
+    {
+        return filterInput;
+    }
+
     public ComboMenuBar(Map<String, List<String>> menuTextMap, ActionListener al)
     {
+        setPreferredSize(new Dimension(240, 24));
         filterInput = new HintTextField("Filter", 7);
         filterInput.getDocument().addDocumentListener(new DocumentListener()
         {
@@ -111,7 +117,6 @@ public class ComboMenuBar extends JMenuBar
                 applyFilter(filterInput.getText());
             }
         });
-        add(filterInput);
 
         Collection<String> menuLabels = menuTextMap.keySet();
 
