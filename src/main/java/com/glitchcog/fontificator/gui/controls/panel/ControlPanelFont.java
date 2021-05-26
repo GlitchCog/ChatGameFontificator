@@ -410,20 +410,32 @@ public class ControlPanelFont extends ControlPanelBase
         borderPanel.setBorder(new TitledBorder(baseBorder, "Border"));
         unknownPanel.setBorder(new TitledBorder(baseBorder, "Extended and Unicode Characters"));
 
-        GridBagConstraints fontGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
-        GridBagConstraints borderGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
+        GridBagConstraints fontGbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
+        GridBagConstraints borderGbc = new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
         GridBagConstraints unknownGbc = new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, DEFAULT_INSETS, 0, 0);
 
-        // Fields are still used and stored in properties files when saved, but the values are either fixed or meant to
-        // be filled by other components
+        // Fields are still used and stored in properties files when saved,
+        // but the values are either fixed or meant to be filled by other components
+
         // add(fontFilenameInput);
         // add(borderFilenameInput);
         // add(gridWidthInput);
         // add(gridHeightInput);
         // add(characterKeyInput);
 
-        fontPanel.add(fontPresetDropdown, fontGbc);
+        JPanel fontFilterAndDropdown = new JPanel(new GridBagLayout());
+        GridBagConstraints ffadGbc = ControlPanelBase.getGbc();
+        ffadGbc.anchor = GridBagConstraints.WEST;
+        ffadGbc.fill = GridBagConstraints.NONE;
+        ffadGbc.weightx = 0.0;
+        fontFilterAndDropdown.add(fontPresetDropdown.getFilter(), ffadGbc);
+        ffadGbc.gridx++;
+        fontFilterAndDropdown.add(fontPresetDropdown, ffadGbc);
+
+        fontPanel.add(fontFilterAndDropdown, fontGbc);
         fontGbc.gridx++;
+        fontGbc.weightx = 1.0;
+        fontGbc.fill = GridBagConstraints.HORIZONTAL;
         // This slider being on the same row as the preset dropdown keeps the combo menu bar from collapsing to no
         // height in the layout
         fontPanel.add(fontScaleSlider, fontGbc);
@@ -455,8 +467,19 @@ public class ControlPanelFont extends ControlPanelBase
         fontPanel.add(baselineOffsetSlider, fontGbc);
         fontGbc.gridy++;
 
-        borderPanel.add(borderPresetDropdown, borderGbc);
+        JPanel borderFilterAndDropdown = new JPanel(new GridBagLayout());
+        GridBagConstraints bfadGbc = ControlPanelBase.getGbc();
+        bfadGbc.anchor = GridBagConstraints.WEST;
+        bfadGbc.fill = GridBagConstraints.NONE;
+        bfadGbc.weightx = 0.0;
+        borderFilterAndDropdown.add(borderPresetDropdown.getFilter(), bfadGbc);
+        bfadGbc.gridx++;
+        borderFilterAndDropdown.add(borderPresetDropdown, bfadGbc);
+
+        borderPanel.add(borderFilterAndDropdown, borderGbc);
         borderGbc.gridx++;
+        borderGbc.weightx = 1.0;
+        borderGbc.fill = GridBagConstraints.HORIZONTAL;
         // This slider being on the same row as the preset dropdown keeps the combo menu bar from collapsing to no
         // height in the layout
         borderPanel.add(borderScaleSlider, borderGbc);
