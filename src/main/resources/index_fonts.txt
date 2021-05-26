@@ -166,6 +166,7 @@ Ninja Gaiden,Ninja Gaiden II HUD,ninjagaiden2_hud_font.png,FIXED_WIDTH
 Ninja Gaiden,Ninja Gaiden III,ninjagaiden3_font.png,FIXED_WIDTH
 Ninja Gaiden,Ninja Gaiden III HUD,ninjagaiden3_hud_font.png,FIXED_WIDTH
 Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_font.png,FIXED_WIDTH
+Okami,Okami HD,okami_hd_font.png,VARIABLE_WIDTH
 Pac-Man,Pac-Man (NES),pacman_nes_font.png,FIXED_WIDTH
 Pac-Man,Ms. Pac-Man (NES),mspacman_nes_font.png,FIXED_WIDTH
 Panzer Dragoon,Panzer Dragoon Menu,panzd_menu_font.png,FIXED_WIDTH

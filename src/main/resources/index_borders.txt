@@ -170,6 +170,8 @@ Metroid,Metroid Fusion Frame,metroid_fusion_frame_border.png,FFFFFF
 Metroid,Metroid Zero Mission,metroid_zm_border.png,FFFFFF
 Moon Crystal,Moon Crystal,moon_crystal_border.png,FFFFFF
 Ogre Battle,Ogre Battle: The March of the Black Queen,ogreb_border.png,FFFFFF
+Okami,Okami Paper,okami_paper_border.png,FFFFFF
+Okami,Okami Scroll,okami_scroll_border.png,FFFFFF
 Pac-Man,Pac-Man,pacman_border.png,FFFFFF
 Pac-Man,Ms. Pac-Man,mspacman_border.png,FFFFFF
 Panzer Dragoon,Panzer Dragoon Saga,panzd_saga_border.png,FFFFFF

@@ -267,6 +267,7 @@ I'm sorry, I should have mentioned that you can use the Font/Border tab to selec
   - Ninja Gaiden III
   - Ninja Gaiden III HUD
   - Ogre Battle: The March of the Black Queen
+  - Okami (HD)
   - Pac-Man (NES)
   - Ms. Pac-Man (NES)
   - Panzer Dragoon
