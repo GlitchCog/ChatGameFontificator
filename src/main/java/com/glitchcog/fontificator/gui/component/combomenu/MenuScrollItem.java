@@ -14,7 +14,7 @@ public class MenuScrollItem extends JMenuItem implements ChangeListener
 
     private Timer timer;
 
-    public MenuScrollItem(ComboMenuBar cmb, MenuIcon icon)
+    public MenuScrollItem(final ComboMenuBar cmb, final MenuIcon icon)
     {
         setIcon(icon);
         setDisabledIcon(icon);

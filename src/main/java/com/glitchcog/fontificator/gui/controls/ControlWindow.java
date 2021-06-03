@@ -456,7 +456,7 @@ public class ControlWindow extends JDialog
 
         Map<String, List<String[]>> presetMapSubmenuToItem = AssetIndexLoader.loadPresets();
 
-        List<String[]> allPresets = new ArrayList<String[]>();
+        final List<String[]> allPresets = new ArrayList<String[]>();
         for (String key : presetMapSubmenuToItem.keySet())
         {
             for (String[] value : presetMapSubmenuToItem.get(key))
