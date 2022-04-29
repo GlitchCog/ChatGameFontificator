@@ -195,6 +195,15 @@ public class ControlWindow extends JDialog
         try
         {
             report = fProps.loadLast();
+            if (report.getDirectory() != null)
+            {
+                File lastDirectory = new File(report.getDirectory());
+                if (lastDirectory.exists() && lastDirectory.isDirectory())
+                {
+                    this.opener.setCurrentDirectory(lastDirectory);
+                    this.configSaver.setCurrentDirectory(lastDirectory);
+                }
+            }
         }
         catch (Exception e)
         {

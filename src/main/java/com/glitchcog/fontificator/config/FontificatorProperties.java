@@ -350,11 +350,31 @@ public class FontificatorProperties extends Properties
      */
     public LoadConfigReport loadFile(File file) throws Exception
     {
-        logger.trace("Loading file " + file.getAbsolutePath());
+        String absFilename = file.getAbsolutePath();
+        logger.trace("Loading file " + absFilename);
+
+        // Get directory from the last config filename to set JFileChosers with via the report
+        String lastDirectory = getLastDirectory(absFilename);
+
         InputStream is = new FileInputStream(file);
-        LoadConfigReport report = loadFile(is, file.getAbsolutePath(), false);
+        LoadConfigReport report = loadFile(is, absFilename, false);
+        report.setDirectory(lastDirectory);
         is.close();
         return report;
+    }
+
+    private String getLastDirectory(String absFilename)
+    {
+        String lastDirectory = null;
+        if (absFilename != null)
+        {
+            int slashIdx = absFilename.lastIndexOf('/');
+            if (slashIdx >= 0)
+            {
+                lastDirectory = absFilename.substring(0, slashIdx);
+            }
+        }
+        return lastDirectory;
     }
 
     /**
@@ -529,6 +549,7 @@ public class FontificatorProperties extends Properties
             reader = new BufferedReader(new FileReader(lastFile));
             final String lastConfigFilename = reader.readLine();
             reader.close();
+
             LoadConfigReport report = loadFile(lastConfigFilename);
             if (report.isProblem())
             {
@@ -724,7 +745,7 @@ public class FontificatorProperties extends Properties
 
     private boolean hasUnsavedChanges()
     {
-        return !equals(lastSavedCopy);
+        return lastSavedCopy != null && !equals(lastSavedCopy);
     }
 
     @Override

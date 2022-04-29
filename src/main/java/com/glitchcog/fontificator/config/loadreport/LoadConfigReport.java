@@ -27,6 +27,11 @@ public class LoadConfigReport
     private List<String> messages;
 
     /**
+     * The directory of the last used configuration file, to set as the default JFileChooser box location
+     */
+    private String directory;
+
+    /**
      * Instantiates an empty report
      */
     public LoadConfigReport()
@@ -59,7 +64,8 @@ public class LoadConfigReport
     }
 
     /**
-     * Whether no errors have been reported, whether they are problems or not. This check identifies the load as being capable of handling any subsequent work, no need to supplement the results with defaults.
+     * Whether no errors have been reported, whether they are problems or not. This check identifies the load as being
+     * capable of handling any subsequent work, no need to supplement the results with defaults.
      * 
      * @return error free
      */
@@ -79,7 +85,8 @@ public class LoadConfigReport
     }
 
     /**
-     * Get whether there is a problem. A problem is whenever at least one of the types of errors is marked as a problem-type error.
+     * Get whether there is a problem. A problem is whenever at least one of the types of errors is marked as a
+     * problem-type error.
      * 
      * @return problem
      */
@@ -160,5 +167,15 @@ public class LoadConfigReport
     public void setMainMessage(String mainMessage)
     {
         this.mainMessage = mainMessage;
+    }
+
+    public String getDirectory()
+    {
+        return directory;
+    }
+
+    public void setDirectory(String directory)
+    {
+        this.directory = directory;
     }
 }
