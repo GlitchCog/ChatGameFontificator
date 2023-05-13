@@ -204,6 +204,13 @@ Rygar,Rygar (NES),rygar_nes_font.png,FIXED_WIDTH
 Secret of Evermore,Secret of Evermore,soe_font.png,VARIABLE_WIDTH
 Shadow Gate,Shadow Gate (NES),shdwgt_font.png,FIXED_WIDTH
 Shadow Hearts,Shadow Hearts: Covenant Cutscene,shadhearts2_cutscene_font.png,VARIABLE_WIDTH
+Shadowrun,Shadowrun (SNES),shadrun_snes_font.png,VARIABLE_WIDTH
+Shadowrun,Shadowrun (SNES) Matrix,shadrun_snes_matrix_font.png,FIXED_WIDTH
+Shadowrun,Shadowrun (SNES) Plain,shadrun_snes_plain_font.png,FIXED_WIDTH
+Shadowrun,Shadowrun (SNES) Intro,shadrun_snes_intro_font.png,FIXED_WIDTH
+Shadowrun,Shadowrun (SNES) Title,shadrun_snes_title_font.png,FIXED_WIDTH
+Shadowrun,Shadowrun (SNES) No Save,shadrun_snes_nosave_font.png,FIXED_WIDTH
+Shadowrun,Shadowrun (SNES) Credits,shadrun_snes_credits_font.png,FIXED_WIDTH
 Shantae,Shantae,shantae_font.png,FIXED_WIDTH
 Shining,Shining Force Dialog,shining_force_dialog_font.png,VARIABLE_WIDTH
 Shining,Shining Force Menu,shining_force_menu_font.png,FIXED_WIDTH

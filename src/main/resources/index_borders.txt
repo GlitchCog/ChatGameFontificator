@@ -244,6 +244,11 @@ Shadow Gate,Shadow Gate (NES) Dialog,shdwgt_dialog_border.png,FFFFFF
 Shadow Gate,Shadow Gate (NES) Dialog Quill,shdwgt_dialog_quill_border.png,FFFFFF
 Shadow Gate,Shadow Gate (NES) Goods,shdwgt_goods_border.png,FFFFFF
 Shadow Gate,Shadow Gate (NES) Goods Lined,shdwgt_goods_lined_border.png,FFFFFF
+Shadowrun,Shadowrun (SNES) Title,shadrun_snes_title_border.png,001042
+Shadowrun,Shadowrun (SNES) Matrix,shadrun_snes_matrix_border.png,00188C
+Shadowrun,Shadowrun (SNES) Red,shadrun_snes_red_border.png,FFFFFF
+Shadowrun,Shadowrun (SNES) Green,shadrun_snes_green_border.png,FFFFFF
+Shadowrun,Shadowrun (SNES) Blue,shadrun_snes_blue_border.png,FFFFFF
 Shantae,Shantae,shantae_border.png,FFFFFF
 Shining,Shining Force,shining_force_border.png,FFFFFF
 Shovel Knight,Shovel Knight,sk_border.png,FFFFFF
